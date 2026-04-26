@@ -205,13 +205,36 @@
                     <textarea id="articuloDescripcion" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface resize-none" placeholder="Especificaciones técnicas o detalles adicionales..." rows="3"></textarea>
                 </div>
 
-                <!-- Drag & Drop Multimedia -->
+                <!-- Photo Module -->
                 <div class="mt-lg">
                     <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">FOTOGRAFÍAS DEL MATERIAL</label>
-                    <div class="border-2 border-dashed border-outline-variant rounded-lg p-lg text-center hover:bg-surface-container-low transition-colors cursor-pointer bg-surface flex flex-col items-center justify-center gap-sm">
-                        <span class="material-symbols-outlined text-outline text-[40px]">cloud_upload</span>
-                        <p class="font-body-md text-body-md text-on-surface-variant">Arrastre las imágenes aquí o <span class="text-primary-container font-semibold">explore</span></p>
-                        <p class="font-body-sm text-body-sm text-outline">JPG, PNG hasta 5MB</p>
+                    <div id="photoModule" class="relative border-2 border-dashed border-outline-variant rounded-lg overflow-hidden bg-surface group transition-all duration-300 min-h-[180px]">
+                        <!-- Camera Preview -->
+                        <video id="cameraPreview" class="hidden w-full h-[180px] object-cover bg-black" autoplay playsinline></video>
+                        
+                        <!-- Image Preview -->
+                        <img id="imagePreview" class="hidden w-full h-[180px] object-cover" src=""/>
+
+                        <!-- Placeholder / Drag Zone -->
+                        <div id="photoPlaceholder" class="flex flex-col items-center justify-center p-lg text-center h-[180px] gap-sm cursor-pointer hover:bg-surface-container-low transition-colors">
+                            <span class="material-symbols-outlined text-outline text-[40px]">add_a_photo</span>
+                            <p class="font-body-md text-body-md text-on-surface-variant">Click para <span class="text-primary-container font-semibold">Cámara</span> o arrastre imagen</p>
+                            <p class="font-body-sm text-body-sm text-outline">JPG, PNG admitidos</p>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="absolute bottom-2 right-2 flex gap-2">
+                            <button id="btnToggleCamera" type="button" class="bg-white/90 hover:bg-white text-primary-container p-2 rounded-full shadow-md transition-all active:scale-95 flex items-center justify-center border border-slate-200">
+                                <span class="material-symbols-outlined text-[20px]">videocam</span>
+                            </button>
+                            <button id="btnCapture" type="button" class="hidden bg-primary-container text-white p-2 rounded-full shadow-md transition-all active:scale-95 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[20px]">photo_camera</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Hidden Inputs -->
+                        <input type="file" id="fileInput" accept="image/*" class="hidden"/>
+                        <canvas id="photoCanvas" class="hidden" width="640" height="480"></canvas>
                     </div>
                 </div>
 
@@ -265,7 +288,94 @@
             const searchInput = document.getElementById('searchMaterial');
             const contadorRegistros = document.getElementById('contadorRegistros');
             
-            let registros = [];
+            // Photo Module Elements
+            const photoPlaceholder = document.getElementById('photoPlaceholder');
+            const cameraPreview = document.getElementById('cameraPreview');
+            const imagePreview = document.getElementById('imagePreview');
+            const btnToggleCamera = document.getElementById('btnToggleCamera');
+            const btnCapture = document.getElementById('btnCapture');
+            const fileInput = document.getElementById('fileInput');
+            const photoCanvas = document.getElementById('photoCanvas');
+            const photoModule = document.getElementById('photoModule');
+
+            let currentImageData = null;
+            let stream = null;
+
+            // Camera Logic
+            const stopCamera = () => {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                }
+                cameraPreview.classList.add('hidden');
+                btnCapture.classList.add('hidden');
+            };
+
+            const startCamera = async () => {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                    cameraPreview.srcObject = stream;
+                    cameraPreview.classList.remove('hidden');
+                    btnCapture.classList.remove('hidden');
+                    photoPlaceholder.classList.add('hidden');
+                    imagePreview.classList.add('hidden');
+                } catch (err) {
+                    console.error("Error accessing camera: ", err);
+                    alert("No se pudo acceder a la cámara. Verifique los permisos.");
+                }
+            };
+
+            btnToggleCamera.addEventListener('click', () => {
+                if (stream) {
+                    stopCamera();
+                    photoPlaceholder.classList.remove('hidden');
+                } else {
+                    startCamera();
+                }
+            });
+
+            btnCapture.addEventListener('click', () => {
+                const context = photoCanvas.getContext('2d');
+                photoCanvas.width = cameraPreview.videoWidth;
+                photoCanvas.height = cameraPreview.videoHeight;
+                context.drawImage(cameraPreview, 0, 0, photoCanvas.width, photoCanvas.height);
+                
+                currentImageData = photoCanvas.toDataURL('image/jpeg');
+                imagePreview.src = currentImageData;
+                imagePreview.classList.remove('hidden');
+                
+                stopCamera();
+            });
+
+            // File / Drag Logic
+            photoPlaceholder.addEventListener('click', () => fileInput.click());
+            
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) handleFile(file);
+            });
+
+            const handleFile = (file) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    currentImageData = e.target.result;
+                    imagePreview.src = currentImageData;
+                    imagePreview.classList.remove('hidden');
+                    photoPlaceholder.classList.add('hidden');
+                    stopCamera();
+                };
+                reader.readAsDataURL(file);
+            };
+
+            // Drag & Drop
+            photoModule.addEventListener('dragover', (e) => { e.preventDefault(); photoModule.classList.add('border-primary-container'); });
+            photoModule.addEventListener('dragleave', () => { photoModule.classList.remove('border-primary-container'); });
+            photoModule.addEventListener('drop', (e) => {
+                e.preventDefault();
+                photoModule.classList.remove('border-primary-container');
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) handleFile(file);
+            });
 
             const actualizarContador = () => {
                 const count = tablaIngresos.children.length;
@@ -277,11 +387,15 @@
                 row.className = "flex items-center w-full rounded-lg border border-surface-variant p-sm gap-md bg-white hover:bg-blue-50/50 hover:shadow-sm transition-all duration-300 list-enter";
                 row.setAttribute('data-search', `${data.id} ${data.nombre} ${data.categoria}`.toLowerCase());
                 
+                const imgHtml = data.img 
+                    ? `<img src="${data.img}" class="w-[48px] h-[48px] rounded-lg object-cover border border-outline-variant" />`
+                    : `<div class="w-[48px] h-[48px] rounded-lg bg-surface-container-highest border border-outline-variant flex items-center justify-center text-outline">
+                        <span class="material-symbols-outlined text-[24px]">package_2</span>
+                       </div>`;
+
                 row.innerHTML = `
                     <div class="flex-shrink-0">
-                        <div class="w-[48px] h-[48px] rounded-lg bg-surface-container-highest border border-outline-variant flex items-center justify-center text-outline">
-                            <span class="material-symbols-outlined text-[24px]">package_2</span>
-                        </div>
+                        ${imgHtml}
                     </div>
                     <div class="flex flex-col flex-grow min-w-0 md:w-1/3">
                         <span class="text-[12px] font-semibold text-primary-container mb-0.5">${data.id}</span>
@@ -302,12 +416,7 @@
                     </div>
                 `;
                 
-                // Botón eliminar
-                row.querySelector('.btn-delete').addEventListener('click', () => {
-                    row.remove();
-                    actualizarContador();
-                });
-
+                row.querySelector('.btn-delete').addEventListener('click', () => { row.remove(); actualizarContador(); });
                 tablaIngresos.prepend(row);
                 actualizarContador();
             };
@@ -317,45 +426,40 @@
                     id: document.getElementById('articuloId').value.trim(),
                     nombre: document.getElementById('articuloNombre').value.trim(),
                     categoria: document.getElementById('articuloCategoria').value,
-                    descripcion: document.getElementById('articuloDescripcion').value.trim()
+                    descripcion: document.getElementById('articuloDescripcion').value.trim(),
+                    img: currentImageData
                 };
 
                 if(!data.id || !data.nombre || data.categoria === 'Seleccione una categoría') {
-                    alert('Por favor complete los campos obligatorios (ID, Nombre y Categoría).');
+                    alert('Por favor complete los campos obligatorios.');
                     return;
                 }
 
                 agregarFila(data);
                 
-                // Limpiar formulario con efecto sutil
+                // Reset Form
                 document.getElementById('articuloId').value = '';
                 document.getElementById('articuloNombre').value = '';
                 document.getElementById('articuloCategoria').selectedIndex = 0;
                 document.getElementById('articuloDescripcion').value = '';
+                imagePreview.classList.add('hidden');
+                photoPlaceholder.classList.remove('hidden');
+                currentImageData = null;
+                stopCamera();
                 
-                // Feedback visual
                 const originalText = btnGuardar.innerHTML;
                 btnGuardar.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span> Guardado';
                 btnGuardar.classList.replace('bg-primary-container', 'bg-emerald-600');
-                
                 setTimeout(() => {
                     btnGuardar.innerHTML = originalText;
                     btnGuardar.classList.replace('bg-emerald-600', 'bg-primary-container');
                 }, 2000);
             });
 
-            // Búsqueda en tiempo real
             searchInput.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase();
-                const rows = tablaIngresos.querySelectorAll('.flex.items-center');
-                
-                rows.forEach(row => {
-                    const text = row.getAttribute('data-search');
-                    if(text.includes(term)) {
-                        row.style.display = 'flex';
-                    } else {
-                        row.style.display = 'none';
-                    }
+                tablaIngresos.querySelectorAll('.flex.items-center').forEach(row => {
+                    row.style.display = row.getAttribute('data-search').includes(term) ? 'flex' : 'none';
                 });
             });
         });
