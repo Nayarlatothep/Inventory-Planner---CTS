@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
     <title>LogiTrack - Ingreso de Material</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -133,15 +133,45 @@
             z-index: 20;
             position: relative;
         }
+
+        /* iOS & iPad Optimizations */
+        html {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        body {
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        input, select, textarea {
+            font-size: 16px !important; /* Prevents auto-zoom on iOS */
+            -webkit-appearance: none;
+            border-radius: 4px;
+        }
+
+        .ios-scrolling {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        @media (max-width: 640px) {
+            .btn-ios-tap {
+                min-height: 44px; /* Apple's minimum touch target size */
+            }
+        }
     </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
     <!-- TopNavBar -->
-    <header class="bg-[#001F3F] dark:bg-slate-950 font-['Inter'] text-sm font-medium tracking-normal w-full top-0 z-50 border-b border-white/10 shadow-md shadow-slate-900/20">
-        <div class="flex justify-between items-center w-full px-8 py-3 max-w-[1440px] mx-auto">
-            <div class="flex items-center gap-xl">
-                <div class="text-xl font-extrabold text-white tracking-tight">LogiTrack</div>
-                <nav class="hidden md:flex items-center gap-lg">
+    <header class="bg-[#001F3F] dark:bg-slate-950 font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-white/10 shadow-md shadow-slate-900/20">
+        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 max-w-[1440px] mx-auto">
+            <div class="flex items-center gap-4 md:gap-xl">
+                <!-- Mobile Menu Button -->
+                <button id="btnMobileMenu" class="md:hidden text-white p-1 hover:bg-white/10 rounded-md transition-colors">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div class="text-lg md:text-xl font-extrabold text-white tracking-tight">LogiTrack</div>
+                <nav id="desktopNav" class="hidden md:flex items-center gap-lg">
                     <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="#">Inicio</a>
                     <div class="relative group h-full flex items-center">
                         <button class="flex items-center gap-1 text-white border-b-2 border-white pb-1 font-bold px-3 py-2 h-full">
@@ -176,24 +206,34 @@
                     <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="#">Reportes</a>
                 </nav>
             </div>
-            <div class="flex items-center gap-md text-blue-600 dark:text-blue-400">
-                <button class="hover:bg-white/5 rounded-md p-2 transition-all active:scale-95 transform">
+            <div class="flex items-center gap-2 md:gap-md">
+                <button class="hover:bg-white/5 rounded-md p-2 transition-all active:scale-95 transform hidden sm:block">
                     <span class="material-symbols-outlined text-white">notifications</span>
                 </button>
-                <button class="hover:bg-white/5 rounded-md p-2 transition-all active:scale-95 transform">
-                    <span class="material-symbols-outlined text-white">settings</span>
-                </button>
-                <img alt="User profile" class="h-8 w-8 rounded-full border border-white/20 ml-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx"/>
+                <img alt="User profile" class="h-8 w-8 rounded-full border border-white/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx"/>
             </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#001c3a] border-t border-white/10 px-4 py-4 space-y-4 shadow-xl">
+            <a href="#" class="block text-slate-300 hover:text-white font-medium py-2">Inicio</a>
+            <div class="space-y-2 border-l-2 border-white/20 pl-4">
+                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Ingresos</p>
+                <a href="#" class="block text-white font-semibold py-1">Ingreso Material Nuevo</a>
+                <a href="#" class="block text-slate-300 py-1">Recepción Material</a>
+                <a href="#" class="block text-slate-300 py-1">Ingreso Manual</a>
+            </div>
+            <a href="#" class="block text-slate-300 hover:text-white font-medium py-2">Inventario</a>
+            <a href="#" class="block text-slate-300 hover:text-white font-medium py-2">Reportes</a>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow w-full max-w-[1440px] mx-auto px-margin py-margin grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+    <main class="flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter">
         <!-- Header -->
-        <div class="col-span-1 lg:col-span-12 mb-md">
-            <h1 class="font-h2 text-h2 text-primary-container">Ingreso de Nuevo Material</h1>
-            <p class="font-body-md text-body-md text-on-surface-variant mt-sm">Registre los detalles del material para incorporarlo al inventario central.</p>
+        <div class="col-span-1 md:col-span-12 mb-2 md:mb-md">
+            <h1 class="font-h2 text-2xl md:text-h2 text-primary-container">Ingreso de Nuevo Material</h1>
+            <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Registre los detalles del material para el inventario central.</p>
         </div>
 
         <!-- Form Section -->
@@ -257,7 +297,7 @@
                 </div>
 
                 <div class="pt-md mt-md border-t border-surface-variant">
-                    <button id="btnGuardar" class="w-full bg-primary-container text-on-primary font-button text-button py-sm px-md rounded-DEFAULT hover:bg-[#00142B] active:scale-[0.98] transition-all flex items-center justify-center gap-sm border border-[#001F3F]" type="button">
+                    <button id="btnGuardar" class="w-full bg-primary-container text-on-primary font-button text-button py-sm px-md rounded-DEFAULT hover:bg-[#00142B] active:scale-[0.98] transition-all flex items-center justify-center gap-sm border border-[#001F3F] btn-ios-tap" type="button">
                         <span class="material-symbols-outlined text-[18px]">save</span>
                         Guardar Registro
                     </button>
@@ -266,19 +306,19 @@
         </div>
 
         <!-- Dashboard List Section -->
-        <div class="col-span-1 lg:col-span-8 bg-surface-container-lowest rounded-lg shadow-soft border border-surface-variant overflow-hidden flex flex-col">
-            <div class="p-lg border-b border-surface-variant flex justify-between items-center bg-surface-container-lowest">
-                <h2 class="font-h3 text-h3 text-primary-container">Ingresos Recientes</h2>
-                <div class="relative">
+        <div class="col-span-1 md:col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-lg shadow-soft border border-surface-variant overflow-hidden flex flex-col">
+            <div class="p-4 md:p-lg border-b border-surface-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest">
+                <h2 class="font-h3 text-xl md:text-h3 text-primary-container">Ingresos Recientes</h2>
+                <div class="relative w-full sm:w-auto">
                     <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
-                    <input id="searchMaterial" class="border border-outline-variant rounded-DEFAULT pl-[36px] pr-md py-[6px] focus:border-primary-container input-glow outline-none transition-all font-body-sm text-body-sm bg-surface w-[250px]" placeholder="Buscar material..." type="text"/>
+                    <input id="searchMaterial" class="border border-outline-variant rounded-DEFAULT pl-[36px] pr-md py-[6px] focus:border-primary-container input-glow outline-none transition-all font-body-sm text-body-sm bg-surface w-full sm:w-[250px]" placeholder="Buscar material..." type="text"/>
                 </div>
             </div>
-            <div id="tablaIngresos" class="flex-grow p-sm flex flex-col gap-sm overflow-y-auto">
+            <div id="tablaIngresos" class="flex-grow p-2 md:p-sm flex flex-col gap-sm overflow-y-auto min-h-[300px]">
                 <!-- Las filas se agregarán aquí dinámicamente -->
             </div>
-            <div class="p-sm border-t border-surface-variant bg-surface-container-lowest flex justify-between items-center text-outline font-body-sm text-body-sm">
-                <span id="contadorRegistros">Mostrando 0 registros</span>
+            <div class="p-4 border-t border-surface-variant bg-surface-container-lowest flex justify-between items-center text-outline font-body-sm text-body-sm">
+                <span id="contadorRegistros">0 registros</span>
                 <div class="flex gap-1">
                     <button class="p-1 hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
                     <button class="p-1 hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
@@ -508,26 +548,26 @@
 
             const agregarFila = (data) => {
                 const row = document.createElement('div');
-                row.className = "flex items-center w-full rounded-lg border border-surface-variant p-sm gap-md bg-white transition-all duration-300 row-enter row-item";
+                row.className = "flex flex-col sm:flex-row sm:items-center w-full rounded-lg border border-surface-variant p-3 md:p-sm gap-3 md:gap-md bg-white transition-all duration-300 row-enter row-item";
                 row.setAttribute('data-search', `${data.id} ${data.nombre} ${data.categoria}`.toLowerCase());
                 row.setAttribute('data-descripcion', data.descripcion);
                 
                 const imgHtml = data.img 
-                    ? `<img src="${data.img}" class="w-[48px] h-[48px] rounded-lg object-cover border border-outline-variant" />`
-                    : `<div class="w-[48px] h-[48px] rounded-lg bg-surface-container-highest border border-outline-variant flex items-center justify-center text-outline">
+                    ? `<img src="${data.img}" class="w-full sm:w-[48px] h-[120px] sm:h-[48px] rounded-lg object-cover border border-outline-variant" />`
+                    : `<div class="w-full sm:w-[48px] h-[48px] rounded-lg bg-surface-container-highest border border-outline-variant flex items-center justify-center text-outline">
                         <span class="material-symbols-outlined text-[24px]">package_2</span>
                        </div>`;
 
                 row.innerHTML = `
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 w-full sm:w-auto">
                         ${imgHtml}
                     </div>
-                    <div class="flex flex-col flex-grow min-w-0 md:w-1/3">
-                        <span class="row-id text-[12px] font-semibold text-primary-container mb-0.5">${data.id}</span>
-                        <span class="row-nombre font-bold text-body-sm text-on-surface truncate">${data.nombre}</span>
+                    <div class="flex flex-col flex-grow min-w-0 sm:w-1/3">
+                        <span class="row-id text-[11px] font-semibold text-primary-container mb-0.5 opacity-70">${data.id}</span>
+                        <span class="row-nombre font-bold text-body-md sm:text-body-sm text-on-surface truncate">${data.nombre}</span>
                     </div>
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 md:w-1/3">
-                        <span class="row-categoria font-body-sm text-body-sm text-on-surface-variant">${data.categoria}</span>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 sm:w-1/3">
+                        <span class="row-categoria font-body-sm text-on-surface-variant bg-slate-100 px-2 py-0.5 rounded-md sm:bg-transparent sm:p-0 w-fit">${data.categoria}</span>
                         <div>
                             <span class="status-badge inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold bg-secondary-container text-on-secondary-container">
                                 <span class="w-[6px] h-[6px] rounded-full bg-primary-container mr-1"></span>
@@ -535,9 +575,15 @@
                             </span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-1 ml-auto flex-shrink-0">
-                        <button class="btn-edit text-[#007BFF] hover:text-[#0056b3] p-1 transition-colors rounded"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                        <button class="btn-delete text-[#DC3545] hover:text-[#bd2130] p-1 transition-colors rounded"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+                    <div class="flex items-center gap-3 sm:gap-1 ml-auto sm:ml-auto flex-shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-slate-100 w-full sm:w-auto justify-end">
+                        <button class="btn-edit text-[#007BFF] hover:bg-blue-50 p-2 sm:p-1 transition-colors rounded-lg sm:rounded flex items-center gap-1 sm:gap-0">
+                            <span class="material-symbols-outlined text-[20px]">edit</span>
+                            <span class="sm:hidden text-xs font-semibold">Editar</span>
+                        </button>
+                        <button class="btn-delete text-[#DC3545] hover:bg-red-50 p-2 sm:p-1 transition-colors rounded-lg sm:rounded flex items-center gap-1 sm:gap-0">
+                            <span class="material-symbols-outlined text-[20px]">delete</span>
+                            <span class="sm:hidden text-xs font-semibold">Eliminar</span>
+                        </button>
                     </div>
                 `;
                 
@@ -555,6 +601,15 @@
                 row.querySelector('.btn-delete').addEventListener('click', () => { row.remove(); actualizarContador(); });
                 tablaIngresos.prepend(row);
                 actualizarContador();
+            };
+
+            // Mobile Menu Toggle
+            const btnMobileMenu = document.getElementById('btnMobileMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            btnMobileMenu.onclick = () => {
+                mobileMenu.classList.toggle('hidden');
+                btnMobileMenu.querySelector('span').innerText = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
             };
 
             btnGuardar.addEventListener('click', () => {
@@ -594,8 +649,11 @@
 
             searchInput.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase();
-                tablaIngresos.querySelectorAll('.flex.items-center').forEach(row => {
-                    row.style.display = row.getAttribute('data-search').includes(term) ? 'flex' : 'none';
+                tablaIngresos.querySelectorAll('.flex.items-center, .flex.flex-col').forEach(row => {
+                    const dataSearch = row.getAttribute('data-search');
+                    if (dataSearch) {
+                        row.style.display = dataSearch.includes(term) ? 'flex' : 'none';
+                    }
                 });
             });
         });
