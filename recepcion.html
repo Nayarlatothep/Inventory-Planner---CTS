@@ -115,39 +115,82 @@
 </head>
 <body class="bg-background text-on-background min-h-screen flex flex-col">
     <!-- TopNavBar -->
-    <header class="bg-[#001F3F] dark:bg-slate-950 text-white dark:text-slate-100 font-sans tracking-tight text-sm font-semibold sticky top-0 z-50 border-b border-white/10 shadow-lg flex justify-between items-center w-full px-4 md:px-8 py-3">
-        <div class="flex items-center gap-4 md:gap-12">
-            <!-- Brand Logo -->
-            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.location.href='index.html'">
-                <div class="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-all">
-                    <span class="material-symbols-outlined text-white text-[28px] leading-none">local_shipping</span>
+    <header class="bg-[#001F3F] dark:bg-slate-950 font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-white/10 shadow-md shadow-slate-900/20">
+        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 max-w-[1440px] mx-auto">
+            <div class="flex items-center gap-4 md:gap-xl">
+                <!-- Mobile Menu Button -->
+                <button id="btnMobileMenu" class="md:hidden text-white p-1 hover:bg-white/10 rounded-md transition-colors">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3 group cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-all">
+                        <span class="material-symbols-outlined text-white text-[28px] leading-none">local_shipping</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-lg md:text-xl font-black text-white tracking-tight leading-none uppercase">CS Transportation</span>
+                        <span class="text-[10px] text-slate-400 font-medium uppercase tracking-[0.15em] mt-0.5">Sistema de Inventario</span>
+                    </div>
                 </div>
-                <div class="flex flex-col items-center">
-                    <span class="text-lg md:text-xl font-black text-white tracking-tight leading-none uppercase">CS Transportation</span>
-                    <span class="text-[10px] text-slate-400 font-medium uppercase tracking-[0.15em] mt-0.5">Sistema de Inventario</span>
-                </div>
+
+                <!-- Vertical Divider -->
+                <div class="hidden md:block w-[1.5px] h-10 bg-white/10 mx-6"></div>
+
+                <nav id="desktopNav" class="hidden md:flex items-center gap-lg">
+                    <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="index.html">Inicio</a>
+                    <div class="relative group h-full flex items-center">
+                        <button class="flex items-center gap-1 text-white border-b-2 border-white pb-1 font-bold px-3 py-2 h-full">
+                            Ingresos
+                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                        </button>
+                        <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
+                            <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">add_circle</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Ingreso de Material Nuevo</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Registro inicial de inventario</span>
+                                </div>
+                            </a>
+                            <a href="recepcion.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
+                                <span class="material-symbols-outlined text-primary-container text-[20px]">package_2</span>
+                                <div class="flex flex-col">
+                                    <span class="font-bold">Recepción Material</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Validación de carga entrante</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">edit_note</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Ingreso Material Manual</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Ajustes manuales de stock</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="#">Inventario</a>
+                    <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="#">Reportes</a>
+                </nav>
             </div>
-
-            <!-- Vertical Divider -->
-            <div class="hidden md:block w-[1.5px] h-10 bg-white/10 mx-6"></div>
-
-            <nav class="hidden md:flex gap-6 items-center">
-                <a class="text-slate-400 hover:text-white transition-colors hover:bg-white/5 px-3 py-2 rounded-md transition-all duration-200" href="index.html">Inicio</a>
-                <a class="text-white border-b-2 border-emerald-500 pb-1 px-3 py-2" href="#">Recepción</a>
-                <a class="text-slate-400 hover:text-white transition-colors hover:bg-white/5 px-3 py-2 rounded-md transition-all duration-200" href="#">Inventario</a>
-                <a class="text-slate-400 hover:text-white transition-colors hover:bg-white/5 px-3 py-2 rounded-md transition-all duration-200" href="#">Reportes</a>
-            </nav>
+            <div class="flex items-center gap-2 md:gap-md">
+                <button class="hover:bg-white/5 rounded-md p-2 transition-all active:scale-95 transform hidden sm:block">
+                    <span class="material-symbols-outlined text-white">notifications</span>
+                </button>
+                <img alt="User profile" class="h-8 w-8 rounded-full border border-white/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx"/>
+            </div>
         </div>
-        <div class="flex items-center gap-4">
-            <button class="p-2 hover:bg-white/5 rounded-full transition-all active:scale-95">
-                <span class="material-symbols-outlined">notifications</span>
-            </button>
-            <button class="p-2 hover:bg-white/5 rounded-full transition-all active:scale-95">
-                <span class="material-symbols-outlined">settings</span>
-            </button>
-            <div class="w-8 h-8 rounded-full bg-secondary-container overflow-hidden border-2 border-white/20">
-                <img alt="User profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQaAp8AZSYrbXX6KJFgfqE58vpKxk6lzMe667qtqHaTCFsOMjso2V4_FrcgQS8t4T70NAN1jvdMtZ0qM8lozZGJ6CQJeH3ynzZY9oAoKUGBkNmouHkyYeXE5CND-GAcTjqSFC3PYVXM37J2qDF5dUG7uLopjf4eh2WxMuM4GWandG-vTjxTPbFKlkgQF320tKhy1vuah_93tXl93KlMqUAYDGE9T9xpZGy1rMVOZkKGV3wQJVdKa9ySjTHvRkBYy6_wk1f3z9LJ_zH"/>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#001c3a] border-t border-white/10 px-4 py-4 space-y-4 shadow-xl">
+            <a href="index.html" class="block text-slate-300 hover:text-white font-medium py-2">Inicio</a>
+            <div class="space-y-2 border-l-2 border-white/20 pl-4">
+                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Ingresos</p>
+                <a href="index.html" class="block text-slate-300 py-1">Ingreso Material Nuevo</a>
+                <a href="recepcion.html" class="block text-white font-semibold py-1">Recepción Material</a>
+                <a href="#" class="block text-slate-300 py-1">Ingreso Manual</a>
             </div>
+            <a href="#" class="block text-slate-300 hover:text-white font-medium py-2">Inventario</a>
+            <a href="#" class="block text-slate-300 hover:text-white font-medium py-2">Reportes</a>
         </div>
     </header>
 
@@ -354,5 +397,19 @@
             <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Términos</a>
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const btnMobileMenu = document.getElementById('btnMobileMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (btnMobileMenu && mobileMenu) {
+                btnMobileMenu.onclick = () => {
+                    mobileMenu.classList.toggle('hidden');
+                    btnMobileMenu.querySelector('span').innerText = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
+                };
+            }
+        });
+    </script>
 </body>
 </html>
