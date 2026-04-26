@@ -125,7 +125,35 @@
                 <div class="text-xl font-extrabold text-white tracking-tight">LogiTrack</div>
                 <nav class="hidden md:flex items-center gap-lg">
                     <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="#">Inicio</a>
-                    <a class="text-white border-b-2 border-white pb-1 font-bold px-3 py-2" href="#">Ingreso de Material</a>
+                    <div class="relative group h-full flex items-center">
+                        <button class="flex items-center gap-1 text-white border-b-2 border-white pb-1 font-bold px-3 py-2 h-full">
+                            Ingresos
+                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                        </button>
+                        <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
+                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
+                                <span class="material-symbols-outlined text-primary-container text-[20px]">add_circle</span>
+                                <div class="flex flex-col">
+                                    <span class="font-bold">Ingreso de Material Nuevo</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Registro inicial de inventario</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">package_2</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Recepción Material</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Validación de carga entrante</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">edit_note</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Ingreso Material Manual</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Ajustes manuales de stock</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                     <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="#">Inventario</a>
                     <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="#">Reportes</a>
                 </nav>
