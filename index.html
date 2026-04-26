@@ -105,16 +105,22 @@
     <style>
         .shadow-soft { box-shadow: 0px 4px 12px rgba(0, 31, 63, 0.05); }
         .input-glow:focus { box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1); }
-        @keyframes slideDownFade {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideInRow {
+            0% { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .list-enter {
-            animation: slideDownFade 0.4s ease-out forwards;
+        .row-enter {
+            animation: slideInRow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
+        
+        @keyframes highlightPulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); border-color: #10b981; }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .row-highlight {
+            animation: highlightPulse 1s ease-out;
+        }
     </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
@@ -398,6 +404,11 @@
                     statusBadge.innerHTML = '<span class="w-[6px] h-[6px] rounded-full bg-emerald-500 mr-1"></span> Recién Modificado';
                     statusBadge.className = 'status-badge inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200';
 
+                    // Add highlight animation
+                    row.classList.remove('row-highlight');
+                    void row.offsetWidth; // Trigger reflow
+                    row.classList.add('row-highlight');
+
                     closeModal();
                 }
             };
@@ -485,7 +496,7 @@
 
             const agregarFila = (data) => {
                 const row = document.createElement('div');
-                row.className = "flex items-center w-full rounded-lg border border-surface-variant p-sm gap-md bg-white hover:bg-blue-50/50 hover:shadow-sm transition-all duration-300 list-enter";
+                row.className = "flex items-center w-full rounded-lg border border-surface-variant p-sm gap-md bg-white hover:bg-blue-50/50 hover:shadow-sm transition-all duration-300 row-enter";
                 row.setAttribute('data-search', `${data.id} ${data.nombre} ${data.categoria}`.toLowerCase());
                 row.setAttribute('data-descripcion', data.descripcion);
                 
