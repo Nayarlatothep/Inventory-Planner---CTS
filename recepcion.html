@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+    <title>Recepción de Material - CS Transportation</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#b8c8da",
+                        "surface-container-highest": "#e3e2e5",
+                        "surface-container-high": "#e9e7eb",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "inverse-primary": "#afc8f0",
+                        "surface-bright": "#faf9fc",
+                        "tertiary-container": "#1d1f1f",
+                        "surface-container-low": "#f4f3f6",
+                        "outline-variant": "#c4c6cf",
+                        "on-background": "#1a1c1e",
+                        "surface-dim": "#dbd9dd",
+                        "surface": "#faf9fc",
+                        "on-secondary-fixed-variant": "#394857",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#040606",
+                        "surface-tint": "#476083",
+                        "secondary": "#50606f",
+                        "surface-variant": "#e3e2e5",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "inverse-on-surface": "#f2f0f3",
+                        "on-primary-container": "#6f88ad",
+                        "on-primary-fixed": "#001c3a",
+                        "primary-fixed": "#d4e3ff",
+                        "on-tertiary-container": "#858687",
+                        "outline": "#74777f",
+                        "on-secondary-fixed": "#0d1d2a",
+                        "on-secondary-container": "#556474",
+                        "on-primary": "#ffffff",
+                        "background": "#faf9fc",
+                        "surface-container": "#efedf0",
+                        "on-surface-variant": "#43474e",
+                        "on-surface": "#1a1c1e",
+                        "tertiary-fixed": "#e2e2e2",
+                        "secondary-container": "#d1e1f4",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#001f3f",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#afc8f0",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "inverse-surface": "#2f3033",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#d4e4f6",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary": "#000613"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "8px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "2xl": "48px",
+                        "md": "16px",
+                        "margin": "32px",
+                        "sm": "8px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "h3": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "h1": ["Inter"],
+                        "button": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .soft-lift { box-shadow: 0px 4px 12px rgba(0, 31, 63, 0.05); }
+        
+        /* iOS Fixes */
+        input, select { font-size: 16px !important; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- TopNavBar -->
+    <header class="bg-[#001F3F] dark:bg-slate-950 text-white dark:text-slate-100 font-sans tracking-tight text-sm font-semibold sticky top-0 z-50 border-b border-white/10 shadow-lg flex justify-between items-center w-full px-4 md:px-8 py-3">
+        <div class="flex items-center gap-4 md:gap-12">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.location.href='index.html'">
+                <div class="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-all">
+                    <span class="material-symbols-outlined text-white text-[28px] leading-none">local_shipping</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-lg md:text-xl font-black text-white tracking-tight leading-none uppercase">CS Transportation</span>
+                    <span class="text-[10px] text-slate-400 font-medium uppercase tracking-[0.15em] mt-0.5">Sistema de Inventario</span>
+                </div>
+            </div>
+
+            <!-- Vertical Divider -->
+            <div class="hidden md:block w-[1.5px] h-10 bg-white/10 mx-6"></div>
+
+            <nav class="hidden md:flex gap-6 items-center">
+                <a class="text-slate-400 hover:text-white transition-colors hover:bg-white/5 px-3 py-2 rounded-md transition-all duration-200" href="index.html">Inicio</a>
+                <a class="text-white border-b-2 border-emerald-500 pb-1 px-3 py-2" href="#">Recepción</a>
+                <a class="text-slate-400 hover:text-white transition-colors hover:bg-white/5 px-3 py-2 rounded-md transition-all duration-200" href="#">Inventario</a>
+                <a class="text-slate-400 hover:text-white transition-colors hover:bg-white/5 px-3 py-2 rounded-md transition-all duration-200" href="#">Reportes</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="p-2 hover:bg-white/5 rounded-full transition-all active:scale-95">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <button class="p-2 hover:bg-white/5 rounded-full transition-all active:scale-95">
+                <span class="material-symbols-outlined">settings</span>
+            </button>
+            <div class="w-8 h-8 rounded-full bg-secondary-container overflow-hidden border-2 border-white/20">
+                <img alt="User profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQaAp8AZSYrbXX6KJFgfqE58vpKxk6lzMe667qtqHaTCFsOMjso2V4_FrcgQS8t4T70NAN1jvdMtZ0qM8lozZGJ6CQJeH3ynzZY9oAoKUGBkNmouHkyYeXE5CND-GAcTjqSFC3PYVXM37J2qDF5dUG7uLopjf4eh2WxMuM4GWandG-vTjxTPbFKlkgQF320tKhy1vuah_93tXl93KlMqUAYDGE9T9xpZGy1rMVOZkKGV3wQJVdKa9ySjTHvRkBYy6_wk1f3z9LJ_zH"/>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow px-4 md:px-margin py-6 md:py-xl max-w-7xl mx-auto w-full">
+        <!-- Header & Action -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-xl gap-4">
+            <div>
+                <h1 class="font-h1 text-2xl md:text-h1 text-primary-container mb-xs">Recepción de Materiales</h1>
+                <p class="font-body-md text-sm md:text-body-md text-on-surface-variant">Confirme los materiales que han llegado físicamente a bodega.</p>
+            </div>
+            <button class="w-full md:w-auto bg-[#10b981] hover:bg-[#059669] text-white px-lg py-md rounded-lg font-button text-button flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95">
+                <span class="material-symbols-outlined">add</span>
+                <span>Nueva recepción</span>
+            </button>
+        </div>
+
+        <!-- KPI Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-gutter mb-xl">
+            <div class="bg-surface-container-lowest p-lg rounded-lg soft-lift border border-outline-variant/30 flex gap-md">
+                <div class="flex-shrink-0">
+                    <span class="material-symbols-outlined text-[#001F3F] bg-secondary-container p-2 rounded-lg">assignment_turned_in</span>
+                </div>
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant uppercase mb-xs">Recepciones de hoy</h4>
+                        <span class="text-emerald-600 text-label-caps font-bold">+12%</span>
+                    </div>
+                    <div class="font-h2 text-2xl md:text-h2 text-primary-container">0</div>
+                    <p class="font-body-sm text-xs text-on-surface-variant mt-xs">Llegadas confirmadas</p>
+                </div>
+            </div>
+            <div class="bg-surface-container-lowest p-lg rounded-lg soft-lift border border-outline-variant/30 flex gap-md">
+                <div class="flex-shrink-0">
+                    <span class="material-symbols-outlined text-[#001F3F] bg-secondary-container p-2 rounded-lg">inventory_2</span>
+                </div>
+                <div class="flex-grow">
+                    <h4 class="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant uppercase mb-xs">En tránsito</h4>
+                    <div class="font-h2 text-2xl md:text-h2 text-primary-container">8</div>
+                    <p class="font-body-sm text-xs text-on-surface-variant mt-xs">Esperando llegada</p>
+                </div>
+            </div>
+            <div class="bg-surface-container-lowest p-lg rounded-lg soft-lift border border-outline-variant/30 flex gap-md">
+                <div class="flex-shrink-0">
+                    <span class="material-symbols-outlined text-error bg-error-container p-2 rounded-lg" style="font-variation-settings: 'FILL' 1;">schedule</span>
+                </div>
+                <div class="flex-grow">
+                    <h4 class="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant uppercase mb-xs">Por recibir (crítico)</h4>
+                    <div class="font-h2 text-2xl md:text-h2 text-error">2</div>
+                    <p class="font-body-sm text-xs text-on-surface-variant mt-xs">Retraso en entrega</p>
+                </div>
+            </div>
+            <div class="bg-surface-container-lowest p-lg rounded-lg soft-lift border border-outline-variant/30 flex gap-md">
+                <div class="flex-shrink-0">
+                    <span class="material-symbols-outlined text-[#001F3F] bg-secondary-container p-2 rounded-lg">calendar_today</span>
+                </div>
+                <div class="flex-grow">
+                    <h4 class="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant uppercase mb-xs">Última recepción</h4>
+                    <div class="font-h3 text-lg md:text-h3 text-primary-container">25/04/2026</div>
+                    <p class="font-body-sm text-xs text-on-surface-variant mt-xs">Cinta reflectante 3M</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-surface-container-lowest p-4 md:p-lg rounded-lg soft-lift border border-outline-variant/30 mb-lg flex flex-col md:flex-row gap-4 md:gap-gutter items-center">
+            <div class="flex-grow relative w-full">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all font-body-sm" placeholder="Buscar por OC, material, proveedor o fecha..." type="text"/>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-md w-full md:w-auto">
+                <select class="border border-outline-variant rounded-lg px-4 py-2 bg-white font-body-sm outline-none focus:border-primary-container w-full md:w-48">
+                    <option>Todos los estados</option>
+                    <option>Confirmado</option>
+                    <option>Parcial</option>
+                    <option>Con Discrepancia</option>
+                </select>
+                <select class="border border-outline-variant rounded-lg px-4 py-2 bg-white font-body-sm outline-none focus:border-primary-container w-full md:w-48">
+                    <option>Todas las bodegas</option>
+                    <option>Bodega Central</option>
+                    <option>Bodega Norte</option>
+                    <option>Bodega Sur</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="bg-surface-container-lowest rounded-lg soft-lift border border-outline-variant/30 overflow-hidden overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[800px]">
+                <thead class="bg-surface-container-low border-b border-outline-variant/50 sticky top-0">
+                    <tr>
+                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Foto</th>
+                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Material</th>
+                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Código (OC)</th>
+                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Cantidad</th>
+                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Recepcionista</th>
+                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Fecha</th>
+                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Estado</th>
+                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="font-body-sm text-on-surface">
+                    <tr class="hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
+                        <td class="px-md py-md">
+                            <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+                                <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5P3hQLRUzcGN2vw3nqg7jY-JsbBK3ItEhqoxJVJJ_M8e4dg8JnHyl0CYCAoKS4ckL4aLMJNJLZpoJ1w2I2ipZTRUlZ6d-lLz_IAaw14jjPT6-uuIKfzMuBFiTL1F4PhIRjXbAvcxvfg6NccPnmcLtdfGvkABpmA7063kruhJZQdeMKyqfh6AYchpRzjNyGu1neqGqiGxKIIDCViGOJ9GKr3WiQOxhyfcpVHawUQhKBvfnPCVcDQulyRZWEeOetcR1fw47Roh4BSXf"/>
+                            </div>
+                        </td>
+                        <td class="px-md py-md">
+                            <div class="font-semibold text-primary-container">Aceite Motor 15W-40</div>
+                            <div class="text-xs text-on-surface-variant">Lubricantes</div>
+                        </td>
+                        <td class="px-md py-md font-mono text-xs">OC-12345</td>
+                        <td class="px-md py-md font-medium">20 Litros</td>
+                        <td class="px-md py-md">Juan Pérez</td>
+                        <td class="px-md py-md">24/04/2026</td>
+                        <td class="px-md py-md">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                                Confirmado
+                            </span>
+                        </td>
+                        <td class="px-md py-md text-right">
+                            <div class="flex justify-end gap-2">
+                                <button class="p-1 text-primary-container hover:bg-secondary-container rounded transition-all"><span class="material-symbols-outlined text-lg">visibility</span></button>
+                                <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded transition-all"><span class="material-symbols-outlined text-lg">edit</span></button>
+                                <button class="p-1 text-error hover:bg-error-container rounded transition-all"><span class="material-symbols-outlined text-lg">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="bg-surface-container-low hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
+                        <td class="px-md py-md">
+                            <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+                                <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbi8AXwsCIJvjZHxw_2fIkOFdPRC19VbFFphnhUNajMlxLABL43chBc7iSN_BjxrH1oRTV4zt_i0xKMJpoKpRfzWixRmsG-vEg2CIxueGPLjN07hQiC9KIBKUmGO1aU1qDMmLAZPdFyR1S8hvN23B5c17bUAargRAr-RlXe3EJd4LNDUmcpi4i-rN2t9aJ4iBG138Q6d8okdNeCIyc3GWwlr7uoNrt63Hbd6px56aYxFkSiV2aqHa9SVJk15a2uwdnaQohJogTCggP"/>
+                            </div>
+                        </td>
+                        <td class="px-md py-md">
+                            <div class="font-semibold text-primary-container">Filtro de Aire XL</div>
+                            <div class="text-xs text-on-surface-variant">Repuestos</div>
+                        </td>
+                        <td class="px-md py-md font-mono text-xs">OC-12348</td>
+                        <td class="px-md py-md font-medium">5 Unidades</td>
+                        <td class="px-md py-md">Maria García</td>
+                        <td class="px-md py-md">23/04/2026</td>
+                        <td class="px-md py-md">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-100 text-orange-800">
+                                Parcial
+                            </span>
+                        </td>
+                        <td class="px-md py-md text-right">
+                            <div class="flex justify-end gap-2">
+                                <button class="p-1 text-primary-container hover:bg-secondary-container rounded transition-all"><span class="material-symbols-outlined text-lg">visibility</span></button>
+                                <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded transition-all"><span class="material-symbols-outlined text-lg">edit</span></button>
+                                <button class="p-1 text-error hover:bg-error-container rounded transition-all"><span class="material-symbols-outlined text-lg">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
+                        <td class="px-md py-md">
+                            <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+                                <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChS2BCq6YYNfAqDkK36WwSU7W5_xFo7Uswtj1lPMNZO59et7fZGDcNdZsa7Q9sCLjgaVpxJOyQqkYJOIcyuJYCBVF7SIdlU_Mni-Tzq4uO9-pize2UQz80cFRDYfnKpuIc2gW_thnQiiawjQlTujAy2zE1h6JSgLpYHFPuu3sLVQQDRkX4GMqLDvtOtwz3cMPAa_Y5P-FoT1FM_e5hDO0-4eG2PzpEzs8liuQ5slTftWdY9RZ4-uqV601yooJkgD8xgTr6jTsQniUN"/>
+                            </div>
+                        </td>
+                        <td class="px-md py-md">
+                            <div class="font-semibold text-primary-container">EPI Chalecos Reflectantes</div>
+                            <div class="text-xs text-on-surface-variant">Seguridad</div>
+                        </td>
+                        <td class="px-md py-md font-mono text-xs">OC-12352</td>
+                        <td class="px-md py-md font-medium">50 Unidades</td>
+                        <td class="px-md py-md">Juan Pérez</td>
+                        <td class="px-md py-md">22/04/2026</td>
+                        <td class="px-md py-md">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800">
+                                Con Discrepancia
+                            </span>
+                        </td>
+                        <td class="px-md py-md text-right">
+                            <div class="flex justify-end gap-2">
+                                <button class="p-1 text-primary-container hover:bg-secondary-container rounded transition-all"><span class="material-symbols-outlined text-lg">visibility</span></button>
+                                <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded transition-all"><span class="material-symbols-outlined text-lg">edit</span></button>
+                                <button class="p-1 text-error hover:bg-error-container rounded transition-all"><span class="material-symbols-outlined text-lg">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="px-lg py-md bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-4">
+                <span class="text-xs text-on-surface-variant font-medium">Mostrando 3 de 158 recepciones</span>
+                <div class="flex gap-2">
+                    <button class="p-1 border border-outline-variant rounded hover:bg-white transition-all"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+                    <button class="px-3 py-1 bg-primary-container text-white rounded text-xs">1</button>
+                    <button class="px-3 py-1 border border-outline-variant rounded hover:bg-white transition-all text-xs">2</button>
+                    <button class="px-3 py-1 border border-outline-variant rounded hover:bg-white transition-all text-xs">3</button>
+                    <button class="p-1 border border-outline-variant rounded hover:bg-white transition-all"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center px-4 md:px-8 max-w-7xl mx-auto gap-4 text-center">
+        <div>© 2024 CS Transportation. Todos los derechos reservados.</div>
+        <div class="flex gap-8">
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Privacidad</a>
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Soporte</a>
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Términos</a>
+        </div>
+    </footer>
+</body>
+</html>
