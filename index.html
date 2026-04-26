@@ -121,6 +121,18 @@
         .row-highlight {
             animation: highlightPulse 1s ease-out;
         }
+        
+        .row-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .row-item:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 20px -5px rgba(0, 31, 63, 0.15);
+            border-color: #001F3F;
+            background-color: #ffffff !important;
+            z-index: 20;
+            position: relative;
+        }
     </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
@@ -496,7 +508,7 @@
 
             const agregarFila = (data) => {
                 const row = document.createElement('div');
-                row.className = "flex items-center w-full rounded-lg border border-surface-variant p-sm gap-md bg-white hover:bg-blue-50/50 hover:shadow-sm transition-all duration-300 row-enter";
+                row.className = "flex items-center w-full rounded-lg border border-surface-variant p-sm gap-md bg-white transition-all duration-300 row-enter row-item";
                 row.setAttribute('data-search', `${data.id} ${data.nombre} ${data.categoria}`.toLowerCase());
                 row.setAttribute('data-descripcion', data.descripcion);
                 
