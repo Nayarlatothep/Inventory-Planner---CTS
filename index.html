@@ -134,6 +134,14 @@
             position: relative;
         }
 
+        /* Zebra Striping */
+        #tablaIngresos > div:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        #tablaIngresos > div:nth-child(even) {
+            background-color: #f8fafc; /* Subtle gray/slate-50 */
+        }
+
         /* iOS & iPad Optimizations */
         html {
             -webkit-tap-highlight-color: transparent;
@@ -548,7 +556,7 @@
 
             const agregarFila = (data) => {
                 const row = document.createElement('div');
-                row.className = "flex flex-col sm:flex-row sm:items-center w-full rounded-lg border border-surface-variant p-3 md:p-sm gap-3 md:gap-md bg-white transition-all duration-300 row-enter row-item";
+                row.className = "flex flex-col sm:flex-row sm:items-center w-full rounded-lg border border-surface-variant p-3 md:p-sm gap-3 md:gap-md transition-all duration-300 row-enter row-item";
                 row.setAttribute('data-search', `${data.id} ${data.nombre} ${data.categoria}`.toLowerCase());
                 row.setAttribute('data-descripcion', data.descripcion);
                 
