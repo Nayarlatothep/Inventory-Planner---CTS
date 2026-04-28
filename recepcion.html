@@ -247,73 +247,73 @@
         <!-- KPI Grid Section -->
         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <!-- Card 1: Recepciones Hoy -->
-            <div class="bg-white p-6 shadow-sm border border-emerald-500/40 group hover:border-emerald-500 transition-all relative overflow-hidden rounded-xl flex flex-col items-center text-center">
+            <div class="bg-white hover:bg-emerald-500 p-6 shadow-sm hover:shadow-xl border border-emerald-500/40 hover:border-emerald-400 group transition-all duration-300 ease-in-out transform hover:scale-[1.02] relative overflow-hidden rounded-xl flex flex-col items-center text-center cursor-default">
                 <div class="flex flex-col items-center mb-4">
-                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 font-h2 mb-1">Recepciones Hoy</h3>
-                    <span id="kpiHoyPercent" class="text-sm font-black font-h2 text-emerald-500">0%</span>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-white/70 font-h2 mb-1 transition-colors">Recepciones Hoy</h3>
+                    <span id="kpiHoyPercent" class="text-sm font-black font-h2 text-emerald-500 group-hover:text-white transition-colors">0%</span>
                 </div>
                 <div class="flex flex-col items-center gap-1 mb-6">
-                    <span id="kpiHoy" class="text-4xl md:text-5xl font-black text-[#001F3F] font-h2 leading-none">0</span>
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Confirmadas</span>
+                    <span id="kpiHoy" class="text-4xl md:text-5xl font-black text-[#001F3F] group-hover:text-white font-h2 leading-none transition-colors">0</span>
+                    <span class="text-[10px] font-bold text-slate-400 group-hover:text-white/60 uppercase tracking-[0.2em] transition-colors">Confirmadas</span>
                 </div>
-                <div class="w-full flex items-center justify-center gap-2 mb-6 bg-emerald-50 p-2 border-l-2 border-emerald-500 rounded-r">
-                    <span class="material-symbols-outlined text-sm text-emerald-600">trending_up</span>
+                <div class="w-full flex items-center justify-center gap-2 mb-6 bg-emerald-50 group-hover:bg-white/20 p-2 border-l-2 border-emerald-500 group-hover:border-white rounded-r transition-all">
+                    <span class="material-symbols-outlined text-sm text-emerald-600 group-hover:text-white">trending_up</span>
                     <div class="flex flex-col items-center">
-                        <span class="text-[9px] font-black uppercase text-emerald-600/70 font-h2 leading-tight">Tendencia</span>
-                        <span id="kpiTrendHoy" class="text-xs font-black text-emerald-600 font-body leading-tight">+0%</span>
+                        <span class="text-[9px] font-black uppercase text-emerald-600/70 group-hover:text-white/80 font-h2 leading-tight transition-colors">Tendencia</span>
+                        <span id="kpiTrendHoy" class="text-xs font-black text-emerald-600 group-hover:text-white font-body leading-tight transition-colors">+0%</span>
                     </div>
                 </div>
-                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                    <div id="barHoy" class="h-full bg-emerald-500 transition-all duration-1000" style="width: 0%"></div>
+                <div class="w-full h-1.5 bg-slate-100 group-hover:bg-white/10 rounded-full overflow-hidden transition-colors">
+                    <div id="barHoy" class="h-full bg-emerald-500 group-hover:bg-white transition-all duration-1000" style="width: 0%"></div>
                 </div>
             </div>
 
             <!-- Card 2: Ordenes Abiertas -->
-            <div class="bg-white p-6 shadow-sm border border-blue-500/40 group hover:border-blue-500 transition-all relative overflow-hidden rounded-xl flex flex-col items-center text-center">
+            <div class="bg-white hover:bg-blue-500 p-6 shadow-sm hover:shadow-xl border border-blue-500/40 hover:border-blue-400 group transition-all duration-300 ease-in-out transform hover:scale-[1.02] relative overflow-hidden rounded-xl flex flex-col items-center text-center cursor-default">
                 <div class="flex flex-col items-center mb-4">
-                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 font-h2 mb-1">Ordenes Abiertas</h3>
-                    <span id="kpiAbiertasPercent" class="text-sm font-black font-h2 text-blue-500">0%</span>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-white/70 font-h2 mb-1 transition-colors">Ordenes Abiertas</h3>
+                    <span id="kpiAbiertasPercent" class="text-sm font-black font-h2 text-blue-500 group-hover:text-white transition-colors">0%</span>
                 </div>
                 <div class="flex flex-col items-center gap-1 mb-6">
-                    <span id="kpiTransito" class="text-4xl md:text-5xl font-black text-[#001F3F] font-h2 leading-none">0</span>
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Pendientes</span>
+                    <span id="kpiTransito" class="text-4xl md:text-5xl font-black text-[#001F3F] group-hover:text-white font-h2 leading-none transition-colors">0</span>
+                    <span class="text-[10px] font-bold text-slate-400 group-hover:text-white/60 uppercase tracking-[0.2em] transition-colors">Pendientes</span>
                 </div>
-                <div class="w-full flex items-center justify-center gap-2 mb-6 bg-blue-50 p-2 border-l-2 border-blue-500 rounded-r">
-                    <span class="material-symbols-outlined text-sm text-blue-600">schedule</span>
+                <div class="w-full flex items-center justify-center gap-2 mb-6 bg-blue-50 group-hover:bg-white/20 p-2 border-l-2 border-blue-500 group-hover:border-white rounded-r transition-all">
+                    <span class="material-symbols-outlined text-sm text-blue-600 group-hover:text-white">schedule</span>
                     <div class="flex flex-col items-center">
-                        <span class="text-[9px] font-black uppercase text-blue-600/70 font-h2 leading-tight">Estado</span>
-                        <span class="text-xs font-black text-blue-600 font-body leading-tight">En Espera</span>
+                        <span class="text-[9px] font-black uppercase text-blue-600/70 group-hover:text-white/80 font-h2 leading-tight transition-colors">Estado</span>
+                        <span class="text-xs font-black text-blue-600 group-hover:text-white font-body leading-tight transition-colors">En Espera</span>
                     </div>
                 </div>
-                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                    <div id="barAbiertas" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
+                <div class="w-full h-1.5 bg-slate-100 group-hover:bg-white/10 rounded-full overflow-hidden transition-colors">
+                    <div id="barAbiertas" class="h-full bg-blue-500 group-hover:bg-white transition-all duration-1000" style="width: 0%"></div>
                 </div>
             </div>
 
             <!-- Card 3: Ordenes con Problemas -->
-            <div class="bg-white p-6 shadow-sm border border-rose-500/40 group hover:border-rose-500 transition-all relative overflow-hidden rounded-xl flex flex-col items-center text-center">
+            <div class="bg-white hover:bg-rose-500 p-6 shadow-sm hover:shadow-xl border border-rose-500/40 hover:border-rose-400 group transition-all duration-300 ease-in-out transform hover:scale-[1.02] relative overflow-hidden rounded-xl flex flex-col items-center text-center cursor-default">
                 <div class="flex flex-col items-center mb-4">
-                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 font-h2 mb-1">Con Problemas</h3>
-                    <span id="kpiProblemasPercent" class="text-sm font-black font-h2 text-rose-500">0%</span>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-white/70 font-h2 mb-1 transition-colors">Con Problemas</h3>
+                    <span id="kpiProblemasPercent" class="text-sm font-black font-h2 text-rose-500 group-hover:text-white transition-colors">0%</span>
                 </div>
                 <div class="flex flex-col items-center gap-1 mb-6">
-                    <span id="kpiProblemas" class="text-4xl md:text-5xl font-black text-[#001F3F] font-h2 leading-none">0</span>
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Incidencias</span>
+                    <span id="kpiProblemas" class="text-4xl md:text-5xl font-black text-[#001F3F] group-hover:text-white font-h2 leading-none transition-colors">0</span>
+                    <span class="text-[10px] font-bold text-slate-400 group-hover:text-white/60 uppercase tracking-[0.2em] transition-colors">Incidencias</span>
                 </div>
-                <div class="w-full flex items-center justify-center gap-2 mb-6 bg-rose-50 p-2 border-l-2 border-rose-500 rounded-r">
-                    <span class="material-symbols-outlined text-sm text-rose-600">report_problem</span>
+                <div class="w-full flex items-center justify-center gap-2 mb-6 bg-rose-50 group-hover:bg-white/20 p-2 border-l-2 border-rose-500 group-hover:border-white rounded-r transition-all">
+                    <span class="material-symbols-outlined text-sm text-rose-600 group-hover:text-white">report_problem</span>
                     <div class="flex flex-col items-center">
-                        <span class="text-[9px] font-black uppercase text-rose-600/70 font-h2 leading-tight">Prioridad</span>
-                        <span class="text-xs font-black text-rose-600 font-body leading-tight">Crítico</span>
+                        <span class="text-[9px] font-black uppercase text-rose-600/70 group-hover:text-white/80 font-h2 leading-tight transition-colors">Prioridad</span>
+                        <span class="text-xs font-black text-rose-600 group-hover:text-white font-body leading-tight transition-colors">Crítico</span>
                     </div>
                 </div>
-                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                    <div id="barProblemas" class="h-full bg-rose-500 transition-all duration-1000" style="width: 0%"></div>
+                <div class="w-full h-1.5 bg-slate-100 group-hover:bg-white/10 rounded-full overflow-hidden transition-colors">
+                    <div id="barProblemas" class="h-full bg-rose-500 group-hover:bg-white transition-all duration-1000" style="width: 0%"></div>
                 </div>
             </div>
 
             <!-- Card 4: Resumen Operativo -->
-            <div class="bg-slate-900 p-6 shadow-xl border border-white/5 relative overflow-hidden rounded-xl text-white group">
+            <div class="bg-slate-900 hover:bg-slate-800 p-6 shadow-xl border border-white/5 relative overflow-hidden rounded-xl text-white group transition-all duration-300 transform hover:scale-[1.02] cursor-default">
                 <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:rotate-12 transition-transform duration-700">
                     <span class="material-symbols-outlined text-[80px]">analytics</span>
                 </div>
