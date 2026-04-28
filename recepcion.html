@@ -535,11 +535,34 @@
                     <div id="page2" class="hidden space-y-4">
                         <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">2. Foto del Material</h3>
                         <p class="text-sm text-on-surface-variant mb-2">Capture o suba una foto del estado en que llegó el material.</p>
-                        <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center text-center hover:bg-surface-container-low transition-colors cursor-pointer bg-surface h-[250px]">
-                            <span class="material-symbols-outlined text-5xl text-[#001F3F]/50 mb-3">add_a_photo</span>
-                            <p class="text-base font-semibold text-[#001F3F]">Haga clic para subir o arrastre una foto aquí</p>
-                            <p class="text-sm text-on-surface-variant mt-2">Formatos soportados: PNG, JPG, WEBP (Max 5MB)</p>
-                            <button class="mt-4 px-4 py-2 bg-secondary-container text-[#001F3F] font-semibold rounded-lg text-sm hover:bg-[#d1e1f4]/80 transition-colors">Explorar archivos</button>
+                        
+                        <div id="photoModule" class="relative border-2 border-dashed border-outline-variant rounded-xl overflow-hidden bg-surface group transition-all duration-300 min-h-[250px] flex items-center justify-center">
+                            <!-- Camera Preview -->
+                            <video id="cameraPreview" class="hidden w-full h-[250px] object-cover bg-black" autoplay playsinline></video>
+                            
+                            <!-- Image Preview -->
+                            <img id="imagePreview" class="hidden w-full h-[250px] object-cover" src=""/>
+
+                            <!-- Placeholder / Drag Zone -->
+                            <div id="photoPlaceholder" class="flex flex-col items-center justify-center p-lg text-center h-[250px] w-full gap-sm cursor-pointer hover:bg-surface-container-low transition-colors">
+                                <span class="material-symbols-outlined text-outline text-[48px]">add_a_photo</span>
+                                <p class="text-base font-semibold text-[#001F3F]">Click para <span class="text-primary-container">Cámara</span> o arrastre imagen</p>
+                                <p class="text-sm text-on-surface-variant">PNG, JPG, WEBP soportados</p>
+                            </div>
+
+                            <!-- Controls -->
+                            <div class="absolute bottom-4 right-4 flex gap-2">
+                                <button id="btnToggleCamera" type="button" class="bg-white/90 hover:bg-white text-primary-container p-3 rounded-full shadow-lg transition-all active:scale-95 flex items-center justify-center border border-slate-200">
+                                    <span class="material-symbols-outlined text-[24px]">videocam</span>
+                                </button>
+                                <button id="btnCapture" type="button" class="hidden bg-primary-container text-white p-3 rounded-full shadow-lg transition-all active:scale-95 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-[24px]">photo_camera</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Hidden Inputs -->
+                            <input type="file" id="fileInput" accept="image/*" class="hidden"/>
+                            <canvas id="photoCanvas" class="hidden" width="640" height="480"></canvas>
                         </div>
                     </div>
                     
@@ -672,6 +695,99 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Photo Module Logic
+            const photoPlaceholder = document.getElementById('photoPlaceholder');
+            const cameraPreview = document.getElementById('cameraPreview');
+            const imagePreview = document.getElementById('imagePreview');
+            const btnToggleCamera = document.getElementById('btnToggleCamera');
+            const btnCapture = document.getElementById('btnCapture');
+            const fileInput = document.getElementById('fileInput');
+            const photoCanvas = document.getElementById('photoCanvas');
+            const photoModule = document.getElementById('photoModule');
+
+            let currentImageData = null;
+            let stream = null;
+
+            const stopCamera = () => {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                }
+                cameraPreview.classList.add('hidden');
+                btnCapture.classList.add('hidden');
+            };
+
+            const startCamera = async () => {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                    cameraPreview.srcObject = stream;
+                    cameraPreview.classList.remove('hidden');
+                    btnCapture.classList.remove('hidden');
+                    photoPlaceholder.classList.add('hidden');
+                    imagePreview.classList.add('hidden');
+                } catch (err) {
+                    console.error("Error accessing camera: ", err);
+                    alert("No se pudo acceder a la cámara. Verifique los permisos.");
+                }
+            };
+
+            btnToggleCamera.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (stream) {
+                    stopCamera();
+                    photoPlaceholder.classList.remove('hidden');
+                } else {
+                    startCamera();
+                }
+            });
+
+            btnCapture.addEventListener('click', (e) => {
+                e.preventDefault();
+                const context = photoCanvas.getContext('2d');
+                photoCanvas.width = cameraPreview.videoWidth;
+                photoCanvas.height = cameraPreview.videoHeight;
+                context.drawImage(cameraPreview, 0, 0, photoCanvas.width, photoCanvas.height);
+                
+                currentImageData = photoCanvas.toDataURL('image/jpeg');
+                imagePreview.src = currentImageData;
+                imagePreview.classList.remove('hidden');
+                
+                stopCamera();
+            });
+
+            photoPlaceholder.addEventListener('click', () => fileInput.click());
+            
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) handleFile(file);
+            });
+
+            const handleFile = (file) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    currentImageData = e.target.result;
+                    imagePreview.src = currentImageData;
+                    imagePreview.classList.remove('hidden');
+                    photoPlaceholder.classList.add('hidden');
+                    stopCamera();
+                };
+                reader.readAsDataURL(file);
+            };
+
+            photoModule.addEventListener('dragover', (e) => { 
+                e.preventDefault(); 
+                photoModule.classList.add('border-primary-container'); 
+            });
+            photoModule.addEventListener('dragleave', () => { 
+                photoModule.classList.remove('border-primary-container'); 
+            });
+            photoModule.addEventListener('drop', (e) => {
+                e.preventDefault();
+                photoModule.classList.remove('border-primary-container');
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) handleFile(file);
+            });
+
             // Mobile Menu Toggle
             const btnMobileMenu = document.getElementById('btnMobileMenu');
             const mobileMenu = document.getElementById('mobileMenu');
@@ -701,6 +817,15 @@
             }
             
             function closeModal() {
+                stopCamera();
+                // Reset photo module
+                currentImageData = null;
+                if (imagePreview) {
+                    imagePreview.src = "";
+                    imagePreview.classList.add('hidden');
+                }
+                if (photoPlaceholder) photoPlaceholder.classList.remove('hidden');
+
                 modal.classList.add('opacity-0');
                 modal.querySelector('div').classList.add('scale-95');
                 setTimeout(() => {
