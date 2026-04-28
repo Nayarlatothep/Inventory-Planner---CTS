@@ -608,48 +608,45 @@
                         <div class="space-y-4 bg-surface p-4 rounded-xl border border-outline-variant/30">
                             <p class="text-sm text-on-surface-variant mb-4">Verifique el estado físico del empaque y del material.</p>
                             
-                            <div class="space-y-4 bg-surface p-4 rounded-xl border border-outline-variant/30">
-                                <p class="text-sm text-on-surface-variant mb-4">Verifique el estado físico del empaque y del material.</p>
-                                
-                                <div class="space-y-2">
-                                    <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
-                                        <input type="checkbox" id="checkEmpaque" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
-                                        <div>
-                                            <p class="text-sm font-semibold text-on-surface">Empaque intacto *</p>
-                                            <p class="text-xs text-on-surface-variant">Sin rasgaduras, golpes o humedad visible.</p>
-                                        </div>
-                                    </label>
-                                    <p id="errorEmpaque" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar el estado del empaque</p>
-                                </div>
-                                
-                                <div class="space-y-2">
-                                    <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
-                                        <input type="checkbox" id="checkCantidad" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
-                                        <div>
-                                            <p class="text-sm font-semibold text-on-surface">Cantidades correctas *</p>
-                                            <p class="text-xs text-on-surface-variant">La cantidad física coincide con la guía/factura.</p>
-                                        </div>
-                                    </label>
-                                    <p id="errorCantidad" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar las cantidades</p>
-                                </div>
+                            <div class="space-y-2">
+                                <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
+                                    <input type="checkbox" id="checkEmpaque" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
+                                    <div>
+                                        <p class="text-sm font-semibold text-on-surface">Empaque intacto *</p>
+                                        <p class="text-xs text-on-surface-variant">Sin rasgaduras, golpes o humedad visible.</p>
+                                    </div>
+                                </label>
+                                <p id="errorEmpaque" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar el estado del empaque</p>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
+                                    <input type="checkbox" id="checkCantidad" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
+                                    <div>
+                                        <p class="text-sm font-semibold text-on-surface">Cantidades correctas *</p>
+                                        <p class="text-xs text-on-surface-variant">La cantidad física coincide con la guía/factura.</p>
+                                    </div>
+                                </label>
+                                <p id="errorCantidad" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar las cantidades</p>
+                            </div>
 
-                                <div class="mt-4">
-                                    <label class="block text-sm font-medium text-on-surface-variant mb-1">Estado de material *</label>
-                                    <select id="selectEstado" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-                                        <option value="">Seleccione estado...</option>
-                                        <option>Recibido</option>
-                                        <option>Parcial</option>
-                                        <option>Rechazado</option>
-                                    </select>
-                                    <p id="errorEstado" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de seleccionar</p>
-                                </div>
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Estado de material *</label>
+                                <select id="selectEstado" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                    <option value="">Seleccione estado...</option>
+                                    <option>Recibido</option>
+                                    <option>Parcial</option>
+                                    <option>Rechazado</option>
+                                </select>
+                                <p id="errorEstado" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de seleccionar</p>
+                            </div>
 
-                                <div class="mt-4">
-                                    <label class="block text-sm font-medium text-on-surface-variant mb-1">Observaciones (Opcional)</label>
-                                    <textarea id="inputObservaciones" rows="3" placeholder="Detalles sobre discrepancias o estado del material..." class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface resize-none"></textarea>
-                                </div>
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Observaciones (Opcional)</label>
+                                <textarea id="inputObservaciones" rows="3" placeholder="Detalles sobre discrepancias o estado del material..." class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface resize-none"></textarea>
                             </div>
                         </div>
+                    </div>
                     
                     <!-- Page 5: PDF -->
                     <!-- Page 5: Orden de Compra (OC) -->
