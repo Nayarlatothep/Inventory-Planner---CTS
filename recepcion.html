@@ -235,7 +235,7 @@
                     <span class="material-symbols-outlined text-[#001F3F] bg-white/40 p-2 rounded-lg text-[24px]">inventory_2</span>
                 </div>
                 <div class="flex-grow">
-                    <h4 class="font-label-caps text-[10px] md:text-label-caps text-[#001F3F]/70 uppercase mb-xs font-bold">En tránsito</h4>
+                    <h4 class="font-label-caps text-[10px] md:text-label-caps text-[#001F3F]/70 uppercase mb-xs font-bold">Ordenes abiertas</h4>
                     <div class="flex items-baseline gap-2">
                         <div id="kpiTransito" class="font-h2 text-2xl md:text-h2 text-[#001F3F] font-black">0</div>
                         <p class="font-body-sm text-xs text-[#001F3F]/80 font-medium">Esperando llegada</p>
@@ -322,7 +322,7 @@
                         <td class="px-md py-md">-</td>
                         <td class="px-md py-md">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                En tránsito
+                                Ordenes abiertas
                             </span>
                         </td>
                         <td class="px-md py-md text-right">
@@ -348,7 +348,7 @@
                         <td class="px-md py-md">-</td>
                         <td class="px-md py-md">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                En tránsito
+                                Ordenes abiertas
                             </span>
                         </td>
                         <td class="px-md py-md text-right">
@@ -374,7 +374,7 @@
                         <td class="px-md py-md">-</td>
                         <td class="px-md py-md">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                En tránsito
+                                Ordenes abiertas
                             </span>
                         </td>
                         <td class="px-md py-md text-right">
@@ -400,7 +400,7 @@
                         <td class="px-md py-md">-</td>
                         <td class="px-md py-md">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                En tránsito
+                                Ordenes abiertas
                             </span>
                         </td>
                         <td class="px-md py-md text-right">
@@ -426,7 +426,7 @@
                         <td class="px-md py-md">-</td>
                         <td class="px-md py-md">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                En tránsito
+                                Ordenes abiertas
                             </span>
                         </td>
                         <td class="px-md py-md text-right">
@@ -452,7 +452,7 @@
                         <td class="px-md py-md">-</td>
                         <td class="px-md py-md">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                En tránsito
+                                Ordenes abiertas
                             </span>
                         </td>
                         <td class="px-md py-md text-right">
@@ -1002,7 +1002,7 @@
                             lastDate = fecha;
                             lastMaterial = material;
                         }
-                    } else if (estado === 'En tránsito' || estado === 'Parcial') {
+                    } else if (estado === 'Ordenes abiertas' || estado === 'Parcial') {
                         countTransito++;
                     }
                 });
@@ -1047,7 +1047,7 @@
                         
                         // Handle state for select
                         const selectEstado = document.getElementById('selectEstado');
-                        if (estado === 'En tránsito' || estado === '-') {
+                        if (estado === 'Ordenes abiertas' || estado === '-') {
                             selectEstado.value = "";
                         } else {
                             selectEstado.value = estado;
@@ -1059,8 +1059,8 @@
                         document.getElementById('inputFactura').value = '-';
                         document.getElementById('inputLote').value = '-';
                         document.getElementById('inputFechaManuf').value = '';
-                        document.getElementById('checkEmpaque').checked = (estado !== 'En tránsito');
-                        document.getElementById('checkCantidad').checked = (estado !== 'En tránsito');
+                        document.getElementById('checkEmpaque').checked = (estado !== 'Ordenes abiertas');
+                        document.getElementById('checkCantidad').checked = (estado !== 'Ordenes abiertas');
                         document.getElementById('inputObservaciones').value = '';
                         
                         // Configurar modo vista
