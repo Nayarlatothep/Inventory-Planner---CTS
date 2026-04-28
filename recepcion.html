@@ -481,7 +481,7 @@
             <div class="bg-surface-container-lowest w-full max-w-3xl rounded-xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300 mx-4 max-h-[90vh]">
                 <!-- Header -->
                 <div class="px-6 py-4 border-b border-outline-variant/30 flex justify-between items-center bg-[#001F3F] text-white">
-                    <h2 class="text-xl font-bold font-h2">Nuevo Ingreso de Material</h2>
+                    <h2 id="modalTitle" class="text-xl font-bold font-h2">Nuevo Ingreso de Material</h2>
                     <button id="btnCloseModal" class="text-white/70 hover:text-white transition-colors">
                         <span class="material-symbols-outlined">close</span>
                     </button>
@@ -754,7 +754,7 @@
                 </div>
                 
                 <!-- Footer / Guia de pagina -->
-                <div class="px-6 py-4 border-t border-outline-variant/30 bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div id="modalFooter" class="px-6 py-4 border-t border-outline-variant/30 bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-4">
                     <!-- Stepper Indicators -->
                     <div class="flex gap-2 sm:gap-4 items-start w-full sm:w-auto justify-between sm:justify-start">
                         <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(1)">
@@ -911,6 +911,8 @@
             
             if (btnNuevaRecepcion && modal) {
                 btnNuevaRecepcion.addEventListener('click', () => {
+                    document.getElementById('modalFooter').classList.remove('hidden');
+                    document.getElementById('modalTitle').innerText = 'Nuevo Ingreso de Material';
                     modal.classList.remove('hidden');
                     modal.classList.add('flex');
                     // setTimeout for transition
@@ -1012,6 +1014,10 @@
                         document.getElementById('checkCantidad').checked = (estado !== 'En tránsito');
                         document.getElementById('inputObservaciones').value = '';
                         
+                        // Configurar modo vista
+                        document.getElementById('modalFooter').classList.add('hidden');
+                        document.getElementById('modalTitle').innerText = 'Resumen de Recepción';
+
                         // Open Modal and go to Summary
                         modal.classList.remove('hidden');
                         modal.classList.add('flex');
