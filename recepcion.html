@@ -225,131 +225,126 @@
     </header>
 
     <main class="flex-grow px-4 md:px-margin py-6 md:py-xl max-w-7xl mx-auto w-full">
-        <!-- Header & Action -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-xl gap-4">
-            <div>
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-primary-container text-[32px] md:text-[40px]">package_2</span>
-                    <h1 class="font-h2 text-2xl md:text-h2 text-primary-container">Recepción de Materiales</h1>
+        <!-- Hero Editorial Header -->
+        <section class="mb-12">
+            <p class="text-sm font-bold text-[#10b981] uppercase tracking-[0.2em] mb-2 font-h2">Real-Time Operations</p>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-black font-h2 text-[#001F3F] tracking-tighter">KPI Recepción</h1>
+                    <p class="font-body-md text-sm text-on-surface-variant mt-2 max-w-xl">Monitoreo técnico de ingresos y validación de materiales en tiempo real.</p>
                 </div>
-                <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Confirme los materiales que han llegado físicamente a bodega.</p>
+                <div class="text-left md:text-right w-full md:w-auto flex flex-row md:flex-col justify-between items-center md:items-end bg-surface-container-low md:bg-transparent p-3 md:p-0 rounded-lg border border-outline-variant/10 md:border-none">
+                    <div class="md:block">
+                        <p class="text-on-surface-variant text-[10px] font-bold uppercase font-h2">Última Actualización</p>
+                        <p id="kpiTimestamp" class="font-bold text-[#001F3F] font-body text-sm md:text-base">-</p>
+                    </div>
+                    <button id="btnNuevaRecepcion" class="bg-[#10b981] hover:bg-[#059669] text-white px-6 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all active:scale-95 md:mt-4">
+                        <span class="material-symbols-outlined text-[20px]">add_circle</span>
+                        <span>Nueva Recepción</span>
+                    </button>
+                </div>
             </div>
-            <button id="btnNuevaRecepcion" class="w-full md:w-auto bg-[#10b981] hover:bg-[#059669] text-white px-lg py-md rounded-lg font-button text-button flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95">
-                <span class="material-symbols-outlined text-[20px]">add_circle</span>
-                <span>Nueva recepción</span>
-            </button>
-        </div>
-
-        <!-- KPI Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-xl">
-            <!-- Card 1: Recibidos Hoy -->
-            <div class="relative overflow-hidden bg-emerald-500 p-6 rounded-2xl shadow-lg border border-emerald-400 group hover:shadow-xl transition-all duration-300 text-white">
-                <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-white/10 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-                <div class="relative flex flex-col h-full">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="p-3 bg-white/20 text-white rounded-xl transition-transform group-hover:rotate-12 backdrop-blur-sm border border-white/20">
-                            <span class="material-symbols-outlined text-[24px]">assignment_turned_in</span>
-                        </div>
-                        <span class="px-2 py-1 bg-white/20 text-white text-[10px] font-bold rounded-md border border-white/20">HOY</span>
+        <!-- KPI Grid Section -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <!-- Card 1: Recepciones Hoy -->
+            <div class="bg-white p-6 shadow-sm border border-outline-variant/10 group hover:border-emerald-500/30 transition-all relative overflow-hidden rounded-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant font-h2">Recepciones Hoy</h3>
+                    <span id="kpiHoyPercent" class="text-xs font-black font-h2 text-emerald-500">0%</span>
+                </div>
+                <div class="flex items-baseline gap-2 mb-4">
+                    <span id="kpiHoy" class="text-3xl font-black text-[#001F3F] font-h2">0</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Confirmadas</span>
+                </div>
+                <div class="flex items-center gap-1.5 mb-5 bg-emerald-50 p-2 border-l-2 border-emerald-500 rounded-r">
+                    <span class="material-symbols-outlined text-sm text-emerald-600">trending_up</span>
+                    <div class="flex flex-col">
+                        <span class="text-[9px] font-black uppercase text-emerald-600/70 font-h2 leading-tight">Tendencia</span>
+                        <span id="kpiTrendHoy" class="text-[11px] font-black text-emerald-600 font-body leading-tight">+0%</span>
                     </div>
-                    <h4 class="text-[11px] font-bold text-white/80 uppercase tracking-wider mb-1">Recepciones del Día</h4>
-                    <div class="flex items-baseline gap-2">
-                        <div id="kpiHoy" class="text-3xl font-black text-white">0</div>
-                        <div class="flex items-center text-emerald-100 text-[10px] font-bold">
-                            <span class="material-symbols-outlined text-[14px]">trending_up</span>
-                            <span id="kpiTrendHoy">+0%</span>
-                        </div>
-                    </div>
+                </div>
+                <div class="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                    <div id="barHoy" class="h-full bg-emerald-500 transition-all duration-1000" style="width: 0%"></div>
                 </div>
             </div>
 
             <!-- Card 2: Ordenes Abiertas -->
-            <div class="relative overflow-hidden bg-blue-500 p-6 rounded-2xl shadow-lg border border-blue-400 group hover:shadow-xl transition-all duration-300 text-white">
-                <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-white/10 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-                <div class="relative flex flex-col h-full">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="p-3 bg-white/20 text-white rounded-xl transition-transform group-hover:rotate-12 backdrop-blur-sm border border-white/20">
-                            <span class="material-symbols-outlined text-[24px]">pending_actions</span>
-                        </div>
+            <div class="bg-white p-6 shadow-sm border border-outline-variant/10 group hover:border-blue-500/30 transition-all relative overflow-hidden rounded-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant font-h2">Ordenes Abiertas</h3>
+                    <span id="kpiAbiertasPercent" class="text-xs font-black font-h2 text-blue-500">0%</span>
+                </div>
+                <div class="flex items-baseline gap-2 mb-4">
+                    <span id="kpiTransito" class="text-3xl font-black text-[#001F3F] font-h2">0</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pendientes</span>
+                </div>
+                <div class="flex items-center gap-1.5 mb-5 bg-blue-50 p-2 border-l-2 border-blue-500 rounded-r">
+                    <span class="material-symbols-outlined text-sm text-blue-600">schedule</span>
+                    <div class="flex flex-col">
+                        <span class="text-[9px] font-black uppercase text-blue-600/70 font-h2 leading-tight">Estado</span>
+                        <span class="text-[11px] font-black text-blue-600 font-body leading-tight">En Espera</span>
                     </div>
-                    <h4 class="text-[11px] font-bold text-white/80 uppercase tracking-wider mb-1">Ordenes Abiertas</h4>
-                    <div class="flex items-baseline gap-2">
-                        <div id="kpiTransito" class="text-3xl font-black text-white">0</div>
-                        <span class="text-blue-100 text-[10px] font-medium uppercase tracking-tight font-bold">Pendientes</span>
-                    </div>
+                </div>
+                <div class="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                    <div id="barAbiertas" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
                 </div>
             </div>
 
             <!-- Card 3: Ordenes con Problemas -->
-            <div class="relative overflow-hidden bg-red-500 p-6 rounded-2xl shadow-lg border border-red-400 group hover:shadow-xl transition-all duration-300 text-white">
-                <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-white/10 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-                <div class="relative flex flex-col h-full">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="p-3 bg-white/20 text-white rounded-xl transition-transform group-hover:rotate-12 backdrop-blur-sm border border-white/20">
-                            <span class="material-symbols-outlined text-[24px]">report_problem</span>
-                        </div>
+            <div class="bg-white p-6 shadow-sm border border-outline-variant/10 group hover:border-rose-500/30 transition-all relative overflow-hidden rounded-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant font-h2">Con Problemas</h3>
+                    <span id="kpiProblemasPercent" class="text-xs font-black font-h2 text-rose-500">0%</span>
+                </div>
+                <div class="flex items-baseline gap-2 mb-4">
+                    <span id="kpiProblemas" class="text-3xl font-black text-[#001F3F] font-h2">0</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Incidencias</span>
+                </div>
+                <div class="flex items-center gap-1.5 mb-5 bg-rose-50 p-2 border-l-2 border-rose-500 rounded-r">
+                    <span class="material-symbols-outlined text-sm text-rose-600">report_problem</span>
+                    <div class="flex flex-col">
+                        <span class="text-[9px] font-black uppercase text-rose-600/70 font-h2 leading-tight">Prioridad</span>
+                        <span class="text-[11px] font-black text-rose-600 font-body leading-tight">Crítico</span>
                     </div>
-                    <h4 class="text-[11px] font-bold text-white/80 uppercase tracking-wider mb-1">Con Problemas</h4>
-                    <div class="flex items-baseline gap-2">
-                        <div id="kpiProblemas" class="text-3xl font-black text-white">0</div>
-                        <span class="text-white text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded border border-white/20">Crítico</span>
-                    </div>
+                </div>
+                <div class="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                    <div id="barProblemas" class="h-full bg-rose-500 transition-all duration-1000" style="width: 0%"></div>
                 </div>
             </div>
 
-            <!-- Card 4: Resumen Estadístico -->
-            <div class="bg-slate-700 p-5 rounded-2xl shadow-lg border border-white/10 text-white relative overflow-hidden group">
+            <!-- Card 4: Recepciones Totales -->
+            <div class="bg-[#001F3F] p-6 shadow-lg border border-white/5 relative overflow-hidden rounded-xl text-white group">
                 <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:rotate-12 transition-transform duration-700">
                     <span class="material-symbols-outlined text-[80px]">analytics</span>
                 </div>
-                <h4 class="text-[10px] font-bold text-white/50 uppercase tracking-widest mb-3 flex justify-between items-center">
-                    Recepciones Totales
-                    <span class="text-white/30 material-symbols-outlined text-[14px]">info</span>
-                </h4>
-                <div class="space-y-2.5">
-                    <!-- Recibidas -->
+                <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-white/50 mb-4 font-h2">Resumen Operativo</h3>
+                
+                <div class="space-y-4">
                     <div class="space-y-1">
-                        <div class="flex justify-between text-[10px] font-bold uppercase">
+                        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
                             <span class="text-emerald-400">Recibidas</span>
-                            <span id="statRecibidasText">0 (0%)</span>
+                            <span id="statRecibidasText" class="text-white/80">0 (0%)</span>
                         </div>
                         <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
                             <div id="barRecibidas" class="h-full bg-emerald-500 transition-all duration-1000" style="width: 0%"></div>
                         </div>
                     </div>
-                    <!-- Abiertas -->
                     <div class="space-y-1">
-                        <div class="flex justify-between text-[10px] font-bold uppercase">
+                        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
                             <span class="text-blue-400">Abiertas</span>
-                            <span id="statAbiertasText">0 (0%)</span>
+                            <span id="statAbiertasText" class="text-white/80">0 (0%)</span>
                         </div>
                         <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                            <div id="barAbiertas" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
+                            <div id="barAbiertasSum" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
                         </div>
                     </div>
-                    <!-- Parciales -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-[10px] font-bold uppercase">
-                            <span class="text-amber-400">Parciales</span>
-                            <span id="statParcialesText">0 (0%)</span>
-                        </div>
-                        <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                            <div id="barParciales" class="h-full bg-amber-500 transition-all duration-1000" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <!-- Rechazadas -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-[10px] font-bold uppercase">
-                            <span class="text-red-400">Rechazadas</span>
-                            <span id="statRechazadasText">0 (0%)</span>
-                        </div>
-                        <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                            <div id="barRechazadas" class="h-full bg-red-500 transition-all duration-1000" style="width: 0%"></div>
-                        </div>
+                    <div class="flex justify-between items-center pt-2 border-t border-white/10">
+                        <span class="text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]">Total Órdenes</span>
+                        <span id="kpiTotalOrders" class="text-xl font-black">0</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Filters -->
         <div class="bg-surface-container-lowest p-4 md:p-lg rounded-lg soft-lift border border-outline-variant/30 mb-lg flex flex-col md:flex-row gap-4 md:gap-gutter items-center">
@@ -1058,6 +1053,11 @@
             }
 
             function updateKPIs() {
+                const now = new Date();
+                const timestamp = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')} | ${now.toLocaleDateString()}`;
+                const tsEl = document.getElementById('kpiTimestamp');
+                if (tsEl) tsEl.innerText = timestamp;
+
                 const today = new Date().toISOString().split('T')[0];
                 const tableRows = document.querySelectorAll('#receptionTableBody tr');
                 
@@ -1092,10 +1092,27 @@
                 const kpiHoy = document.getElementById('kpiHoy');
                 const kpiTransito = document.getElementById('kpiTransito');
                 const kpiProblemas = document.getElementById('kpiProblemas');
+                const kpiTotalOrders = document.getElementById('kpiTotalOrders');
 
                 if (kpiHoy) kpiHoy.innerText = countHoy;
                 if (kpiTransito) kpiTransito.innerText = countAbiertas;
                 if (kpiProblemas) kpiProblemas.innerText = countParciales + countRechazadas;
+                if (kpiTotalOrders) kpiTotalOrders.innerText = total;
+
+                // Percentages for cards
+                if (total > 0) {
+                    const hoyPct = Math.round((countHoy / total) * 100);
+                    const abiertasPct = Math.round((countAbiertas / total) * 100);
+                    const problemasPct = Math.round(((countParciales + countRechazadas) / total) * 100);
+
+                    if (document.getElementById('kpiHoyPercent')) document.getElementById('kpiHoyPercent').innerText = `${hoyPct}%`;
+                    if (document.getElementById('kpiAbiertasPercent')) document.getElementById('kpiAbiertasPercent').innerText = `${abiertasPct}%`;
+                    if (document.getElementById('kpiProblemasPercent')) document.getElementById('kpiProblemasPercent').innerText = `${problemasPct}%`;
+
+                    if (document.getElementById('barHoy')) document.getElementById('barHoy').style.width = `${hoyPct}%`;
+                    if (document.getElementById('barAbiertas')) document.getElementById('barAbiertas').style.width = `${abiertasPct}%`;
+                    if (document.getElementById('barProblemas')) document.getElementById('barProblemas').style.width = `${problemasPct}%`;
+                }
 
                 // Update Trend Indicator (Card 1)
                 const kpiTrendHoy = document.getElementById('kpiTrendHoy');
@@ -1103,19 +1120,17 @@
                 if (kpiTrendHoy) kpiTrendHoy.innerText = `${pctRecibidas}%`;
 
                 // Update Summary Card (Distribution)
-                const updateStat = (idPrefix, count) => {
+                const updateStat = (idPrefix, count, barIdSuffix) => {
                     const pct = total > 0 ? Math.round((count / total) * 100) : 0;
                     const textEl = document.getElementById(`stat${idPrefix}Text`);
-                    const barEl = document.getElementById(`bar${idPrefix}`);
+                    const barEl = document.getElementById(`bar${barIdSuffix || idPrefix}`);
                     
                     if (textEl) textEl.innerText = `${count} (${pct}%)`;
                     if (barEl) barEl.style.width = `${pct}%`;
                 };
 
                 updateStat('Recibidas', countRecibidas);
-                updateStat('Abiertas', countAbiertas);
-                updateStat('Parciales', countParciales);
-                updateStat('Rechazadas', countRechazadas);
+                updateStat('Abiertas', countAbiertas, 'AbiertasSum');
             }
             updateKPIs();
 
