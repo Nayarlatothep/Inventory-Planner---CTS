@@ -312,35 +312,61 @@
                 </div>
             </div>
 
-            <!-- Card 4: Recepciones Totales -->
-            <div class="bg-[#001F3F] p-6 shadow-lg border border-white/5 relative overflow-hidden rounded-xl text-white group">
+            <!-- Card 4: Resumen Operativo -->
+            <div class="bg-slate-900 p-6 shadow-xl border border-white/5 relative overflow-hidden rounded-xl text-white group">
                 <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:rotate-12 transition-transform duration-700">
                     <span class="material-symbols-outlined text-[80px]">analytics</span>
                 </div>
-                <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-white/50 mb-4 font-h2">Resumen Operativo</h3>
+                <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-4 font-h2">Análisis de Distribución</h3>
                 
-                <div class="space-y-4">
+                <div class="space-y-3.5">
+                    <!-- Recibidas -->
                     <div class="space-y-1">
                         <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
                             <span class="text-emerald-400">Recibidas</span>
-                            <span id="statRecibidasText" class="text-white/80">0 (0%)</span>
+                            <span id="statRecibidasText" class="text-white/60">0 (0%)</span>
                         </div>
-                        <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
                             <div id="barRecibidas" class="h-full bg-emerald-500 transition-all duration-1000" style="width: 0%"></div>
                         </div>
                     </div>
+                    <!-- Abiertas -->
                     <div class="space-y-1">
                         <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
                             <span class="text-blue-400">Abiertas</span>
-                            <span id="statAbiertasText" class="text-white/80">0 (0%)</span>
+                            <span id="statAbiertasText" class="text-white/60">0 (0%)</span>
                         </div>
-                        <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
                             <div id="barAbiertasSum" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center pt-2 border-t border-white/10">
-                        <span class="text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]">Total Órdenes</span>
-                        <span id="kpiTotalOrders" class="text-xl font-black">0</span>
+                    <!-- Parciales -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
+                            <span class="text-amber-400">Parciales</span>
+                            <span id="statParcialesText" class="text-white/60">0 (0%)</span>
+                        </div>
+                        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                            <div id="barParciales" class="h-full bg-amber-500 transition-all duration-1000" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <!-- Rechazadas -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
+                            <span class="text-rose-400">Rechazadas</span>
+                            <span id="statRechazadasText" class="text-white/60">0 (0%)</span>
+                        </div>
+                        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                            <div id="barRechazadas" class="h-full bg-rose-500 transition-all duration-1000" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-3 mt-4 border-t border-white/5">
+                        <span class="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Total Órdenes</span>
+                        <div class="flex items-center gap-2">
+                            <span id="kpiTotalOrders" class="text-xl font-black text-white">0</span>
+                            <span class="material-symbols-outlined text-white/20 text-sm">inventory_2</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1131,6 +1157,8 @@
 
                 updateStat('Recibidas', countRecibidas);
                 updateStat('Abiertas', countAbiertas, 'AbiertasSum');
+                updateStat('Parciales', countParciales);
+                updateStat('Rechazadas', countRechazadas);
             }
             updateKPIs();
 
