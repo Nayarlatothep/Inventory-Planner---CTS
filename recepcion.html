@@ -608,38 +608,48 @@
                         <div class="space-y-4 bg-surface p-4 rounded-xl border border-outline-variant/30">
                             <p class="text-sm text-on-surface-variant mb-4">Verifique el estado físico del empaque y del material.</p>
                             
-                            <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
-                                <input type="checkbox" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
-                                <div>
-                                    <p class="text-sm font-semibold text-on-surface">Empaque intacto</p>
-                                    <p class="text-xs text-on-surface-variant">Sin rasgaduras, golpes o humedad visible.</p>
+                            <div class="space-y-4 bg-surface p-4 rounded-xl border border-outline-variant/30">
+                                <p class="text-sm text-on-surface-variant mb-4">Verifique el estado físico del empaque y del material.</p>
+                                
+                                <div class="space-y-2">
+                                    <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
+                                        <input type="checkbox" id="checkEmpaque" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
+                                        <div>
+                                            <p class="text-sm font-semibold text-on-surface">Empaque intacto *</p>
+                                            <p class="text-xs text-on-surface-variant">Sin rasgaduras, golpes o humedad visible.</p>
+                                        </div>
+                                    </label>
+                                    <p id="errorEmpaque" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar el estado del empaque</p>
                                 </div>
-                            </label>
-                            
-                            <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
-                                <input type="checkbox" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
-                                <div>
-                                    <p class="text-sm font-semibold text-on-surface">Cantidades correctas</p>
-                                    <p class="text-xs text-on-surface-variant">La cantidad física coincide con la guía/factura.</p>
+                                
+                                <div class="space-y-2">
+                                    <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
+                                        <input type="checkbox" id="checkCantidad" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
+                                        <div>
+                                            <p class="text-sm font-semibold text-on-surface">Cantidades correctas *</p>
+                                            <p class="text-xs text-on-surface-variant">La cantidad física coincide con la guía/factura.</p>
+                                        </div>
+                                    </label>
+                                    <p id="errorCantidad" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar las cantidades</p>
                                 </div>
-                            </label>
 
-                            <div class="mt-4">
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Estado de material</label>
-                                <select class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
-                                    <option>Seleccione estado...</option>
-                                    <option>Recibido</option>
-                                    <option>Parcial</option>
-                                    <option>Rechazado</option>
-                                </select>
-                            </div>
+                                <div class="mt-4">
+                                    <label class="block text-sm font-medium text-on-surface-variant mb-1">Estado de material *</label>
+                                    <select id="selectEstado" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                        <option value="">Seleccione estado...</option>
+                                        <option>Recibido</option>
+                                        <option>Parcial</option>
+                                        <option>Rechazado</option>
+                                    </select>
+                                    <p id="errorEstado" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de seleccionar</p>
+                                </div>
 
-                            <div class="mt-4">
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Observaciones (Opcional)</label>
-                                <textarea rows="3" placeholder="Detalles sobre discrepancias o estado del material..." class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface resize-none"></textarea>
+                                <div class="mt-4">
+                                    <label class="block text-sm font-medium text-on-surface-variant mb-1">Observaciones (Opcional)</label>
+                                    <textarea id="inputObservaciones" rows="3" placeholder="Detalles sobre discrepancias o estado del material..." class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface resize-none"></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     
                     <!-- Page 5: PDF -->
                     <div id="page5" class="hidden space-y-4">
@@ -950,6 +960,51 @@
                                 error.classList.add('hidden');
                             }
                         });
+                        
+                        if (!isValid) return;
+                    }
+
+                    // Validación visual para la página 4
+                    if (currentPage === 4) {
+                        const checkEmpaque = document.getElementById('checkEmpaque');
+                        const checkCantidad = document.getElementById('checkCantidad');
+                        const selectEstado = document.getElementById('selectEstado');
+                        
+                        const errorEmpaque = document.getElementById('errorEmpaque');
+                        const errorCantidad = document.getElementById('errorCantidad');
+                        const errorEstado = document.getElementById('errorEstado');
+                        
+                        let isValid = true;
+                        
+                        // Validar Empaque
+                        if (!checkEmpaque.checked) {
+                            checkEmpaque.parentElement.classList.add('border-error', 'ring-2', 'ring-error/20');
+                            errorEmpaque.classList.remove('hidden');
+                            isValid = false;
+                        } else {
+                            checkEmpaque.parentElement.classList.remove('border-error', 'ring-2', 'ring-error/20');
+                            errorEmpaque.classList.add('hidden');
+                        }
+                        
+                        // Validar Cantidad
+                        if (!checkCantidad.checked) {
+                            checkCantidad.parentElement.classList.add('border-error', 'ring-2', 'ring-error/20');
+                            errorCantidad.classList.remove('hidden');
+                            isValid = false;
+                        } else {
+                            checkCantidad.parentElement.classList.remove('border-error', 'ring-2', 'ring-error/20');
+                            errorCantidad.classList.add('hidden');
+                        }
+                        
+                        // Validar Estado
+                        if (!selectEstado.value) {
+                            selectEstado.classList.add('border-error', 'ring-2', 'ring-error/20');
+                            errorEstado.classList.remove('hidden');
+                            isValid = false;
+                        } else {
+                            selectEstado.classList.remove('border-error', 'ring-2', 'ring-error/20');
+                            errorEstado.classList.add('hidden');
+                        }
                         
                         if (!isValid) return;
                     }
