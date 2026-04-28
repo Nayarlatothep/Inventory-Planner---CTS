@@ -207,7 +207,7 @@
                 </div>
                 <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Confirme los materiales que han llegado físicamente a bodega.</p>
             </div>
-            <button class="w-full md:w-auto bg-[#10b981] hover:bg-[#059669] text-white px-lg py-md rounded-lg font-button text-button flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95">
+            <button id="btnNuevaRecepcion" class="w-full md:w-auto bg-[#10b981] hover:bg-[#059669] text-white px-lg py-md rounded-lg font-button text-button flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95">
                 <span class="material-symbols-outlined text-[20px]">add_circle</span>
                 <span>Nueva recepción</span>
             </button>
@@ -400,6 +400,148 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Nuevo Ingreso -->
+        <div id="modalNuevoIngreso" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity opacity-0">
+            <div class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300 mx-4 max-h-[90vh]">
+                <!-- Header -->
+                <div class="px-6 py-4 border-b border-outline-variant/30 flex justify-between items-center bg-[#001F3F] text-white">
+                    <h2 class="text-xl font-bold font-h2">Nuevo Ingreso de Material</h2>
+                    <button id="btnCloseModal" class="text-white/70 hover:text-white transition-colors">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                
+                <!-- Body (Pages) -->
+                <div class="p-6 flex-grow overflow-y-auto">
+                    <!-- Page 1: Datos -->
+                    <div id="page1" class="space-y-4">
+                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">1. Datos del Material</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1"># Pedido de compra</label>
+                                <input type="text" placeholder="Ej. OC-12345" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Nombre del material</label>
+                                <input type="text" placeholder="Descripción del material" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Código (SKU)</label>
+                                <input type="text" placeholder="SKU o código de barras" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Categoría</label>
+                                <select class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                    <option>Seleccione una categoría...</option>
+                                    <option>Repuestos</option>
+                                    <option>Lubricantes</option>
+                                    <option>Seguridad</option>
+                                    <option>Herramientas</option>
+                                    <option>Otros</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1"># Factura / Guía de despacho</label>
+                                <input type="text" placeholder="Número de documento" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-sm font-medium text-on-surface-variant mb-1">Unidades (OC)</label>
+                                    <input type="number" min="0" placeholder="0" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-on-surface-variant mb-1 text-primary-container font-bold">Cant. Recepcionada</label>
+                                    <input type="number" min="0" placeholder="0" class="w-full border border-primary-container rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-primary-fixed/20">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Page 2: Foto -->
+                    <div id="page2" class="hidden space-y-4">
+                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">2. Foto del Material</h3>
+                        <p class="text-sm text-on-surface-variant mb-2">Capture o suba una foto del estado en que llegó el material.</p>
+                        <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center text-center hover:bg-surface-container-low transition-colors cursor-pointer bg-surface h-[250px]">
+                            <span class="material-symbols-outlined text-5xl text-[#001F3F]/50 mb-3">add_a_photo</span>
+                            <p class="text-base font-semibold text-[#001F3F]">Haga clic para subir o arrastre una foto aquí</p>
+                            <p class="text-sm text-on-surface-variant mt-2">Formatos soportados: PNG, JPG, WEBP (Max 5MB)</p>
+                            <button class="mt-4 px-4 py-2 bg-secondary-container text-[#001F3F] font-semibold rounded-lg text-sm hover:bg-[#d1e1f4]/80 transition-colors">Explorar archivos</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Page 3: Validacion -->
+                    <div id="page3" class="hidden space-y-4">
+                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">3. Validación de Calidad</h3>
+                        <div class="space-y-4 bg-surface p-4 rounded-xl border border-outline-variant/30">
+                            <p class="text-sm text-on-surface-variant mb-4">Verifique el estado físico del empaque y del material.</p>
+                            
+                            <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+                                <input type="checkbox" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-on-surface">Empaque intacto</p>
+                                    <p class="text-xs text-on-surface-variant">Sin rasgaduras, golpes o humedad visible.</p>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+                                <input type="checkbox" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-on-surface">Cantidades correctas</p>
+                                    <p class="text-xs text-on-surface-variant">La cantidad física coincide con la guía/factura.</p>
+                                </div>
+                            </label>
+
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Observaciones (Opcional)</label>
+                                <textarea rows="3" placeholder="Detalles sobre discrepancias o estado del material..." class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface resize-none"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Page 4: Resumen -->
+                    <div id="page4" class="hidden space-y-4">
+                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">4. Confirmación</h3>
+                        <div class="bg-surface-container-low p-5 rounded-xl border border-outline-variant/30 flex flex-col items-center justify-center text-center py-8">
+                            <div class="w-16 h-16 bg-[#10b981]/20 text-[#10b981] rounded-full flex items-center justify-center mb-4">
+                                <span class="material-symbols-outlined text-4xl">check_circle</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-[#001F3F] mb-2">Recepción lista para guardar</h4>
+                            <p class="text-sm text-on-surface-variant max-w-sm">Los datos de la recepción han sido completados. Al hacer clic en "Finalizar", el material ingresará al inventario con estado "Confirmado" o "Con Discrepancia" según sus observaciones.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footer / Guia de pagina -->
+                <div class="px-6 py-4 border-t border-outline-variant/30 bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <!-- Stepper Indicators -->
+                    <div class="flex gap-2 sm:gap-4 items-center w-full sm:w-auto justify-between sm:justify-start">
+                        <div class="flex flex-col items-center group cursor-pointer w-12 sm:w-16" onclick="window.goToPage(1)">
+                            <div id="dot1" class="w-full h-2 rounded-full bg-[#001F3F] transition-all"></div>
+                            <span id="text1" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-[#001F3F] uppercase tracking-wider text-center">1. Datos</span>
+                        </div>
+                        <div class="flex flex-col items-center group cursor-pointer w-12 sm:w-16" onclick="window.goToPage(2)">
+                            <div id="dot2" class="w-full h-2 rounded-full bg-outline-variant transition-all"></div>
+                            <span id="text2" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-on-surface-variant uppercase tracking-wider text-center">2. Foto</span>
+                        </div>
+                        <div class="flex flex-col items-center group cursor-pointer w-12 sm:w-16" onclick="window.goToPage(3)">
+                            <div id="dot3" class="w-full h-2 rounded-full bg-outline-variant transition-all"></div>
+                            <span id="text3" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-on-surface-variant uppercase tracking-wider text-center">3. Validar</span>
+                        </div>
+                        <div class="flex flex-col items-center group cursor-pointer w-12 sm:w-16" onclick="window.goToPage(4)">
+                            <div id="dot4" class="w-full h-2 rounded-full bg-outline-variant transition-all"></div>
+                            <span id="text4" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-on-surface-variant uppercase tracking-wider text-center">4. Fin</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="flex gap-3 w-full sm:w-auto justify-end mt-2 sm:mt-0">
+                        <button id="btnPrevPage" class="px-5 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface hover:bg-surface transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>Atrás</button>
+                        <button id="btnNextPage" class="px-5 py-2.5 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg text-sm font-bold transition-all shadow-md active:scale-95">Siguiente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -422,6 +564,95 @@
                     mobileMenu.classList.toggle('hidden');
                     btnMobileMenu.querySelector('span').innerText = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
                 };
+            }
+
+            // Modal & Pagination Logic
+            const modal = document.getElementById('modalNuevoIngreso');
+            const btnNuevaRecepcion = document.getElementById('btnNuevaRecepcion');
+            const btnCloseModal = document.getElementById('btnCloseModal');
+            
+            if (btnNuevaRecepcion && modal) {
+                btnNuevaRecepcion.addEventListener('click', () => {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    // setTimeout for transition
+                    setTimeout(() => {
+                        modal.classList.remove('opacity-0');
+                        modal.querySelector('div').classList.remove('scale-95');
+                    }, 10);
+                });
+            }
+            
+            function closeModal() {
+                modal.classList.add('opacity-0');
+                modal.querySelector('div').classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 300);
+            }
+            
+            if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+            
+            let currentPage = 1;
+            const totalPages = 4;
+            const btnPrev = document.getElementById('btnPrevPage');
+            const btnNext = document.getElementById('btnNextPage');
+            
+            window.goToPage = function(page) {
+                if (page < 1 || page > totalPages) return;
+                
+                // Hide all pages
+                for (let i = 1; i <= totalPages; i++) {
+                    document.getElementById(`page${i}`).classList.add('hidden');
+                    const dot = document.getElementById(`dot${i}`);
+                    const text = document.getElementById(`text${i}`);
+                    
+                    if (i <= page) {
+                        dot.classList.replace('bg-outline-variant', 'bg-[#001F3F]');
+                        text.classList.replace('text-on-surface-variant', 'text-[#001F3F]');
+                    } else {
+                        dot.classList.replace('bg-[#001F3F]', 'bg-outline-variant');
+                        text.classList.replace('text-[#001F3F]', 'text-on-surface-variant');
+                    }
+                }
+                
+                // Show selected page
+                document.getElementById(`page${page}`).classList.remove('hidden');
+                
+                // Update buttons
+                if (btnPrev) btnPrev.disabled = page === 1;
+                
+                if (btnNext) {
+                    if (page === totalPages) {
+                        btnNext.innerHTML = '<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">save</span> Finalizar</span>';
+                        btnNext.classList.replace('bg-[#10b981]', 'bg-[#001F3F]');
+                        btnNext.classList.replace('hover:bg-[#059669]', 'hover:bg-[#001c3a]');
+                    } else {
+                        btnNext.innerHTML = 'Siguiente';
+                        btnNext.classList.replace('bg-[#001F3F]', 'bg-[#10b981]');
+                        btnNext.classList.replace('hover:bg-[#001c3a]', 'hover:bg-[#059669]');
+                    }
+                }
+                
+                currentPage = page;
+            };
+            
+            if (btnPrev) btnPrev.addEventListener('click', () => window.goToPage(currentPage - 1));
+            if (btnNext) {
+                btnNext.addEventListener('click', () => {
+                    if (currentPage === totalPages) {
+                        // Action on finish
+                        closeModal();
+                        // Reset to page 1 for next time
+                        setTimeout(() => window.goToPage(1), 300);
+                        
+                        // Show a mock notification
+                        alert("Recepción guardada con éxito.");
+                    } else {
+                        window.goToPage(currentPage + 1);
+                    }
+                });
             }
         });
     </script>
