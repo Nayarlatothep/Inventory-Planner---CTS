@@ -216,19 +216,19 @@
         <!-- KPI Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-xl">
             <!-- Card 1: Recibidos Hoy -->
-            <div class="relative overflow-hidden bg-emerald-50 p-6 rounded-2xl shadow-sm border border-emerald-200 group hover:shadow-md transition-all duration-300">
-                <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-white/20 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+            <div class="relative overflow-hidden bg-emerald-700 p-6 rounded-2xl shadow-lg border border-emerald-600 group hover:shadow-xl transition-all duration-300 text-white">
+                <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-white/10 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
                 <div class="relative flex flex-col h-full">
                     <div class="flex justify-between items-start mb-4">
-                        <div class="p-3 bg-white text-emerald-700 rounded-xl transition-transform group-hover:rotate-12 shadow-sm">
+                        <div class="p-3 bg-white/10 text-white rounded-xl transition-transform group-hover:rotate-12 backdrop-blur-sm border border-white/10">
                             <span class="material-symbols-outlined text-[24px]">assignment_turned_in</span>
                         </div>
-                        <span class="px-2 py-1 bg-white/50 text-emerald-700 text-[10px] font-bold rounded-md border border-emerald-200">HOY</span>
+                        <span class="px-2 py-1 bg-white/20 text-white text-[10px] font-bold rounded-md border border-white/20">HOY</span>
                     </div>
-                    <h4 class="text-[11px] font-bold text-emerald-800/60 uppercase tracking-wider mb-1">Recepciones del Día</h4>
+                    <h4 class="text-[11px] font-bold text-white/70 uppercase tracking-wider mb-1">Recepciones del Día</h4>
                     <div class="flex items-baseline gap-2">
-                        <div id="kpiHoy" class="text-3xl font-black text-emerald-900">0</div>
-                        <div class="flex items-center text-emerald-700 text-[10px] font-bold">
+                        <div id="kpiHoy" class="text-3xl font-black text-white">0</div>
+                        <div class="flex items-center text-emerald-200 text-[10px] font-bold">
                             <span class="material-symbols-outlined text-[14px]">trending_up</span>
                             <span id="kpiTrendHoy">+0%</span>
                         </div>
@@ -237,35 +237,35 @@
             </div>
 
             <!-- Card 2: Ordenes Abiertas -->
-            <div class="relative overflow-hidden bg-blue-50 p-6 rounded-2xl shadow-sm border border-blue-200 group hover:shadow-md transition-all duration-300">
-                <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-white/20 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+            <div class="relative overflow-hidden bg-blue-700 p-6 rounded-2xl shadow-lg border border-blue-600 group hover:shadow-xl transition-all duration-300 text-white">
+                <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-white/10 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
                 <div class="relative flex flex-col h-full">
                     <div class="flex justify-between items-start mb-4">
-                        <div class="p-3 bg-white text-blue-700 rounded-xl transition-transform group-hover:rotate-12 shadow-sm">
+                        <div class="p-3 bg-white/10 text-white rounded-xl transition-transform group-hover:rotate-12 backdrop-blur-sm border border-white/10">
                             <span class="material-symbols-outlined text-[24px]">pending_actions</span>
                         </div>
                     </div>
-                    <h4 class="text-[11px] font-bold text-blue-800/60 uppercase tracking-wider mb-1">Ordenes Abiertas</h4>
+                    <h4 class="text-[11px] font-bold text-white/70 uppercase tracking-wider mb-1">Ordenes Abiertas</h4>
                     <div class="flex items-baseline gap-2">
-                        <div id="kpiTransito" class="text-3xl font-black text-blue-900">0</div>
-                        <span class="text-blue-600/60 text-[10px] font-medium uppercase tracking-tight font-bold">Pendientes</span>
+                        <div id="kpiTransito" class="text-3xl font-black text-white">0</div>
+                        <span class="text-blue-200 text-[10px] font-medium uppercase tracking-tight font-bold">Pendientes</span>
                     </div>
                 </div>
             </div>
 
             <!-- Card 3: Ordenes con Problemas -->
-            <div class="relative overflow-hidden bg-red-50 p-6 rounded-2xl shadow-sm border border-red-200 group hover:shadow-md transition-all duration-300">
-                <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-white/20 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+            <div class="relative overflow-hidden bg-red-700 p-6 rounded-2xl shadow-lg border border-red-600 group hover:shadow-xl transition-all duration-300 text-white">
+                <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-white/10 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
                 <div class="relative flex flex-col h-full">
                     <div class="flex justify-between items-start mb-4">
-                        <div class="p-3 bg-white text-red-700 rounded-xl transition-transform group-hover:rotate-12 shadow-sm">
+                        <div class="p-3 bg-white/10 text-white rounded-xl transition-transform group-hover:rotate-12 backdrop-blur-sm border border-white/10">
                             <span class="material-symbols-outlined text-[24px]">report_problem</span>
                         </div>
                     </div>
-                    <h4 class="text-[11px] font-bold text-red-800/60 uppercase tracking-wider mb-1">Con Problemas</h4>
+                    <h4 class="text-[11px] font-bold text-white/70 uppercase tracking-wider mb-1">Con Problemas</h4>
                     <div class="flex items-baseline gap-2">
-                        <div id="kpiProblemas" class="text-3xl font-black text-red-900">0</div>
-                        <span class="text-red-700 text-[10px] font-bold bg-white/50 px-2 py-0.5 rounded border border-red-200">Crítico</span>
+                        <div id="kpiProblemas" class="text-3xl font-black text-white">0</div>
+                        <span class="text-white text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded border border-white/20">Crítico</span>
                     </div>
                 </div>
             </div>
