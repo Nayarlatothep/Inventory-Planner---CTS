@@ -242,15 +242,15 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-emerald-100 p-lg rounded-lg soft-lift border border-emerald-200 flex gap-md">
+            <div class="bg-error-container p-lg rounded-lg soft-lift border border-error/10 flex gap-md">
                 <div class="flex-shrink-0">
-                    <span class="material-symbols-outlined text-emerald-800 bg-white/40 p-2 rounded-lg text-[24px]">verified</span>
+                    <span class="material-symbols-outlined text-error bg-white/40 p-2 rounded-lg text-[24px]">report_problem</span>
                 </div>
                 <div class="flex-grow">
-                    <h4 class="font-label-caps text-[10px] md:text-label-caps text-emerald-800/70 uppercase mb-xs font-bold">Total OC Recibidas</h4>
+                    <h4 class="font-label-caps text-[10px] md:text-label-caps text-error/70 uppercase mb-xs font-bold">Ordenes con problemas</h4>
                     <div class="flex items-baseline gap-2">
-                        <div id="kpiTotalRecibidas" class="font-h2 text-2xl md:text-h2 text-emerald-800 font-black">0</div>
-                        <p class="font-body-sm text-xs text-emerald-800/80 font-medium">De todas las fechas</p>
+                        <div id="kpiProblemas" class="font-h2 text-2xl md:text-h2 text-error font-black">0</div>
+                        <p class="font-body-sm text-xs text-error/80 font-medium">Parciales o Rechazados</p>
                     </div>
                 </div>
             </div>
@@ -979,8 +979,8 @@
                 const tableRows = document.querySelectorAll('#receptionTableBody tr');
                 
                 let countHoy = 0;
-                let countTotalRecibidas = 0;
                 let countTransito = 0;
+                let countProblemas = 0;
                 let lastMaterial = '-';
                 let lastDate = '-';
 
@@ -993,7 +993,6 @@
                     const estado = row.cells[6].innerText.trim();
 
                     if (estado === 'Recibido') {
-                        countTotalRecibidas++;
                         if (fecha === today) {
                             countHoy++;
                         }
@@ -1002,20 +1001,22 @@
                             lastDate = fecha;
                             lastMaterial = material;
                         }
-                    } else if (estado === 'Ordenes abiertas' || estado === 'Parcial') {
+                    } else if (estado === 'Ordenes abiertas') {
                         countTransito++;
+                    } else if (estado === 'Parcial' || estado === 'Rechazado') {
+                        countProblemas++;
                     }
                 });
 
                 const kpiHoy = document.getElementById('kpiHoy');
                 const kpiTransito = document.getElementById('kpiTransito');
-                const kpiTotalRecibidas = document.getElementById('kpiTotalRecibidas');
+                const kpiProblemas = document.getElementById('kpiProblemas');
                 const kpiUltimaFecha = document.getElementById('kpiUltimaFecha');
                 const kpiUltimaMaterial = document.getElementById('kpiUltimaMaterial');
 
                 if (kpiHoy) kpiHoy.innerText = countHoy;
                 if (kpiTransito) kpiTransito.innerText = countTransito;
-                if (kpiTotalRecibidas) kpiTotalRecibidas.innerText = countTotalRecibidas;
+                if (kpiProblemas) kpiProblemas.innerText = countProblemas;
                 if (lastDate !== '-') {
                     if (kpiUltimaFecha) kpiUltimaFecha.innerText = lastDate;
                     if (kpiUltimaMaterial) kpiUltimaMaterial.innerText = lastMaterial;
