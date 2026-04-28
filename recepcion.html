@@ -470,9 +470,49 @@
                         </div>
                     </div>
                     
-                    <!-- Page 3: Validacion -->
+                    <!-- Page 3: Proveedor -->
                     <div id="page3" class="hidden space-y-4">
-                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">3. Validación de Calidad</h3>
+                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">3. Proveedor</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Proveedor</label>
+                                <input type="text" placeholder="Nombre del proveedor" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1"># de Factura</label>
+                                <input type="text" placeholder="Número de factura" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Lote</label>
+                                <input type="text" placeholder="Número de lote" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de Manufactura</label>
+                                <input type="date" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de recibo</label>
+                                <input type="date" id="inputFechaRecibo" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Responsable</label>
+                                <input type="text" placeholder="Nombre del responsable" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Estado de material</label>
+                                <select class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                    <option>Seleccione estado...</option>
+                                    <option>Recibido</option>
+                                    <option>Parcial</option>
+                                    <option>Rechazado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 4: Validacion -->
+                    <div id="page4" class="hidden space-y-4">
+                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">4. Validación de Calidad</h3>
                         <div class="space-y-4 bg-surface p-4 rounded-xl border border-outline-variant/30">
                             <p class="text-sm text-on-surface-variant mb-4">Verifique el estado físico del empaque y del material.</p>
                             
@@ -499,15 +539,15 @@
                         </div>
                     </div>
                     
-                    <!-- Page 4: Resumen -->
-                    <div id="page4" class="hidden space-y-4">
-                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">4. Confirmación</h3>
+                    <!-- Page 5: PDF -->
+                    <div id="page5" class="hidden space-y-4">
+                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">5. PDF</h3>
                         <div class="bg-surface-container-low p-5 rounded-xl border border-outline-variant/30 flex flex-col items-center justify-center text-center py-8">
                             <div class="w-16 h-16 bg-[#10b981]/20 text-[#10b981] rounded-full flex items-center justify-center mb-4">
-                                <span class="material-symbols-outlined text-4xl">check_circle</span>
+                                <span class="material-symbols-outlined text-4xl">picture_as_pdf</span>
                             </div>
-                            <h4 class="text-lg font-bold text-[#001F3F] mb-2">Recepción lista para guardar</h4>
-                            <p class="text-sm text-on-surface-variant max-w-sm">Los datos de la recepción han sido completados. Al hacer clic en "Finalizar", el material ingresará al inventario con estado "Confirmado" o "Con Discrepancia" según sus observaciones.</p>
+                            <h4 class="text-lg font-bold text-[#001F3F] mb-2">Recepción lista para generar PDF</h4>
+                            <p class="text-sm text-on-surface-variant max-w-sm">Los datos de la recepción han sido completados. Al hacer clic en "Finalizar", se generará el documento PDF y el material ingresará al inventario.</p>
                         </div>
                     </div>
                 </div>
@@ -515,22 +555,26 @@
                 <!-- Footer / Guia de pagina -->
                 <div class="px-6 py-4 border-t border-outline-variant/30 bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-4">
                     <!-- Stepper Indicators -->
-                    <div class="flex gap-2 sm:gap-4 items-center w-full sm:w-auto justify-between sm:justify-start">
-                        <div class="flex flex-col items-center group cursor-pointer w-12 sm:w-16" onclick="window.goToPage(1)">
+                    <div class="flex gap-1 sm:gap-2 items-center w-full sm:w-auto justify-between sm:justify-start">
+                        <div class="flex flex-col items-center group cursor-pointer w-10 sm:w-12" onclick="window.goToPage(1)">
                             <div id="dot1" class="w-full h-2 rounded-full bg-[#001F3F] transition-all"></div>
                             <span id="text1" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-[#001F3F] uppercase tracking-wider text-center">1. Datos</span>
                         </div>
-                        <div class="flex flex-col items-center group cursor-pointer w-12 sm:w-16" onclick="window.goToPage(2)">
+                        <div class="flex flex-col items-center group cursor-pointer w-10 sm:w-12" onclick="window.goToPage(2)">
                             <div id="dot2" class="w-full h-2 rounded-full bg-outline-variant transition-all"></div>
                             <span id="text2" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-on-surface-variant uppercase tracking-wider text-center">2. Foto</span>
                         </div>
-                        <div class="flex flex-col items-center group cursor-pointer w-12 sm:w-16" onclick="window.goToPage(3)">
+                        <div class="flex flex-col items-center group cursor-pointer w-10 sm:w-12" onclick="window.goToPage(3)">
                             <div id="dot3" class="w-full h-2 rounded-full bg-outline-variant transition-all"></div>
-                            <span id="text3" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-on-surface-variant uppercase tracking-wider text-center">3. Validar</span>
+                            <span id="text3" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-on-surface-variant uppercase tracking-wider text-center">3. Prov.</span>
                         </div>
-                        <div class="flex flex-col items-center group cursor-pointer w-12 sm:w-16" onclick="window.goToPage(4)">
+                        <div class="flex flex-col items-center group cursor-pointer w-10 sm:w-12" onclick="window.goToPage(4)">
                             <div id="dot4" class="w-full h-2 rounded-full bg-outline-variant transition-all"></div>
-                            <span id="text4" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-on-surface-variant uppercase tracking-wider text-center">4. Fin</span>
+                            <span id="text4" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-on-surface-variant uppercase tracking-wider text-center">4. Validar</span>
+                        </div>
+                        <div class="flex flex-col items-center group cursor-pointer w-10 sm:w-12" onclick="window.goToPage(5)">
+                            <div id="dot5" class="w-full h-2 rounded-full bg-outline-variant transition-all"></div>
+                            <span id="text5" class="text-[9px] sm:text-[10px] font-bold mt-1.5 text-on-surface-variant uppercase tracking-wider text-center">5. PDF</span>
                         </div>
                     </div>
                     
@@ -595,7 +639,12 @@
             if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
             
             let currentPage = 1;
-            const totalPages = 4;
+            const totalPages = 5;
+
+            const dateInput = document.getElementById('inputFechaRecibo');
+            if (dateInput) {
+                dateInput.valueAsDate = new Date();
+            }
             const btnPrev = document.getElementById('btnPrevPage');
             const btnNext = document.getElementById('btnNextPage');
             
