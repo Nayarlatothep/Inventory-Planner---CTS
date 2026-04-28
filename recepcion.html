@@ -327,7 +327,7 @@
                         </td>
                         <td class="px-md py-md text-right">
                             <div class="flex justify-end gap-2">
-                                <button class="p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
                                 <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
                             </div>
                         </td>
@@ -353,7 +353,7 @@
                         </td>
                         <td class="px-md py-md text-right">
                             <div class="flex justify-end gap-2">
-                                <button class="p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
                                 <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
                             </div>
                         </td>
@@ -379,7 +379,7 @@
                         </td>
                         <td class="px-md py-md text-right">
                             <div class="flex justify-end gap-2">
-                                <button class="p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
                                 <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
                             </div>
                         </td>
@@ -405,7 +405,7 @@
                         </td>
                         <td class="px-md py-md text-right">
                             <div class="flex justify-end gap-2">
-                                <button class="p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
                                 <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
                             </div>
                         </td>
@@ -431,7 +431,7 @@
                         </td>
                         <td class="px-md py-md text-right">
                             <div class="flex justify-end gap-2">
-                                <button class="p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
                                 <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
                             </div>
                         </td>
@@ -457,7 +457,7 @@
                         </td>
                         <td class="px-md py-md text-right">
                             <div class="flex justify-end gap-2">
-                                <button class="p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
                                 <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
                             </div>
                         </td>
@@ -971,6 +971,60 @@
                     }
                 });
             }
+
+            // View Reception Logic
+            function initViewButtons() {
+                document.querySelectorAll('.btn-view-reception').forEach(btn => {
+                    btn.onclick = (e) => {
+                        const row = btn.closest('tr');
+                        const oc = row.cells[2].innerText.trim();
+                        const material = row.cells[1].querySelector('.font-semibold').innerText;
+                        const categoria = row.cells[1].querySelector('.text-xs').innerText;
+                        const cantidadStr = row.cells[3].innerText;
+                        const responsable = row.cells[4].innerText;
+                        const fecha = row.cells[5].innerText;
+                        const estado = row.cells[6].innerText.trim();
+                        
+                        // Populate hidden form inputs for summary generation
+                        document.getElementById('inputOC').value = oc;
+                        document.getElementById('inputMaterial').value = material;
+                        document.getElementById('inputCategoria').value = categoria;
+                        document.getElementById('inputCantRecepcionada').value = cantidadStr.split(' ')[0];
+                        document.getElementById('inputUnidades').value = cantidadStr.split(' ')[0];
+                        document.getElementById('inputResponsable').value = responsable === '-' ? '' : responsable;
+                        document.getElementById('inputFechaRecibo').value = fecha === '-' ? '' : fecha;
+                        
+                        // Handle state for select
+                        const selectEstado = document.getElementById('selectEstado');
+                        if (estado === 'En tránsito' || estado === '-') {
+                            selectEstado.value = "";
+                        } else {
+                            selectEstado.value = estado;
+                        }
+                        
+                        // Reset or mock other data
+                        document.getElementById('inputSKU').value = mockOCData[oc]?.sku || 'N/A';
+                        document.getElementById('inputProveedor').value = '-';
+                        document.getElementById('inputFactura').value = '-';
+                        document.getElementById('inputLote').value = '-';
+                        document.getElementById('inputFechaManuf').value = '';
+                        document.getElementById('checkEmpaque').checked = (estado !== 'En tránsito');
+                        document.getElementById('checkCantidad').checked = (estado !== 'En tránsito');
+                        document.getElementById('inputObservaciones').value = '';
+                        
+                        // Open Modal and go to Summary
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                        setTimeout(() => {
+                            modal.classList.remove('opacity-0');
+                            modal.querySelector('div').classList.remove('scale-95');
+                            window.goToPage(5);
+                        }, 10);
+                    };
+                });
+            }
+            initViewButtons();
+
             const btnPrev = document.getElementById('btnPrevPage');
             const btnNext = document.getElementById('btnNextPage');
             
