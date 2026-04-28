@@ -225,7 +225,7 @@
                         <span class="text-emerald-700 text-label-caps font-black">+12%</span>
                     </div>
                     <div class="flex items-baseline gap-2">
-                        <div class="font-h2 text-2xl md:text-h2 text-[#001F3F] font-black">0</div>
+                        <div id="kpiHoy" class="font-h2 text-2xl md:text-h2 text-[#001F3F] font-black">0</div>
                         <p class="font-body-sm text-xs text-[#001F3F]/80 font-medium">Llegadas confirmadas</p>
                     </div>
                 </div>
@@ -237,20 +237,20 @@
                 <div class="flex-grow">
                     <h4 class="font-label-caps text-[10px] md:text-label-caps text-[#001F3F]/70 uppercase mb-xs font-bold">En tránsito</h4>
                     <div class="flex items-baseline gap-2">
-                        <div class="font-h2 text-2xl md:text-h2 text-[#001F3F] font-black">8</div>
+                        <div id="kpiTransito" class="font-h2 text-2xl md:text-h2 text-[#001F3F] font-black">0</div>
                         <p class="font-body-sm text-xs text-[#001F3F]/80 font-medium">Esperando llegada</p>
                     </div>
                 </div>
             </div>
-            <div class="bg-error-container p-lg rounded-lg soft-lift border border-error/10 flex gap-md">
+            <div class="bg-emerald-100 p-lg rounded-lg soft-lift border border-emerald-200 flex gap-md">
                 <div class="flex-shrink-0">
-                    <span class="material-symbols-outlined text-error bg-white/40 p-2 rounded-lg text-[24px]" style="font-variation-settings: 'FILL' 1;">schedule</span>
+                    <span class="material-symbols-outlined text-emerald-800 bg-white/40 p-2 rounded-lg text-[24px]">verified</span>
                 </div>
                 <div class="flex-grow">
-                    <h4 class="font-label-caps text-[10px] md:text-label-caps text-error/70 uppercase mb-xs font-bold">Por recibir (crítico)</h4>
+                    <h4 class="font-label-caps text-[10px] md:text-label-caps text-emerald-800/70 uppercase mb-xs font-bold">Total OC Recibidas</h4>
                     <div class="flex items-baseline gap-2">
-                        <div class="font-h2 text-2xl md:text-h2 text-error font-black">2</div>
-                        <p class="font-body-sm text-xs text-error/80 font-medium">Retraso en entrega</p>
+                        <div id="kpiTotalRecibidas" class="font-h2 text-2xl md:text-h2 text-emerald-800 font-black">0</div>
+                        <p class="font-body-sm text-xs text-emerald-800/80 font-medium">De todas las fechas</p>
                     </div>
                 </div>
             </div>
@@ -261,8 +261,8 @@
                 <div class="flex-grow overflow-hidden">
                     <h4 class="font-label-caps text-[10px] md:text-label-caps text-[#001F3F]/70 uppercase mb-xs whitespace-nowrap font-bold">Última recepción</h4>
                     <div class="flex items-baseline gap-2">
-                        <div class="font-bold text-sm md:text-base text-[#001F3F] whitespace-nowrap">25/04/2026</div>
-                        <p class="font-body-sm text-[10px] md:text-xs text-[#001F3F]/80 truncate font-medium">Cinta reflectante 3M</p>
+                        <div id="kpiUltimaFecha" class="font-bold text-sm md:text-base text-[#001F3F] whitespace-nowrap">-</div>
+                        <p id="kpiUltimaMaterial" class="font-body-sm text-[10px] md:text-xs text-[#001F3F]/80 truncate font-medium">-</p>
                     </div>
                 </div>
             </div>
@@ -974,6 +974,55 @@
                 });
             }
 
+            function updateKPIs() {
+                const today = new Date().toISOString().split('T')[0];
+                const tableRows = document.querySelectorAll('#receptionTableBody tr');
+                
+                let countHoy = 0;
+                let countTotalRecibidas = 0;
+                let countTransito = 0;
+                let lastMaterial = '-';
+                let lastDate = '-';
+
+                tableRows.forEach(row => {
+                    const materialElement = row.cells[1].querySelector('.font-semibold');
+                    if (!materialElement) return;
+                    
+                    const material = materialElement.innerText;
+                    const fecha = row.cells[5].innerText.trim();
+                    const estado = row.cells[6].innerText.trim();
+
+                    if (estado === 'Recibido') {
+                        countTotalRecibidas++;
+                        if (fecha === today) {
+                            countHoy++;
+                        }
+                        // Lógica para última recepción
+                        if (fecha !== '-' && (lastDate === '-' || fecha >= lastDate)) {
+                            lastDate = fecha;
+                            lastMaterial = material;
+                        }
+                    } else if (estado === 'En tránsito' || estado === 'Parcial') {
+                        countTransito++;
+                    }
+                });
+
+                const kpiHoy = document.getElementById('kpiHoy');
+                const kpiTransito = document.getElementById('kpiTransito');
+                const kpiTotalRecibidas = document.getElementById('kpiTotalRecibidas');
+                const kpiUltimaFecha = document.getElementById('kpiUltimaFecha');
+                const kpiUltimaMaterial = document.getElementById('kpiUltimaMaterial');
+
+                if (kpiHoy) kpiHoy.innerText = countHoy;
+                if (kpiTransito) kpiTransito.innerText = countTransito;
+                if (kpiTotalRecibidas) kpiTotalRecibidas.innerText = countTotalRecibidas;
+                if (lastDate !== '-') {
+                    if (kpiUltimaFecha) kpiUltimaFecha.innerText = lastDate;
+                    if (kpiUltimaMaterial) kpiUltimaMaterial.innerText = lastMaterial;
+                }
+            }
+            updateKPIs();
+
             // View Reception Logic
             function initViewButtons() {
                 document.querySelectorAll('.btn-view-reception').forEach(btn => {
@@ -1273,6 +1322,9 @@
                         closeModal();
                         // Reset to page 1 for next time
                         setTimeout(() => window.goToPage(1), 300);
+                        
+                        // Actualizar KPIs
+                        updateKPIs();
                         
                         // Show a mock notification
                         alert("Recepción finalizada. Se ha actualizado el estado de la OC " + ocValue + " en la tabla.");
