@@ -305,6 +305,7 @@
                         <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Acciones</th>
                     </tr>
                 </thead>
+                <tbody id="receptionTableBody">
                     <tr class="hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
                         <td class="px-md py-md">
                             <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
@@ -947,6 +948,29 @@
             if (dateInput) {
                 dateInput.valueAsDate = new Date();
             }
+
+            // OC Selection Logic
+            const inputOCField = document.getElementById('inputOC');
+            const mockOCData = {
+                'OC-12345': { material: 'Aceite Motor 15W-40', sku: 'LU-001', categoria: 'Lubricantes', unidades: 20 },
+                'OC-12348': { material: 'Filtro de Aire XL', sku: 'RP-042', categoria: 'Repuestos', unidades: 5 },
+                'OC-12352': { material: 'EPI Chalecos Reflectantes', sku: 'SG-009', categoria: 'Seguridad', unidades: 50 },
+                'OC-12360': { material: 'Batería 12V 75Ah', sku: 'RP-088', categoria: 'Repuestos', unidades: 2 },
+                'OC-12365': { material: 'Kit de Herramientas', sku: 'HT-015', categoria: 'Herramientas', unidades: 1 },
+                'OC-12370': { material: 'Neumático Frontal', sku: 'RP-102', categoria: 'Repuestos', unidades: 4 }
+            };
+
+            if (inputOCField) {
+                inputOCField.addEventListener('input', (e) => {
+                    const data = mockOCData[e.target.value];
+                    if (data) {
+                        document.getElementById('inputMaterial').value = data.material;
+                        document.getElementById('inputSKU').value = data.sku;
+                        document.getElementById('inputCategoria').value = data.categoria;
+                        document.getElementById('inputUnidades').value = data.unidades;
+                    }
+                });
+            }
             const btnPrev = document.getElementById('btnPrevPage');
             const btnNext = document.getElementById('btnNextPage');
             
@@ -1158,12 +1182,40 @@
 
                     if (currentPage === totalPages) {
                         // Action on finish
+                        const ocValue = document.getElementById('inputOC').value;
+                        const responsableValue = document.getElementById('inputResponsable').value;
+                        const estadoValue = document.getElementById('selectEstado').value;
+                        const fechaValue = document.getElementById('inputFechaRecibo').value;
+
+                        // Actualizar la tabla principal
+                        const tableRows = document.querySelectorAll('#receptionTableBody tr');
+                        tableRows.forEach(row => {
+                            const ocCell = row.cells[2];
+                            if (ocCell && ocCell.innerText.trim() === ocValue) {
+                                // Actualizar Recepcionista (Columna 5)
+                                row.cells[4].innerText = responsableValue || '-';
+                                
+                                // Actualizar Fecha (Columna 6)
+                                row.cells[5].innerText = fechaValue || '-';
+
+                                // Actualizar Estado (Columna 7)
+                                let badgeClass = 'bg-blue-100 text-blue-800';
+                                if (estadoValue === 'Recibido') badgeClass = 'bg-emerald-100 text-emerald-800';
+                                else if (estadoValue === 'Parcial') badgeClass = 'bg-amber-100 text-amber-800';
+                                else if (estadoValue === 'Rechazado') badgeClass = 'bg-red-100 text-red-800';
+
+                                if (estadoValue) {
+                                    row.cells[6].innerHTML = `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${badgeClass}">${estadoValue}</span>`;
+                                }
+                            }
+                        });
+
                         closeModal();
                         // Reset to page 1 for next time
                         setTimeout(() => window.goToPage(1), 300);
                         
                         // Show a mock notification
-                        alert("Recepción guardada con éxito.");
+                        alert("Recepción finalizada. Se ha actualizado el estado de la OC " + ocValue + " en la tabla.");
                     } else {
                         window.goToPage(currentPage + 1);
                     }
