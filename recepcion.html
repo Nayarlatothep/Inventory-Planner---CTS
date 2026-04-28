@@ -230,7 +230,7 @@
                         <div id="kpiHoy" class="text-3xl font-black text-emerald-900">0</div>
                         <div class="flex items-center text-emerald-700 text-[10px] font-bold">
                             <span class="material-symbols-outlined text-[14px]">trending_up</span>
-                            <span>+12%</span>
+                            <span id="kpiTrendHoy">+0%</span>
                         </div>
                     </div>
                 </div>
@@ -276,7 +276,7 @@
                     <span class="material-symbols-outlined text-[80px]">analytics</span>
                 </div>
                 <h4 class="text-[10px] font-bold text-white/50 uppercase tracking-widest mb-3 flex justify-between items-center">
-                    Distribución Total
+                    Recepciones Totales
                     <span class="text-white/30 material-symbols-outlined text-[14px]">info</span>
                 </h4>
                 <div class="space-y-2.5">
@@ -1069,6 +1069,11 @@
                 if (kpiHoy) kpiHoy.innerText = countHoy;
                 if (kpiTransito) kpiTransito.innerText = countAbiertas;
                 if (kpiProblemas) kpiProblemas.innerText = countParciales + countRechazadas;
+
+                // Update Trend Indicator (Card 1)
+                const kpiTrendHoy = document.getElementById('kpiTrendHoy');
+                const pctRecibidas = total > 0 ? Math.round((countRecibidas / total) * 100) : 0;
+                if (kpiTrendHoy) kpiTrendHoy.innerText = `${pctRecibidas}%`;
 
                 // Update Summary Card (Distribution)
                 const updateStat = (idPrefix, count) => {
