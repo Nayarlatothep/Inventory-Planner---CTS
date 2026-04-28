@@ -227,19 +227,17 @@
     <main class="flex-grow px-4 md:px-margin py-6 md:py-xl max-w-7xl mx-auto w-full">
         <!-- Hero Editorial Header -->
         <section class="mb-12">
-            <div class="flex justify-between items-center mb-6">
-                <button id="btnNuevaRecepcion" class="bg-[#10b981] hover:bg-[#059669] text-white px-6 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all active:scale-95">
-                    <span class="material-symbols-outlined text-[20px]">add_circle</span>
-                    <span>Nueva Recepción</span>
-                </button>
-            </div>
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
                     <h1 class="text-4xl md:text-5xl font-black font-h2 text-[#001F3F] tracking-tighter">KPI Recepción</h1>
                     <p class="font-body-md text-sm text-on-surface-variant mt-2 max-w-xl">Monitoreo técnico de ingresos y validación de materiales en tiempo real.</p>
                 </div>
-                <div class="text-left md:text-right w-full md:w-auto flex flex-row md:flex-col justify-between items-center md:items-end bg-surface-container-low md:bg-transparent p-3 md:p-0 rounded-lg border border-outline-variant/10 md:border-none">
-                    <div class="md:block">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <button id="btnNuevaRecepcion" class="bg-[#10b981] hover:bg-[#059669] text-white px-6 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all active:scale-95">
+                        <span class="material-symbols-outlined text-[20px]">add_circle</span>
+                        <span>Nueva Recepción</span>
+                    </button>
+                    <div class="text-left md:text-right">
                         <p class="text-on-surface-variant text-[10px] font-bold uppercase font-h2">Última Actualización</p>
                         <p id="kpiTimestamp" class="font-bold text-[#001F3F] font-body text-sm md:text-base">-</p>
                     </div>
