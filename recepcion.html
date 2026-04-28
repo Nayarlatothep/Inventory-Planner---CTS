@@ -652,14 +652,105 @@
                         </div>
                     
                     <!-- Page 5: PDF -->
+                    <!-- Page 5: Orden de Compra (OC) -->
                     <div id="page5" class="hidden space-y-4">
-                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">5. Orden de Compra (OC)</h3>
-                        <div class="bg-surface-container-low p-5 rounded-xl border border-outline-variant/30 flex flex-col items-center justify-center text-center py-8">
-                            <div class="w-16 h-16 bg-[#10b981]/20 text-[#10b981] rounded-full flex items-center justify-center mb-4">
-                                <span class="material-symbols-outlined text-4xl">picture_as_pdf</span>
+                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">5. Resumen de Recepción (OC)</h3>
+                        
+                        <div class="bg-surface p-4 md:p-6 rounded-xl border border-outline-variant/30 space-y-6 max-h-[60vh] overflow-y-auto">
+                            <!-- Header Info -->
+                            <div class="flex justify-between items-start border-b border-outline-variant/20 pb-4">
+                                <div>
+                                    <h4 id="summaryMaterial" class="text-lg md:text-xl font-bold text-[#001F3F]">Nombre del Material</h4>
+                                    <p id="summarySKU" class="text-xs md:text-sm text-on-surface-variant font-mono">SKU-000000</p>
+                                </div>
+                                <div class="text-right">
+                                    <span id="summaryStatus" class="inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-emerald-100 text-emerald-800 uppercase">
+                                        ESTADO
+                                    </span>
+                                    <p id="summaryFecha" class="text-[10px] md:text-xs text-on-surface-variant mt-1">2026-04-27</p>
+                                </div>
                             </div>
-                            <h4 class="text-lg font-bold text-[#001F3F] mb-2">Recepción lista para generar PDF</h4>
-                            <p class="text-sm text-on-surface-variant max-w-sm">Los datos de la recepción han sido completados. Al hacer clic en "Finalizar", se generará el documento PDF y el material ingresará al inventario.</p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                                <!-- Left Column: Details -->
+                                <div class="space-y-4">
+                                    <section>
+                                        <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Información de Pedido</h5>
+                                        <div class="grid grid-cols-2 gap-y-2 text-sm">
+                                            <span class="text-on-surface-variant">Orden de Compra:</span>
+                                            <span id="summaryOC" class="font-semibold text-on-surface">-</span>
+                                            <span class="text-on-surface-variant">Categoría:</span>
+                                            <span id="summaryCategoria" class="font-semibold text-on-surface">-</span>
+                                            <span class="text-on-surface-variant">Cant. Esperada:</span>
+                                            <span id="summaryEsperada" class="font-semibold text-on-surface">-</span>
+                                            <span class="text-on-surface-variant">Cant. Recibida:</span>
+                                            <span id="summaryRecibida" class="font-bold text-primary-container text-base">-</span>
+                                        </div>
+                                    </section>
+
+                                    <section>
+                                        <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Datos del Proveedor</h5>
+                                        <div class="grid grid-cols-2 gap-y-2 text-sm">
+                                            <span class="text-on-surface-variant">Proveedor:</span>
+                                            <span id="summaryProveedor" class="font-semibold text-on-surface">-</span>
+                                            <span class="text-on-surface-variant">Factura #:</span>
+                                            <span id="summaryFactura" class="font-semibold text-on-surface">-</span>
+                                            <span class="text-on-surface-variant">Lote:</span>
+                                            <span id="summaryLote" class="font-semibold text-on-surface">-</span>
+                                            <span class="text-on-surface-variant">Manufactura:</span>
+                                            <span id="summaryManuf" class="font-semibold text-on-surface">-</span>
+                                        </div>
+                                    </section>
+
+                                    <section>
+                                        <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Validación & Calidad</h5>
+                                        <div class="space-y-1 text-sm">
+                                            <div class="flex items-center gap-2">
+                                                <span id="iconEmpaque" class="material-symbols-outlined text-emerald-500 text-base">check_circle</span>
+                                                <span class="text-on-surface">Empaque verificado e intacto</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span id="iconCantidad" class="material-symbols-outlined text-emerald-500 text-base">check_circle</span>
+                                                <span class="text-on-surface">Cantidades físicas validadas</span>
+                                            </div>
+                                            <div class="mt-2 p-2 bg-surface-container-low rounded text-xs italic text-on-surface-variant border border-outline-variant/10">
+                                                " <span id="summaryObs">Sin observaciones adicionales.</span> "
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+
+                                <!-- Right Column: Photo & Logistics -->
+                                <div class="space-y-4">
+                                    <section>
+                                        <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Evidencia Fotográfica</h5>
+                                        <div class="border border-outline-variant/30 rounded-lg overflow-hidden bg-slate-50 aspect-video flex items-center justify-center shadow-inner">
+                                            <img id="summaryPhoto" src="" class="w-full h-full object-contain" alt="Evidencia de recepción">
+                                            <div id="noPhotoMsg" class="hidden flex flex-col items-center text-on-surface-variant opacity-40">
+                                                <span class="material-symbols-outlined text-4xl">no_photography</span>
+                                                <span class="text-[10px] font-bold uppercase mt-1">Sin fotografía</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    
+                                    <section class="bg-secondary-container/30 p-4 rounded-lg border border-primary-container/10 flex items-center gap-3">
+                                        <div class="bg-primary-container text-white p-2 rounded-lg">
+                                            <span class="material-symbols-outlined text-[20px]">person</span>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="text-[10px] font-bold text-primary-container/70 uppercase leading-none mb-1">Responsable de Bodega</span>
+                                            <span id="summaryResponsable" class="text-sm font-bold text-primary-container">Nombre del Responsable</span>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/30 flex items-start sm:items-center gap-4">
+                            <div class="bg-[#10b981]/20 text-[#10b981] p-2 rounded-full flex-shrink-0">
+                                <span class="material-symbols-outlined">verified</span>
+                            </div>
+                            <p class="text-[10px] md:text-xs text-on-surface-variant">Revise que toda la información sea correcta antes de finalizar. Al hacer clic en <span class="font-bold">Finalizar</span>, el material ingresará formalmente al inventario central.</p>
                         </div>
                     </div>
                 </div>
@@ -865,6 +956,65 @@
             window.goToPage = function(page) {
                 if (page < 1 || page > totalPages) return;
                 
+                // Generar Resumen en Página 5
+                if (page === 5) {
+                    document.getElementById('summaryOC').innerText = document.getElementById('inputOC').value || '-';
+                    document.getElementById('summaryMaterial').innerText = document.getElementById('inputMaterial').value || '-';
+                    document.getElementById('summarySKU').innerText = document.getElementById('inputSKU').value || 'N/A';
+                    document.getElementById('summaryCategoria').innerText = document.getElementById('inputCategoria').value || '-';
+                    document.getElementById('summaryEsperada').innerText = document.getElementById('inputUnidades').value || '0';
+                    document.getElementById('summaryRecibida').innerText = document.getElementById('inputCantRecepcionada').value || '0';
+                    
+                    document.getElementById('summaryProveedor').innerText = document.getElementById('inputProveedor').value || '-';
+                    document.getElementById('summaryFactura').innerText = document.getElementById('inputFactura').value || '-';
+                    document.getElementById('summaryLote').innerText = document.getElementById('inputLote').value || '-';
+                    document.getElementById('summaryManuf').innerText = document.getElementById('inputFechaManuf').value || '-';
+                    document.getElementById('summaryResponsable').innerText = document.getElementById('inputResponsable').value || '-';
+                    
+                    const fechaRecibo = document.getElementById('inputFechaRecibo').value;
+                    document.getElementById('summaryFecha').innerText = fechaRecibo || new Date().toISOString().split('T')[0];
+                    
+                    const estado = document.getElementById('selectEstado').value;
+                    const summaryStatus = document.getElementById('summaryStatus');
+                    summaryStatus.innerText = estado ? estado.toUpperCase() : 'PENDIENTE';
+                    
+                    // Colores por estado
+                    if (estado === 'Recibido') {
+                        summaryStatus.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-emerald-100 text-emerald-800 uppercase';
+                    } else if (estado === 'Parcial') {
+                        summaryStatus.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-amber-100 text-amber-800 uppercase';
+                    } else if (estado === 'Rechazado') {
+                        summaryStatus.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-red-100 text-red-800 uppercase';
+                    }
+
+                    document.getElementById('summaryObs').innerText = document.getElementById('inputObservaciones').value || 'Sin observaciones adicionales.';
+                    
+                    // Foto
+                    const summaryPhoto = document.getElementById('summaryPhoto');
+                    const noPhotoMsg = document.getElementById('noPhotoMsg');
+                    if (currentImageData) {
+                        summaryPhoto.src = currentImageData;
+                        summaryPhoto.classList.remove('hidden');
+                        noPhotoMsg.classList.add('hidden');
+                    } else {
+                        summaryPhoto.src = "";
+                        summaryPhoto.classList.add('hidden');
+                        noPhotoMsg.classList.remove('hidden');
+                    }
+                    
+                    // Iconos de validación
+                    const checkEmpaque = document.getElementById('checkEmpaque').checked;
+                    const checkCantidad = document.getElementById('checkCantidad').checked;
+                    
+                    const iconEmpaque = document.getElementById('iconEmpaque');
+                    iconEmpaque.innerText = checkEmpaque ? 'check_circle' : 'cancel';
+                    iconEmpaque.className = checkEmpaque ? 'material-symbols-outlined text-emerald-500 text-base' : 'material-symbols-outlined text-error text-base';
+                    
+                    const iconCantidad = document.getElementById('iconCantidad');
+                    iconCantidad.innerText = checkCantidad ? 'check_circle' : 'cancel';
+                    iconCantidad.className = checkCantidad ? 'material-symbols-outlined text-emerald-500 text-base' : 'material-symbols-outlined text-error text-base';
+                }
+
                 // Hide all pages
                 for (let i = 1; i <= totalPages; i++) {
                     document.getElementById(`page${i}`).classList.add('hidden');
