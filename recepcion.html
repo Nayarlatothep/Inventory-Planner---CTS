@@ -594,15 +594,6 @@
                                 <label class="block text-sm font-medium text-on-surface-variant mb-1">Responsable</label>
                                 <input type="text" placeholder="Nombre del responsable" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
                             </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Estado de material</label>
-                                <select class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
-                                    <option>Seleccione estado...</option>
-                                    <option>Recibido</option>
-                                    <option>Parcial</option>
-                                    <option>Rechazado</option>
-                                </select>
-                            </div>
                         </div>
                     </div>
 
@@ -629,6 +620,16 @@
                             </label>
 
                             <div class="mt-4">
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Estado de material</label>
+                                <select class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                    <option>Seleccione estado...</option>
+                                    <option>Recibido</option>
+                                    <option>Parcial</option>
+                                    <option>Rechazado</option>
+                                </select>
+                            </div>
+
+                            <div class="mt-4">
                                 <label class="block text-sm font-medium text-on-surface-variant mb-1">Observaciones (Opcional)</label>
                                 <textarea rows="3" placeholder="Detalles sobre discrepancias o estado del material..." class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface resize-none"></textarea>
                             </div>
@@ -637,7 +638,7 @@
                     
                     <!-- Page 5: PDF -->
                     <div id="page5" class="hidden space-y-4">
-                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">5. PDF</h3>
+                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">5. Orden de Compra (OC)</h3>
                         <div class="bg-surface-container-low p-5 rounded-xl border border-outline-variant/30 flex flex-col items-center justify-center text-center py-8">
                             <div class="w-16 h-16 bg-[#10b981]/20 text-[#10b981] rounded-full flex items-center justify-center mb-4">
                                 <span class="material-symbols-outlined text-4xl">picture_as_pdf</span>
@@ -670,7 +671,7 @@
                         </div>
                         <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(5)">
                             <div id="dot5" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
-                            <span id="text5" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">5. PDF</span>
+                            <span id="text5" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">5. OC</span>
                         </div>
                     </div>
                     
