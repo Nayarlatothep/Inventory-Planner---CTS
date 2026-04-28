@@ -571,28 +571,33 @@
                         <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">3. Proveedor</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Proveedor</label>
-                                <input type="text" placeholder="Nombre del proveedor" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Proveedor *</label>
+                                <input type="text" id="inputProveedor" placeholder="Nombre del proveedor" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                <p id="errorProveedor" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1"># de Factura</label>
-                                <input type="text" placeholder="Número de factura" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1"># de Factura *</label>
+                                <input type="text" id="inputFactura" placeholder="Número de factura" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                <p id="errorFactura" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Lote</label>
-                                <input type="text" placeholder="Número de lote" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Lote *</label>
+                                <input type="text" id="inputLote" placeholder="Número de lote" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                <p id="errorLote" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de Manufactura</label>
-                                <input type="date" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de Manufactura *</label>
+                                <input type="date" id="inputFechaManuf" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                <p id="errorFechaManuf" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de recibo</label>
                                 <input type="date" id="inputFechaRecibo" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Responsable</label>
-                                <input type="text" placeholder="Nombre del responsable" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Responsable *</label>
+                                <input type="text" id="inputResponsable" placeholder="Nombre del responsable" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                <p id="errorResponsable" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
                             </div>
                         </div>
                     </div>
@@ -917,6 +922,34 @@
                             inputCant.classList.remove('border-error', 'ring-2', 'ring-error/20');
                             errorCant.classList.add('hidden');
                         }
+                        
+                        if (!isValid) return;
+                    }
+
+                    // Validación visual para la página 3
+                    if (currentPage === 3) {
+                        const fields = [
+                            { id: 'inputProveedor', errorId: 'errorProveedor' },
+                            { id: 'inputFactura', errorId: 'errorFactura' },
+                            { id: 'inputLote', errorId: 'errorLote' },
+                            { id: 'inputFechaManuf', errorId: 'errorFechaManuf' },
+                            { id: 'inputResponsable', errorId: 'errorResponsable' }
+                        ];
+                        
+                        let isValid = true;
+                        
+                        fields.forEach(field => {
+                            const input = document.getElementById(field.id);
+                            const error = document.getElementById(field.errorId);
+                            if (!input.value || !input.value.trim()) {
+                                input.classList.add('border-error', 'ring-2', 'ring-error/20');
+                                error.classList.remove('hidden');
+                                isValid = false;
+                            } else {
+                                input.classList.remove('border-error', 'ring-2', 'ring-error/20');
+                                error.classList.add('hidden');
+                            }
+                        });
                         
                         if (!isValid) return;
                     }
