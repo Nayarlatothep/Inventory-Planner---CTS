@@ -494,7 +494,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-on-surface-variant mb-1"># Pedido de compra</label>
-                                <input type="text" list="ocList" placeholder="Ej. OC-12345" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                <input type="text" id="inputOC" list="ocList" placeholder="Ej. OC-12345" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
                                 <datalist id="ocList">
                                     <option value="OC-12345">
                                     <option value="OC-12348">
@@ -506,15 +506,15 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-on-surface-variant mb-1">Nombre del material</label>
-                                <input type="text" placeholder="Descripción del material" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                <input type="text" id="inputMaterial" placeholder="Descripción del material" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-on-surface-variant mb-1">Código (SKU)</label>
-                                <input type="text" placeholder="SKU o código de barras" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                <input type="text" id="inputSKU" placeholder="SKU o código de barras" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-on-surface-variant mb-1">Categoría</label>
-                                <select class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                <select id="inputCategoria" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
                                     <option>Seleccione una categoría...</option>
                                     <option>Repuestos</option>
                                     <option>Lubricantes</option>
@@ -530,7 +530,7 @@
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
                                     <label class="block text-sm font-medium text-on-surface-variant mb-1">Unidades (OC)</label>
-                                    <input type="number" min="0" placeholder="0" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+                                    <input type="number" id="inputUnidades" min="0" placeholder="0" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-on-surface-variant mb-1 text-primary-container font-bold">Cant. Recepcionada</label>
@@ -782,6 +782,32 @@
                         alert("Recepción guardada con éxito.");
                     } else {
                         window.goToPage(currentPage + 1);
+                    }
+                });
+            }
+
+            // Lógica de llenado automático basado en la OC seleccionada
+            const inputOC = document.getElementById('inputOC');
+            const inputMaterial = document.getElementById('inputMaterial');
+            const inputCategoria = document.getElementById('inputCategoria');
+            const inputUnidades = document.getElementById('inputUnidades');
+
+            const materialData = {
+                'OC-12345': { material: 'Aceite Motor 15W-40', category: 'Lubricantes', units: 20 },
+                'OC-12348': { material: 'Filtro de Aire XL', category: 'Repuestos', units: 5 },
+                'OC-12352': { material: 'EPI Chalecos Reflectantes', category: 'Seguridad', units: 50 },
+                'OC-12360': { material: 'Batería 12V 75Ah', category: 'Repuestos', units: 2 },
+                'OC-12365': { material: 'Casco de Seguridad', category: 'Seguridad', units: 10 },
+                'OC-12370': { material: 'Neumático Frontal', category: 'Repuestos', units: 4 }
+            };
+
+            if (inputOC) {
+                inputOC.addEventListener('input', (e) => {
+                    const oc = e.target.value.toUpperCase();
+                    if (materialData[oc]) {
+                        if (inputMaterial) inputMaterial.value = materialData[oc].material;
+                        if (inputCategoria) inputCategoria.value = materialData[oc].category;
+                        if (inputUnidades) inputUnidades.value = materialData[oc].units;
                     }
                 });
             }
