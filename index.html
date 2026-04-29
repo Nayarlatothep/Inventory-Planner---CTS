@@ -269,7 +269,21 @@
                             </a>
                         </div>
                     </div>
-                    <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="#">Reportes</a>
+                    <div class="relative group h-full flex items-center">
+                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
+                            Reportes
+                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                        </button>
+                        <div class="absolute top-[100%] right-0 w-72 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
+                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">analytics</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">KPI Ordenes de trabajo (Mantto.)</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Indicadores de mantenimiento</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </nav>
             </div>
             <div class="flex items-center gap-2 md:gap-md">
@@ -300,7 +314,10 @@
                 <a href="#" class="block text-slate-300 py-1">Solicitud de orden de trabajo</a>
                 <a href="#" class="block text-slate-300 py-1">Despacho orden de trabajo</a>
             </div>
-            <a href="#" class="block text-slate-300 hover:text-white font-medium py-2">Reportes</a>
+            <div class="space-y-2 border-l-2 border-white/20 pl-4">
+                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Reportes</p>
+                <a href="#" class="block text-slate-300 py-1">KPI Ordenes de trabajo (Mantto.)</a>
+            </div>
         </div>
     </header>
 
