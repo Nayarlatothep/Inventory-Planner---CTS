@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-    <title>LogiTrack - Ingreso de Material</title>
+    <title>LogiTrack - Inventario y Estado de Flota</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
@@ -134,15 +134,13 @@
             position: relative;
         }
 
-        /* Zebra Striping */
-        #tablaIngresos > div:nth-child(odd) {
+        #tablaFlota > div:nth-child(odd) {
             background-color: #ffffff;
         }
-        #tablaIngresos > div:nth-child(even) {
-            background-color: #f8fafc; /* Subtle gray/slate-50 */
+        #tablaFlota > div:nth-child(even) {
+            background-color: #f8fafc;
         }
 
-        /* iOS & iPad Optimizations */
         html {
             -webkit-tap-highlight-color: transparent;
             -webkit-text-size-adjust: 100%;
@@ -153,18 +151,14 @@
         }
 
         input, select, textarea {
-            font-size: 16px !important; /* Prevents auto-zoom on iOS */
+            font-size: 16px !important;
             -webkit-appearance: none;
             border-radius: 4px;
         }
 
-        .ios-scrolling {
-            -webkit-overflow-scrolling: touch;
-        }
-
         @media (max-width: 640px) {
             .btn-ios-tap {
-                min-height: 44px; /* Apple's minimum touch target size */
+                min-height: 44px;
             }
         }
     </style>
@@ -194,7 +188,7 @@
                 <div class="hidden md:block w-[1.5px] h-10 bg-white/10 mx-6"></div>
 
                 <nav id="desktopNav" class="hidden md:flex items-center gap-lg">
-                    <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="#">Inicio</a>
+                    <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="index.html">Inicio</a>
                     <div class="relative group h-full flex items-center">
                         <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
                             Abastecimiento
@@ -218,15 +212,15 @@
                         </div>
                     </div>
                     <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-white border-b-2 border-white pb-1 font-bold px-3 py-2 h-full">
+                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
                             Inventario
                             <span class="material-symbols-outlined text-[18px]">expand_more</span>
                         </button>
                         <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
                             <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-primary-container text-[20px]">add_circle</span>
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">add_circle</span>
                                 <div class="flex flex-col">
-                                    <span class="font-bold">Ingreso de Material Nuevo</span>
+                                    <span class="font-semibold">Ingreso de Material Nuevo</span>
                                     <span class="text-[11px] text-slate-500 font-normal">Registro inicial de inventario</span>
                                 </div>
                             </a>
@@ -248,7 +242,7 @@
                     </div>
 
                     <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
+                        <button class="flex items-center gap-1 text-white border-b-2 border-white pb-1 font-bold px-3 py-2 h-full">
                             Mantenimiento
                             <span class="material-symbols-outlined text-[18px]">expand_more</span>
                         </button>
@@ -268,9 +262,9 @@
                                 </div>
                             </a>
                             <a href="flota.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">directions_car</span>
+                                <span class="material-symbols-outlined text-primary-container text-[20px]">directions_car</span>
                                 <div class="flex flex-col">
-                                    <span class="font-semibold">Inventario y Estado de Flota</span>
+                                    <span class="font-bold">Inventario y Estado de Flota</span>
                                     <span class="text-[11px] text-slate-500 font-normal">Control de vehículos y activos</span>
                                 </div>
                             </a>
@@ -311,7 +305,7 @@
             </div>
             <div class="space-y-2 border-l-2 border-white/20 pl-4">
                 <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Inventario</p>
-                <a href="index.html" class="block text-white font-semibold py-1">Ingreso Material Nuevo</a>
+                <a href="index.html" class="block text-slate-300 py-1">Ingreso Material Nuevo</a>
                 <a href="recepcion.html" class="block text-slate-300 py-1">Recepción Material</a>
                 <a href="#" class="block text-slate-300 py-1">Ingreso Manual</a>
             </div>
@@ -320,7 +314,7 @@
                 <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Mantenimiento</p>
                 <a href="#" class="block text-slate-300 py-1">Solicitud de orden de trabajo</a>
                 <a href="#" class="block text-slate-300 py-1">Despacho orden de trabajo</a>
-                <a href="flota.html" class="block text-slate-300 py-1">Inventario y Estado de Flota</a>
+                <a href="flota.html" class="block text-white font-semibold py-1">Inventario y Estado de Flota</a>
             </div>
             <div class="space-y-2 border-l-2 border-white/20 pl-4">
                 <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Reportes</p>
@@ -334,76 +328,50 @@
         <!-- Header -->
         <div class="col-span-1 md:col-span-12 mb-2 md:mb-md">
             <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-primary-container text-[32px] md:text-[40px]">add_circle</span>
-                <h1 class="font-h2 text-2xl md:text-h2 text-primary-container">Ingreso de Nuevo Material</h1>
+                <span class="material-symbols-outlined text-primary-container text-[32px] md:text-[40px]">directions_car</span>
+                <h1 class="font-h2 text-2xl md:text-h2 text-primary-container">Inventario y Estado de Flota</h1>
             </div>
-            <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Registre los detalles del material para el inventario central.</p>
+            <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Registre y gestione el estado de los vehículos y activos de la flota.</p>
         </div>
 
         <!-- Form Section -->
         <div class="col-span-1 lg:col-span-4 bg-surface-container-lowest rounded-lg shadow-soft p-lg border border-surface-variant h-fit">
-            <h2 class="font-h3 text-h3 text-primary-container mb-md border-b border-surface-variant pb-sm">Detalles del Artículo</h2>
+            <h2 class="font-h3 text-h3 text-primary-container mb-md border-b border-surface-variant pb-sm">Detalles del Vehículo</h2>
             <form class="space-y-md">
                 <div>
-                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">ARTÍCULO (ID)</label>
-                    <input id="articuloId" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface" placeholder="Ej. MAT-2024-001" type="text"/>
+                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">VIN (Número de Chasis)</label>
+                    <input id="vehiculoVin" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface" placeholder="Ej. 1HGCM82635A000001" type="text"/>
                 </div>
                 <div>
-                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">NOMBRE DEL ARTÍCULO</label>
-                    <input id="articuloNombre" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface" placeholder="Nombre descriptivo" type="text"/>
+                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">MARCA / MODELO</label>
+                    <input id="vehiculoMarca" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface" placeholder="Ej. Toyota Hilux 2024" type="text"/>
                 </div>
                 <div>
-                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">CATEGORÍA</label>
-                    <select id="articuloCategoria" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface appearance-none">
-                        <option>Seleccione una categoría</option>
-                        <option>Electrónica</option>
-                        <option>Mecánica</option>
-                        <option>Consumibles</option>
-                        <option>Herramientas</option>
+                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">TIPO DE VEHÍCULO</label>
+                    <select id="vehiculoTipo" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface appearance-none">
+                        <option>Seleccione un tipo</option>
+                        <option>Sedán</option>
+                        <option>SUV</option>
+                        <option>Pickup</option>
+                        <option>Camión de Carga</option>
+                        <option>Montacargas</option>
+                        <option>Motocicleta</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">DESCRIPCIÓN</label>
-                    <textarea id="articuloDescripcion" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface resize-none" placeholder="Especificaciones técnicas o detalles adicionales..." rows="3"></textarea>
-                </div>
-
-                <!-- Photo Module -->
-                <div class="mt-lg">
-                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">FOTOGRAFÍAS DEL MATERIAL</label>
-                    <div id="photoModule" class="relative border-2 border-dashed border-outline-variant rounded-lg overflow-hidden bg-surface group transition-all duration-300 min-h-[180px]">
-                        <!-- Camera Preview -->
-                        <video id="cameraPreview" class="hidden w-full h-[180px] object-cover bg-black" autoplay playsinline></video>
-                        
-                        <!-- Image Preview -->
-                        <img id="imagePreview" class="hidden w-full h-[180px] object-cover" src=""/>
-
-                        <!-- Placeholder / Drag Zone -->
-                        <div id="photoPlaceholder" class="flex flex-col items-center justify-center p-lg text-center h-[180px] gap-sm cursor-pointer hover:bg-surface-container-low transition-colors">
-                            <span class="material-symbols-outlined text-outline text-[40px]">add_a_photo</span>
-                            <p class="font-body-md text-body-md text-on-surface-variant">Click para <span class="text-primary-container font-semibold">Cámara</span> o arrastre imagen</p>
-                            <p class="font-body-sm text-body-sm text-outline">JPG, PNG admitidos</p>
-                        </div>
-
-                        <!-- Controls -->
-                        <div class="absolute bottom-2 right-2 flex gap-2">
-                            <button id="btnToggleCamera" type="button" class="bg-white/90 hover:bg-white text-primary-container p-2 rounded-full shadow-md transition-all active:scale-95 flex items-center justify-center border border-slate-200">
-                                <span class="material-symbols-outlined text-[20px]">videocam</span>
-                            </button>
-                            <button id="btnCapture" type="button" class="hidden bg-primary-container text-white p-2 rounded-full shadow-md transition-all active:scale-95 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[20px]">photo_camera</span>
-                            </button>
-                        </div>
-                        
-                        <!-- Hidden Inputs -->
-                        <input type="file" id="fileInput" accept="image/*" class="hidden"/>
-                        <canvas id="photoCanvas" class="hidden" width="640" height="480"></canvas>
-                    </div>
+                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">ESTADO OPERATIVO</label>
+                    <select id="vehiculoEstado" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface appearance-none">
+                        <option value="Operativo">Operativo</option>
+                        <option value="En Mantenimiento">En Mantenimiento</option>
+                        <option value="Fuera de Servicio">Fuera de Servicio</option>
+                        <option value="En Reparación">En Reparación</option>
+                    </select>
                 </div>
 
                 <div class="pt-md mt-md border-t border-surface-variant">
                     <button id="btnGuardar" class="w-full bg-primary-container text-on-primary font-button text-button py-sm px-md rounded-DEFAULT hover:bg-[#00142B] active:scale-[0.98] transition-all flex items-center justify-center gap-sm border border-[#001F3F] btn-ios-tap" type="button">
                         <span class="material-symbols-outlined text-[18px]">save</span>
-                        Guardar Registro
+                        Guardar Vehículo
                     </button>
                 </div>
             </form>
@@ -412,13 +380,13 @@
         <!-- Dashboard List Section -->
         <div class="col-span-1 md:col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-lg shadow-soft border border-surface-variant overflow-hidden flex flex-col">
             <div class="p-4 md:p-lg border-b border-surface-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest">
-                <h2 class="font-h3 text-xl md:text-h3 text-primary-container">Ingresos Recientes</h2>
+                <h2 class="font-h3 text-xl md:text-h3 text-primary-container">Estado de la Flota</h2>
                 <div class="relative w-full sm:w-auto">
                     <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
-                    <input id="searchMaterial" class="border border-outline-variant rounded-DEFAULT pl-[36px] pr-md py-[6px] focus:border-primary-container input-glow outline-none transition-all font-body-sm text-body-sm bg-surface w-full sm:w-[250px]" placeholder="Buscar material..." type="text"/>
+                    <input id="searchVehiculo" class="border border-outline-variant rounded-DEFAULT pl-[36px] pr-md py-[6px] focus:border-primary-container input-glow outline-none transition-all font-body-sm text-body-sm bg-surface w-full sm:w-[250px]" placeholder="Buscar vehículo..." type="text"/>
                 </div>
             </div>
-            <div id="tablaIngresos" class="flex-grow p-2 md:p-sm flex flex-col gap-sm overflow-y-auto min-h-[300px]">
+            <div id="tablaFlota" class="flex-grow p-2 md:p-sm flex flex-col gap-sm overflow-y-auto min-h-[300px]">
                 <!-- Las filas se agregarán aquí dinámicamente -->
             </div>
             <div class="p-4 border-t border-surface-variant bg-surface-container-lowest flex justify-between items-center text-outline font-body-sm text-body-sm">
@@ -447,31 +415,33 @@
             <div class="bg-primary-container p-4 flex justify-between items-center text-white">
                 <h3 class="font-h3 text-lg flex items-center gap-2">
                     <span class="material-symbols-outlined">edit_square</span>
-                    Modificar Artículo
+                    Modificar Vehículo
                 </h3>
                 <button id="btnCloseModal" class="hover:bg-white/10 p-1 rounded-full"><span class="material-symbols-outlined">close</span></button>
             </div>
             <div class="p-6 space-y-4">
-                <div class="flex items-center gap-2 p-3 bg-blue-50 rounded-lg border border-blue-100 mb-2">
-                    <span class="material-symbols-outlined text-blue-600">info</span>
-                    <p class="text-[12px] text-blue-800">Editando el artículo: <span id="editIdLabel" class="font-bold"></span></p>
+                <div>
+                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Marca / Modelo</label>
+                    <input id="editMarca" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all" type="text"/>
                 </div>
                 <div>
-                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Nombre del Artículo</label>
-                    <input id="editNombre" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all" type="text"/>
-                </div>
-                <div>
-                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Categoría</label>
-                    <select id="editCategoria" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all">
-                        <option>Electrónica</option>
-                        <option>Mecánica</option>
-                        <option>Consumibles</option>
-                        <option>Herramientas</option>
+                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Tipo de Vehículo</label>
+                    <select id="editTipo" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all">
+                        <option>Sedán</option>
+                        <option>SUV</option>
+                        <option>Pickup</option>
+                        <option>Camión de Carga</option>
+                        <option>Montacargas</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Descripción</label>
-                    <textarea id="editDescripcion" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all resize-none" rows="3"></textarea>
+                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Estado Operativo</label>
+                    <select id="editEstado" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all">
+                        <option value="Operativo">Operativo</option>
+                        <option value="En Mantenimiento">En Mantenimiento</option>
+                        <option value="Fuera de Servicio">Fuera de Servicio</option>
+                        <option value="En Reparación">En Reparación</option>
+                    </select>
                 </div>
                 <div class="pt-4 flex gap-3">
                     <button id="btnCancelEdit" class="flex-1 px-4 py-2 border border-slate-200 rounded-lg font-semibold text-slate-600 hover:bg-slate-50 transition-colors">Cancelar</button>
@@ -484,48 +454,28 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const btnGuardar = document.getElementById('btnGuardar');
-            const tablaIngresos = document.getElementById('tablaIngresos');
-            const searchInput = document.getElementById('searchMaterial');
+            const tablaFlota = document.getElementById('tablaFlota');
+            const searchInput = document.getElementById('searchVehiculo');
             const contadorRegistros = document.getElementById('contadorRegistros');
             
-            // Photo Module Elements
-            const photoPlaceholder = document.getElementById('photoPlaceholder');
-            const cameraPreview = document.getElementById('cameraPreview');
-            const imagePreview = document.getElementById('imagePreview');
-            const btnToggleCamera = document.getElementById('btnToggleCamera');
-            const btnCapture = document.getElementById('btnCapture');
-            const fileInput = document.getElementById('fileInput');
-            const photoCanvas = document.getElementById('photoCanvas');
-            const photoModule = document.getElementById('photoModule');
-
             // Modal Elements
             const editModal = document.getElementById('editModal');
             const modalContent = document.getElementById('modalContent');
             const btnCloseModal = document.getElementById('btnCloseModal');
             const btnCancelEdit = document.getElementById('btnCancelEdit');
             const btnSaveEdit = document.getElementById('btnSaveEdit');
-            const editIdLabel = document.getElementById('editIdLabel');
-            const editNombre = document.getElementById('editNombre');
-            const editCategoria = document.getElementById('editCategoria');
-            const editDescripcion = document.getElementById('editDescripcion');
+            const editMarca = document.getElementById('editMarca');
+            const editTipo = document.getElementById('editTipo');
+            const editEstado = document.getElementById('editEstado');
 
-            let currentImageData = null;
-            let stream = null;
             let currentRowToEdit = null;
 
-            // Modal Logic
             const openModal = (row, data) => {
                 currentRowToEdit = row;
-                editIdLabel.innerText = data.id;
-                editNombre.value = data.nombre;
-                editCategoria.value = data.categoria;
-                editDescripcion.value = data.descripcion || '';
+                editMarca.value = data.marca;
+                editTipo.value = data.tipo;
+                editEstado.value = data.estado;
                 
-                // Change status to "En Modificación"
-                const statusBadge = row.querySelector('.status-badge');
-                statusBadge.innerHTML = '<span class="w-[6px] h-[6px] rounded-full bg-amber-500 mr-1"></span> En Modificación';
-                statusBadge.className = 'status-badge inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200';
-
                 editModal.classList.remove('hidden');
                 setTimeout(() => {
                     modalContent.classList.remove('scale-95', 'opacity-0');
@@ -538,7 +488,6 @@
                 modalContent.classList.remove('scale-100', 'opacity-100');
                 setTimeout(() => {
                     editModal.classList.add('hidden');
-                    // If we close without saving, we could revert status or keep it
                 }, 300);
             };
 
@@ -548,141 +497,74 @@
             btnSaveEdit.onclick = () => {
                 if (currentRowToEdit) {
                     const row = currentRowToEdit;
-                    const nombreSpan = row.querySelector('.row-nombre');
-                    const categoriaSpan = row.querySelector('.row-categoria');
+                    const marcaSpan = row.querySelector('.row-marca');
+                    const tipoSpan = row.querySelector('.row-tipo');
                     const statusBadge = row.querySelector('.status-badge');
 
-                    // Update UI
-                    nombreSpan.innerText = editNombre.value;
-                    categoriaSpan.innerText = editCategoria.value;
+                    marcaSpan.innerText = editMarca.value;
+                    tipoSpan.innerText = editTipo.value;
                     
-                    // Update Search Attribute
-                    const id = row.querySelector('.row-id').innerText;
-                    row.setAttribute('data-search', `${id} ${editNombre.value} ${editCategoria.value}`.toLowerCase());
+                    const vin = row.querySelector('.row-vin').innerText;
+                    row.setAttribute('data-search', `${vin} ${editMarca.value} ${editTipo.value}`.toLowerCase());
                     
-                    // Update Description (data attribute)
-                    row.setAttribute('data-descripcion', editDescripcion.value);
+                    // Update Status Badge
+                    const stateColors = {
+                        'Operativo': 'bg-emerald-50 text-emerald-700 border-emerald-200 bg-emerald-500',
+                        'En Mantenimiento': 'bg-amber-50 text-amber-700 border-amber-200 bg-amber-500',
+                        'Fuera de Servicio': 'bg-rose-50 text-rose-700 border-rose-200 bg-rose-500',
+                        'En Reparación': 'bg-blue-50 text-blue-700 border-blue-200 bg-blue-500'
+                    };
+                    
+                    const colorClass = stateColors[editEstado.value] || 'bg-slate-50 text-slate-700 border-slate-200 bg-slate-500';
+                    const [bg, text, border, dot] = colorClass.split(' ');
+                    
+                    statusBadge.innerHTML = `<span class="w-[6px] h-[6px] rounded-full ${dot} mr-1"></span> ${editEstado.value}`;
+                    statusBadge.className = `status-badge inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold ${bg} ${text} ${border}`;
 
-                    // Change status to "Recién Modificado"
-                    statusBadge.innerHTML = '<span class="w-[6px] h-[6px] rounded-full bg-emerald-500 mr-1"></span> Recién Modificado';
-                    statusBadge.className = 'status-badge inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200';
-
-                    // Add highlight animation
                     row.classList.remove('row-highlight');
-                    void row.offsetWidth; // Trigger reflow
+                    void row.offsetWidth;
                     row.classList.add('row-highlight');
 
                     closeModal();
                 }
             };
 
-            // Camera Logic
-            const stopCamera = () => {
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
-                    stream = null;
-                }
-                cameraPreview.classList.add('hidden');
-                btnCapture.classList.add('hidden');
-            };
-
-            const startCamera = async () => {
-                try {
-                    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                    cameraPreview.srcObject = stream;
-                    cameraPreview.classList.remove('hidden');
-                    btnCapture.classList.remove('hidden');
-                    photoPlaceholder.classList.add('hidden');
-                    imagePreview.classList.add('hidden');
-                } catch (err) {
-                    console.error("Error accessing camera: ", err);
-                    alert("No se pudo acceder a la cámara. Verifique los permisos.");
-                }
-            };
-
-            btnToggleCamera.addEventListener('click', () => {
-                if (stream) {
-                    stopCamera();
-                    photoPlaceholder.classList.remove('hidden');
-                } else {
-                    startCamera();
-                }
-            });
-
-            btnCapture.addEventListener('click', () => {
-                const context = photoCanvas.getContext('2d');
-                photoCanvas.width = cameraPreview.videoWidth;
-                photoCanvas.height = cameraPreview.videoHeight;
-                context.drawImage(cameraPreview, 0, 0, photoCanvas.width, photoCanvas.height);
-                
-                currentImageData = photoCanvas.toDataURL('image/jpeg');
-                imagePreview.src = currentImageData;
-                imagePreview.classList.remove('hidden');
-                
-                stopCamera();
-            });
-
-            // File / Drag Logic
-            photoPlaceholder.addEventListener('click', () => fileInput.click());
-            
-            fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) handleFile(file);
-            });
-
-            const handleFile = (file) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    currentImageData = e.target.result;
-                    imagePreview.src = currentImageData;
-                    imagePreview.classList.remove('hidden');
-                    photoPlaceholder.classList.add('hidden');
-                    stopCamera();
-                };
-                reader.readAsDataURL(file);
-            };
-
-            // Drag & Drop
-            photoModule.addEventListener('dragover', (e) => { e.preventDefault(); photoModule.classList.add('border-primary-container'); });
-            photoModule.addEventListener('dragleave', () => { photoModule.classList.remove('border-primary-container'); });
-            photoModule.addEventListener('drop', (e) => {
-                e.preventDefault();
-                photoModule.classList.remove('border-primary-container');
-                const file = e.dataTransfer.files[0];
-                if (file && file.type.startsWith('image/')) handleFile(file);
-            });
-
             const actualizarContador = () => {
-                const count = tablaIngresos.children.length;
+                const count = tablaFlota.children.length;
                 contadorRegistros.innerText = `Mostrando ${count} de ${count} registros`;
             };
 
             const agregarFila = (data) => {
                 const row = document.createElement('div');
                 row.className = "flex flex-col sm:flex-row sm:items-center w-full rounded-lg border border-surface-variant p-3 md:p-sm gap-3 md:gap-md transition-all duration-300 row-enter row-item";
-                row.setAttribute('data-search', `${data.id} ${data.nombre} ${data.categoria}`.toLowerCase());
-                row.setAttribute('data-descripcion', data.descripcion);
+                row.setAttribute('data-search', `${data.vin} ${data.marca} ${data.tipo}`.toLowerCase());
                 
-                const imgHtml = data.img 
-                    ? `<img src="${data.img}" class="w-full sm:w-[48px] h-[120px] sm:h-[48px] rounded-lg object-cover border border-outline-variant" />`
-                    : `<div class="w-full sm:w-[48px] h-[48px] rounded-lg bg-surface-container-highest border border-outline-variant flex items-center justify-center text-outline">
-                        <span class="material-symbols-outlined text-[24px]">package_2</span>
-                       </div>`;
+                const stateColors = {
+                    'Operativo': 'bg-emerald-50 text-emerald-700 border-emerald-200 bg-emerald-500',
+                    'En Mantenimiento': 'bg-amber-50 text-amber-700 border-amber-200 bg-amber-500',
+                    'Fuera de Servicio': 'bg-rose-50 text-rose-700 border-rose-200 bg-rose-500',
+                    'En Reparación': 'bg-blue-50 text-blue-700 border-blue-200 bg-blue-500'
+                };
+                
+                const colorClass = stateColors[data.estado] || 'bg-slate-50 text-slate-700 border-slate-200 bg-slate-500';
+                const [bg, text, border, dot] = colorClass.split(' ');
 
                 row.innerHTML = `
                     <div class="flex-shrink-0 w-full sm:w-auto">
-                        ${imgHtml}
+                        <div class="w-full sm:w-[48px] h-[48px] rounded-lg bg-surface-container-highest border border-outline-variant flex items-center justify-center text-outline">
+                            <span class="material-symbols-outlined text-[24px]">directions_car</span>
+                        </div>
                     </div>
                     <div class="flex flex-col flex-grow min-w-0 sm:w-1/3">
-                        <span class="row-id text-[11px] font-semibold text-primary-container mb-0.5 opacity-70">${data.id}</span>
-                        <span class="row-nombre font-bold text-body-md sm:text-body-sm text-on-surface truncate">${data.nombre}</span>
+                        <span class="row-vin text-[11px] font-semibold text-primary-container mb-0.5 opacity-70">${data.vin}</span>
+                        <span class="row-marca font-bold text-body-md sm:text-body-sm text-on-surface truncate">${data.marca}</span>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 sm:w-1/3">
-                        <span class="row-categoria font-body-sm text-on-surface-variant bg-slate-100 px-2 py-0.5 rounded-md sm:bg-transparent sm:p-0 w-fit">${data.categoria}</span>
+                        <span class="row-tipo font-body-sm text-on-surface-variant bg-slate-100 px-2 py-0.5 rounded-md sm:bg-transparent sm:p-0 w-fit">${data.tipo}</span>
                         <div>
-                            <span class="status-badge inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold bg-secondary-container text-on-secondary-container">
-                                <span class="w-[6px] h-[6px] rounded-full bg-primary-container mr-1"></span>
-                                Recién Ingresado
+                            <span class="status-badge inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold ${bg} ${text} ${border}">
+                                <span class="w-[6px] h-[6px] rounded-full ${dot} mr-1"></span>
+                                ${data.estado}
                             </span>
                         </div>
                     </div>
@@ -698,23 +580,21 @@
                     </div>
                 `;
                 
-                // Edit Button Click
                 row.querySelector('.btn-edit').addEventListener('click', () => {
                     const rowData = {
-                        id: row.querySelector('.row-id').innerText,
-                        nombre: row.querySelector('.row-nombre').innerText,
-                        categoria: row.querySelector('.row-categoria').innerText,
-                        descripcion: row.getAttribute('data-descripcion')
+                        vin: row.querySelector('.row-vin').innerText,
+                        marca: row.querySelector('.row-marca').innerText,
+                        tipo: row.querySelector('.row-tipo').innerText,
+                        estado: row.querySelector('.status-badge').innerText.trim()
                     };
                     openModal(row, rowData);
                 });
 
                 row.querySelector('.btn-delete').addEventListener('click', () => { row.remove(); actualizarContador(); });
-                tablaIngresos.prepend(row);
+                tablaFlota.prepend(row);
                 actualizarContador();
             };
 
-            // Mobile Menu Toggle
             const btnMobileMenu = document.getElementById('btnMobileMenu');
             const mobileMenu = document.getElementById('mobileMenu');
             
@@ -725,29 +605,23 @@
 
             btnGuardar.addEventListener('click', () => {
                 const data = {
-                    id: document.getElementById('articuloId').value.trim(),
-                    nombre: document.getElementById('articuloNombre').value.trim(),
-                    categoria: document.getElementById('articuloCategoria').value,
-                    descripcion: document.getElementById('articuloDescripcion').value.trim(),
-                    img: currentImageData
+                    vin: document.getElementById('vehiculoVin').value.trim(),
+                    marca: document.getElementById('vehiculoMarca').value.trim(),
+                    tipo: document.getElementById('vehiculoTipo').value,
+                    estado: document.getElementById('vehiculoEstado').value
                 };
 
-                if(!data.id || !data.nombre || data.categoria === 'Seleccione una categoría') {
+                if(!data.vin || !data.marca || data.tipo === 'Seleccione un tipo') {
                     alert('Por favor complete los campos obligatorios.');
                     return;
                 }
 
                 agregarFila(data);
                 
-                // Reset Form
-                document.getElementById('articuloId').value = '';
-                document.getElementById('articuloNombre').value = '';
-                document.getElementById('articuloCategoria').selectedIndex = 0;
-                document.getElementById('articuloDescripcion').value = '';
-                imagePreview.classList.add('hidden');
-                photoPlaceholder.classList.remove('hidden');
-                currentImageData = null;
-                stopCamera();
+                document.getElementById('vehiculoVin').value = '';
+                document.getElementById('vehiculoMarca').value = '';
+                document.getElementById('vehiculoTipo').selectedIndex = 0;
+                document.getElementById('vehiculoEstado').selectedIndex = 0;
                 
                 const originalText = btnGuardar.innerHTML;
                 btnGuardar.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span> Guardado';
@@ -760,7 +634,7 @@
 
             searchInput.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase();
-                tablaIngresos.querySelectorAll('.flex.items-center, .flex.flex-col').forEach(row => {
+                tablaFlota.querySelectorAll('.row-item').forEach(row => {
                     const dataSearch = row.getAttribute('data-search');
                     if (dataSearch) {
                         row.style.display = dataSearch.includes(term) ? 'flex' : 'none';
