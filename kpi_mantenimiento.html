@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
@@ -289,17 +289,35 @@
             </div>
 
             <div class="bento-grid">
-                <!-- 1. Summary Card -->
-                <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 flex flex-col items-center text-center">
-                    <div class="flex items-center gap-3 mb-4">
-                        <p class="font-label-caps text-label-caps text-secondary uppercase">Gasto Mensual Total</p>
-                        <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-[10px] font-bold">+8.5%</span>
+                <!-- Column 1: Stacked KPIs -->
+                <div class="col-span-12 md:col-span-4 flex flex-col gap-6">
+                    <!-- 1. Gasto Mensual Total -->
+                    <div class="bg-white p-6 rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 flex flex-col items-center text-center">
+                        <div class="flex items-center gap-3 mb-4">
+                            <p class="font-label-caps text-label-caps text-secondary uppercase">Gasto Mensual Total</p>
+                            <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-[10px] font-bold">+8.5%</span>
+                        </div>
+                        <p class="font-h1 text-h1 text-emerald-600">$42,850</p>
+                        <div class="mt-4 h-2.5 w-full bg-surface-container rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-600 rounded-full w-[85%]"></div>
+                        </div>
+                        <p class="mt-4 text-[10px] text-on-surface-variant">Gasto acumulado vs presupuesto mensual proyectado.</p>
                     </div>
-                    <p class="font-h1 text-h1 text-emerald-600">$42,850</p>
-                    <div class="mt-4 h-2.5 w-full bg-surface-container rounded-full overflow-hidden">
-                        <div class="h-full bg-emerald-600 rounded-full w-[85%]"></div>
+
+                    <!-- 3. Eficiencia Operativa -->
+                    <div class="bg-white p-6 rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 flex flex-col items-center text-center justify-between flex-1">
+                        <div>
+                            <p class="font-label-caps text-label-caps text-secondary uppercase mb-4">Eficiencia Operativa</p>
+                            <div class="flex items-baseline justify-center gap-2">
+                                <p class="font-h2 text-h2 text-primary-container">$1,428</p>
+                                <p class="font-body-sm text-on-surface-variant">/ camión</p>
+                            </div>
+                        </div>
+                        <div class="bg-surface-container-low p-3 rounded-lg mt-4 flex items-center gap-3 w-full">
+                            <span class="material-symbols-outlined text-primary-container text-sm">trending_down</span>
+                            <p class="text-[10px] font-medium text-on-surface text-left">Costo por unidad reducido un 2% respecto al mes anterior.</p>
+                        </div>
                     </div>
-                    <p class="mt-4 text-xs text-on-surface-variant">Gasto acumulado vs presupuesto mensual proyectado.</p>
                 </div>
 
                 <!-- 2. Gasto Mensual por Camión -->
@@ -342,28 +360,13 @@
                     <p class="mt-6 text-[10px] text-on-surface-variant italic text-center">Comparativa de costos operativos por unidad activa.</p>
                 </div>
 
-                <!-- 3. Eficiencia Operativa -->
-                <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 flex flex-col justify-between">
-                    <div>
-                        <p class="font-label-caps text-label-caps text-secondary uppercase mb-4">Eficiencia Operativa</p>
-                        <div class="flex items-baseline gap-2">
-                            <p class="font-h2 text-h2 text-primary-container">$1,428</p>
-                            <p class="font-body-sm text-on-surface-variant">/ camiÃ³n</p>
-                        </div>
-                    </div>
-                    <div class="bg-surface-container-low p-md rounded-lg mt-4 flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary-container">trending_down</span>
-                        <p class="text-xs font-medium text-on-surface">Costo por unidad reducido un 2% respecto al mes anterior.</p>
-                    </div>
-                </div>
-
-                <!-- 4. DistribuciÃ³n de Inventario -->
+                <!-- 4. Distribución de Inventario -->
                 <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100">
-                    <h3 class="font-h3 text-h3 text-primary-container mb-6">DistribuciÃ³n de Inventario</h3>
+                    <h3 class="font-h3 text-h3 text-primary-container mb-6">Distribución de Inventario</h3>
                     <div class="space-y-6">
                         <div>
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-semibold text-on-surface">AlmacÃ©n Central</span>
+                                <span class="text-sm font-semibold text-on-surface">Almacén Central</span>
                                 <span class="text-sm text-secondary font-bold">55%</span>
                             </div>
                             <div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
@@ -381,7 +384,7 @@
                         </div>
                         <div>
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-semibold text-on-surface">Taller MÃ³vil</span>
+                                <span class="text-sm font-semibold text-on-surface">Taller Móvil</span>
                                 <span class="text-sm text-secondary font-bold">15%</span>
                             </div>
                             <div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
@@ -394,7 +397,7 @@
                 <!-- 5. Fleet Performance Table -->
                 <div class="col-span-12 lg:col-span-8 bg-white rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 overflow-hidden">
                     <div class="p-lg border-b border-slate-100 flex justify-between items-center">
-                        <h3 class="font-h3 text-h3 text-primary-container">DesempeÃ±o de Flota (Top Gastos)</h3>
+                        <h3 class="font-h3 text-h3 text-primary-container">Desempeño de Flota (Top Gastos)</h3>
                         <span class="text-xs font-semibold text-secondary px-3 py-1 bg-surface-container rounded-full uppercase">Mayo 2026</span>
                     </div>
                     <div class="overflow-x-auto">
