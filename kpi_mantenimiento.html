@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
@@ -150,7 +150,7 @@
                                 <span class="material-symbols-outlined text-slate-400 text-[20px]">shopping_cart</span>
                                 <div class="flex flex-col">
                                     <span class="font-semibold">Ordenes de Compras</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Gestión de OCs activas</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">GestiÃ³n de OCs activas</span>
                                 </div>
                             </a>
                             <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
@@ -178,8 +178,8 @@
                             <a href="recepcion.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
                                 <span class="material-symbols-outlined text-slate-400 text-[20px]">package_2</span>
                                 <div class="flex flex-col">
-                                    <span class="font-semibold">Recepción Material</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Validación de carga entrante</span>
+                                    <span class="font-semibold">RecepciÃ³n Material</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">ValidaciÃ³n de carga entrante</span>
                                 </div>
                             </a>
                         </div>
@@ -202,7 +202,7 @@
                                 <span class="material-symbols-outlined text-slate-400 text-[20px]">directions_car</span>
                                 <div class="flex flex-col">
                                     <span class="font-semibold">Inventario y Estado de Flota</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Control de vehículos y activos</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Control de vehÃ­culos y activos</span>
                                 </div>
                             </a>
                         </div>
@@ -258,7 +258,7 @@
                 <!-- Efficiency Metrics -->
                 <a href="#" class="flex items-center gap-4 text-secondary hover:bg-slate-50 px-4 py-3 rounded-lg transition-all group">
                     <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-primary-container">monitoring</span>
-                    <span class="text-xs font-bold uppercase tracking-widest group-hover:text-primary-container">Métricas de Eficiencia</span>
+                    <span class="text-xs font-bold uppercase tracking-widest group-hover:text-primary-container">MÃ©tricas de Eficiencia</span>
                 </a>
             </nav>
 
@@ -267,7 +267,7 @@
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Estado del Sistema</p>
                     <div class="flex items-center gap-2 text-emerald-600">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span class="text-[10px] font-bold uppercase">En Línea - 2026</span>
+                        <span class="text-[10px] font-bold uppercase">En LÃ­nea - 2026</span>
                     </div>
                 </div>
             </div>
@@ -280,7 +280,7 @@
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
                 <div>
                     <h1 class="text-3xl font-bold text-primary-container">Reporte Mensual de KPIs - Mayo 2026</h1>
-                    <p class="text-on-surface-variant">Análisis detallado de operaciones de flota, inventario y eficiencia operativa.</p>
+                    <p class="text-on-surface-variant">AnÃ¡lisis detallado de operaciones de flota, inventario y eficiencia operativa.</p>
                 </div>
                 <button class="bg-[#001F3F] text-white px-6 py-3 rounded-lg font-bold text-sm flex items-center gap-2 hover:bg-[#001429] transition-all shadow-md active:scale-95">
                     <span class="material-symbols-outlined">download</span>
@@ -290,373 +290,234 @@
 
             <div class="bento-grid">
                 <!-- 1. Summary Card -->
-                <div class="col-span-12 md:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100">
                     <div class="flex justify-between items-start mb-4">
-                        <p class="text-xs font-bold text-secondary uppercase tracking-widest">Total Gasto Mensual</p>
+                        <p class="font-label-caps text-label-caps text-secondary uppercase">Total Gasto Mensual</p>
                         <span class="bg-error-container text-on-error-container px-2 py-1 rounded text-[10px] font-bold">+8.5%</span>
                     </div>
-                    <p class="text-4xl font-bold text-primary-container">$42,850</p>
-                    <div class="mt-4 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <p class="font-h1 text-h1 text-primary-container">$42,850</p>
+                    <div class="mt-4 h-1 w-full bg-surface-container rounded-full overflow-hidden">
                         <div class="h-full bg-primary-container w-[85%]"></div>
                     </div>
                     <p class="mt-4 text-xs text-on-surface-variant">Gasto acumulado vs presupuesto mensual proyectado.</p>
                 </div>
 
-                <!-- 5. Efficiency Card -->
-                <div class="col-span-12 md:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between">
-                    <div>
-                        <p class="text-xs font-bold text-secondary uppercase tracking-widest mb-4">Eficiencia Operativa</p>
-                        <div class="flex items-baseline gap-2">
-                            <p class="text-3xl font-bold text-primary-container">$1,428</p>
-                            <p class="text-sm text-on-surface-variant">/ camión</p>
+                <!-- 2. Gasto Mensual por CamiÃ³n -->
+                <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100">
+                    <h3 class="font-label-caps text-label-caps text-secondary uppercase mb-6">Gasto Mensual por CamiÃ³n</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-primary-container w-12">TR-089</span>
+                            <div class="flex-1 h-6 bg-surface-container rounded-sm overflow-hidden">
+                                <div class="h-full bg-primary-container flex items-center justify-end px-2" style="width: 100%">
+                                    <span class="text-[10px] text-white font-bold">$8,420</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-primary-container w-12">TR-102</span>
+                            <div class="flex-1 h-6 bg-surface-container rounded-sm overflow-hidden">
+                                <div class="h-full bg-primary-container/80 flex items-center justify-end px-2" style="width: 73%">
+                                    <span class="text-[10px] text-white font-bold">$6,150</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-primary-container w-12">TR-045</span>
+                            <div class="flex-1 h-6 bg-surface-container rounded-sm overflow-hidden">
+                                <div class="h-full bg-primary-container/60 flex items-center justify-end px-2" style="width: 69%">
+                                    <span class="text-[10px] text-white font-bold">$5,800</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-primary-container w-12">TR-077</span>
+                            <div class="flex-1 h-6 bg-surface-container rounded-sm overflow-hidden">
+                                <div class="h-full bg-primary-container/40 flex items-center justify-end px-2" style="width: 51%">
+                                    <span class="text-[10px] text-white font-bold">$4,290</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="bg-slate-50 p-4 rounded-lg mt-4 flex items-center gap-3">
+                    <p class="mt-6 text-[10px] text-on-surface-variant italic text-center">Comparativa de costos operativos por unidad activa.</p>
+                </div>
+
+                <!-- 3. Eficiencia Operativa -->
+                <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <p class="font-label-caps text-label-caps text-secondary uppercase mb-4">Eficiencia Operativa</p>
+                        <div class="flex items-baseline gap-2">
+                            <p class="font-h2 text-h2 text-primary-container">$1,428</p>
+                            <p class="font-body-sm text-on-surface-variant">/ camiÃ³n</p>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-low p-md rounded-lg mt-4 flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary-container">trending_down</span>
                         <p class="text-xs font-medium text-on-surface">Costo por unidad reducido un 2% respecto al mes anterior.</p>
                     </div>
                 </div>
 
-                <!-- Gasto Anual Total Card -->
-                <div class="col-span-12 md:col-span-4 bg-primary-container text-white p-6 rounded-xl shadow-lg relative overflow-hidden flex flex-col justify-between">
-                    <div class="relative z-10">
-                        <p class="text-xs font-bold opacity-70 uppercase tracking-widest mb-4">Gasto Anual Total</p>
-                        <p class="text-4xl font-bold mb-2">$514,200</p>
-                        <p class="text-sm opacity-80">Proyección basada en el consumo operativo acumulado de 2026.</p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-white/10 relative z-10 flex justify-between items-center">
+                <!-- 4. DistribuciÃ³n de Inventario -->
+                <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100">
+                    <h3 class="font-h3 text-h3 text-primary-container mb-6">DistribuciÃ³n de Inventario</h3>
+                    <div class="space-y-6">
                         <div>
-                            <p class="text-[10px] uppercase opacity-60 tracking-wider">Eficiencia Presupuestaria</p>
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-emerald-400 text-sm">trending_up</span>
-                                <p class="text-lg font-bold text-emerald-400">92%</p>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-semibold text-on-surface">AlmacÃ©n Central</span>
+                                <span class="text-sm text-secondary font-bold">55%</span>
+                            </div>
+                            <div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+                                <div class="h-full bg-primary-container rounded-full" style="width: 55%"></div>
                             </div>
                         </div>
-                        <span class="material-symbols-outlined absolute -right-2 -bottom-2 text-white/10 text-8xl pointer-events-none">payments</span>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-semibold text-on-surface">Centro Sur</span>
+                                <span class="text-sm text-secondary font-bold">30%</span>
+                            </div>
+                            <div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+                                <div class="h-full bg-[#394857] rounded-full" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-semibold text-on-surface">Taller MÃ³vil</span>
+                                <span class="text-sm text-secondary font-bold">15%</span>
+                            </div>
+                            <div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+                                <div class="h-full bg-secondary-fixed-dim rounded-full" style="width: 15%"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Monthly Spend Breakdown -->
-                <div class="col-span-12 bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                    <div class="flex justify-between items-center mb-8">
-                        <div>
-                            <h3 class="text-xl font-bold text-primary-container">Desglose de Gasto Mensual 2026</h3>
-                            <p class="text-xs text-on-surface-variant">Comparativa de inversión en mantenimiento por unidad (Top 3 Unidades).</p>
-                        </div>
-                        <div class="flex items-center gap-6">
-                            <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 bg-[#001F3F] rounded-sm"></div>
-                                <span class="text-[10px] font-bold text-secondary uppercase">TR-089</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 bg-[#64748B] rounded-sm"></div>
-                                <span class="text-[10px] font-bold text-secondary uppercase">TR-102</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 bg-[#94A3B8] rounded-sm"></div>
-                                <span class="text-[10px] font-bold text-secondary uppercase">TR-045</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-stretch justify-between h-64 gap-2 px-2">
-                        <!-- Jan -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[45%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[35%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[30%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Ene</span>
-                        </div>
-                        <!-- Feb -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[50%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[40%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[35%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Feb</span>
-                        </div>
-                        <!-- Mar -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[48%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[38%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[32%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Mar</span>
-                        </div>
-                        <!-- Apr -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[55%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[45%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[40%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Abr</span>
-                        </div>
-                        <!-- May -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2.5 bg-[#001F3F] rounded-t-sm h-[65%] shadow-lg shadow-[#001F3F]/20 transition-all relative group-hover:scale-110">
-                                    <div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-[#001F3F] text-white text-[8px] font-bold px-1 py-0.5 rounded opacity-0 group-hover:opacity-100">$8.4k</div>
-                                </div>
-                                <div class="w-2.5 bg-[#64748B] rounded-t-sm h-[50%] transition-all relative group-hover:scale-110">
-                                    <div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-[#64748B] text-white text-[8px] font-bold px-1 py-0.5 rounded opacity-0 group-hover:opacity-100">$6.1k</div>
-                                </div>
-                                <div class="w-2.5 bg-[#94A3B8] rounded-t-sm h-[45%] transition-all relative group-hover:scale-110">
-                                    <div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-[#94A3B8] text-white text-[8px] font-bold px-1 py-0.5 rounded opacity-0 group-hover:opacity-100">$5.8k</div>
-                                </div>
-                            </div>
-                            <span class="text-[10px] font-black text-primary-container text-center uppercase">May</span>
-                        </div>
-                        <!-- Jun -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[52%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[42%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[38%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Jun</span>
-                        </div>
-                        <!-- Jul -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[48%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[38%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[32%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Jul</span>
-                        </div>
-                        <!-- Aug -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[58%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[48%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[42%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Ago</span>
-                        </div>
-                        <!-- Sep -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[52%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[42%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[38%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Sep</span>
-                        </div>
-                        <!-- Oct -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[62%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[52%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[48%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Oct</span>
-                        </div>
-                        <!-- Nov -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[58%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[48%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[44%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Nov</span>
-                        </div>
-                        <!-- Dec -->
-                        <div class="flex-1 flex flex-col group">
-                            <div class="flex-1 flex items-end justify-center gap-1 mb-3">
-                                <div class="w-2 bg-[#001F3F]/80 hover:bg-[#001F3F] rounded-t-sm h-[60%] transition-all relative"></div>
-                                <div class="w-2 bg-[#64748B]/80 hover:bg-[#64748B] rounded-t-sm h-[50%] transition-all relative"></div>
-                                <div class="w-2 bg-[#94A3B8]/80 hover:bg-[#94A3B8] rounded-t-sm h-[46%] transition-all relative"></div>
-                            </div>
-                            <span class="text-[10px] font-black text-slate-400 text-center uppercase">Dic</span>
-                        </div>
-                    </div>
-
-                    <!-- Monthly Spend Summary Grid -->
-                    <div class="mt-10 pt-8 border-t border-slate-100">
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Enero</p>
-                                <p class="text-xl font-bold text-primary-container">$38,500</p>
-                                <p class="text-[10px] text-emerald-600 font-bold">-3.2% vs Meta</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Febrero</p>
-                                <p class="text-xl font-bold text-primary-container">$41,200</p>
-                                <p class="text-[10px] text-error font-bold">+1.5% vs Meta</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Marzo</p>
-                                <p class="text-xl font-bold text-primary-container">$39,800</p>
-                                <p class="text-[10px] text-emerald-600 font-bold">-1.8% vs Meta</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Abril</p>
-                                <p class="text-xl font-bold text-primary-container">$44,000</p>
-                                <p class="text-[10px] text-error font-bold">+4.2% vs Meta</p>
-                            </div>
-                            <div class="bg-primary-container p-4 rounded-xl border border-primary-container shadow-lg text-center transform scale-105 z-10">
-                                <p class="text-[10px] font-bold text-white/70 uppercase tracking-wider mb-1">Mayo</p>
-                                <p class="text-xl font-bold text-white">$42,850</p>
-                                <p class="text-[10px] text-emerald-300 font-bold">-0.5% vs Meta</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Junio</p>
-                                <p class="text-xl font-bold text-primary-container">$43,500</p>
-                                <p class="text-[10px] text-slate-400 font-bold">En Curso</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Julio</p>
-                                <p class="text-xl font-bold text-primary-container">$40,000</p>
-                                <p class="text-[10px] text-emerald-600 font-bold">-2.5% vs Meta</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Agosto</p>
-                                <p class="text-xl font-bold text-primary-container">$45,200</p>
-                                <p class="text-[10px] text-error font-bold">+3.0% vs Meta</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Septiembre</p>
-                                <p class="text-xl font-bold text-primary-container">$42,500</p>
-                                <p class="text-[10px] text-emerald-600 font-bold">-0.8% vs Meta</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Octubre</p>
-                                <p class="text-xl font-bold text-primary-container">$46,000</p>
-                                <p class="text-[10px] text-error font-bold">+4.5% vs Meta</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Noviembre</p>
-                                <p class="text-xl font-bold text-primary-container">$44,800</p>
-                                <p class="text-[10px] text-error font-bold">+2.1% vs Meta</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Diciembre</p>
-                                <p class="text-xl font-bold text-primary-container">$45,900</p>
-                                <p class="text-[10px] text-error font-bold">+3.8% vs Meta</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Fleet Performance Section -->
-                <div class="col-span-12 lg:col-span-8 bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
-                    <div class="p-6 border-b border-slate-100 flex justify-between items-center">
-                        <h3 class="text-xl font-bold text-primary-container">Desempeño de Flota (Top Gastos)</h3>
-                        <span class="text-xs font-bold text-secondary px-3 py-1 bg-slate-100 rounded-full uppercase">Mayo 2026</span>
+                <!-- 5. Fleet Performance Table -->
+                <div class="col-span-12 lg:col-span-8 bg-white rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 overflow-hidden">
+                    <div class="p-lg border-b border-slate-100 flex justify-between items-center">
+                        <h3 class="font-h3 text-h3 text-primary-container">DesempeÃ±o de Flota (Top Gastos)</h3>
+                        <span class="text-xs font-semibold text-secondary px-3 py-1 bg-surface-container rounded-full uppercase">Mayo 2026</span>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left">
-                            <thead class="bg-slate-50 border-b border-slate-200">
+                            <thead class="bg-surface-container-low border-b border-slate-200">
                                 <tr>
-                                    <th class="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-widest">ID Vehículo</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-widest">Modelo</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-widest">Gasto Total</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-widest">Estatus</th>
-                                    <th class="px-6 py-4"></th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">ID VehÃ­culo</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Modelo</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Gasto Total</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Estatus</th>
+                                    <th class="px-lg py-4"></th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
                                 <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4 font-bold text-primary-container">TR-089</td>
-                                    <td class="px-6 py-4 text-sm text-on-surface-variant">Freightliner Cascadia</td>
-                                    <td class="px-6 py-4 font-semibold text-primary-container">$8,420</td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-[10px] font-bold uppercase tracking-wider">Mantenimiento</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span>
-                                    </td>
+                                    <td class="px-lg py-4 font-bold text-primary-container">TR-089</td>
+                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Freightliner Cascadia</td>
+                                    <td class="px-lg py-4 font-semibold text-primary-container">$8,420</td>
+                                    <td class="px-lg py-4"><span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-[10px] font-bold uppercase tracking-wider">Mantenimiento</span></td>
+                                    <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
                                 </tr>
                                 <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4 font-bold text-primary-container">TR-102</td>
-                                    <td class="px-6 py-4 text-sm text-on-surface-variant">Volvo FH16</td>
-                                    <td class="px-6 py-4 font-semibold text-primary-container">$6,150</td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider">En Ruta</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span>
-                                    </td>
+                                    <td class="px-lg py-4 font-bold text-primary-container">TR-102</td>
+                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Volvo FH16</td>
+                                    <td class="px-lg py-4 font-semibold text-primary-container">$6,150</td>
+                                    <td class="px-lg py-4"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider">En Ruta</span></td>
+                                    <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
                                 </tr>
                                 <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4 font-bold text-primary-container">TR-045</td>
-                                    <td class="px-6 py-4 text-sm text-on-surface-variant">Kenworth T680</td>
-                                    <td class="px-6 py-4 font-semibold text-primary-container">$5,800</td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider">En Ruta</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span>
-                                    </td>
+                                    <td class="px-lg py-4 font-bold text-primary-container">TR-045</td>
+                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Kenworth T680</td>
+                                    <td class="px-lg py-4 font-semibold text-primary-container">$5,800</td>
+                                    <td class="px-lg py-4"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider">En Ruta</span></td>
+                                    <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-lg py-4 font-bold text-primary-container">TR-077</td>
+                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Scania R500</td>
+                                    <td class="px-lg py-4 font-semibold text-primary-container">$4,290</td>
+                                    <td class="px-lg py-4"><span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-[10px] font-bold uppercase tracking-wider">Disponible</span></td>
+                                    <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- 3. Inventory Distribution -->
-                <div class="col-span-12 lg:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                    <h3 class="text-xl font-bold text-primary-container mb-6">Distribución de Inventario</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-semibold text-on-surface">Almacén Central</span>
-                                <span class="text-sm text-secondary">55%</span>
+                <!-- 6. Repuestos mÃ¡s Solicitados -->
+                <div class="col-span-12 bg-white rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 overflow-hidden mt-4">
+                    <div class="p-lg border-b border-slate-100 flex justify-between items-center">
+                        <h3 class="font-h3 text-h3 text-primary-container">Repuestos mÃ¡s Solicitados (TÃ©cnicos)</h3>
+                        <span class="text-xs font-semibold text-secondary px-3 py-1 bg-surface-container rounded-full uppercase">Top 5 Mayo</span>
+                    </div>
+                    <div class="divide-y divide-slate-100">
+                        <div class="p-lg flex items-center justify-between hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary-container">tire_repair</span></div>
+                                <div>
+                                    <p class="font-semibold text-on-surface">NeumÃ¡tico Radial 295/80</p>
+                                    <p class="text-xs text-on-surface-variant">12 unidades despachadas</p>
+                                </div>
                             </div>
-                            <div class="h-2 w-full bg-slate-100 rounded-full">
-                                <div class="h-full bg-primary-container rounded-full w-[55%]"></div>
-                            </div>
+                            <span class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold uppercase">Alta demanda</span>
                         </div>
-                        <div>
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-semibold text-on-surface">Centro Sur</span>
-                                <span class="text-sm text-secondary">30%</span>
+                        <div class="p-lg flex items-center justify-between hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary-container">oil_barrel</span></div>
+                                <div>
+                                    <p class="font-semibold text-on-surface">Aceite SintÃ©tico 5W-30 (Tambor)</p>
+                                    <p class="text-xs text-on-surface-variant">8 unidades despachadas</p>
+                                </div>
                             </div>
-                            <div class="h-2 w-full bg-slate-100 rounded-full">
-                                <div class="h-full bg-[#394857] rounded-full w-[30%]"></div>
+                            <span class="px-3 py-1 bg-surface-container text-secondary rounded-full text-[10px] font-bold uppercase">Regular</span>
+                        </div>
+                        <div class="p-lg flex items-center justify-between hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary-container">settings_input_component</span></div>
+                                <div>
+                                    <p class="font-semibold text-on-surface">Kit de Embrague Heavy Duty</p>
+                                    <p class="text-xs text-on-surface-variant">3 unidades (Costo Crítico)</p>
+                                </div>
                             </div>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-[10px] font-bold uppercase">Importante</span>
+                        </div>
+                        <div class="p-lg flex items-center justify-between hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary-container">filter_alt</span></div>
+                                <div>
+                                    <p class="font-semibold text-on-surface">Filtro de Aire Industrial XL</p>
+                                    <p class="text-xs text-on-surface-variant">45 unidades (Alto Volumen)</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold uppercase">Alta demanda</span>
+                        </div>
+                        <div class="p-lg flex items-center justify-between hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary-container">minor_crash</span></div>
+                                <div>
+                                    <p class="font-semibold text-on-surface">Juego de Balatas Delanteras</p>
+                                    <p class="text-xs text-on-surface-variant">22 unidades despachadas</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 bg-surface-container text-secondary rounded-full text-[10px] font-bold uppercase">Frecuente</span>
                         </div>
                     </div>
-                    <div class="mt-8 pt-8 border-t border-slate-100">
-                        <h4 class="text-xs font-bold text-secondary uppercase tracking-widest mb-4">Top 2 Refacciones (Demanda)</h4>
-                        <ul class="space-y-4">
-                            <li class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="material-symbols-outlined text-primary-container">tire_repair</span>
-                                    <span class="text-sm font-medium">Neumáticos 295/80 R22.5</span>
-                                </div>
-                                <span class="text-xs font-bold text-error">Alta</span>
-                            </li>
-                            <li class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="material-symbols-outlined text-primary-container">oil_barrel</span>
-                                    <span class="text-sm font-medium">Aceite Sintético 5W-40</span>
-                                </div>
-                                <span class="text-xs font-bold text-error">Alta</span>
-                            </li>
-                        </ul>
+                </div>
+
+                <!-- 7. Strategic Vision Visual -->
+                <div class="col-span-12 h-64 rounded-2xl overflow-hidden relative mt-4">
+                    <img alt="Strategic Vision" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcetlw2F9kv-qIeH7RhSjIfMZ2MZCwSOLI2mqOt8UZm2pXkC4-2OnRkfq6Z_W1zapayMcNrwgT0flwxdZ5bAv7sKnNx0pnZBCJqKKuYEMLEU6Ix6fcoZ1kz7C1ljHP4qkb8FCEd64aZbX_TShUJrFXi2mVhL4_a6eW7BzOJ29e2yGDIqx1lmu5K75igX6PvMjATP-8tez5K60P9Edfpp8cGCvk5keXHErgXJJSXIX17qSwSOe5Zpun5f85-mnftjHPHDJWabuOblt3"/>
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-container/90 to-transparent flex items-center px-12">
+                        <div class="max-w-md">
+                            <h2 class="text-white font-h2 text-h2 mb-4">Eficiencia en Movimiento</h2>
+                            <p class="text-white/80 text-body-md">Monitoreo en tiempo real de activos críticos para garantizar la continuidad operativa de la cadena de suministro.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Strategic Vision Visual -->
-            <div class="col-span-12 h-64 rounded-2xl overflow-hidden relative mt-8">
-                <img alt="Strategic Vision" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcetlw2F9kv-qIeH7RhSjIfMZ2MZCwSOLI2mqOt8UZm2pXkC4-2OnRkfq6Z_W1zapayMcNrwgT0flwxdZ5bAv7sKnNx0pnZBCJqKKuYEMLEU6Ix6fcoZ1kz7C1ljHP4qkb8FCEd64aZbX_TShUJrFXi2mVhL4_a6eW7BzOJ29e2yGDIqx1lmu5K75igX6PvMjATP-8tez5K60P9Edfpp8cGCvk5keXHErgXJJSXIX17qSwSOe5Zpun5f85-mnftjHPHDJWabuOblt3"/>
-                <div class="absolute inset-0 bg-gradient-to-r from-primary-container/90 to-transparent flex items-center px-12">
-                    <div class="max-w-md">
-                        <h2 class="text-white text-2xl font-bold mb-4">Eficiencia en Movimiento</h2>
-                        <p class="text-white/80 text-sm">Monitoreo en tiempo real de activos críticos para garantizar la continuidad operativa de la cadena de suministro.</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
+
+    </div>
 
     <!-- BottomNavBar (Mobile Only) -->
     <nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 bg-white border-t border-slate-200 z-50">
@@ -673,5 +534,7 @@
             <span class="text-[10px] font-bold uppercase">KPIs</span>
         </div>
     </nav>
+
 </body>
 </html>
+
