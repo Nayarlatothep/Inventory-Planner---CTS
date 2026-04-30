@@ -336,13 +336,20 @@
 
         <!-- Right Panel: Spare Parts -->
         <div class="col-span-1 md:col-span-8 space-y-6">
-            <!-- Dynamic Spare Parts Selector -->
-            <section id="sparePartsSection" class="hidden bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant space-y-4">
-                <div class="flex justify-between items-center">
-                    <h3 class="font-h3 text-h3 text-primary-container">Refacciones</h3>
-                    <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">1 ÍTEM</span>
+            <section id="sparePartsSection" class="hidden bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant flex flex-col h-fit">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center gap-2">
+                        <h3 class="font-h3 text-h3 text-primary-container">Refacciones</h3>
+                        <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">1 ÍTEM</span>
+                    </div>
                 </div>
                 
+                <!-- Search Filter -->
+                <div class="relative mb-4">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+                    <input id="searchParts" class="w-full border border-outline-variant rounded-lg pl-[40px] pr-4 py-2.5 focus:border-primary-container outline-none transition-all font-body-sm text-body-sm bg-surface" placeholder="Filtrar refacciones añadidas..." type="text"/>
+                </div>
+
                 <!-- Spare Parts Grid -->
                 <div id="sparePartsContainer" class="space-y-3">
                     <!-- Item 1 (The "Viñeta") -->
@@ -478,6 +485,25 @@
                     if (window.innerWidth < 768) {
                         sparePartsSection.scrollIntoView({ behavior: 'smooth' });
                     }
+                });
+            }
+
+            const searchParts = document.getElementById('searchParts');
+            const itemCountBadge = document.querySelector('#sparePartsSection span.bg-primary-container');
+            if (itemCountBadge) itemCountBadge.id = 'itemCountBadge';
+
+            // Filter logic for spare parts
+            if (searchParts && sparePartsContainer) {
+                searchParts.addEventListener('input', (e) => {
+                    const term = e.target.value.toLowerCase();
+                    const cards = sparePartsContainer.querySelectorAll('.spare-part-card');
+                    cards.forEach(card => {
+                        const select = card.querySelector('.spare-part-select');
+                        const sku = card.querySelector('.sku-label').textContent.toLowerCase();
+                        const val = select.value.toLowerCase();
+                        const isMatch = val.includes(term) || sku.includes(term);
+                        card.style.display = isMatch ? 'flex' : 'none';
+                    });
                 });
             }
 
