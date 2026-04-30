@@ -308,7 +308,12 @@
                 <!-- Spare Parts Grid -->
                 <div id="sparePartsContainer" class="space-y-3">
                     <!-- Item 1 (The "Viñeta") -->
-                    <div class="spare-part-card bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
+                    <div class="spare-part-card bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3 relative group">
+                        <!-- Delete Button -->
+                        <button class="btn-delete-part absolute -top-2 -right-2 bg-error-container text-on-error-container p-1 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity active:scale-90 z-10">
+                            <span class="material-symbols-outlined text-[18px]">delete</span>
+                        </button>
+                        
                         <div class="flex justify-between items-start">
                             <div class="flex-1 mr-4">
                                 <select class="spare-part-select w-full bg-surface border border-outline rounded-lg px-3 py-2 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all mb-2">
@@ -439,8 +444,9 @@
                 });
             }
 
-            // 1. Function to update labels based on select change (Event Delegation)
+            // 1. Function to update labels and handle deletion (Event Delegation)
             if (sparePartsContainer) {
+                // Handle Changes (Select)
                 sparePartsContainer.addEventListener('change', (e) => {
                     if (e.target.classList.contains('spare-part-select')) {
                         const card = e.target.closest('.spare-part-card');
@@ -454,10 +460,41 @@
                         }
                     }
                 });
+
+                // Handle Deletion
+                sparePartsContainer.addEventListener('click', (e) => {
+                    const btnDelete = e.target.closest('.btn-delete-part');
+                    if (btnDelete) {
+                        const card = btnDelete.closest('.spare-part-card');
+                        const allCards = sparePartsContainer.querySelectorAll('.spare-part-card');
+                        
+                        if (allCards.length > 1) {
+                            card.remove();
+                            updateItemCount();
+                        } else {
+                            // If it's the last one, just reset it instead of deleting
+                            card.querySelector('.spare-part-select').selectedIndex = 0;
+                            card.querySelector('.sku-label').textContent = '---';
+                            card.querySelector('.rack-label').textContent = '---';
+                            card.querySelector('input[type="number"]').value = 1;
+                            updateItemCount();
+                        }
+                    }
+                });
+            }
+
+            function updateItemCount() {
+                if (itemCountBadge && sparePartsContainer) {
+                    const count = sparePartsContainer.querySelectorAll('.spare-part-card').length;
+                    itemCountBadge.textContent = `${count} ÍTEM${count > 1 ? 'S' : ''}`;
+                }
             }
 
             // 2. Function to add a new card
             if (btnAddPart && sparePartsContainer) {
+                // We need a pristine template of the card for cloning
+                // because the current cards might have values changed.
+                // But for now cloning the first one and resetting works too.
                 btnAddPart.addEventListener('click', () => {
                     const firstCard = sparePartsContainer.querySelector('.spare-part-card');
                     if (firstCard) {
@@ -466,12 +503,9 @@
                         newCard.querySelector('.sku-label').textContent = '---';
                         newCard.querySelector('.rack-label').textContent = '---';
                         newCard.querySelector('input[type="number"]').value = 1;
+                        // Ensure delete button is visible on hover for new card
                         sparePartsContainer.appendChild(newCard);
-                        
-                        if (itemCountBadge) {
-                            const count = sparePartsContainer.querySelectorAll('.spare-part-card').length;
-                            itemCountBadge.textContent = `${count} ÍTEM${count > 1 ? 'S' : ''}`;
-                        }
+                        updateItemCount();
                     }
                 });
             }
