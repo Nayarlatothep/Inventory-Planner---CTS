@@ -112,6 +112,20 @@
             grid-template-columns: repeat(12, 1fr);
             gap: 24px;
         }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #efedf0;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #001f3f;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #2f486a;
+        }
     </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
@@ -321,9 +335,9 @@
                 </div>
 
                 <!-- 2. Gasto Total por Camión -->
-                <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100">
+                <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 flex flex-col">
                     <h3 class="font-label-caps text-label-caps text-secondary uppercase mb-6">Gasto Total por Camión</h3>
-                    <div class="space-y-4">
+                    <div class="space-y-4 max-h-[240px] overflow-y-auto pr-2 custom-scrollbar">
                         <div class="flex items-center gap-3">
                             <span class="text-xs font-bold text-primary-container w-12">TR-089</span>
                             <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
@@ -356,14 +370,39 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- New Trucks -->
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-primary-container w-12">TR-034</span>
+                            <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
+                                <div class="h-full bg-primary-container/30 flex items-center justify-end px-2" style="width: 45%">
+                                    <span class="text-[10px] text-white font-bold">$3,850</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-primary-container w-12">TR-056</span>
+                            <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
+                                <div class="h-full bg-primary-container/25 flex items-center justify-end px-2" style="width: 38%">
+                                    <span class="text-[10px] text-white font-bold">$3,120</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-primary-container w-12">TR-112</span>
+                            <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
+                                <div class="h-full bg-primary-container/20 flex items-center justify-end px-2" style="width: 32%">
+                                    <span class="text-[10px] text-white font-bold">$2,680</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <p class="mt-6 text-[10px] text-on-surface-variant italic text-center">Comparativa de costos operativos por unidad activa.</p>
                 </div>
 
                 <!-- 4. Estado Camiones -->
-                <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100">
+                <div class="col-span-12 md:col-span-4 bg-white p-lg rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 flex flex-col">
                     <h3 class="font-label-caps text-label-caps text-secondary uppercase mb-6">Estado Camiones</h3>
-                    <div class="space-y-4">
+                    <div class="space-y-4 max-h-[240px] overflow-y-auto pr-2 custom-scrollbar">
                         <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
                             <div class="flex items-center gap-3">
                                 <span class="material-symbols-outlined text-orange-600">build</span>
@@ -391,6 +430,28 @@
                                 <span class="text-sm font-bold text-primary-container">TR-077</span>
                             </div>
                             <span class="px-2 py-1 bg-slate-100 text-slate-500 rounded text-[10px] font-bold uppercase">De Baja</span>
+                        </div>
+                        <!-- New Statuses -->
+                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-emerald-600">check_circle</span>
+                                <span class="text-sm font-bold text-primary-container">TR-034</span>
+                            </div>
+                            <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-[10px] font-bold uppercase">Activo</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-orange-600">build</span>
+                                <span class="text-sm font-bold text-primary-container">TR-056</span>
+                            </div>
+                            <span class="px-2 py-1 bg-orange-100 text-orange-700 rounded text-[10px] font-bold uppercase">Mantenimiento</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-emerald-600">check_circle</span>
+                                <span class="text-sm font-bold text-primary-container">TR-112</span>
+                            </div>
+                            <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-[10px] font-bold uppercase">Activo</span>
                         </div>
                     </div>
                 </div>
