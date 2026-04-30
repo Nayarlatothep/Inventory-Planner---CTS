@@ -301,12 +301,12 @@
                 </div>
                 
                 <!-- Spare Parts Grid -->
-                <div class="space-y-3">
+                <div id="sparePartsContainer" class="space-y-3">
                     <!-- Item 1 (The "Viñeta") -->
-                    <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
+                    <div class="spare-part-card bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
                         <div class="flex justify-between items-start">
                             <div class="flex-1 mr-4">
-                                <select id="sparePartSelect" class="w-full bg-surface border border-outline rounded-lg px-3 py-2 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all mb-2">
+                                <select class="spare-part-select w-full bg-surface border border-outline rounded-lg px-3 py-2 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all mb-2">
                                     <option value="" data-sku="---" data-rack="---">Seleccione una refacción...</option>
                                     <option value="Filtro de Aceite" data-sku="AF-100" data-rack="A-01">Filtro de Aceite</option>
                                     <option value="Aceite Sintético 5W-30" data-sku="OIL-005" data-rack="B-05">Aceite Sintético 5W-30</option>
@@ -317,11 +317,11 @@
                                     <option value="Llantas 205/55R16" data-sku="TY-556" data-rack="G-20">Llantas 205/55R16</option>
                                     <option value="Batería 12V" data-sku="BT-12V" data-rack="H-12">Batería 12V</option>
                                 </select>
-                                <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: <span id="skuLabel">---</span></p>
+                                <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: <span class="sku-label">---</span></p>
                             </div>
                             <div class="text-right">
                                 <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
-                                <span id="rackLabel" class="font-body-sm text-body-sm font-bold text-secondary">---</span>
+                                <span class="rack-label font-body-sm text-body-sm font-bold text-secondary">---</span>
                             </div>
                         </div>
                         <div class="flex items-center justify-between border-t border-surface-variant pt-2">
@@ -337,7 +337,7 @@
                 </div>
 
                 <!-- Add More Button -->
-                <button class="w-full py-3 border-2 border-dashed border-outline-variant rounded-xl flex items-center justify-center gap-2 text-on-surface-variant font-button hover:bg-surface-variant/20 transition-all">
+                <button id="btnAddPart" class="w-full py-3 border-2 border-dashed border-outline-variant rounded-xl flex items-center justify-center gap-2 text-on-surface-variant font-button hover:bg-surface-variant/20 transition-all">
                     <span class="material-symbols-outlined">add_circle</span>
                     AÑADIR NUEVA REFACCIÓN
                 </button>
@@ -365,18 +365,47 @@
                 });
             }
 
-            const sparePartSelect = document.getElementById('sparePartSelect');
-            const skuLabel = document.getElementById('skuLabel');
-            const rackLabel = document.getElementById('rackLabel');
+            const sparePartsContainer = document.getElementById('sparePartsContainer');
+            const btnAddPart = document.getElementById('btnAddPart');
+            const itemCountBadge = sparePartsSection ? sparePartsSection.querySelector('.bg-primary-container.text-white') : null;
 
-            if (sparePartSelect && skuLabel && rackLabel) {
-                sparePartSelect.addEventListener('change', (e) => {
-                    const selectedOption = e.target.options[e.target.selectedIndex];
-                    const sku = selectedOption.getAttribute('data-sku');
-                    const rack = selectedOption.getAttribute('data-rack');
-                    
-                    skuLabel.textContent = sku;
-                    rackLabel.textContent = rack;
+            // 1. Function to update labels based on select change (Event Delegation)
+            if (sparePartsContainer) {
+                sparePartsContainer.addEventListener('change', (e) => {
+                    if (e.target.classList.contains('spare-part-select')) {
+                        const card = e.target.closest('.spare-part-card');
+                        const selectedOption = e.target.options[e.target.selectedIndex];
+                        const sku = selectedOption.getAttribute('data-sku');
+                        const rack = selectedOption.getAttribute('data-rack');
+                        
+                        if (card) {
+                            card.querySelector('.sku-label').textContent = sku;
+                            card.querySelector('.rack-label').textContent = rack;
+                        }
+                    }
+                });
+            }
+
+            // 2. Function to add a new card
+            if (btnAddPart && sparePartsContainer) {
+                btnAddPart.addEventListener('click', () => {
+                    const firstCard = sparePartsContainer.querySelector('.spare-part-card');
+                    if (firstCard) {
+                        const newCard = firstCard.cloneNode(true);
+                        // Reset values
+                        newCard.querySelector('.spare-part-select').selectedIndex = 0;
+                        newCard.querySelector('.sku-label').textContent = '---';
+                        newCard.querySelector('.rack-label').textContent = '---';
+                        newCard.querySelector('input[type="number"]').value = 1;
+                        
+                        sparePartsContainer.appendChild(newCard);
+                        
+                        // Update Badge Count
+                        if (itemCountBadge) {
+                            const count = sparePartsContainer.querySelectorAll('.spare-part-card').length;
+                            itemCountBadge.textContent = `${count} ÍTEM${count > 1 ? 'S' : ''}`;
+                        }
+                    }
                 });
             }
 
