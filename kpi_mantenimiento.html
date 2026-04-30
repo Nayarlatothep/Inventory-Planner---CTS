@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CSM Legacy - Reporte Mensual de KPIs</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#001f3f",
+                        "secondary-container": "#d1e1f4",
+                        "on-primary-container": "#6f88ad",
+                        "background": "#faf9fc",
+                        "surface": "#faf9fc",
+                        "on-surface": "#1a1c1e",
+                        "on-surface-variant": "#43474e",
+                        "outline-variant": "#c4c6cf",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "secondary": "#50606f",
+                    },
+                    "borderRadius": {
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "gutter": "24px",
+                    },
+                    "fontFamily": {
+                        "h1": ["Inter"],
+                        "h2": ["Inter"],
+                        "h3": ["Inter"],
+                        "body-md": ["Inter"],
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #faf9fc;
+            font-family: 'Inter', sans-serif;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+    </style>
+</head>
+<body class="text-on-background">
+    <!-- TopAppBar -->
+    <header class="bg-[#001F3F] text-white font-['Inter'] font-semibold tracking-tight text-lg w-full px-6 py-4 fixed top-0 z-50 border-b border-white/10 shadow-lg flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+                <div class="bg-slate-800/50 p-2 rounded-lg">
+                    <span class="material-symbols-outlined text-white text-[24px]">local_shipping</span>
+                </div>
+                <span class="text-white font-black text-xl tracking-tighter uppercase">CSM Legacy</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <nav class="hidden md:flex gap-8 text-sm">
+                <a class="text-white font-bold transition-colors" href="index.html">Inicio</a>
+                <a class="text-slate-400 hover:text-white transition-colors" href="recepcion.html">Recepción</a>
+                <a class="text-slate-400 hover:text-white transition-colors" href="solicitud.html">Solicitudes</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-xs font-bold leading-none">Perfil Ejecutivo</p>
+                    <p class="text-[10px] text-slate-400">Operaciones de Flota</p>
+                </div>
+                <img alt="Executive Profile" class="w-10 h-10 rounded-full border-2 border-white/20 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZr3b4WuX-TZg4-jH7qS6Ar47b9QWRs4mxMHChQYplOvPp3UHekqT5709VUDLB4TJNB2-bVAMXytJV8xLahrUEluG8uZmYWygU7CATYN_puavUT3-7ZHZz2ENmLVDowhlR76qzsTIKaM4Mows_-rQpzLmpwoe_sn_N200WXLOzpZyW1zvGjBOzi11pbr2NOZkXumy3Ydlh1QhDP9JD1bA8kQjdZVf8xFKtHhQQZeK0k5XFpiLygOvcge_DvOhI24rsIE8a9uqqvIiq"/>
+            </div>
+        </div>
+    </header>
+
+    <!-- NavigationDrawer (Desktop) -->
+    <aside class="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] bg-white w-72 border-r border-slate-200 z-40">
+        <div class="p-6">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">analytics</span>
+                </div>
+                <div>
+                    <p class="font-bold text-[#001F3F] text-sm">Panel de KPIs</p>
+                    <p class="text-xs text-slate-500">Mantenimiento HQ</p>
+                </div>
+            </div>
+            <nav class="space-y-1">
+                <a href="index.html" class="text-slate-600 hover:bg-slate-100 rounded-lg px-4 py-3 flex items-center gap-3 transition-all">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm font-medium uppercase tracking-wider">Dashboard Inicio</span>
+                </a>
+                <a href="recepcion.html" class="text-slate-600 hover:bg-slate-100 rounded-lg px-4 py-3 flex items-center gap-3 transition-all">
+                    <span class="material-symbols-outlined">package_2</span>
+                    <span class="text-sm font-medium uppercase tracking-wider">Recepción Material</span>
+                </a>
+                <a href="solicitud.html" class="text-slate-600 hover:bg-slate-100 rounded-lg px-4 py-3 flex items-center gap-3 transition-all">
+                    <span class="material-symbols-outlined">build</span>
+                    <span class="text-sm font-medium uppercase tracking-wider">Solicitud Trabajo</span>
+                </a>
+                <div class="bg-[#001F3F] text-white rounded-lg px-4 py-3 flex items-center gap-3 transition-all">
+                    <span class="material-symbols-outlined">analytics</span>
+                    <span class="text-sm font-medium uppercase tracking-wider">KPI Mantenimiento</span>
+                </div>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lg:ml-72 pt-24 px-8 pb-32">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-primary-container">Reporte Mensual de KPIs - Mayo 2024</h1>
+                    <p class="text-on-surface-variant">Análisis detallado de operaciones de flota, inventario y eficiencia operativa.</p>
+                </div>
+                <button class="bg-[#001F3F] text-white px-6 py-3 rounded-lg font-bold text-sm flex items-center gap-2 hover:bg-[#001429] transition-all shadow-md active:scale-95">
+                    <span class="material-symbols-outlined">download</span>
+                    EXPORTAR PDF
+                </button>
+            </div>
+
+            <div class="bento-grid">
+                <!-- 1. Summary Card -->
+                <div class="col-span-12 md:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <div class="flex justify-between items-start mb-4">
+                        <p class="text-xs font-bold text-secondary uppercase tracking-widest">Total Gasto Mensual</p>
+                        <span class="bg-error-container text-on-error-container px-2 py-1 rounded text-[10px] font-bold">+8.5%</span>
+                    </div>
+                    <p class="text-4xl font-bold text-primary-container">$42,850</p>
+                    <div class="mt-4 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary-container w-[85%]"></div>
+                    </div>
+                    <p class="mt-4 text-xs text-on-surface-variant">Gasto acumulado vs presupuesto mensual proyectado.</p>
+                </div>
+
+                <!-- 5. Efficiency Card -->
+                <div class="col-span-12 md:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-secondary uppercase tracking-widest mb-4">Eficiencia Operativa</p>
+                        <div class="flex items-baseline gap-2">
+                            <p class="text-3xl font-bold text-primary-container">$1,428</p>
+                            <p class="text-sm text-on-surface-variant">/ camión</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg mt-4 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary-container">trending_down</span>
+                        <p class="text-xs font-medium text-on-surface">Costo por unidad reducido un 2% respecto al mes anterior.</p>
+                    </div>
+                </div>
+
+                <!-- Alert Card -->
+                <div class="col-span-12 md:col-span-4 bg-primary-container text-white p-6 rounded-xl shadow-lg relative overflow-hidden">
+                    <div class="relative z-10">
+                        <p class="text-xs font-bold opacity-70 uppercase tracking-widest mb-4">Alerta de Inventario</p>
+                        <h3 class="text-xl font-bold mb-2">Optimización de Neumáticos</h3>
+                        <p class="text-sm opacity-80 mb-6">Se requiere auditoría inmediata en el Centro Sur para balanceo de stock.</p>
+                        <button class="bg-white text-primary-container px-4 py-2 rounded font-bold text-sm">Ver Detalles</button>
+                    </div>
+                    <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-9xl pointer-events-none">inventory_2</span>
+                </div>
+
+                <!-- Fleet Performance Section -->
+                <div class="col-span-12 lg:col-span-8 bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-primary-container">Desempeño de Flota (Top Gastos)</h3>
+                        <span class="text-xs font-bold text-secondary px-3 py-1 bg-slate-100 rounded-full uppercase">Mayo 2024</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-widest">ID Vehículo</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-widest">Modelo</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-widest">Gasto Total</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-secondary uppercase tracking-widest">Estatus</th>
+                                    <th class="px-6 py-4"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 font-bold text-primary-container">TR-089</td>
+                                    <td class="px-6 py-4 text-sm text-on-surface-variant">Freightliner Cascadia</td>
+                                    <td class="px-6 py-4 font-semibold text-primary-container">$8,420</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-[10px] font-bold uppercase tracking-wider">Mantenimiento</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 font-bold text-primary-container">TR-102</td>
+                                    <td class="px-6 py-4 text-sm text-on-surface-variant">Volvo FH16</td>
+                                    <td class="px-6 py-4 font-semibold text-primary-container">$6,150</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider">En Ruta</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 font-bold text-primary-container">TR-045</td>
+                                    <td class="px-6 py-4 text-sm text-on-surface-variant">Kenworth T680</td>
+                                    <td class="px-6 py-4 font-semibold text-primary-container">$5,800</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider">En Ruta</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 3. Inventory Distribution -->
+                <div class="col-span-12 lg:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="text-xl font-bold text-primary-container mb-6">Distribución de Inventario</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-semibold text-on-surface">Almacén Central</span>
+                                <span class="text-sm text-secondary">55%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-100 rounded-full">
+                                <div class="h-full bg-primary-container rounded-full w-[55%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-semibold text-on-surface">Centro Sur</span>
+                                <span class="text-sm text-secondary">30%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-100 rounded-full">
+                                <div class="h-full bg-[#394857] rounded-full w-[30%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-8 border-t border-slate-100">
+                        <h4 class="text-xs font-bold text-secondary uppercase tracking-widest mb-4">Top 2 Refacciones (Demanda)</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary-container">tire_repair</span>
+                                    <span class="text-sm font-medium">Neumáticos 295/80 R22.5</span>
+                                </div>
+                                <span class="text-xs font-bold text-error">Alta</span>
+                            </li>
+                            <li class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary-container">oil_barrel</span>
+                                    <span class="text-sm font-medium">Aceite Sintético 5W-40</span>
+                                </div>
+                                <span class="text-xs font-bold text-error">Alta</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategic Vision Visual -->
+            <div class="col-span-12 h-64 rounded-2xl overflow-hidden relative mt-8">
+                <img alt="Strategic Vision" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcetlw2F9kv-qIeH7RhSjIfMZ2MZCwSOLI2mqOt8UZm2pXkC4-2OnRkfq6Z_W1zapayMcNrwgT0flwxdZ5bAv7sKnNx0pnZBCJqKKuYEMLEU6Ix6fcoZ1kz7C1ljHP4qkb8FCEd64aZbX_TShUJrFXi2mVhL4_a6eW7BzOJ29e2yGDIqx1lmu5K75igX6PvMjATP-8tez5K60P9Edfpp8cGCvk5keXHErgXJJSXIX17qSwSOe5Zpun5f85-mnftjHPHDJWabuOblt3"/>
+                <div class="absolute inset-0 bg-gradient-to-r from-primary-container/90 to-transparent flex items-center px-12">
+                    <div class="max-w-md">
+                        <h2 class="text-white text-2xl font-bold mb-4">Eficiencia en Movimiento</h2>
+                        <p class="text-white/80 text-sm">Monitoreo en tiempo real de activos críticos para garantizar la continuidad operativa de la cadena de suministro.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 bg-white border-t border-slate-200 z-50">
+        <a href="index.html" class="flex flex-col items-center justify-center text-slate-500">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="text-[10px] font-bold uppercase">Inicio</span>
+        </a>
+        <a href="recepcion.html" class="flex flex-col items-center justify-center text-slate-500">
+            <span class="material-symbols-outlined">package_2</span>
+            <span class="text-[10px] font-bold uppercase">Recepción</span>
+        </a>
+        <div class="flex flex-col items-center justify-center text-[#001F3F]">
+            <span class="material-symbols-outlined">analytics</span>
+            <span class="text-[10px] font-bold uppercase">KPIs</span>
+        </div>
+    </nav>
+</body>
+</html>

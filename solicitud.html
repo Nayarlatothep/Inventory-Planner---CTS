@@ -247,7 +247,7 @@
                             <span class="material-symbols-outlined text-[18px]">expand_more</span>
                         </button>
                         <div class="absolute top-[100%] right-0 w-72 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
+                            <a href="kpi_mantenimiento.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
                                 <span class="material-symbols-outlined text-slate-400 text-[20px]">analytics</span>
                                 <div class="flex flex-col">
                                     <span class="font-semibold">KPI Ordenes de trabajo (Mantto.)</span>
@@ -355,17 +355,17 @@
                         
                         <div class="flex justify-between items-start">
                             <div class="flex-1 mr-4">
-                                <select class="spare-part-select w-full bg-surface border border-outline rounded-lg px-3 py-2 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all mb-2">
-                                    <option value="" data-sku="---" data-rack="---">Seleccione una refacción...</option>
-                                    <option value="Filtro de Aceite" data-sku="AF-100" data-rack="A-01">Filtro de Aceite</option>
-                                    <option value="Aceite Sintético 5W-30" data-sku="OIL-005" data-rack="B-05">Aceite Sintético 5W-30</option>
-                                    <option value="Balatas Delanteras" data-sku="BK-044" data-rack="C-02">Balatas Delanteras</option>
-                                    <option value="Bujías (Set)" data-sku="SP-998" data-rack="D-10">Bujías (Set)</option>
-                                    <option value="Refrigerante 1G" data-sku="CL-772" data-rack="E-04">Refrigerante 1G</option>
-                                    <option value="Limpiaparabrisas" data-sku="WP-221" data-rack="F-01">Limpiaparabrisas</option>
-                                    <option value="Llantas 205/55R16" data-sku="TY-556" data-rack="G-20">Llantas 205/55R16</option>
-                                    <option value="Batería 12V" data-sku="BT-12V" data-rack="H-12">Batería 12V</option>
-                                </select>
+                                <input list="parts-datalist" class="spare-part-input w-full bg-surface border border-outline rounded-lg px-3 py-2 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all mb-2" placeholder="Escriba o seleccione refacción...">
+                                <datalist id="parts-datalist">
+                                    <option value="Filtro de Aceite">
+                                    <option value="Aceite Sintético 5W-30">
+                                    <option value="Balatas Delanteras">
+                                    <option value="Bujías (Set)">
+                                    <option value="Refrigerante 1G">
+                                    <option value="Limpiaparabrisas">
+                                    <option value="Llantas 205/55R16">
+                                    <option value="Batería 12V">
+                                </datalist>
                                 <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: <span class="sku-label">---</span></p>
                             </div>
                             <div class="text-right">
@@ -478,6 +478,18 @@
             let itemCountBadge = document.querySelector('#sparePartsSection span.bg-primary-container');
             if (itemCountBadge) itemCountBadge.id = 'itemCountBadge';
 
+            // Spare Parts Master Data
+            const sparePartsMaster = {
+                "Filtro de Aceite": { sku: "AF-100", rack: "A-01" },
+                "Aceite Sintético 5W-30": { sku: "OIL-005", rack: "B-05" },
+                "Balatas Delanteras": { sku: "BK-044", rack: "C-02" },
+                "Bujías (Set)": { sku: "SP-998", rack: "D-10" },
+                "Refrigerante 1G": { sku: "CL-772", rack: "E-04" },
+                "Limpiaparabrisas": { sku: "WP-221", rack: "F-01" },
+                "Llantas 205/55R16": { sku: "TY-556", rack: "G-20" },
+                "Batería 12V": { sku: "BT-12V", rack: "H-12" }
+            };
+
             if (btnCreateRequest && sparePartsSection) {
                 btnCreateRequest.addEventListener('click', () => {
                     sparePartsSection.classList.remove('hidden');
@@ -498,17 +510,21 @@
 
             // 1. Function to update labels and handle deletion (Event Delegation)
             if (sparePartsContainer) {
-                // Handle Changes (Select)
-                sparePartsContainer.addEventListener('change', (e) => {
-                    if (e.target.classList.contains('spare-part-select')) {
+                // Handle Changes (Input Searchable)
+                sparePartsContainer.addEventListener('input', (e) => {
+                    if (e.target.classList.contains('spare-part-input')) {
                         const card = e.target.closest('.spare-part-card');
-                        const selectedOption = e.target.options[e.target.selectedIndex];
-                        const sku = selectedOption.getAttribute('data-sku');
-                        const rack = selectedOption.getAttribute('data-rack');
+                        const partName = e.target.value;
+                        const data = sparePartsMaster[partName];
                         
                         if (card) {
-                            card.querySelector('.sku-label').textContent = sku;
-                            card.querySelector('.rack-label').textContent = rack;
+                            if (data) {
+                                card.querySelector('.sku-label').textContent = data.sku;
+                                card.querySelector('.rack-label').textContent = data.rack;
+                            } else {
+                                card.querySelector('.sku-label').textContent = '---';
+                                card.querySelector('.rack-label').textContent = '---';
+                            }
                         }
                     }
                 });
@@ -525,8 +541,8 @@
                             updateItemCount();
                         } else {
                             // If it's the last one, just reset it instead of deleting
-                            const select = card.querySelector('.spare-part-select');
-                            if (select) select.selectedIndex = 0;
+                            const input = card.querySelector('.spare-part-input');
+                            if (input) input.value = '';
                             const skuLabel = card.querySelector('.sku-label');
                             if (skuLabel) skuLabel.textContent = '---';
                             const rackLabel = card.querySelector('.rack-label');
@@ -553,8 +569,8 @@
                     if (firstCard) {
                         const newCard = firstCard.cloneNode(true);
                         newCard.style.display = 'flex'; // Ensure it's visible even if filtering
-                        const select = newCard.querySelector('.spare-part-select');
-                        if (select) select.selectedIndex = 0;
+                        const input = newCard.querySelector('.spare-part-input');
+                        if (input) input.value = '';
                         const skuLabel = newCard.querySelector('.sku-label');
                         if (skuLabel) skuLabel.textContent = '---';
                         const rackLabel = newCard.querySelector('.rack-label');
@@ -591,7 +607,7 @@
                     
                     let partsFound = false;
                     partCards.forEach(card => {
-                        const partName = card.querySelector('.spare-part-select').value;
+                        const partName = card.querySelector('.spare-part-input').value;
                         if (partName) {
                             partsFound = true;
                             const qty = card.querySelector('input[type="number"]').value;
