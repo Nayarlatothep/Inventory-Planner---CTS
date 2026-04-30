@@ -343,31 +343,94 @@
                 </button>
             </section>
 
-            <!-- Visual Context Image -->
-            <div class="rounded-xl overflow-hidden shadow-md">
-                <img class="w-full h-64 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLtAUIIrvPYIdIp9tcOLlyJMUfHnBZoOs9LlXKKl8NaQ9Bpz4Em1ynjIOmMcpvGxhDj_4NmUc_X3Gucb--FoUNbt36V4-lgI4s08TjFT96zl8BlSKg1zekDfJjnn8u3tJTPzBgQ08rV4Wm0xG5EE9J6hvkAaSTAwsGFD5p_HIhUy6zTrXKbF54RT7qdxYZmGw5knLH6qqmqb9EU9KH0jV6sf3Y4wGUI6-xz99oPEDM5MxzPgv-6Jn2vlUpqsPkyX2aNNtIv9X4jwbB"/>
-            </div>
+            <!-- Submit Order Button -->
+            <button id="btnSubmitOrder" class="w-full bg-secondary text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-secondary/20 mt-4">
+                <span class="material-symbols-outlined text-[24px]">send</span>
+                ENVIAR ORDEN DE COMPRA
+            </button>
         </div>
     </main>
+
+    <!-- Printable Summary Modal -->
+    <div id="summaryModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">receipt_long</span>
+                    Resumen de Solicitud
+                </h3>
+                <button id="btnCloseModal" class="p-1 hover:bg-slate-200 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-slate-500">close</span>
+                </button>
+            </div>
+            
+            <div id="ticketContent" class="p-6 overflow-y-auto font-mono text-sm space-y-4">
+                <!-- Ticket Header -->
+                <div class="text-center border-b border-dashed border-slate-300 pb-4">
+                    <p class="font-bold text-lg uppercase">CSM Legacy</p>
+                    <p>Solicitud de Orden de Trabajo</p>
+                    <p id="ticketDate" class="text-xs text-slate-500 mt-1">--/--/---- --:--</p>
+                </div>
+
+                <!-- Main Info -->
+                <div class="space-y-1 py-2">
+                    <div class="flex justify-between"><span class="text-slate-500">ORDEN:</span> <span id="ticketWO" class="font-bold">#WO-2024-0892</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">TÉCNICO:</span> <span id="ticketTech">--</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">VEHÍCULO:</span> <span id="ticketVIN">--</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">SOLICITA:</span> <span id="ticketSolicitor">--</span></div>
+                </div>
+
+                <!-- Service Info -->
+                <div class="border-t border-dashed border-slate-300 pt-2">
+                    <p class="text-xs font-bold text-slate-500 mb-1 uppercase tracking-widest">DETALLES DEL SERVICIO</p>
+                    <p><span class="text-slate-500">TIPO:</span> <span id="ticketServiceType">--</span></p>
+                    <p class="mt-2 text-slate-500 italic">" <span id="ticketDesc" class="text-slate-700 not-italic">--</span> "</p>
+                </div>
+
+                <!-- Spare Parts -->
+                <div class="border-t border-dashed border-slate-300 pt-2">
+                    <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-widest">REFACCIONES / SUMINISTROS</p>
+                    <div id="ticketPartsList" class="space-y-2">
+                        <!-- Dynamic items here -->
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center border-t border-dashed border-slate-300 pt-4 mt-6">
+                    <p class="text-xs">*** FIN DEL REPORTE ***</p>
+                    <p class="text-[10px] text-slate-400 mt-2 italic">Generado digitalmente por Antigravity AI</p>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-100 grid grid-cols-2 gap-3">
+                <button onclick="window.print()" class="bg-primary-container text-white py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">print</span>
+                    IMPRIMIR
+                </button>
+                <button id="btnConfirmFinal" class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-200 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">check_circle</span>
+                    CONFIRMAR
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const btnCreateRequest = document.getElementById('btnCreateRequest');
             const sparePartsSection = document.getElementById('sparePartsSection');
+            const sparePartsContainer = document.getElementById('sparePartsContainer');
+            const btnAddPart = document.getElementById('btnAddPart');
+            const itemCountBadge = sparePartsSection ? sparePartsSection.querySelector('.bg-primary-container.text-white') : null;
 
             if (btnCreateRequest && sparePartsSection) {
                 btnCreateRequest.addEventListener('click', () => {
                     sparePartsSection.classList.remove('hidden');
-                    // Scroll to spare parts on mobile
                     if (window.innerWidth < 768) {
                         sparePartsSection.scrollIntoView({ behavior: 'smooth' });
                     }
                 });
             }
-
-            const sparePartsContainer = document.getElementById('sparePartsContainer');
-            const btnAddPart = document.getElementById('btnAddPart');
-            const itemCountBadge = sparePartsSection ? sparePartsSection.querySelector('.bg-primary-container.text-white') : null;
 
             // 1. Function to update labels based on select change (Event Delegation)
             if (sparePartsContainer) {
@@ -392,20 +455,85 @@
                     const firstCard = sparePartsContainer.querySelector('.spare-part-card');
                     if (firstCard) {
                         const newCard = firstCard.cloneNode(true);
-                        // Reset values
                         newCard.querySelector('.spare-part-select').selectedIndex = 0;
                         newCard.querySelector('.sku-label').textContent = '---';
                         newCard.querySelector('.rack-label').textContent = '---';
                         newCard.querySelector('input[type="number"]').value = 1;
-                        
                         sparePartsContainer.appendChild(newCard);
                         
-                        // Update Badge Count
                         if (itemCountBadge) {
                             const count = sparePartsContainer.querySelectorAll('.spare-part-card').length;
                             itemCountBadge.textContent = `${count} ÍTEM${count > 1 ? 'S' : ''}`;
                         }
                     }
+                });
+            }
+
+            // 3. Modal Logic
+            const btnSubmitOrder = document.getElementById('btnSubmitOrder');
+            const summaryModal = document.getElementById('summaryModal');
+            const btnCloseModal = document.getElementById('btnCloseModal');
+            const btnConfirmFinal = document.getElementById('btnConfirmFinal');
+
+            if (btnSubmitOrder && summaryModal) {
+                btnSubmitOrder.addEventListener('click', () => {
+                    const tech = document.querySelector('input[placeholder="Nombre del Técnico"]').value;
+                    const vin = document.querySelector('input[placeholder="Ingrese VIN o Placa"]').value;
+                    const solicitor = document.querySelector('input[placeholder="Nombre completo de quien solicita"]').value;
+                    const serviceType = document.querySelector('select').value;
+                    const desc = document.querySelector('textarea').value;
+                    const now = new Date().toLocaleString();
+
+                    document.getElementById('ticketDate').textContent = now;
+                    document.getElementById('ticketTech').textContent = tech || 'N/A';
+                    document.getElementById('ticketVIN').textContent = vin || 'N/A';
+                    document.getElementById('ticketSolicitor').textContent = solicitor || 'N/A';
+                    document.getElementById('ticketServiceType').textContent = serviceType;
+                    document.getElementById('ticketDesc').textContent = desc || 'Sin descripción adicional.';
+
+                    const ticketPartsList = document.getElementById('ticketPartsList');
+                    ticketPartsList.innerHTML = '';
+                    const partCards = sparePartsContainer.querySelectorAll('.spare-part-card');
+                    
+                    let partsFound = false;
+                    partCards.forEach(card => {
+                        const partName = card.querySelector('.spare-part-select').value;
+                        if (partName) {
+                            partsFound = true;
+                            const qty = card.querySelector('input[type="number"]').value;
+                            const sku = card.querySelector('.sku-label').textContent;
+                            
+                            const partRow = document.createElement('div');
+                            partRow.className = 'flex justify-between items-start text-xs border-b border-slate-100 pb-1';
+                            partRow.innerHTML = `
+                                <div>
+                                    <p class="font-bold">${partName}</p>
+                                    <p class="text-[10px] text-slate-400">SKU: ${sku}</p>
+                                </div>
+                                <div class="text-right">x${qty}</div>
+                            `;
+                            ticketPartsList.appendChild(partRow);
+                        }
+                    });
+
+                    if (!partsFound) {
+                        ticketPartsList.innerHTML = '<p class="text-slate-400 italic">No se agregaron refacciones.</p>';
+                    }
+                    summaryModal.classList.remove('hidden');
+                });
+            }
+
+            if (btnCloseModal) {
+                btnCloseModal.addEventListener('click', () => {
+                    summaryModal.classList.add('hidden');
+                });
+            }
+
+            if (btnConfirmFinal) {
+                btnConfirmFinal.addEventListener('click', () => {
+                    alert('¡Orden enviada exitosamente!');
+                    summaryModal.classList.add('hidden');
+                    window.location.reload();
                 });
             }
 
