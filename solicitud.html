@@ -344,7 +344,7 @@
             </section>
 
             <!-- Submit Order Button -->
-            <button id="btnSubmitOrder" class="w-full bg-secondary text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-secondary/20 mt-4">
+            <button id="btnSubmitOrder" class="hidden w-full bg-secondary text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-secondary/20 mt-4">
                 <span class="material-symbols-outlined text-[24px]">send</span>
                 ENVIAR ORDEN DE COMPRA
             </button>
@@ -426,6 +426,9 @@
             if (btnCreateRequest && sparePartsSection) {
                 btnCreateRequest.addEventListener('click', () => {
                     sparePartsSection.classList.remove('hidden');
+                    if (btnSubmitOrder) {
+                        btnSubmitOrder.classList.remove('hidden');
+                    }
                     if (window.innerWidth < 768) {
                         sparePartsSection.scrollIntoView({ behavior: 'smooth' });
                     }
