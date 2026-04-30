@@ -289,10 +289,6 @@
                     <label class="font-label-caps text-label-caps text-on-surface-variant">DESCRIPCIÓN DEL TRABAJO</label>
                     <textarea class="w-full bg-surface border border-outline rounded-lg px-4 py-3 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all" placeholder="Detalle las reparaciones o mantenimientos a realizar..." rows="3"></textarea>
                 </div>
-                <div class="space-y-2">
-                    <label class="font-label-caps text-label-caps text-on-surface-variant">NOMBRE SOLICITANTE</label>
-                    <input class="w-full bg-surface border border-outline rounded-lg px-4 py-3 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all" placeholder="Nombre completo de quien solicita" type="text"/>
-                </div>
                 <button id="btnCreateRequest" class="w-full bg-primary-container text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary-container/20 mt-4">
                     <span class="material-symbols-outlined text-[24px]">add_task</span>
                     CREAR NUEVA SOLICITUD
@@ -386,7 +382,6 @@
                     <div class="flex justify-between"><span class="text-slate-500">ORDEN:</span> <span id="ticketWO" class="font-bold">#WO-2024-0892</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">TÉCNICO:</span> <span id="ticketTech">--</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">VEHÍCULO:</span> <span id="ticketVIN">--</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">SOLICITA:</span> <span id="ticketSolicitor">--</span></div>
                 </div>
 
                 <!-- Service Info -->
@@ -491,7 +486,6 @@
                 btnSubmitOrder.addEventListener('click', () => {
                     const tech = document.querySelector('input[placeholder="Nombre del Técnico"]').value;
                     const vin = document.querySelector('input[placeholder="Ingrese VIN o Placa"]').value;
-                    const solicitor = document.querySelector('input[placeholder="Nombre completo de quien solicita"]').value;
                     const serviceType = document.querySelector('select').value;
                     const desc = document.querySelector('textarea').value;
                     const now = new Date().toLocaleString();
@@ -499,7 +493,6 @@
                     document.getElementById('ticketDate').textContent = now;
                     document.getElementById('ticketTech').textContent = tech || 'N/A';
                     document.getElementById('ticketVIN').textContent = vin || 'N/A';
-                    document.getElementById('ticketSolicitor').textContent = solicitor || 'N/A';
                     document.getElementById('ticketServiceType').textContent = serviceType;
                     document.getElementById('ticketDesc').textContent = desc || 'Sin descripción adicional.';
 
