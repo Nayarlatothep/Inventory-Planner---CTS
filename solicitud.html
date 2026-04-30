@@ -227,157 +227,162 @@
         </div>
     </header>
 
-    <main class="p-4 space-y-6 max-w-md mx-auto">
-        <!-- 1. Header Section: Work Order Info -->
-        <section class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-outline-variant/30">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1 block">Orden de Trabajo</span>
-                    <h2 class="font-h3 text-h3 text-primary-container">#WO-2024-0892</h2>
+    <main class="p-4 md:p-margin space-y-6 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
+        <!-- 1. Left Panel: Work Order Info -->
+        <div class="col-span-1 md:col-span-4 space-y-6">
+            <section class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-outline-variant/30 sticky top-24">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1 block">Orden de Trabajo</span>
+                        <h2 class="font-h3 text-h3 text-primary-container">#WO-2024-0892</h2>
+                    </div>
+                    <div class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest">
+                        ACTIVA
+                    </div>
                 </div>
-                <div class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest">
-                    ACTIVA
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="space-y-1">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">calendar_today</span> Fecha/Hora
+                        </span>
+                        <p class="font-body-sm text-body-sm font-semibold">24 May, 2024 - 14:30</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">badge</span> Técnico
+                        </span>
+                        <input class="w-full bg-surface border border-outline-variant rounded px-2 py-1 font-body-sm text-body-sm focus:border-primary-container outline-none transition-all" placeholder="Nombre del Técnico" type="text" value="J. Pérez"/>
+                    </div>
+                    <div class="pt-3 border-t border-surface-variant/50">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1 mb-1">
+                            <span class="material-symbols-outlined text-[14px]">directions_car</span> Vehículo (VIN/Placa)
+                        </span>
+                        <input class="w-full bg-surface border border-outline-variant rounded px-2 py-2 font-body-md text-body-md font-bold tracking-wider text-primary focus:border-primary-container outline-none transition-all" placeholder="Ingrese VIN o Placa" type="text" value="1FA6P8CF5K5 - P098-JKL"/>
+                    </div>
                 </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="space-y-1">
-                    <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[14px]">calendar_today</span> Fecha/Hora
-                    </span>
-                    <p class="font-body-sm text-body-sm font-semibold">24 May, 2024 - 14:30</p>
-                </div>
-                <div class="space-y-1">
-                    <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[14px]">badge</span> Técnico
-                    </span>
-                    <input class="w-full bg-surface border border-outline-variant rounded px-2 py-1 font-body-sm text-body-sm focus:border-primary-container outline-none transition-all" placeholder="Nombre del Técnico" type="text" value="J. Pérez"/>
-                </div>
-                <div class="col-span-2 pt-3 border-t border-surface-variant/50">
-                    <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1 mb-1">
-                        <span class="material-symbols-outlined text-[14px]">directions_car</span> Vehículo (VIN/Placa)
-                    </span>
-                    <input class="w-full bg-surface border border-outline-variant rounded px-2 py-2 font-body-md text-body-md font-bold tracking-wider text-primary focus:border-primary-container outline-none transition-all" placeholder="Ingrese VIN o Placa" type="text" value="1FA6P8CF5K5 - P098-JKL"/>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <!-- 2. Service Detail -->
-        <section class="space-y-4">
-            <div class="space-y-2">
-                <label class="font-label-caps text-label-caps text-on-surface-variant">TIPO DE SERVICIO</label>
+        <!-- 2. Right Panel: Service Details & Spare Parts -->
+        <div class="col-span-1 md:col-span-8 space-y-6">
+            <!-- Service Detail -->
+            <section class="bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant space-y-4">
+                <div class="space-y-2">
+                    <label class="font-label-caps text-label-caps text-on-surface-variant">TIPO DE SERVICIO</label>
+                    <div class="relative">
+                        <select class="w-full bg-surface border border-outline rounded-lg px-4 py-3 appearance-none font-body-md text-body-md focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all">
+                            <option>Preventivo</option>
+                            <option>Correctivo</option>
+                            <option>Garantía</option>
+                        </select>
+                        <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="font-label-caps text-label-caps text-on-surface-variant">DESCRIPCIÓN DEL TRABAJO</label>
+                    <textarea class="w-full bg-surface border border-outline rounded-lg px-4 py-3 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all" placeholder="Detalle las reparaciones o mantenimientos a realizar..." rows="3"></textarea>
+                </div>
+                <div class="space-y-2">
+                    <label class="font-label-caps text-label-caps text-on-surface-variant">NOMBRE SOLICITANTE</label>
+                    <input class="w-full bg-surface border border-outline rounded-lg px-4 py-3 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all" placeholder="Nombre completo de quien solicita" type="text"/>
+                </div>
+                <button class="w-full bg-primary-container text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary-container/20 mt-4">
+                    <span class="material-symbols-outlined text-[24px]">add_task</span>
+                    CREAR UNA SOLICITUD
+                </button>
+            </section>
+
+            <!-- Dynamic Spare Parts Selector -->
+            <section class="bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant space-y-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-h3 text-h3 text-primary-container">Refacciones</h3>
+                    <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">3 ÍTEMS</span>
+                </div>
+                <!-- Search Bar -->
                 <div class="relative">
-                    <select class="w-full bg-surface-container-lowest border border-outline rounded-lg px-4 py-3 appearance-none font-body-md text-body-md focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all">
-                        <option>Preventivo</option>
-                        <option>Correctivo</option>
-                        <option>Garantía</option>
-                    </select>
-                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                    <input class="w-full bg-surface border border-outline-variant rounded-full pl-10 pr-4 py-2 text-sm focus:bg-white focus:ring-2 focus:ring-primary-container/10 transition-all" placeholder="Buscar código o nombre..." type="text"/>
                 </div>
-            </div>
-            <div class="space-y-2">
-                <label class="font-label-caps text-label-caps text-on-surface-variant">DESCRIPCIÓN DEL TRABAJO</label>
-                <textarea class="w-full bg-surface-container-lowest border border-outline rounded-lg px-4 py-3 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all" placeholder="Detalle las reparaciones o mantenimientos a realizar..." rows="3"></textarea>
-            </div>
-            <div class="space-y-2">
-                <label class="font-label-caps text-label-caps text-on-surface-variant">NOMBRE SOLICITANTE</label>
-                <input class="w-full bg-surface-container-lowest border border-outline rounded-lg px-4 py-3 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all" placeholder="Nombre completo de quien solicita" type="text"/>
-            </div>
-            <button class="w-full bg-primary-container text-white py-3 rounded-xl font-button text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-md mt-4">
-                <span class="material-symbols-outlined text-[20px]">add_task</span>
-                CREAR UNA SOLICITUD
-            </button>
-        </section>
+                <!-- Spare Parts Grid -->
+                <div class="space-y-3">
+                    <!-- Item 1 -->
+                    <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="font-body-sm text-body-sm font-bold text-primary">Filtro de Aceite S-200</p>
+                                <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: 00-AF-112</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
+                                <span class="font-body-sm text-body-sm font-bold text-secondary">A-12-04</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-surface-variant pt-2">
+                            <div class="flex items-center gap-2">
+                                <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="1"/>
+                                <span class="text-xs font-medium text-on-surface-variant">Pza</span>
+                            </div>
+                            <div class="flex items-center gap-1 text-error text-[11px] font-bold bg-error-container/20 px-2 py-1 rounded">
+                                <span class="material-symbols-outlined text-[14px]">warning</span> LOW STOCK
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="font-body-sm text-body-sm font-bold text-primary">Aceite Sintético 5W-30</p>
+                                <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: OIL-SY-09</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
+                                <span class="font-body-sm text-body-sm font-bold text-secondary">B-05-11</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-surface-variant pt-2">
+                            <div class="flex items-center gap-2">
+                                <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="4"/>
+                                <span class="text-xs font-medium text-on-surface-variant">Litro</span>
+                            </div>
+                            <div class="flex items-center gap-1 text-on-secondary-container text-[11px] font-bold bg-secondary-container/30 px-2 py-1 rounded">
+                                <span class="material-symbols-outlined text-[14px]">check_circle</span> DISPONIBLE
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="font-body-sm text-body-sm font-bold text-primary">Juego de Balatas Del.</p>
+                                <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: BK-PAD-044</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
+                                <span class="font-body-sm text-body-sm font-bold text-secondary">C-01-02</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-surface-variant pt-2">
+                            <div class="flex items-center gap-2">
+                                <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="1"/>
+                                <span class="text-xs font-medium text-on-surface-variant">Juego</span>
+                            </div>
+                            <div class="flex items-center gap-1 text-on-secondary-container text-[11px] font-bold bg-secondary-container/30 px-2 py-1 rounded">
+                                <span class="material-symbols-outlined text-[14px]">check_circle</span> DISPONIBLE
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add More Button -->
+                <button class="w-full py-3 border-2 border-dashed border-outline-variant rounded-xl flex items-center justify-center gap-2 text-on-surface-variant font-button hover:bg-surface-variant/20 transition-all">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    AÑADIR REFACCIÓN
+                </button>
+            </section>
 
-        <!-- 3. Dynamic Spare Parts Selector -->
-        <section class="space-y-4">
-            <div class="flex justify-between items-center">
-                <h3 class="font-h3 text-h3 text-primary-container">Refacciones</h3>
-                <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">3 ÍTEMS</span>
+            <!-- Visual Context Image -->
+            <div class="rounded-xl overflow-hidden shadow-md">
+                <img class="w-full h-48 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLtAUIIrvPYIdIp9tcOLlyJMUfHnBZoOs9LlXKKl8NaQ9Bpz4Em1ynjIOmMcpvGxhDj_4NmUc_X3Gucb--FoUNbt36V4-lgI4s08TjFT96zl8BlSKg1zekDfJjnn8u3tJTPzBgQ08rV4Wm0xG5EE9J6hvkAaSTAwsGFD5p_HIhUy6zTrXKbF54RT7qdxYZmGw5knLH6qqmqb9EU9KH0jV6sf3Y4wGUI6-xz99oPEDM5MxzPgv-6Jn2vlUpqsPkyX2aNNtIv9X4jwbB"/>
             </div>
-            <!-- Search Bar -->
-            <div class="relative">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-                <input class="w-full bg-surface-container-low border border-outline-variant rounded-full pl-10 pr-4 py-2 text-sm focus:bg-white focus:ring-2 focus:ring-primary-container/10 transition-all" placeholder="Buscar código o nombre..." type="text"/>
-            </div>
-            <!-- Spare Parts Grid -->
-            <div class="space-y-3">
-                <!-- Item 1 -->
-                <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
-                    <div class="flex justify-between">
-                        <div>
-                            <p class="font-body-sm text-body-sm font-bold text-primary">Filtro de Aceite S-200</p>
-                            <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: 00-AF-112</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
-                            <span class="font-body-sm text-body-sm font-bold text-secondary">A-12-04</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-surface-variant pt-2">
-                        <div class="flex items-center gap-2">
-                            <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="1"/>
-                            <span class="text-xs font-medium text-on-surface-variant">Pza</span>
-                        </div>
-                        <div class="flex items-center gap-1 text-error text-[11px] font-bold bg-error-container/20 px-2 py-1 rounded">
-                            <span class="material-symbols-outlined text-[14px]">warning</span> LOW STOCK
-                        </div>
-                    </div>
-                </div>
-                <!-- Item 2 -->
-                <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
-                    <div class="flex justify-between">
-                        <div>
-                            <p class="font-body-sm text-body-sm font-bold text-primary">Aceite Sintético 5W-30</p>
-                            <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: OIL-SY-09</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
-                            <span class="font-body-sm text-body-sm font-bold text-secondary">B-05-11</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-surface-variant pt-2">
-                        <div class="flex items-center gap-2">
-                            <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="4"/>
-                            <span class="text-xs font-medium text-on-surface-variant">Litro</span>
-                        </div>
-                        <div class="flex items-center gap-1 text-on-secondary-container text-[11px] font-bold bg-secondary-container/30 px-2 py-1 rounded">
-                            <span class="material-symbols-outlined text-[14px]">check_circle</span> DISPONIBLE
-                        </div>
-                    </div>
-                </div>
-                <!-- Item 3 -->
-                <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
-                    <div class="flex justify-between">
-                        <div>
-                            <p class="font-body-sm text-body-sm font-bold text-primary">Juego de Balatas Del.</p>
-                            <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: BK-PAD-044</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
-                            <span class="font-body-sm text-body-sm font-bold text-secondary">C-01-02</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-surface-variant pt-2">
-                        <div class="flex items-center gap-2">
-                            <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="1"/>
-                            <span class="text-xs font-medium text-on-surface-variant">Juego</span>
-                        </div>
-                        <div class="flex items-center gap-1 text-on-secondary-container text-[11px] font-bold bg-secondary-container/30 px-2 py-1 rounded">
-                            <span class="material-symbols-outlined text-[14px]">check_circle</span> DISPONIBLE
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Add More Button -->
-            <button class="w-full py-3 border-2 border-dashed border-outline-variant rounded-xl flex items-center justify-center gap-2 text-on-surface-variant font-button hover:bg-surface-variant/20 transition-all">
-                <span class="material-symbols-outlined">add_circle</span>
-                AÑADIR REFACCIÓN
-            </button>
-        </section>
-
-        <!-- Visual Context Image -->
-        <div class="rounded-xl overflow-hidden shadow-md mt-4">
-            <img class="w-full h-32 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLtAUIIrvPYIdIp9tcOLlyJMUfHnBZoOs9LlXKKl8NaQ9Bpz4Em1ynjIOmMcpvGxhDj_4NmUc_X3Gucb--FoUNbt36V4-lgI4s08TjFT96zl8BlSKg1zekDfJjnn8u3tJTPzBgQ08rV4Wm0xG5EE9J6hvkAaSTAwsGFD5p_HIhUy6zTrXKbF54RT7qdxYZmGw5knLH6qqmqb9EU9KH0jV6sf3Y4wGUI6-xz99oPEDM5MxzPgv-6Jn2vlUpqsPkyX2aNNtIv9X4jwbB"/>
         </div>
     </main>
 
