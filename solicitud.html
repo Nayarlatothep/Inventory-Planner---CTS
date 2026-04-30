@@ -228,7 +228,7 @@
     </header>
 
     <main class="p-4 md:p-margin space-y-6 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
-        <!-- 1. Left Panel: Work Order Info & Service Detail -->
+        <!-- TOP ROW: Work Order Info (Left) & Spare Parts (Right) -->
         <div class="col-span-1 md:col-span-4 space-y-6">
             <!-- Work Order Info -->
             <section class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-outline-variant/30">
@@ -263,7 +263,7 @@
                 </div>
             </section>
 
-            <!-- Service Detail -->
+            <!-- Service Detail (Below Work Order Info) -->
             <section class="bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant space-y-4">
                 <div class="space-y-2">
                     <label class="font-label-caps text-label-caps text-on-surface-variant">TIPO DE SERVICIO</label>
@@ -289,7 +289,9 @@
                     CREAR NUEVA SOLICITUD
                 </button>
             </section>
-             <!-- 2. Right Panel: Spare Parts -->
+        </div>
+
+        <!-- Right Panel: Spare Parts -->
         <div class="col-span-1 md:col-span-8 space-y-6">
             <!-- Dynamic Spare Parts Selector -->
             <section id="sparePartsSection" class="hidden bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant space-y-4">
@@ -333,7 +335,7 @@
 
             <!-- Visual Context Image -->
             <div class="rounded-xl overflow-hidden shadow-md">
-                <img class="w-full h-48 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLtAUIIrvPYIdIp9tcOLlyJMUfHnBZoOs9LlXKKl8NaQ9Bpz4Em1ynjIOmMcpvGxhDj_4NmUc_X3Gucb--FoUNbt36V4-lgI4s08TjFT96zl8BlSKg1zekDfJjnn8u3tJTPzBgQ08rV4Wm0xG5EE9J6hvkAaSTAwsGFD5p_HIhUy6zTrXKbF54RT7qdxYZmGw5knLH6qqmqb9EU9KH0jV6sf3Y4wGUI6-xz99oPEDM5MxzPgv-6Jn2vlUpqsPkyX2aNNtIv9X4jwbB"/>
+                <img class="w-full h-64 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLtAUIIrvPYIdIp9tcOLlyJMUfHnBZoOs9LlXKKl8NaQ9Bpz4Em1ynjIOmMcpvGxhDj_4NmUc_X3Gucb--FoUNbt36V4-lgI4s08TjFT96zl8BlSKg1zekDfJjnn8u3tJTPzBgQ08rV4Wm0xG5EE9J6hvkAaSTAwsGFD5p_HIhUy6zTrXKbF54RT7qdxYZmGw5knLH6qqmqb9EU9KH0jV6sf3Y4wGUI6-xz99oPEDM5MxzPgv-6Jn2vlUpqsPkyX2aNNtIv9X4jwbB"/>
             </div>
         </div>
     </main>
