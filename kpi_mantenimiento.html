@@ -456,50 +456,55 @@
                     </div>
                 </div>
 
-                <!-- 5. Fleet Performance Table -->
+                <!-- 5. TOP Reparaciones por Unidad -->
                 <div class="col-span-12 lg:col-span-8 bg-white rounded-xl shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-slate-100 overflow-hidden">
                     <div class="p-lg border-b border-slate-100 flex justify-between items-center">
-                        <h3 class="font-h3 text-h3 text-primary-container">Desempeño de Flota (Top Gastos)</h3>
+                        <h3 class="font-h3 text-h3 text-primary-container">TOP Reparaciones por Unidad</h3>
                         <span class="text-xs font-semibold text-secondary px-3 py-1 bg-surface-container rounded-full uppercase">Mayo 2026</span>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left">
                             <thead class="bg-surface-container-low border-b border-slate-200">
                                 <tr>
-                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">ID Vehículo</th>
-                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Modelo</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Unidad (camiones)</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">VIN</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Servicio</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase"># Solicitudes</th>
                                     <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Gasto Total</th>
-                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Estatus</th>
                                     <th class="px-lg py-4"></th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
                                 <tr class="hover:bg-slate-50 transition-colors">
                                     <td class="px-lg py-4 font-bold text-primary-container">TR-089</td>
-                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Freightliner Cascadia</td>
+                                    <td class="px-lg py-4 text-[10px] font-mono text-on-surface-variant">1FVACWDT1H...</td>
+                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Mantenimiento Preventivo</td>
+                                    <td class="px-lg py-4 text-center font-semibold text-secondary">5</td>
                                     <td class="px-lg py-4 font-semibold text-primary-container">$8,420</td>
-                                    <td class="px-lg py-4"><span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-[10px] font-bold uppercase tracking-wider">Mantenimiento</span></td>
                                     <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
                                 </tr>
                                 <tr class="hover:bg-slate-50 transition-colors">
                                     <td class="px-lg py-4 font-bold text-primary-container">TR-102</td>
-                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Volvo FH16</td>
+                                    <td class="px-lg py-4 text-[10px] font-mono text-on-surface-variant">4V4NC9EJ2P...</td>
+                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Sistema de Frenos</td>
+                                    <td class="px-lg py-4 text-center font-semibold text-secondary">3</td>
                                     <td class="px-lg py-4 font-semibold text-primary-container">$6,150</td>
-                                    <td class="px-lg py-4"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider">En Ruta</span></td>
                                     <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
                                 </tr>
                                 <tr class="hover:bg-slate-50 transition-colors">
                                     <td class="px-lg py-4 font-bold text-primary-container">TR-045</td>
-                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Kenworth T680</td>
+                                    <td class="px-lg py-4 text-[10px] font-mono text-on-surface-variant">1XKAD40X7J...</td>
+                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Reparación de Motor</td>
+                                    <td class="px-lg py-4 text-center font-semibold text-secondary">2</td>
                                     <td class="px-lg py-4 font-semibold text-primary-container">$5,800</td>
-                                    <td class="px-lg py-4"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider">En Ruta</span></td>
                                     <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
                                 </tr>
                                 <tr class="hover:bg-slate-50 transition-colors">
                                     <td class="px-lg py-4 font-bold text-primary-container">TR-077</td>
-                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Scania R500</td>
+                                    <td class="px-lg py-4 text-[10px] font-mono text-on-surface-variant">3HSBC6EJ4L...</td>
+                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Cambio de Neumáticos</td>
+                                    <td class="px-lg py-4 text-center font-semibold text-secondary">4</td>
                                     <td class="px-lg py-4 font-semibold text-primary-container">$4,290</td>
-                                    <td class="px-lg py-4"><span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-[10px] font-bold uppercase tracking-wider">Disponible</span></td>
                                     <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
                                 </tr>
                             </tbody>
