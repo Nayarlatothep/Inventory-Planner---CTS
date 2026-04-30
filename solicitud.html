@@ -343,12 +343,6 @@
                         <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">1 ÍTEM</span>
                     </div>
                 </div>
-                
-                <!-- Search Filter -->
-                <div class="relative mb-4">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
-                    <input id="searchParts" class="w-full border border-outline-variant rounded-lg pl-[40px] pr-4 py-2.5 focus:border-primary-container outline-none transition-all font-body-sm text-body-sm bg-surface" placeholder="Filtrar refacciones añadidas..." type="text"/>
-                </div>
 
                 <!-- Spare Parts Grid -->
                 <div id="sparePartsContainer" class="space-y-3">
@@ -500,21 +494,7 @@
                 });
             }
 
-            // Filter logic for spare parts
-            if (searchParts && sparePartsContainer) {
-                searchParts.addEventListener('input', (e) => {
-                    const term = e.target.value.toLowerCase();
-                    const cards = sparePartsContainer.querySelectorAll('.spare-part-card');
-                    cards.forEach(card => {
-                        const select = card.querySelector('.spare-part-select');
-                        const skuLabel = card.querySelector('.sku-label');
-                        const sku = skuLabel ? skuLabel.textContent.toLowerCase() : '';
-                        const val = select ? select.value.toLowerCase() : '';
-                        const isMatch = val.includes(term) || sku.includes(term);
-                        card.style.display = isMatch ? 'flex' : 'none';
-                    });
-                });
-            }
+
 
             // 1. Function to update labels and handle deletion (Event Delegation)
             if (sparePartsContainer) {
