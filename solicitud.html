@@ -284,99 +284,50 @@
                     <label class="font-label-caps text-label-caps text-on-surface-variant">NOMBRE SOLICITANTE</label>
                     <input class="w-full bg-surface border border-outline rounded-lg px-4 py-3 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all" placeholder="Nombre completo de quien solicita" type="text"/>
                 </div>
-                <button class="w-full bg-primary-container text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary-container/20 mt-4">
+                <button id="btnCreateRequest" class="w-full bg-primary-container text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary-container/20 mt-4">
                     <span class="material-symbols-outlined text-[24px]">add_task</span>
-                    CREAR UNA SOLICITUD
+                    CREAR NUEVA SOLICITUD
                 </button>
             </section>
-        </div>
-
-        <!-- 2. Right Panel: Spare Parts -->
+             <!-- 2. Right Panel: Spare Parts -->
         <div class="col-span-1 md:col-span-8 space-y-6">
             <!-- Dynamic Spare Parts Selector -->
-            <section class="bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant space-y-4">
+            <section id="sparePartsSection" class="hidden bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant space-y-4">
                 <div class="flex justify-between items-center">
                     <h3 class="font-h3 text-h3 text-primary-container">Refacciones</h3>
-                    <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">3 ÍTEMS</span>
+                    <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">1 ÍTEM</span>
                 </div>
-                <!-- Search Bar -->
-                <div class="relative">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-                    <input class="w-full bg-surface border border-outline-variant rounded-full pl-10 pr-4 py-2 text-sm focus:bg-white focus:ring-2 focus:ring-primary-container/10 transition-all" placeholder="Buscar código o nombre..." type="text"/>
-                </div>
+                
                 <!-- Spare Parts Grid -->
                 <div class="space-y-3">
-                    <!-- Item 1 -->
+                    <!-- Item 1 (The "Viñeta") -->
                     <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
                         <div class="flex justify-between">
                             <div>
-                                <p class="font-body-sm text-body-sm font-bold text-primary">Filtro de Aceite S-200</p>
-                                <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: 00-AF-112</p>
+                                <p class="font-body-sm text-body-sm font-bold text-primary">Seleccione una refacción...</p>
+                                <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: ---</p>
                             </div>
                             <div class="text-right">
                                 <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
-                                <span class="font-body-sm text-body-sm font-bold text-secondary">A-12-04</span>
+                                <span class="font-body-sm text-body-sm font-bold text-secondary">---</span>
                             </div>
                         </div>
                         <div class="flex items-center justify-between border-t border-surface-variant pt-2">
                             <div class="flex items-center gap-2">
                                 <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="1"/>
-                                <span class="text-xs font-medium text-on-surface-variant">Pza</span>
-                            </div>
-                            <div class="flex items-center gap-1 text-error text-[11px] font-bold bg-error-container/20 px-2 py-1 rounded">
-                                <span class="material-symbols-outlined text-[14px]">warning</span> LOW STOCK
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Item 2 -->
-                    <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
-                        <div class="flex justify-between">
-                            <div>
-                                <p class="font-body-sm text-body-sm font-bold text-primary">Aceite Sintético 5W-30</p>
-                                <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: OIL-SY-09</p>
-                            </div>
-                            <div class="text-right">
-                                <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
-                                <span class="font-body-sm text-body-sm font-bold text-secondary">B-05-11</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between border-t border-surface-variant pt-2">
-                            <div class="flex items-center gap-2">
-                                <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="4"/>
-                                <span class="text-xs font-medium text-on-surface-variant">Litro</span>
+                                <span class="text-xs font-medium text-on-surface-variant">Unidad</span>
                             </div>
                             <div class="flex items-center gap-1 text-on-secondary-container text-[11px] font-bold bg-secondary-container/30 px-2 py-1 rounded">
-                                <span class="material-symbols-outlined text-[14px]">check_circle</span> DISPONIBLE
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Item 3 -->
-                    <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
-                        <div class="flex justify-between">
-                            <div>
-                                <p class="font-body-sm text-body-sm font-bold text-primary">Juego de Balatas Del.</p>
-                                <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: BK-PAD-044</p>
-                            </div>
-                            <div class="text-right">
-                                <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
-                                <span class="font-body-sm text-body-sm font-bold text-secondary">C-01-02</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between border-t border-surface-variant pt-2">
-                            <div class="flex items-center gap-2">
-                                <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="1"/>
-                                <span class="text-xs font-medium text-on-surface-variant">Juego</span>
-                            </div>
-                            <div class="flex items-center gap-1 text-on-secondary-container text-[11px] font-bold bg-secondary-container/30 px-2 py-1 rounded">
-                                <span class="material-symbols-outlined text-[14px]">check_circle</span> DISPONIBLE
+                                <span class="material-symbols-outlined text-[14px]">info</span> REQUERIDO
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <!-- Add More Button -->
                 <button class="w-full py-3 border-2 border-dashed border-outline-variant rounded-xl flex items-center justify-center gap-2 text-on-surface-variant font-button hover:bg-surface-variant/20 transition-all">
                     <span class="material-symbols-outlined">add_circle</span>
-                    AÑADIR REFACCIÓN
+                    AÑADIR NUEVA REFACCIÓN
                 </button>
             </section>
 
@@ -387,12 +338,22 @@
         </div>
     </main>
 
-
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const btnCreateRequest = document.getElementById('btnCreateRequest');
+            const sparePartsSection = document.getElementById('sparePartsSection');
+
+            if (btnCreateRequest && sparePartsSection) {
+                btnCreateRequest.addEventListener('click', () => {
+                    sparePartsSection.classList.remove('hidden');
+                    // Scroll to spare parts on mobile
+                    if (window.innerWidth < 768) {
+                        sparePartsSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
             const btnMobileMenu = document.getElementById('btnMobileMenu');
-            // Basic mobile menu toggle if needed, or redirect
         });
     </script>
 </body>
