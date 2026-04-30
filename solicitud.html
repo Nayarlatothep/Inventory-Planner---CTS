@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+    <title>Solicitud de Orden de Trabajo - CSM Legacy</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e3e2e5",
+                        "inverse-on-surface": "#f2f0f3",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#d1e1f4",
+                        "surface-tint": "#476083",
+                        "surface-container-highest": "#e3e2e5",
+                        "background": "#faf9fc",
+                        "tertiary-fixed": "#e2e2e2",
+                        "tertiary-container": "#1d1f1f",
+                        "surface-bright": "#faf9fc",
+                        "on-primary-container": "#6f88ad",
+                        "secondary-fixed": "#d4e4f6",
+                        "outline-variant": "#c4c6cf",
+                        "secondary-fixed-dim": "#b8c8da",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#001f3f",
+                        "on-surface": "#1a1c1e",
+                        "secondary": "#50606f",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#d4e3ff",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-error-container": "#93000a",
+                        "surface": "#faf9fc",
+                        "on-secondary-fixed-variant": "#394857",
+                        "primary-fixed-dim": "#afc8f0",
+                        "outline": "#74777f",
+                        "surface-container": "#efedf0",
+                        "on-secondary-fixed": "#0d1d2a",
+                        "inverse-surface": "#2f3033",
+                        "primary": "#000613",
+                        "surface-container-high": "#e9e7eb",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#dbd9dd",
+                        "inverse-primary": "#afc8f0",
+                        "on-primary-fixed": "#001c3a",
+                        "tertiary": "#040606",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "on-background": "#1a1c1e",
+                        "on-tertiary-container": "#858687",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "on-tertiary-fixed": "#1a1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "32px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "lg": "24px",
+                        "2xl": "48px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Inter"],
+                        "h2": ["Inter"],
+                        "button": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "h3": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; min-height: max(884px, 100dvh); }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-40">
+    <!-- TopNavBar -->
+    <header class="bg-[#001F3F] dark:bg-slate-950 font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-white/10 shadow-md shadow-slate-900/20">
+        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 max-w-[1440px] mx-auto">
+            <div class="flex items-center gap-4 md:gap-xl">
+                <button id="btnMobileMenu" class="md:hidden text-white p-1 hover:bg-white/10 rounded-md transition-colors">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div class="flex items-center gap-3 group cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="bg-slate-800/50 p-3 rounded-xl group-hover:bg-slate-800/70 transition-all border border-white/5 shadow-inner">
+                        <span class="material-symbols-outlined text-white text-[32px] leading-none" style="font-variation-settings: 'FILL' 0, 'wght' 300;">local_shipping</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl md:text-2xl font-extrabold text-white tracking-tight leading-tight">CSM Legacy</span>
+                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] leading-none text-center">Sistema de Inventario</span>
+                    </div>
+                </div>
+                <div class="hidden md:block w-[1.5px] h-10 bg-white/10 mx-6"></div>
+                <nav id="desktopNav" class="hidden md:flex items-center gap-lg">
+                    <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="index.html">Inicio</a>
+                    <div class="relative group h-full flex items-center">
+                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
+                            Abastecimiento
+                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                        </button>
+                        <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
+                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">shopping_cart</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Ordenes de Compras</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Gestión de OCs activas</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">request_quote</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Solicitudes de Compras</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Requerimientos de material</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative group h-full flex items-center">
+                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
+                            Inventario
+                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                        </button>
+                        <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
+                            <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">add_circle</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Ingreso de Material Nuevo</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Registro inicial de inventario</span>
+                                </div>
+                            </a>
+                            <a href="recepcion.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">package_2</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Recepción Material</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Validación de carga entrante</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">edit_note</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Ingreso Material Manual</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Ajustes manuales de stock</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative group h-full flex items-center">
+                        <button class="flex items-center gap-1 text-white border-b-2 border-white pb-1 font-bold px-3 py-2 h-full">
+                            Mantenimiento
+                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                        </button>
+                        <div class="absolute top-[100%] left-0 w-72 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
+                            <a href="solicitud.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
+                                <span class="material-symbols-outlined text-primary-container text-[20px]">build</span>
+                                <div class="flex flex-col">
+                                    <span class="font-bold">Solicitud de orden de trabajo</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Crear nuevos requerimientos</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">assignment_turned_in</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Despacho orden de trabajo</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Gestión y salida de materiales</span>
+                                </div>
+                            </a>
+                            <a href="flota.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">directions_car</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">Inventario y Estado de Flota</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Control de vehículos y activos</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative group h-full flex items-center">
+                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
+                            Reportes
+                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                        </button>
+                        <div class="absolute top-[100%] right-0 w-72 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
+                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
+                                <span class="material-symbols-outlined text-slate-400 text-[20px]">analytics</span>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold">KPI Ordenes de trabajo (Mantto.)</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Indicadores de mantenimiento</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="p-4 space-y-6 max-w-md mx-auto">
+        <!-- 1. Header Section: Work Order Info -->
+        <section class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-outline-variant/30">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1 block">Orden de Trabajo</span>
+                    <h2 class="font-h3 text-h3 text-primary-container">#WO-2024-0892</h2>
+                </div>
+                <div class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest">
+                    ACTIVA
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">calendar_today</span> Fecha/Hora
+                    </span>
+                    <p class="font-body-sm text-body-sm font-semibold">24 May, 2024 - 14:30</p>
+                </div>
+                <div class="space-y-1">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">badge</span> Técnico
+                    </span>
+                    <p class="font-body-sm text-body-sm font-semibold">ID: 4402 - J. Pérez</p>
+                </div>
+                <div class="col-span-2 pt-3 border-t border-surface-variant/50">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1 mb-1">
+                        <span class="material-symbols-outlined text-[14px]">directions_car</span> Vehículo (VIN/Placa)
+                    </span>
+                    <p class="font-body-md text-body-md font-bold tracking-wider text-primary">1FA6P8CF5K5 - P098-JKL</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Service Detail -->
+        <section class="space-y-4">
+            <div class="space-y-2">
+                <label class="font-label-caps text-label-caps text-on-surface-variant">TIPO DE SERVICIO</label>
+                <div class="relative">
+                    <select class="w-full bg-surface-container-lowest border border-outline rounded-lg px-4 py-3 appearance-none font-body-md text-body-md focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all">
+                        <option>Preventivo</option>
+                        <option>Correctivo</option>
+                        <option>Garantía</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+                </div>
+            </div>
+            <div class="space-y-2">
+                <label class="font-label-caps text-label-caps text-on-surface-variant">DESCRIPCIÓN DEL TRABAJO</label>
+                <textarea class="w-full bg-surface-container-lowest border border-outline rounded-lg px-4 py-3 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all" placeholder="Detalle las reparaciones o mantenimientos a realizar..." rows="3"></textarea>
+            </div>
+        </section>
+
+        <!-- 3. Dynamic Spare Parts Selector -->
+        <section class="space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="font-h3 text-h3 text-primary-container">Refacciones</h3>
+                <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">3 ÍTEMS</span>
+            </div>
+            <!-- Search Bar -->
+            <div class="relative">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input class="w-full bg-surface-container-low border border-outline-variant rounded-full pl-10 pr-4 py-2 text-sm focus:bg-white focus:ring-2 focus:ring-primary-container/10 transition-all" placeholder="Buscar código o nombre..." type="text"/>
+            </div>
+            <!-- Spare Parts Grid -->
+            <div class="space-y-3">
+                <!-- Item 1 -->
+                <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="font-body-sm text-body-sm font-bold text-primary">Filtro de Aceite S-200</p>
+                            <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: 00-AF-112</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
+                            <span class="font-body-sm text-body-sm font-bold text-secondary">A-12-04</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-surface-variant pt-2">
+                        <div class="flex items-center gap-2">
+                            <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="1"/>
+                            <span class="text-xs font-medium text-on-surface-variant">Pza</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-error text-[11px] font-bold bg-error-container/20 px-2 py-1 rounded">
+                            <span class="material-symbols-outlined text-[14px]">warning</span> LOW STOCK
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="font-body-sm text-body-sm font-bold text-primary">Aceite Sintético 5W-30</p>
+                            <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: OIL-SY-09</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
+                            <span class="font-body-sm text-body-sm font-bold text-secondary">B-05-11</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-surface-variant pt-2">
+                        <div class="flex items-center gap-2">
+                            <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="4"/>
+                            <span class="text-xs font-medium text-on-surface-variant">Litro</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-on-secondary-container text-[11px] font-bold bg-secondary-container/30 px-2 py-1 rounded">
+                            <span class="material-symbols-outlined text-[14px]">check_circle</span> DISPONIBLE
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3">
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="font-body-sm text-body-sm font-bold text-primary">Juego de Balatas Del.</p>
+                            <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: BK-PAD-044</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
+                            <span class="font-body-sm text-body-sm font-bold text-secondary">C-01-02</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-surface-variant pt-2">
+                        <div class="flex items-center gap-2">
+                            <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="1"/>
+                            <span class="text-xs font-medium text-on-surface-variant">Juego</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-on-secondary-container text-[11px] font-bold bg-secondary-container/30 px-2 py-1 rounded">
+                            <span class="material-symbols-outlined text-[14px]">check_circle</span> DISPONIBLE
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add More Button -->
+            <button class="w-full py-3 border-2 border-dashed border-outline-variant rounded-xl flex items-center justify-center gap-2 text-on-surface-variant font-button hover:bg-surface-variant/20 transition-all">
+                <span class="material-symbols-outlined">add_circle</span>
+                AÑADIR REFACCIÓN
+            </button>
+        </section>
+
+        <!-- Visual Context Image -->
+        <div class="rounded-xl overflow-hidden shadow-md mt-4">
+            <img class="w-full h-32 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLtAUIIrvPYIdIp9tcOLlyJMUfHnBZoOs9LlXKKl8NaQ9Bpz4Em1ynjIOmMcpvGxhDj_4NmUc_X3Gucb--FoUNbt36V4-lgI4s08TjFT96zl8BlSKg1zekDfJjnn8u3tJTPzBgQ08rV4Wm0xG5EE9J6hvkAaSTAwsGFD5p_HIhUy6zTrXKbF54RT7qdxYZmGw5knLH6qqmqb9EU9KH0jV6sf3Y4wGUI6-xz99oPEDM5MxzPgv-6Jn2vlUpqsPkyX2aNNtIv9X4jwbB"/>
+        </div>
+    </main>
+
+    <!-- Sticky Actions Section -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-outline-variant/30 p-4 shadow-[0_-8px_30px_rgb(0,0,0,0.12)] z-50">
+        <div class="max-w-md mx-auto grid grid-cols-2 gap-3">
+            <button class="col-span-2 bg-primary-container text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary-container/20">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                CONFIRMAR SOLICITUD
+            </button>
+            <button class="bg-surface-container text-on-surface-variant py-3 rounded-xl font-button text-sm border border-outline-variant flex items-center justify-center gap-2 active:opacity-80 transition-all">
+                <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                VALIDAR
+            </button>
+            <button class="bg-surface-container text-on-surface-variant py-3 rounded-xl font-button text-sm border border-outline-variant flex items-center justify-center gap-2 active:opacity-80 transition-all">
+                <span class="material-symbols-outlined text-[20px]">print</span>
+                TICKET
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnMobileMenu = document.getElementById('btnMobileMenu');
+            // Basic mobile menu toggle if needed, or redirect
+        });
+    </script>
+</body>
+</html>
