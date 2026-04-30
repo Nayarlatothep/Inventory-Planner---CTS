@@ -474,7 +474,15 @@
             const sparePartsSection = document.getElementById('sparePartsSection');
             const sparePartsContainer = document.getElementById('sparePartsContainer');
             const btnAddPart = document.getElementById('btnAddPart');
-            const itemCountBadge = sparePartsSection ? sparePartsSection.querySelector('.bg-primary-container.text-white') : null;
+            const btnSubmitOrder = document.getElementById('btnSubmitOrder');
+            const summaryModal = document.getElementById('summaryModal');
+            const btnCloseModal = document.getElementById('btnCloseModal');
+            const btnConfirmFinal = document.getElementById('btnConfirmFinal');
+            const searchParts = document.getElementById('searchParts');
+            
+            // Get the badge and ensure it has the correct ID
+            let itemCountBadge = document.querySelector('#sparePartsSection span.bg-primary-container');
+            if (itemCountBadge) itemCountBadge.id = 'itemCountBadge';
 
             if (btnCreateRequest && sparePartsSection) {
                 btnCreateRequest.addEventListener('click', () => {
@@ -482,15 +490,15 @@
                     if (btnSubmitOrder) {
                         btnSubmitOrder.classList.remove('hidden');
                     }
+                    // Change button text or appearance after click
+                    btnCreateRequest.innerHTML = '<span class="material-symbols-outlined text-[24px]">check_circle</span> SOLICITUD INICIADA';
+                    btnCreateRequest.classList.replace('bg-primary-container', 'bg-emerald-600');
+                    
                     if (window.innerWidth < 768) {
                         sparePartsSection.scrollIntoView({ behavior: 'smooth' });
                     }
                 });
             }
-
-            const searchParts = document.getElementById('searchParts');
-            const itemCountBadge = document.querySelector('#sparePartsSection span.bg-primary-container');
-            if (itemCountBadge) itemCountBadge.id = 'itemCountBadge';
 
             // Filter logic for spare parts
             if (searchParts && sparePartsContainer) {
@@ -499,8 +507,9 @@
                     const cards = sparePartsContainer.querySelectorAll('.spare-part-card');
                     cards.forEach(card => {
                         const select = card.querySelector('.spare-part-select');
-                        const sku = card.querySelector('.sku-label').textContent.toLowerCase();
-                        const val = select.value.toLowerCase();
+                        const skuLabel = card.querySelector('.sku-label');
+                        const sku = skuLabel ? skuLabel.textContent.toLowerCase() : '';
+                        const val = select ? select.value.toLowerCase() : '';
                         const isMatch = val.includes(term) || sku.includes(term);
                         card.style.display = isMatch ? 'flex' : 'none';
                     });
@@ -536,10 +545,14 @@
                             updateItemCount();
                         } else {
                             // If it's the last one, just reset it instead of deleting
-                            card.querySelector('.spare-part-select').selectedIndex = 0;
-                            card.querySelector('.sku-label').textContent = '---';
-                            card.querySelector('.rack-label').textContent = '---';
-                            card.querySelector('input[type="number"]').value = 1;
+                            const select = card.querySelector('.spare-part-select');
+                            if (select) select.selectedIndex = 0;
+                            const skuLabel = card.querySelector('.sku-label');
+                            if (skuLabel) skuLabel.textContent = '---';
+                            const rackLabel = card.querySelector('.rack-label');
+                            if (rackLabel) rackLabel.textContent = '---';
+                            const numInput = card.querySelector('input[type="number"]');
+                            if (numInput) numInput.value = 1;
                             updateItemCount();
                         }
                     }
@@ -555,18 +568,19 @@
 
             // 2. Function to add a new card
             if (btnAddPart && sparePartsContainer) {
-                // We need a pristine template of the card for cloning
-                // because the current cards might have values changed.
-                // But for now cloning the first one and resetting works too.
                 btnAddPart.addEventListener('click', () => {
                     const firstCard = sparePartsContainer.querySelector('.spare-part-card');
                     if (firstCard) {
                         const newCard = firstCard.cloneNode(true);
-                        newCard.querySelector('.spare-part-select').selectedIndex = 0;
-                        newCard.querySelector('.sku-label').textContent = '---';
-                        newCard.querySelector('.rack-label').textContent = '---';
-                        newCard.querySelector('input[type="number"]').value = 1;
-                        // Ensure delete button is visible on hover for new card
+                        newCard.style.display = 'flex'; // Ensure it's visible even if filtering
+                        const select = newCard.querySelector('.spare-part-select');
+                        if (select) select.selectedIndex = 0;
+                        const skuLabel = newCard.querySelector('.sku-label');
+                        if (skuLabel) skuLabel.textContent = '---';
+                        const rackLabel = newCard.querySelector('.rack-label');
+                        if (rackLabel) rackLabel.textContent = '---';
+                        const numInput = newCard.querySelector('input[type="number"]');
+                        if (numInput) numInput.value = 1;
                         sparePartsContainer.appendChild(newCard);
                         updateItemCount();
                     }
@@ -574,7 +588,7 @@
             }
 
             // 3. Modal Logic
-            const btnSubmitOrder = document.getElementById('btnSubmitOrder');
+            if (btnSubmitOrder) {
             const summaryModal = document.getElementById('summaryModal');
             const btnCloseModal = document.getElementById('btnCloseModal');
             const btnConfirmFinal = document.getElementById('btnConfirmFinal');
