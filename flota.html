@@ -105,6 +105,7 @@
     <style>
         .shadow-soft { box-shadow: 0px 4px 12px rgba(0, 31, 63, 0.05); }
         .input-glow:focus { box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1); }
+        
         @keyframes slideInRow {
             0% { opacity: 0; transform: translateY(-20px) scale(0.95); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
@@ -141,25 +142,40 @@
             background-color: #f8fafc;
         }
 
+        /* Mobile & Tablet Optimizations */
         html {
             -webkit-tap-highlight-color: transparent;
             -webkit-text-size-adjust: 100%;
         }
         
         body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
         input, select, textarea {
-            font-size: 16px !important;
+            font-size: 16px !important; /* Prevents auto-zoom on iOS */
             -webkit-appearance: none;
             border-radius: 4px;
         }
 
+        .ios-scrolling {
+            -webkit-overflow-scrolling: touch;
+        }
+
         @media (max-width: 640px) {
             .btn-ios-tap {
-                min-height: 44px;
+                min-height: 44px; /* Apple's minimum touch target size */
             }
+        }
+        
+        /* Custom Scrollbar for tablets */
+        @media (min-width: 768px) {
+            ::-webkit-scrollbar { width: 8px; }
+            ::-webkit-scrollbar-track { background: transparent; }
+            ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         }
     </style>
 </head>

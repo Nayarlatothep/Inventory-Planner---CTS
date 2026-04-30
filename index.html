@@ -139,16 +139,19 @@
             background-color: #ffffff;
         }
         #tablaIngresos > div:nth-child(even) {
-            background-color: #f8fafc; /* Subtle gray/slate-50 */
+            background-color: #f8fafc;
         }
 
-        /* iOS & iPad Optimizations */
+        /* Mobile & Tablet Optimizations */
         html {
             -webkit-tap-highlight-color: transparent;
             -webkit-text-size-adjust: 100%;
         }
         
         body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
@@ -163,9 +166,16 @@
         }
 
         @media (max-width: 640px) {
-            .btn-ios-tap {
+            .btn-touch {
                 min-height: 44px; /* Apple's minimum touch target size */
             }
+        }
+        
+        /* Custom Scrollbar for tablets */
+        @media (min-width: 768px) {
+            ::-webkit-scrollbar { width: 8px; }
+            ::-webkit-scrollbar-track { background: transparent; }
+            ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         }
     </style>
 </head>
