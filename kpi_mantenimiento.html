@@ -281,6 +281,16 @@
             }
         }
 
+        function updateEficienciaGauge(percent) {
+            const dashArray = 263.89;
+            const offset = dashArray * (1 - (percent / 100));
+            const fillEl = document.getElementById('eficienciaFill');
+            const valueEl = document.getElementById('valorEficiencia');
+            
+            if (fillEl) fillEl.style.strokeDashoffset = offset;
+            if (valueEl) valueEl.textContent = `${percent}%`;
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             fetchCamiones();
 
@@ -310,6 +320,9 @@
                     renderCamiones(allVehiculos, modalContainer, e.target.value);
                 });
             }
+
+            // Inicializar Eficiencia
+            updateEficienciaGauge(75);
 
             // Lógica Filtro de Meses
             const btnFilter = document.getElementById('btnFilterMonth');
@@ -544,10 +557,10 @@
                             <div class="flex flex-col items-start text-left">
                                 <h3 class="text-xl md:text-2xl font-black text-primary-container tracking-tight uppercase mb-4">Eficiencia Operativa</h3>
                                 <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center shrink-0">
-                                        <span class="material-symbols-outlined text-emerald-600 text-2xl">speed</span>
+                                    <div class="w-12 h-12 rounded-2xl bg-emerald-50/10 flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-emerald-300 text-2xl">speed</span>
                                     </div>
-                                    <p class="text-5xl md:text-6xl font-black text-[#001f3f] tracking-tighter">94.2%</p>
+                                    <p id="valorEficiencia" class="text-5xl md:text-6xl font-black text-white tracking-tighter">75%</p>
                                 </div>
                             </div>
                             
@@ -564,7 +577,7 @@
                                     <circle cx="50" cy="50" r="42" fill="transparent" stroke="rgba(255,255,255,0.15)" stroke-width="12" />
                                     
                                     <!-- Progress Fill with Glow -->
-                                    <circle cx="50" cy="50" r="42" fill="transparent" stroke="#10b981" stroke-width="12" stroke-dasharray="263.89" stroke-dashoffset="15.3" stroke-linecap="round" filter="url(#gaugeGlow)" />
+                                    <circle id="eficienciaFill" cx="50" cy="50" r="42" fill="transparent" stroke="#10b981" stroke-width="12" stroke-dasharray="263.89" stroke-dashoffset="65.97" stroke-linecap="round" filter="url(#gaugeGlow)" class="transition-all duration-1000" />
                                     
                                     <!-- Internal Segments Overlay (Battery Style) -->
                                     <circle cx="50" cy="50" r="42" fill="transparent" stroke="rgba(255,255,255,0.25)" stroke-width="12" stroke-dasharray="1.5 11.69" />
