@@ -287,8 +287,10 @@
             // Unidades en Mantenimiento
             const totalMantoEl = document.getElementById('totalMantenimiento');
             const ratioMantoEl = document.getElementById('ratioMantenimiento');
+            const deBaja = vehiculos.filter(v => (v.id % 3) === 2).length;
+            
             if (totalMantoEl) totalMantoEl.textContent = `${mantenimiento} / ${total}`;
-            if (ratioMantoEl) ratioMantoEl.textContent = `Total Unidades en Taller`;
+            if (ratioMantoEl) ratioMantoEl.textContent = `${deBaja} Unidades de Baja`;
         }
 
         function updateEficienciaGauge(percent) {
