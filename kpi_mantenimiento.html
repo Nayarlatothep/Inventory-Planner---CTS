@@ -815,6 +815,20 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- 6. Estado de Lubricación y Engrasado -->
+                    <div class="card p-5 flex flex-col h-full bg-white border border-slate-200 shadow-sm min-h-[350px]">
+                        <div class="flex items-center justify-between mb-5">
+                            <h3 class="text-lg font-black text-primary-container uppercase tracking-tight">Estado de Lubricación</h3>
+                            <span class="material-symbols-outlined text-emerald-500">oil_barrel</span>
+                        </div>
+                        <div id="lubricacionContainer" class="space-y-1 overflow-y-auto pr-2 custom-scrollbar flex-1 max-h-[400px]">
+                            <!-- Se cargará dinámicamente -->
+                            <div class="flex justify-center items-center py-10">
+                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- 4. Estado Camiones -->
@@ -856,20 +870,7 @@
                             <tbody id="topReparacionesContainer" class="divide-y divide-slate-100">
                                 <!-- Se cargará dinámicamente -->
                             </tbody>
-                    </div>
-                </div>
-
-                <!-- 6. Estado de Lubricación y Engrasado -->
-                <div class="col-span-12 lg:col-span-4 card p-5 flex flex-col h-full bg-white border border-slate-200 shadow-sm">
-                    <div class="flex items-center justify-between mb-5">
-                        <h3 class="text-lg font-black text-primary-container uppercase tracking-tight">Estado de Lubricación</h3>
-                        <span class="material-symbols-outlined text-emerald-500">oil_barrel</span>
-                    </div>
-                    <div id="lubricacionContainer" class="space-y-1 overflow-y-auto pr-2 custom-scrollbar flex-1 max-h-[480px]">
-                        <!-- Se cargará dinámicamente -->
-                        <div class="flex justify-center items-center py-10">
-                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
-                        </div>
+                        </table>
                     </div>
                 </div>
 
