@@ -159,6 +159,11 @@
         table td { font-size: 14px; }
         @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -192,9 +197,9 @@
                             <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high">
                                 <div class="flex items-center gap-3">
                                     <span class="material-symbols-outlined ${estado.iconoClase}">${estado.icono}</span>
-                                    <div class="flex flex-col">
-                                        <span class="text-sm font-bold text-primary-container">ID: ${vehiculo.id}</span>
-                                        <span class="text-[10px] text-on-surface-variant font-mono opacity-70">${vehiculo.vin}</span>
+                                    <div class="flex items-center gap-4">
+                                        <span class="text-base md:text-lg font-black text-primary-container">${vehiculo.id}</span>
+                                        <span class="text-[10px] text-on-surface-variant font-mono opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2">
@@ -509,7 +514,7 @@
                 <!-- 4. Estado Camiones -->
                 <div class="col-span-12 md:col-span-4 card p-5 flex flex-col">
                     <p class="stat-label text-[#50606f] mb-5 text-center">Estado Camiones</p>
-                    <div id="camionesContainer" class="space-y-3">
+                    <div id="camionesContainer" class="space-y-3 max-h-[380px] overflow-y-auto pr-2 custom-scrollbar">
                         <!-- Los camiones se cargarán dinámicamente aquí -->
                         <div class="flex justify-center items-center py-10">
                             <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-container"></div>
