@@ -254,16 +254,16 @@
 
             sortedVehiculos.forEach((v) => {
                 const row = `
-                    <div class="flex flex-col gap-1.5 mb-2">
-                        <div class="flex justify-between items-end">
-                            <div class="flex items-center gap-2">
-                                <span class="text-sm font-black text-primary-container">${v.id}</span>
-                                <span class="text-[9px] font-mono text-on-surface-variant opacity-60">VIN: ${v.vin}</span>
-                            </div>
-                            <span class="text-[11px] font-bold text-primary-container">$${v.gasto.toLocaleString()}</span>
+                    <div class="flex items-center gap-3 mb-4 group">
+                        <div class="flex items-center gap-2 min-w-[180px] shrink-0">
+                            <span class="text-sm md:text-base font-black text-primary-container">${v.id}</span>
+                            <span class="text-sm md:text-base font-mono text-on-surface-variant opacity-60 bg-surface-container-low px-1.5 py-0.5 rounded">${v.vin}</span>
                         </div>
-                        <div class="w-full h-3 bg-surface-container rounded-full overflow-hidden">
-                            <div class="h-full bg-primary-container transition-all duration-1000" style="width: ${v.porcentaje}%"></div>
+                        <div class="flex-1 h-5 bg-surface-container rounded-full overflow-hidden relative shadow-inner">
+                            <div class="h-full bg-primary-container/80 group-hover:bg-primary-container transition-all duration-1000" style="width: ${v.porcentaje}%"></div>
+                            <div class="absolute inset-0 flex items-center justify-end px-3">
+                                <span class="text-[10px] font-black text-white drop-shadow-sm">$${v.gasto.toLocaleString()}</span>
+                            </div>
                         </div>
                     </div>
                 `;
