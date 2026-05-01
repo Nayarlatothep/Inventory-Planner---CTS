@@ -172,6 +172,8 @@
         const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW'; // Reemplazar con la clave anon real
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
+        let allVehiculos = []; // Cache para búsqueda local
+
         async function fetchCamiones() {
             const camionesContainer = document.getElementById('camionesContainer');
             
@@ -181,51 +183,92 @@
                     .select('id, vin');
 
                 if (error) throw error;
-
-                if (vehiculos) {
-                    camionesContainer.innerHTML = '';
-                    vehiculos.forEach((vehiculo, index) => {
-                        // Simulación de estados basada en el índice
-                        const estadosSimulados = [
-                            { texto: 'Mantenimiento', clase: 'bg-orange-100 text-orange-700', icono: 'build', iconoClase: 'text-orange-600' },
-                            { texto: 'Activo', clase: 'bg-green-100 text-green-700', icono: 'check_circle', iconoClase: 'text-emerald-600' },
-                            { texto: 'De Baja', clase: 'bg-slate-100 text-slate-500', icono: 'cancel', iconoClase: 'text-slate-400' }
-                        ];
-                        const estado = estadosSimulados[index % estadosSimulados.length];
-
-                        const row = `
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high">
-                                <div class="flex items-center gap-3">
-                                    <span class="material-symbols-outlined ${estado.iconoClase}">${estado.icono}</span>
-                                    <div class="flex items-center gap-4">
-                                        <span class="text-base md:text-lg font-black text-primary-container">${vehiculo.id}</span>
-                                        <span class="text-[10px] text-on-surface-variant font-mono opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="px-2 py-1 ${estado.clase} rounded text-[10px] font-bold uppercase min-w-[100px] text-center">${estado.texto}</span>
-                                    <button class="p-1 hover:bg-slate-200 rounded-full transition-colors opacity-0 group-hover:opacity-100">
-                                        <span class="material-symbols-outlined text-sm text-on-surface-variant">add_circle</span>
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                        camionesContainer.insertAdjacentHTML('beforeend', row);
-                    });
-                }
-            } catch (error) {
-                console.error('Error fetching camiones:', error);
-                camionesContainer.innerHTML = `
-                    <div class="p-4 text-center text-error">
-                        <span class="material-symbols-outlined text-4xl mb-2">error</span>
-                        <p class="text-sm font-bold">Error al cargar datos</p>
-                        <p class="text-[10px] opacity-70">${error.message}</p>
-                    </div>
-                `;
+                
+                allVehiculos = vehiculos; // Guardar en cache
+                renderCamiones(vehiculos, camionesContainer);
+            } catch (err) {
+                console.error('Error:', err);
+                camionesContainer.innerHTML = `<p class="text-error text-xs p-4">Error al cargar datos - ${err.message || 'Verifique la API key'}</p>`;
             }
         }
 
-        document.addEventListener('DOMContentLoaded', fetchCamiones);
+        function renderCamiones(vehiculos, container, filter = '') {
+            container.innerHTML = '';
+            const estadosSimulados = [
+                { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
+                { nombre: 'Mantenimiento', color: 'text-amber-500', bg: 'bg-amber-500', icono: 'build', iconoClase: 'text-amber-500' },
+                { nombre: 'De Baja', color: 'text-rose-500', bg: 'bg-rose-500', icono: 'cancel', iconoClase: 'text-rose-500' }
+            ];
+
+            const filtered = vehiculos.filter(v => {
+                const search = filter.toLowerCase();
+                const estado = estadosSimulados[v.id % estadosSimulados.length].nombre.toLowerCase();
+                return v.id.toString().includes(search) || 
+                       v.vin.toLowerCase().includes(search) ||
+                       estado.includes(search);
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<p class="text-center text-on-surface-variant py-10 opacity-50">No se encontraron resultados</p>';
+                return;
+            }
+
+            filtered.forEach((vehiculo, index) => {
+                const estado = estadosSimulados[vehiculo.id % estadosSimulados.length];
+                const row = `
+                    <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined ${estado.iconoClase}">${estado.icono}</span>
+                            <div class="flex items-center gap-4">
+                                <span class="text-base md:text-lg font-black text-primary-container">${vehiculo.id}</span>
+                                <span class="text-[10px] text-on-surface-variant font-mono opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold uppercase ${estado.color}">${estado.nombre}</span>
+                            <div class="w-2 h-2 rounded-full ${estado.bg} pulse-dot"></div>
+                        </div>
+                    </div>
+                container.insertAdjacentHTML('beforeend', row);
+            });
+            
+            // Actualizar contador en el footer del modal si es necesario
+            const totalCount = document.getElementById('modalTotalCount');
+            if (totalCount && container.id === 'modalCamionesContainer') {
+                totalCount.textContent = filtered.length;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchCamiones();
+
+            const btnExpand = document.getElementById('btnExpandCamiones');
+            const modal = document.getElementById('modalCamiones');
+            const btnCloseModal = document.getElementById('btnCloseModalCamiones');
+            const inputFilter = document.getElementById('filterCamiones');
+            const modalContainer = document.getElementById('modalCamionesContainer');
+
+            if (btnExpand) {
+                btnExpand.addEventListener('click', () => {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    renderCamiones(allVehiculos, modalContainer);
+                });
+            }
+
+            if (btnCloseModal) {
+                btnCloseModal.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                });
+            }
+
+            if (inputFilter) {
+                inputFilter.addEventListener('input', (e) => {
+                    renderCamiones(allVehiculos, modalContainer, e.target.value);
+                });
+            }
+        });
     </script>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
@@ -512,9 +555,16 @@
                 </div>
 
                 <!-- 4. Estado Camiones -->
-                <div class="col-span-12 md:col-span-4 card p-5 flex flex-col">
-                    <p class="stat-label text-[#50606f] mb-5 text-center">Estado Camiones</p>
-                    <div id="camionesContainer" class="space-y-3 max-h-[380px] overflow-y-auto pr-2 custom-scrollbar">
+                <div class="col-span-12 md:col-span-4 card p-5 flex flex-col relative group/card">
+                    <div class="flex justify-between items-start mb-5">
+                        <div class="w-full text-center">
+                            <p class="stat-label text-[#50606f]">Estado Camiones</p>
+                        </div>
+                        <button id="btnExpandCamiones" class="absolute top-4 right-4 p-1.5 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all opacity-0 group-hover/card:opacity-100">
+                            <span class="material-symbols-outlined text-[20px]">open_in_full</span>
+                        </button>
+                    </div>
+                    <div id="camionesContainer" class="space-y-3 max-h-[580px] overflow-y-auto pr-2 custom-scrollbar">
                         <!-- Los camiones se cargarán dinámicamente aquí -->
                         <div class="flex justify-center items-center py-10">
                             <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-container"></div>
@@ -715,6 +765,45 @@
         </div>
     </nav>
 
+    <!-- Modal Estado Camiones Extendido -->
+    <div id="modalCamiones" class="fixed inset-0 z-[110] hidden items-center justify-center bg-black/70 backdrop-blur-md p-4">
+        <div class="bg-surface w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
+            <!-- Header Modal -->
+            <div class="p-6 border-b border-surface-variant flex justify-between items-center bg-surface-container-low">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary-container text-[32px]">local_shipping</span>
+                    <div>
+                        <h3 class="font-h3 text-xl text-primary-container">Estado Detallado de Flota</h3>
+                        <p class="text-xs text-on-surface-variant">Vista extendida con filtrado avanzado</p>
+                    </div>
+                </div>
+                <button id="btnCloseModalCamiones" class="p-2 hover:bg-surface-variant rounded-full transition-all active:scale-90">
+                    <span class="material-symbols-outlined text-on-surface-variant">close</span>
+                </button>
+            </div>
+
+            <!-- Filtros -->
+            <div class="p-6 bg-surface-container-lowest border-b border-surface-variant">
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                    <input id="filterCamiones" type="text" 
+                        class="w-full bg-surface-container px-12 py-4 rounded-2xl border-none focus:ring-2 focus:ring-primary-container/30 outline-none font-body-md text-primary-container transition-all" 
+                        placeholder="Filtrar por ID, VIN o Estado (Activo, Mantenimiento...)"
+                    >
+                </div>
+            </div>
+
+            <!-- Lista Modal -->
+            <div id="modalCamionesContainer" class="flex-grow overflow-y-auto p-6 space-y-4 custom-scrollbar bg-surface">
+                <!-- Se poblará dinámicamente -->
+            </div>
+
+            <!-- Footer Modal -->
+            <div class="p-4 bg-surface-container-low border-t border-surface-variant text-center">
+                <p class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Total de vehículos registrados: <span id="modalTotalCount">--</span></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
