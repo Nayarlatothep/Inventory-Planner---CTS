@@ -188,6 +188,7 @@
                 allVehiculos = vehiculos; // Guardar en cache
                 renderCamiones(vehiculos, camionesContainer);
                 renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
+                renderTopReparaciones(vehiculos);
                 updateOperationalKPIs(vehiculos);
             } catch (err) {
                 console.error('Error:', err);
@@ -294,6 +295,36 @@
             if (ratioMantoEl) {
                 ratioMantoEl.innerHTML = `<span class="font-black">${deBaja} Unidades</span> <span class="text-rose-600 font-black italic">De Baja</span>`;
             }
+        }
+
+        function renderTopReparaciones(vehiculos) {
+            const container = document.getElementById('topReparacionesContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            const servicios = ['Mantenimiento Preventivo', 'Sistema de Frenos', 'Reparación de Motor', 'Transmisión', 'Suspensión', 'Sistema Eléctrico'];
+            
+            // Tomamos los primeros 5 para el TOP (simulado)
+            const topVehiculos = vehiculos.slice(0, 5).map((v, i) => ({
+                ...v,
+                servicio: servicios[v.id % servicios.length],
+                solicitudes: 5 - i > 1 ? 5 - i : 2,
+                gasto: (8000 - (i * 1200)) > 1000 ? (8000 - (i * 1200)) : 1200 + (v.id % 500)
+            }));
+
+            topVehiculos.forEach(v => {
+                const row = `
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="px-lg py-4 font-bold text-primary-container">${v.id}</td>
+                        <td class="px-lg py-4 text-[10px] font-mono text-on-surface-variant">${v.vin}</td>
+                        <td class="px-lg py-4 text-body-sm text-on-surface-variant">${v.servicio}</td>
+                        <td class="px-lg py-4 text-center font-semibold text-secondary">${v.solicitudes}</td>
+                        <td class="px-lg py-4 font-semibold text-primary-container">$${v.gasto.toLocaleString()}</td>
+                        <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
+                    </tr>
+                `;
+                container.insertAdjacentHTML('beforeend', row);
+            });
         }
 
         function updateEficienciaGauge(percent) {
@@ -725,39 +756,8 @@
                                     <th class="px-lg py-4"></th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100">
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-lg py-4 font-bold text-primary-container">TR-089</td>
-                                    <td class="px-lg py-4 text-[10px] font-mono text-on-surface-variant">1FVACWDT1H...</td>
-                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Mantenimiento Preventivo</td>
-                                    <td class="px-lg py-4 text-center font-semibold text-secondary">5</td>
-                                    <td class="px-lg py-4 font-semibold text-primary-container">$8,420</td>
-                                    <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
-                                </tr>
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-lg py-4 font-bold text-primary-container">TR-102</td>
-                                    <td class="px-lg py-4 text-[10px] font-mono text-on-surface-variant">4V4NC9EJ2P...</td>
-                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Sistema de Frenos</td>
-                                    <td class="px-lg py-4 text-center font-semibold text-secondary">3</td>
-                                    <td class="px-lg py-4 font-semibold text-primary-container">$6,150</td>
-                                    <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
-                                </tr>
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-lg py-4 font-bold text-primary-container">TR-045</td>
-                                    <td class="px-lg py-4 text-[10px] font-mono text-on-surface-variant">1XKAD40X7J...</td>
-                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Reparación de Motor</td>
-                                    <td class="px-lg py-4 text-center font-semibold text-secondary">2</td>
-                                    <td class="px-lg py-4 font-semibold text-primary-container">$5,800</td>
-                                    <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
-                                </tr>
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-lg py-4 font-bold text-primary-container">TR-077</td>
-                                    <td class="px-lg py-4 text-[10px] font-mono text-on-surface-variant">3HSBC6EJ4L...</td>
-                                    <td class="px-lg py-4 text-body-sm text-on-surface-variant">Cambio de Neumáticos</td>
-                                    <td class="px-lg py-4 text-center font-semibold text-secondary">4</td>
-                                    <td class="px-lg py-4 font-semibold text-primary-container">$4,290</td>
-                                    <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
-                                </tr>
+                            <tbody id="topReparacionesContainer" class="divide-y divide-slate-100">
+                                <!-- Se cargará dinámicamente -->
                             </tbody>
                         </table>
                     </div>
