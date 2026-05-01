@@ -368,8 +368,8 @@
                         <p class="text-xl font-mono text-primary-container">${v.vin}</p>
                     </div>
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Servicio</p>
-                        <p class="text-xl font-black text-emerald-600">${v.servicio}</p>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Estado Actual</p>
+                        <p class="text-xl font-black ${v.estado.color}">${v.estado.nombre}</p>
                     </div>
                 </div>
             `;
@@ -384,7 +384,9 @@
                 const row = `
                     <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                         <td class="px-6 py-4 text-sm font-semibold text-slate-600 text-center">${fecha.toLocaleDateString()}</td>
-                        <td class="px-6 py-4 text-sm text-slate-600 font-medium text-center">${v.servicio}</td>
+                        <td class="px-6 py-4 text-center">
+                            <span class="px-3 py-1 ${v.estado.color} bg-slate-50 rounded-full text-[10px] font-black uppercase tracking-widest">${v.estado.nombre}</span>
+                        </td>
                         <td class="px-6 py-4 text-sm text-slate-600 font-medium text-center">${solicitantes[i % solicitantes.length]}</td>
                         <td class="px-6 py-4 text-sm text-slate-500 italic text-center">${repuestos[(v.id + i) % repuestos.length]}</td>
                     </tr>
@@ -937,45 +939,6 @@
 
     <!-- Modal Estado Camiones Extendido -->
     <div id="modalCamiones" class="fixed inset-0 z-[110] hidden items-center justify-center bg-black/70 backdrop-blur-md p-4">
-        <div class="bg-surface w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
-            <!-- Header Modal -->
-            <div class="p-6 border-b border-surface-variant flex justify-between items-center bg-surface-container-low">
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-primary-container text-[32px]">local_shipping</span>
-                    <div>
-                        <h3 class="font-h3 text-xl text-primary-container">Estado Detallado de Flota</h3>
-                        <p class="text-xs text-on-surface-variant">Vista extendida con filtrado avanzado</p>
-                    </div>
-                </div>
-                <button id="btnCloseModalCamiones" class="p-2 hover:bg-surface-variant rounded-full transition-all active:scale-90">
-                    <span class="material-symbols-outlined text-on-surface-variant">close</span>
-                </button>
-            </div>
-
-            <!-- Filtros -->
-            <div class="p-6 bg-surface-container-lowest border-b border-surface-variant">
-                <div class="relative">
-                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-                    <input id="filterCamiones" type="text" 
-                        class="w-full bg-surface-container px-12 py-4 rounded-2xl border-none focus:ring-2 focus:ring-primary-container/30 outline-none font-body-md text-primary-container transition-all" 
-                        placeholder="Filtrar por ID, VIN o Estado (Activo, Mantenimiento...)"
-                    >
-                </div>
-            </div>
-
-            <!-- Lista Modal -->
-            <div id="modalCamionesContainer" class="flex-grow overflow-y-auto p-6 space-y-4 custom-scrollbar bg-surface">
-                <!-- Se poblará dinámicamente -->
-            </div>
-
-            <!-- Footer Modal -->
-            <div class="p-4 bg-surface-container-low border-t border-surface-variant text-center">
-                <p class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Total de vehículos registrados: <span id="modalTotalCount">--</span></p>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Estado Camiones Extendido -->
-    <div id="modalCamiones" class="fixed inset-0 z-[110] hidden items-center justify-center bg-black/70 backdrop-blur-md p-4">
         <div class="bg-white rounded-[32px] shadow-2xl w-full max-w-4xl h-[85vh] flex flex-col overflow-hidden">
             <!-- Header Modal -->
             <div class="p-8 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
@@ -1046,7 +1009,7 @@
                             <thead class="bg-slate-50 border-b border-slate-100">
                                 <tr>
                                     <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Fecha</th>
-                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Servicio</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-center">Estado</th>
                                     <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Solicitado por:</th>
                                     <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Repuestos</th>
                                 </tr>
