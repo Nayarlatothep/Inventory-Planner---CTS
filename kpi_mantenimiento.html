@@ -315,11 +315,11 @@
             topVehiculos.forEach(v => {
                 const row = `
                     <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="px-lg py-4 font-bold text-primary-container">${v.id}</td>
-                        <td class="px-lg py-4 font-mono text-on-surface-variant">${v.vin}</td>
-                        <td class="px-lg py-4 text-body-sm text-on-surface-variant">${v.servicio}</td>
+                        <td class="px-lg py-4 font-bold text-primary-container text-center">${v.id}</td>
+                        <td class="px-lg py-4 font-mono text-on-surface-variant text-center">${v.vin}</td>
+                        <td class="px-lg py-4 text-body-sm text-on-surface-variant text-center">${v.servicio}</td>
                         <td class="px-lg py-4 text-center font-semibold text-secondary">${v.solicitudes}</td>
-                        <td class="px-lg py-4 font-semibold text-primary-container">$${v.gasto.toLocaleString()}</td>
+                        <td class="px-lg py-4 font-semibold text-primary-container text-center">$${v.gasto.toLocaleString()}</td>
                         <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
                     </tr>
                 `;
@@ -748,11 +748,11 @@
                         <table class="w-full text-left">
                             <thead class="bg-surface-container-low border-b border-slate-200">
                                 <tr>
-                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Unidad (camiones)</th>
-                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">VIN</th>
-                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Servicio</th>
-                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase"># Solicitudes</th>
-                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase">Gasto Total</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Unidad (camiones)</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">VIN</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Servicio</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center"># Solicitudes</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Gasto Total</th>
                                     <th class="px-lg py-4"></th>
                                 </tr>
                             </thead>
