@@ -304,12 +304,15 @@
             if (!container) return;
             container.innerHTML = '';
             
-            const servicios = ['Mantenimiento Preventivo', 'Sistema de Frenos', 'Reparación de Motor', 'Transmisión', 'Suspensión', 'Sistema Eléctrico'];
+            const estadosSimulados = [
+                { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
+                { nombre: 'Mantenimiento', color: 'text-amber-500', bg: 'bg-amber-500', icono: 'build', iconoClase: 'text-amber-500' },
+                { nombre: 'De Baja', color: 'text-rose-500', bg: 'bg-rose-500', icono: 'cancel', iconoClase: 'text-rose-500' }
+            ];
             
-            // Tomamos los primeros 5 para el TOP (simulado)
             const topVehiculos = vehiculos.slice(0, 5).map((v, i) => ({
                 ...v,
-                servicio: servicios[v.id % servicios.length],
+                estado: estadosSimulados[v.id % estadosSimulados.length],
                 solicitudes: 5 - i > 1 ? 5 - i : 2,
                 gasto: (8000 - (i * 1200)) > 1000 ? (8000 - (i * 1200)) : 1200 + (v.id % 500)
             }));
@@ -317,12 +320,20 @@
             topVehiculos.forEach(v => {
                 const row = `
                     <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="px-lg py-4 font-bold text-primary-container text-center">${v.id}</td>
-                        <td class="px-lg py-4 font-mono text-on-surface-variant text-center">${v.vin}</td>
-                        <td class="px-lg py-4 text-body-sm text-on-surface-variant text-center">${v.servicio}</td>
-                        <td class="px-lg py-4 text-center font-semibold text-secondary">${v.solicitudes}</td>
-                        <td class="px-lg py-4 font-semibold text-primary-container text-center">$${v.gasto.toLocaleString()}</td>
-                        <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
+                        <td class="px-8 py-5 font-black text-[#1e3a5f] text-center">${v.id}</td>
+                        <td class="px-8 py-5 text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-[10px] font-black uppercase tracking-widest ${v.estado.color}">${v.estado.nombre}</span>
+                                <div class="w-2 h-2 rounded-full ${v.estado.bg} pulse-dot"></div>
+                            </div>
+                        </td>
+                        <td class="px-8 py-5 font-bold text-slate-600 text-center">${v.solicitudes}</td>
+                        <td class="px-8 py-5 font-black text-[#001f3f] text-center">$${v.gasto.toLocaleString()}</td>
+                        <td class="px-8 py-5 text-center">
+                            <button class="p-2 hover:bg-slate-100 rounded-lg transition-all text-slate-400 hover:text-[#1e3a5f]">
+                                <span class="material-symbols-outlined text-lg">visibility</span>
+                            </button>
+                        </td>
                     </tr>
                 `;
                 container.insertAdjacentHTML('beforeend', row);
@@ -757,8 +768,7 @@
                             <thead class="bg-slate-50 border-b border-slate-200">
                                 <tr>
                                     <th class="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Unidad</th>
-                                    <th class="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">VIN</th>
-                                    <th class="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Servicio</th>
+                                    <th class="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Estado</th>
                                     <th class="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Sol.</th>
                                     <th class="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Inversión</th>
                                     <th class="px-8"></th>
