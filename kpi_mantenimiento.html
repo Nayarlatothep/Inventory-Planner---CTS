@@ -187,7 +187,7 @@
                 allVehiculos = vehiculos; // Guardar en cache
                 renderCamiones(vehiculos, camionesContainer);
                 renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
-                updateFleetAvailability(vehiculos);
+                updateOperationalKPIs(vehiculos);
             } catch (err) {
                 console.error('Error:', err);
                 camionesContainer.innerHTML = `<p class="text-error text-xs p-4">Error al cargar datos - ${err.message || 'Verifique la API key'}</p>`;
@@ -272,20 +272,23 @@
             });
         }
 
-        function updateFleetAvailability(vehiculos) {
+        function updateOperationalKPIs(vehiculos) {
             const total = vehiculos.length;
             const activos = vehiculos.filter(v => (v.id % 3) === 0).length;
-            const percent = total > 0 ? ((activos / total) * 100).toFixed(1) : 0;
+            const mantenimiento = vehiculos.filter(v => (v.id % 3) === 1).length;
             
+            // Disponibilidad de Flota
+            const percentDisp = total > 0 ? ((activos / total) * 100).toFixed(1) : 0;
             const totalDispEl = document.getElementById('totalDisponibilidad');
             const ratioDispEl = document.getElementById('ratioDisponibilidad');
+            if (totalDispEl) totalDispEl.textContent = `${percentDisp}%`;
+            if (ratioDispEl) ratioDispEl.textContent = `${activos} / ${total} Unidades`;
             
-            if (totalDispEl) {
-                totalDispEl.textContent = `${percent}%`;
-            }
-            if (ratioDispEl) {
-                ratioDispEl.textContent = `${activos} / ${total} Unidades`;
-            }
+            // Unidades en Mantenimiento
+            const totalMantoEl = document.getElementById('totalMantenimiento');
+            const ratioMantoEl = document.getElementById('ratioMantenimiento');
+            if (totalMantoEl) totalMantoEl.textContent = `${mantenimiento} / ${total}`;
+            if (ratioMantoEl) ratioMantoEl.textContent = `Total Unidades en Taller`;
         }
 
         function updateEficienciaGauge(percent) {
@@ -622,17 +625,17 @@
                         <div class="card p-6 flex-1 flex flex-col items-center justify-between min-h-[220px] bg-slate-300">
                             <div class="flex items-center gap-3 w-full border-b border-black/5 pb-3">
                                 <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-amber-700 text-xl">hourglass_empty</span>
+                                    <span class="material-symbols-outlined text-amber-700 text-xl">build</span>
                                 </div>
-                                <p class="text-[11px] font-black text-primary-container uppercase tracking-[0.05em] leading-tight">Tiempo Taller</p>
+                                <p class="text-[11px] font-black text-primary-container uppercase tracking-[0.05em] leading-tight">Unidades en Mantenimiento</p>
                             </div>
                             
                             <div class="flex flex-col items-center py-4">
-                                <p class="text-5xl font-black text-primary-container tracking-tighter">3.2<span class="text-xl font-bold opacity-30 ml-1">d</span></p>
+                                <p id="totalMantenimiento" class="text-4xl font-black text-amber-700 tracking-tighter">-- / --</p>
                             </div>
                             
                             <div class="w-full pt-3 border-t border-black/5">
-                                <p class="text-[11px] text-primary-container/60 font-bold text-center uppercase tracking-wide">Promedio Mensual</p>
+                                <p id="ratioMantenimiento" class="text-[11px] text-primary-container/60 font-bold text-center uppercase tracking-wide">Cargando...</p>
                             </div>
                         </div>
                     </div>
