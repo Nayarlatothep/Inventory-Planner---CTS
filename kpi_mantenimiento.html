@@ -325,7 +325,9 @@
                     const valorEl = document.getElementById('valorGastoMensual');
                     const percentEl = document.getElementById('utilizacionPorcentaje');
                     const fillEl = document.getElementById('bateriaFill');
+                    const monthDisplay = document.getElementById('nombreMesSeleccionado');
                     
+                    if (monthDisplay) monthDisplay.textContent = month;
                     if (valorEl) valorEl.textContent = `$${randomGasto.toLocaleString()}`;
                     if (percentEl) percentEl.textContent = `${percent}%`;
                     if (fillEl) fillEl.style.height = `${percent}%`;
@@ -497,8 +499,9 @@
                         
                         <div class="flex items-center justify-between gap-4 flex-1">
                             <div class="flex flex-col">
-                                <p id="valorGastoMensual" class="stat-value text-white text-4xl md:text-5xl">$42,850</p>
-                                <p class="text-[11px] text-white/60 mt-2">Presupuesto: $50,000</p>
+                                <p id="nombreMesSeleccionado" class="text-[10px] text-emerald-300 uppercase font-black tracking-[0.2em] mb-1">Mayo</p>
+                                <p id="valorGastoMensual" class="stat-value text-white text-4xl md:text-5xl leading-none">$42,850</p>
+                                <p class="text-[11px] text-white/60 mt-3">Presupuesto: $50,000</p>
                             </div>
                             
                             <!-- Battery Indicator -->
