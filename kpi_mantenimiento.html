@@ -604,83 +604,83 @@
 
             <div class="grid grid-cols-12 gap-8 items-start">
                 <!-- 1. LEFT COLUMN -->
-                <div class="col-span-12 lg:col-span-4 flex flex-col gap-4">
+                <div class="col-span-12 lg:col-span-4 flex flex-col gap-5">
                     <!-- Gasto Mensual Total -->
-                    <div class="card p-6 bg-[#1e3a5f] border-none shadow-2xl h-[280px] flex flex-col justify-between relative overflow-hidden group">
+                    <div class="card p-8 bg-[#1e3a5f] border-none shadow-2xl h-[320px] flex flex-col justify-between relative overflow-hidden group">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 transition-all group-hover:scale-150"></div>
                         <div class="relative z-10">
-                            <div class="flex items-center gap-3 mb-4">
+                            <div class="flex items-center gap-3 mb-8">
                                 <span class="material-symbols-outlined text-white/50 bg-white/10 p-2 rounded-lg">filter_list</span>
                                 <h3 class="text-xl font-black text-white/90 uppercase tracking-widest">Gasto Mensual Total</h3>
                             </div>
                             <div class="flex justify-between items-center">
                                 <div>
-                                    <p class="text-xs text-emerald-400 font-black uppercase tracking-[0.2em] mb-1">Mayo</p>
-                                    <p id="valorGastoMensual" class="text-5xl font-black text-white tracking-tighter">$42,850</p>
-                                    <p class="text-[10px] text-white/40 mt-2 font-medium italic">Presupuesto: $50,000</p>
+                                    <p class="text-xs text-emerald-400 font-black uppercase tracking-[0.2em] mb-2">Mayo</p>
+                                    <p id="valorGastoMensual" class="text-5xl md:text-6xl font-black text-white tracking-tighter">$42,850</p>
+                                    <p class="text-sm text-white/40 mt-4 font-medium italic">Presupuesto: $50,000</p>
                                 </div>
-                                <div class="relative w-16 h-32 border-4 border-white/20 rounded-[18px] p-2 bg-white/5">
+                                <div class="relative w-20 h-40 border-4 border-white/20 rounded-[18px] p-2 bg-white/5">
                                     <div id="bateriaFill" class="absolute bottom-2 left-2 right-2 bg-gradient-to-t from-emerald-600 to-emerald-400 rounded-lg shadow-[0_0_25px_rgba(16,185,129,0.5)] transition-all duration-1000" style="height: 65%"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-4 pt-4 border-t border-white/10 flex justify-between items-center relative z-10">
-                            <span class="text-[10px] text-white/40 uppercase font-black tracking-widest">Utilización Global</span>
-                            <span id="utilizacionPorcentaje" class="text-xl font-black text-emerald-400">65%</span>
+                        <div class="mt-8 pt-6 border-t border-white/10 flex justify-between items-center relative z-10">
+                            <span class="text-xs text-white/40 uppercase font-black tracking-widest">Utilización</span>
+                            <span id="utilizacionPorcentaje" class="text-2xl font-black text-emerald-400">65%</span>
                         </div>
                     </div>
 >
                     <!-- Eficiencia Operativa -->
-                    <div class="card p-6 bg-white border border-slate-200 shadow-xl h-[180px] flex flex-col justify-center relative group">
+                    <div class="card p-8 bg-white border border-slate-200 shadow-xl h-[230px] flex flex-col justify-center relative group">
                         <div class="flex justify-between items-center">
                             <div class="text-left">
-                                <h3 class="text-base font-black text-[#001f3f] uppercase tracking-tight mb-4">Eficiencia Operativa</h3>
+                                <h3 class="text-lg font-black text-[#001f3f] uppercase tracking-tight mb-6">Eficiencia Operativa</h3>
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
-                                        <span class="material-symbols-outlined text-emerald-600 text-2xl">speed</span>
+                                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-emerald-600 text-3xl">speed</span>
                                     </div>
-                                    <p id="valorEficiencia" class="text-5xl font-black text-[#001f3f] tracking-tighter">75%</p>
+                                    <p id="valorEficiencia" class="text-6xl font-black text-[#001f3f] tracking-tighter">75%</p>
                                 </div>
                             </div>
                             <!-- Gauge -->
-                            <div class="relative w-24 h-24">
+                            <div class="relative w-32 h-32">
                                 <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
                                     <circle cx="50" cy="50" r="42" fill="transparent" stroke="#f1f5f9" stroke-width="12" />
                                     <circle id="eficienciaFill" cx="50" cy="50" r="42" fill="transparent" stroke="#10b981" stroke-width="12" stroke-dasharray="263.89" stroke-dashoffset="65.97" stroke-linecap="round" class="transition-all duration-1000 shadow-lg" />
                                 </svg>
                                 <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                    <span class="text-sm font-black text-emerald-600 drop-shadow-sm">+2.4%</span>
+                                    <span class="text-xl font-black text-emerald-600 drop-shadow-sm">+2.4%</span>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-4 text-center border-t border-slate-50 pt-3">Eficiencia global vs periodo anterior</p>
+                        <p class="text-[11px] text-slate-400 font-black uppercase tracking-widest mt-6 text-center border-t border-slate-50 pt-4">Eficiencia global vs periodo anterior</p>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="card p-4 bg-slate-50 flex flex-col items-center justify-between border-none shadow-sm h-[140px]">
-                            <div class="flex items-center gap-2 w-full mb-1 opacity-60">
-                                <span class="material-symbols-outlined text-[#1e3a5f] text-lg">local_shipping</span>
-                                <span class="text-[9px] font-black text-[#1e3a5f] uppercase tracking-widest">Disponibilidad</span>
+                    <div class="grid grid-cols-2 gap-5">
+                        <div class="card p-6 bg-slate-50 flex flex-col items-center justify-between border-none shadow-sm h-[190px]">
+                            <div class="flex items-center gap-2 w-full mb-2 opacity-60">
+                                <span class="material-symbols-outlined text-[#1e3a5f]">local_shipping</span>
+                                <span class="text-[10px] font-black text-[#1e3a5f] uppercase tracking-widest">Disponibilidad de Flota</span>
                             </div>
-                            <p id="totalDisponibilidad" class="text-4xl font-black text-emerald-600 tracking-tighter">36.4%</p>
-                            <p id="ratioDisponibilidad" class="text-[10px] text-slate-500 font-bold uppercase mt-1">20 / 55 Unidades</p>
+                            <p id="totalDisponibilidad" class="text-5xl font-black text-emerald-600 tracking-tighter">36.4%</p>
+                            <p id="ratioDisponibilidad" class="text-[11px] text-slate-500 font-bold uppercase mt-2">20 / 55 Unidades</p>
                         </div>
-                        <div class="card p-4 bg-slate-50 flex flex-col items-center justify-between border-none shadow-sm h-[140px]">
-                            <div class="flex items-center gap-2 w-full mb-1 opacity-60">
-                                <span class="material-symbols-outlined text-amber-600 text-lg">build</span>
-                                <span class="text-[9px] font-black text-[#1e3a5f] uppercase tracking-widest">Mantenimiento</span>
+                        <div class="card p-6 bg-slate-50 flex flex-col items-center justify-between border-none shadow-sm h-[190px]">
+                            <div class="flex items-center gap-2 w-full mb-2 opacity-60">
+                                <span class="material-symbols-outlined text-amber-600">build</span>
+                                <span class="text-[10px] font-black text-[#1e3a5f] uppercase tracking-widest">Flota en Mantenimiento</span>
                             </div>
-                            <p id="totalMantenimiento" class="text-4xl font-black text-amber-600 tracking-tighter">19 / 55</p>
-                            <p id="ratioMantenimiento" class="text-[10px] font-bold uppercase mt-1 text-[#1e3a5f]/60">16 Unidades <span class="text-rose-600">DE BAJA</span></p>
+                            <p id="totalMantenimiento" class="text-5xl font-black text-amber-600 tracking-tighter">19 / 55</p>
+                            <p id="ratioMantenimiento" class="text-[11px] font-bold uppercase mt-2 text-[#1e3a5f]/60">16 Unidades <span class="text-rose-600 font-black">DE BAJA</span></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- 2. CENTER COLUMN: Expense Details -->
                 <div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
-                    <div class="card p-8 bg-white border border-slate-200 shadow-xl flex flex-col h-[560px]">
+                    <div class="card p-8 bg-white border border-slate-200 shadow-xl flex flex-col h-[520px]">
                         <h3 class="text-xl font-black text-[#001f3f] uppercase tracking-tight mb-8">Gasto Total por Camión</h3>
-                        <div id="gastoCamionesContainer" class="space-y-5 overflow-y-auto flex-1 pr-3 custom-scrollbar h-[420px]">
+                        <div id="gastoCamionesContainer" class="space-y-5 overflow-y-auto flex-1 pr-3 custom-scrollbar h-[380px]">
                             <!-- Items dinámicos -->
                         </div>
                         <p class="text-[11px] text-slate-400 italic text-center mt-8 border-t border-slate-50 pt-4 font-medium">Distribución de costos por unidad operativa.</p>
@@ -707,9 +707,9 @@
 
                 <!-- 3. RIGHT COLUMN: Truck List -->
                 <div class="col-span-12 lg:col-span-4 flex flex-col h-full">
-                    <div class="card p-8 bg-white border border-slate-200 shadow-xl flex flex-col h-[820px]">
+                    <div class="card p-8 bg-white border border-slate-200 shadow-xl flex flex-col h-[785px]">
                         <h3 class="text-xl font-black text-[#001f3f] uppercase tracking-tight text-center mb-8 border-b border-slate-50 pb-6">Estado Camiones</h3>
-                        <div id="camionesContainer" class="space-y-4 overflow-y-auto flex-1 pr-3 custom-scrollbar h-[720px]">
+                        <div id="camionesContainer" class="space-y-4 overflow-y-auto flex-1 pr-3 custom-scrollbar h-[620px]">
                             <!-- Items dinámicos -->
                         </div>
                     </div>
