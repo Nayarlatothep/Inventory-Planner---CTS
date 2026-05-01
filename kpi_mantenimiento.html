@@ -197,6 +197,7 @@
         }
 
         function renderCamiones(vehiculos, container, filter = '') {
+            const isModal = container.id === 'modalCamionesContainer';
             container.innerHTML = '';
             const estadosSimulados = [
                 { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
@@ -220,26 +221,25 @@
             filtered.forEach((vehiculo, index) => {
                 const estado = estadosSimulados[vehiculo.id % estadosSimulados.length];
                 const row = `
-                    <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high">
+                    <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high border border-slate-50 shadow-sm">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined ${estado.iconoClase}">${estado.icono}</span>
                             <div class="flex items-center gap-4">
-                                <span class="text-base md:text-lg font-black text-primary-container">${vehiculo.id}</span>
-                                <span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>
+                                <span class="text-lg font-black text-[#1e3a5f]">${vehiculo.id}</span>
+                                ${isModal ? `<span class="text-sm font-mono text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-100">${vehiculo.vin}</span>` : ''}
                             </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[10px] font-bold uppercase ${estado.color}">${estado.nombre}</span>
-                            <div class="w-2 h-2 rounded-full ${estado.bg} pulse-dot"></div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-black uppercase tracking-widest ${estado.color}">${estado.nombre}</span>
+                            <div class="w-2.5 h-2.5 rounded-full ${estado.bg} pulse-dot shadow-[0_0_10px_rgba(0,0,0,0.1)]"></div>
                         </div>
                     </div>
                 `;
                 container.insertAdjacentHTML('beforeend', row);
             });
             
-            // Actualizar contador en el footer del modal si es necesario
             const totalCount = document.getElementById('modalTotalCount');
-            if (totalCount && container.id === 'modalCamionesContainer') {
+            if (totalCount && isModal) {
                 totalCount.textContent = filtered.length;
             }
         }
