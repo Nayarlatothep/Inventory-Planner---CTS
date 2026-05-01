@@ -189,6 +189,7 @@
                 renderCamiones(vehiculos, camionesContainer);
                 renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
                 renderTopReparaciones(vehiculos);
+                renderLubricacion(vehiculos);
                 updateOperationalKPIs(vehiculos);
             } catch (err) {
                 console.error('Error:', err);
@@ -266,6 +267,39 @@
                             <div class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 group-hover:from-emerald-500 group-hover:to-emerald-300 transition-all duration-1000" style="width: ${v.porcentaje}%"></div>
                             <div class="absolute inset-0 flex items-center justify-end px-3">
                                 <span class="text-[10px] font-black text-slate-800 dark:text-emerald-50 drop-shadow-sm">$${v.gasto.toLocaleString()}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
+        function renderLubricacion(vehiculos) {
+            const container = document.getElementById('lubricacionContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            vehiculos.slice(0, 10).forEach(v => {
+                const aceiteStatus = v.id % 5 === 0 ? 'Vencido' : 'Al día';
+                const aceiteColor = v.id % 5 === 0 ? 'text-rose-600 bg-rose-50' : 'text-emerald-600 bg-emerald-50';
+                const engrasadoStatus = v.id % 7 === 0 ? 'Pendiente' : 'Completado';
+                const engrasadoColor = v.id % 7 === 0 ? 'text-amber-600 bg-amber-50' : 'text-emerald-600 bg-emerald-50';
+
+                const row = `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100 mb-2 hover:bg-slate-100 transition-all">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-black text-primary-container">${v.id}</span>
+                            <span class="text-[10px] font-mono text-slate-400">${v.vin}</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="flex flex-col items-center min-w-[80px]">
+                                <span class="text-[9px] font-black text-slate-400 uppercase">Aceite</span>
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${aceiteColor}">${aceiteStatus}</span>
+                            </div>
+                            <div class="flex flex-col items-center min-w-[80px]">
+                                <span class="text-[9px] font-black text-slate-400 uppercase">Engrasado</span>
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${engrasadoColor}">${engrasadoStatus}</span>
                             </div>
                         </div>
                     </div>
@@ -822,55 +856,19 @@
                             <tbody id="topReparacionesContainer" class="divide-y divide-slate-100">
                                 <!-- Se cargará dinámicamente -->
                             </tbody>
-                        </table>
                     </div>
                 </div>
 
-                <!-- 6. Distribución de Inventario por taller -->
-                <div class="col-span-12 lg:col-span-4 card p-5 flex flex-col justify-between">
-                    <div>
-                        <p class="stat-label text-[#50606f] mb-5">Distribución de Inventario por taller</p>
-                        <div class="space-y-2 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
-                            <!-- Motores -->
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                    <span class="text-sm font-bold text-primary-container">Motores</span>
-                                </div>
-                                <span class="text-sm font-bold text-secondary">35%</span>
-                            </div>
-                            <!-- Mecanica Talacha -->
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-                                    <span class="text-sm font-bold text-primary-container">Mecanica Talacha</span>
-                                </div>
-                                <span class="text-sm font-bold text-secondary">25%</span>
-                            </div>
-                            <!-- Electrico -->
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                    <span class="text-sm font-bold text-primary-container">Electrico</span>
-                                </div>
-                                <span class="text-sm font-bold text-secondary">15%</span>
-                            </div>
-                            <!-- Soldador -->
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-error"></span>
-                                    <span class="text-sm font-bold text-primary-container">Soldador</span>
-                                </div>
-                                <span class="text-sm font-bold text-secondary">15%</span>
-                            </div>
-                            <!-- Grasa, Llantera y suspencion -->
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                    <span class="text-sm font-bold text-primary-container">Grasa, Llantera y suspencion</span>
-                                </div>
-                                <span class="text-sm font-bold text-secondary">10%</span>
-                            </div>
+                <!-- 6. Estado de Lubricación y Engrasado -->
+                <div class="col-span-12 lg:col-span-4 card p-5 flex flex-col h-full bg-white border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-5">
+                        <h3 class="text-lg font-black text-primary-container uppercase tracking-tight">Estado de Lubricación</h3>
+                        <span class="material-symbols-outlined text-emerald-500">oil_barrel</span>
+                    </div>
+                    <div id="lubricacionContainer" class="space-y-1 overflow-y-auto pr-2 custom-scrollbar flex-1 max-h-[480px]">
+                        <!-- Se cargará dinámicamente -->
+                        <div class="flex justify-center items-center py-10">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
                         </div>
                     </div>
                 </div>
