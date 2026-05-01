@@ -166,6 +166,61 @@
         const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
         const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY'; // Reemplazar con la clave anon real
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+        async function fetchCamiones() {
+            const camionesContainer = document.getElementById('camionesContainer');
+            
+            try {
+                const { data: vehiculos, error } = await supabaseClient
+                    .from('vehiculos')
+                    .select('id, vin');
+
+                if (error) throw error;
+
+                if (vehiculos) {
+                    camionesContainer.innerHTML = '';
+                    vehiculos.forEach((vehiculo, index) => {
+                        // Simulación de estados basada en el índice
+                        const estadosSimulados = [
+                            { texto: 'Mantenimiento', clase: 'bg-orange-100 text-orange-700', icono: 'build', iconoClase: 'text-orange-600' },
+                            { texto: 'Activo', clase: 'bg-green-100 text-green-700', icono: 'check_circle', iconoClase: 'text-emerald-600' },
+                            { texto: 'De Baja', clase: 'bg-slate-100 text-slate-500', icono: 'cancel', iconoClase: 'text-slate-400' }
+                        ];
+                        const estado = estadosSimulados[index % estadosSimulados.length];
+
+                        const row = `
+                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined ${estado.iconoClase}">${estado.icono}</span>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm font-bold text-primary-container">ID: ${vehiculo.id}</span>
+                                        <span class="text-[10px] text-on-surface-variant font-mono opacity-70">${vehiculo.vin}</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-1 ${estado.clase} rounded text-[10px] font-bold uppercase min-w-[100px] text-center">${estado.texto}</span>
+                                    <button class="p-1 hover:bg-slate-200 rounded-full transition-colors opacity-0 group-hover:opacity-100">
+                                        <span class="material-symbols-outlined text-sm text-on-surface-variant">add_circle</span>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        camionesContainer.insertAdjacentHTML('beforeend', row);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching camiones:', error);
+                camionesContainer.innerHTML = `
+                    <div class="p-4 text-center text-error">
+                        <span class="material-symbols-outlined text-4xl mb-2">error</span>
+                        <p class="text-sm font-bold">Error al cargar datos</p>
+                        <p class="text-[10px] opacity-70">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchCamiones);
     </script>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
@@ -454,74 +509,10 @@
                 <!-- 4. Estado Camiones -->
                 <div class="col-span-12 md:col-span-4 card p-5 flex flex-col">
                     <p class="stat-label text-[#50606f] mb-5 text-center">Estado Camiones</p>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group">
-                            <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-orange-600">build</span>
-                                <span class="text-sm font-bold text-primary-container">TR-089</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="px-2 py-1 bg-orange-100 text-orange-700 rounded text-[10px] font-bold uppercase min-w-[100px] text-center">Mantenimiento</span>
-                                <button class="p-1 hover:bg-orange-200 rounded-full transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-sm text-orange-700">add_circle</span></button>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group">
-                            <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-emerald-600">check_circle</span>
-                                <span class="text-sm font-bold text-primary-container">TR-102</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-[10px] font-bold uppercase min-w-[100px] text-center">Activo</span>
-                                <button class="p-1 hover:bg-green-200 rounded-full transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-sm text-green-700">add_circle</span></button>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group">
-                            <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-emerald-600">check_circle</span>
-                                <span class="text-sm font-bold text-primary-container">TR-045</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-[10px] font-bold uppercase min-w-[100px] text-center">Activo</span>
-                                <button class="p-1 hover:bg-green-200 rounded-full transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-sm text-green-700">add_circle</span></button>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group">
-                            <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-slate-400">cancel</span>
-                                <span class="text-sm font-bold text-primary-container">TR-077</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="px-2 py-1 bg-slate-100 text-slate-500 rounded text-[10px] font-bold uppercase min-w-[100px] text-center">De Baja</span>
-                                <button class="p-1 hover:bg-slate-200 rounded-full transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-sm text-slate-700">add_circle</span></button>
-                            </div>
-                        </div>
-                        <!-- New Statuses -->
-                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group">
-                            <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-emerald-600">check_circle</span>
-                                <span class="text-sm font-bold text-primary-container">TR-034</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-[10px] font-bold uppercase min-w-[100px] text-center">Activo</span>
-                                <button class="p-1 hover:bg-green-200 rounded-full transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-sm text-green-700">add_circle</span></button>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group">
-                            <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-orange-600">build</span>
-                                <span class="text-sm font-bold text-primary-container">TR-056</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="px-2 py-1 bg-orange-100 text-orange-700 rounded text-[10px] font-bold uppercase min-w-[100px] text-center">Mantenimiento</span>
-                                <button class="p-1 hover:bg-orange-200 rounded-full transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-sm text-orange-700">add_circle</span></button>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                            <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-emerald-600">check_circle</span>
-                                <span class="text-sm font-bold text-primary-container">TR-112</span>
-                            </div>
-                            <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-[10px] font-bold uppercase min-w-[100px] text-center">Activo</span>
+                    <div id="camionesContainer" class="space-y-3">
+                        <!-- Los camiones se cargarán dinámicamente aquí -->
+                        <div class="flex justify-center items-center py-10">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-container"></div>
                         </div>
                     </div>
                 </div>
