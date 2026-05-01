@@ -1,0 +1,303 @@
+================================================================================
+         INFORME EJECUTIVO - PROYECTO CSM LEGACY (INVENTORY PLANNER)
+                         Fecha: 01 de Mayo, 2026
+                   Repositorio: Inventory-Planner---CTS
+================================================================================
+
+
+1. RESUMEN DEL PROYECTO
+--------------------------------------------------------------------------------
+CSM Legacy es un sistema web de gestión de inventario, mantenimiento y control
+de flota vehicular desarrollado para CS Transportation. El proyecto abarca
+desde el registro de materiales hasta el monitoreo operativo mediante KPIs
+ejecutivos, ofreciendo una plataforma integral para la toma de decisiones
+en la cadena de suministro y mantenimiento de la flota.
+
+
+2. PANTALLAS CREADAS
+================================================================================
+
+  2.1  INGRESO DE MATERIAL (index.html)
+  --------------------------------------
+  Archivo:     index.html
+  Propósito:   Pantalla principal para el registro inicial de materiales 
+               nuevos al sistema de inventario.
+  Funciones:
+    - Formulario de captura de datos de material (descripción, cantidad, 
+      proveedor, categoría).
+    - Tabla dinámica con registros ingresados.
+    - Modal de edición para modificar registros existentes en tiempo real.
+    - Captura de fotografías vía cámara y soporte de arrastrar/soltar (drag & drop).
+    - Animaciones de entrada para nuevos registros y retroalimentación visual 
+      al editar (estados: Modificando → Modificado).
+    - Soporte completo para dispositivos móviles (iOS/iPad).
+
+  2.2  RECEPCIÓN DE MATERIAL (recepcion.html)
+  --------------------------------------------
+  Archivo:     recepcion.html
+  Propósito:   Validación y control de la carga entrante de materiales.
+  Funciones:
+    - Dashboard de recepción con KPIs interactivos (hover con escala y color).
+    - Tabla de materiales recibidos con estado "En tránsito".
+    - Campos estandarizados con placeholder "-" para Recepcionista y Fecha.
+    - Flujo de validación de carga para confirmar la entrada de suministros.
+
+  2.3  SOLICITUD DE ORDEN DE TRABAJO (solicitud.html)
+  ----------------------------------------------------
+  Archivo:     solicitud.html
+  Propósito:   Generación de requerimientos de mantenimiento y suministros 
+               para la flota.
+  Funciones:
+    - Formulario de orden de trabajo con número secuencial (#WO-2026-XXXX).
+    - Selección de técnico responsable, fecha/hora y prioridad.
+    - Catálogo de repuestos disponibles para asociar a la solicitud.
+    - Modal de resumen con formato de ticket imprimible (@media print).
+    - Indicador de estado de orden (ACTIVA).
+
+  2.4  INVENTARIO Y ESTADO DE FLOTA (flota.html)
+  ------------------------------------------------
+  Archivo:     flota.html
+  Propósito:   Control de vehículos y activos del parque vehicular.
+  Funciones:
+    - Tabla de inventario de flota con datos de cada unidad.
+    - Registro de estado operativo por vehículo.
+    - Integración con la base de datos de Supabase (tabla vehiculos).
+    - Animaciones de interacción (hover lift, zebra striping).
+
+  2.5  DASHBOARD KPI DE MANTENIMIENTO (kpi_mantenimiento.html)
+  -------------------------------------------------------------
+  Archivo:     kpi_mantenimiento.html
+  Propósito:   Reporte mensual ejecutivo de indicadores clave de desempeño
+               para el área de mantenimiento de la flota.
+  Funciones:
+    - Selector de mes para filtrar datos del periodo.
+    - Exportación a PDF.
+    - Conexión a API de Supabase para datos en tiempo real.
+    - 8 módulos KPI (detallados en la sección 3).
+    - 3 ventanas modales interactivas (detalladas en la sección 4).
+
+
+3. DISEÑO DE KPIs (kpi_mantenimiento.html)
+================================================================================
+
+  3.1  GASTO MENSUAL TOTAL
+  -------------------------
+  Ubicación:   Columna izquierda (superior)
+  Indicador:   Monto total de gasto en mantenimiento ($42,850)
+  Elementos:   - Valor monetario principal con formato grande.
+               - Referencia de presupuesto mensual ($50,000).
+               - Batería de 4 celdas segmentadas que indica utilización.
+               - Porcentaje de utilización del presupuesto (65%).
+               - Etiqueta del mes activo (Mayo).
+
+  3.2  EFICIENCIA OPERATIVA
+  --------------------------
+  Ubicación:   Columna izquierda (inferior)
+  Indicador:   Porcentaje de eficiencia global de la flota (75%)
+  Elementos:   - Porcentaje principal en formato extra grande (8xl).
+               - Gauge circular (SVG) con progreso animado.
+               - Variación vs periodo anterior (+2.4%).
+               - Comparación con eficiencia del mes previo.
+
+  3.3  GASTO TOTAL POR CAMIÓN
+  ----------------------------
+  Ubicación:   Columna central
+  Indicador:   Lista de unidades con su gasto individual mensual.
+  Elementos:   - Lista dinámica (API Supabase) con ID de unidad y monto.
+               - Barra de progreso por unidad con color degradado.
+               - Scrollbar personalizado para navegar registros.
+               - Aproximadamente 9-10 registros visibles.
+
+  3.4  DISPONIBILIDAD DE FLOTA
+  -----------------------------
+  Ubicación:   Columna central (Bento card superior)
+  Indicador:   Porcentaje de unidades activas vs total.
+  Elementos:   - Porcentaje principal con ratio (Unidades activas / Total).
+               - Fondo diferenciado (slate-200).
+
+  3.5  FLOTA EN MANTENIMIENTO
+  ----------------------------
+  Ubicación:   Columna central (Bento card inferior)
+  Indicador:   Cantidad de unidades en mantenimiento y de baja.
+  Elementos:   - Ratio de unidades en mantenimiento vs total.
+               - Contador separado de unidades "De Baja" en rojo.
+               - Fondo diferenciado (slate-200).
+
+  3.6  ESTADO DE CAMIONES
+  ------------------------
+  Ubicación:   Columna derecha
+  Indicador:   Lista completa del estado operativo de cada unidad.
+  Elementos:   - Lista dinámica con ID de unidad y estado (Activo, 
+               Mantenimiento, De Baja).
+               - Indicadores de color por estado (verde, ámbar, rojo).
+               - Botón "Expandir" para vista detallada con modal.
+               - Scrollbar con altura fija de 620px.
+
+  3.7  TOP REPARACIONES POR UNIDAD
+  ---------------------------------
+  Ubicación:   Fila inferior (8 columnas de ancho)
+  Indicador:   Las 5 unidades con mayor inversión en reparaciones.
+  Elementos:   - Tabla con columnas: Unidad, Estado, Solicitudes, Inversión.
+               - Botón de visibilidad para abrir historial detallado.
+               - Datos dinámicos desde API de Supabase.
+               - Badge de periodo "MAYO 2026".
+
+  3.8  SERVICIOS PREVENTIVOS (ACEITE Y ENGRASADO)
+  -------------------------------------------------
+  Ubicación:   Fila inferior (4 columnas de ancho)
+  Indicador:   Estado de servicios preventivos por unidad de flota.
+  Elementos:   - Tabla de 3 columnas: Unidad, Aceite, Engrasado.
+               - Indicadores de punto (verde = realizado, ámbar = pendiente,
+                 rojo = atrasado).
+               - Barra de desplazamiento para navegación.
+               - IDs de unidad vinculados a la tabla vehiculos de Supabase.
+
+  3.9  REPUESTOS MÁS SOLICITADOS (TÉCNICOS)
+  -------------------------------------------
+  Ubicación:   Fila final (12 columnas, ancho completo)
+  Indicador:   Top de repuestos con mayor demanda en el periodo.
+  Elementos:   - Lista de repuestos con icono descriptivo.
+               - Cantidad de unidades solicitadas.
+               - Prioridad estandarizada: Baja (verde), Media (ámbar), Alta (rojo).
+               - Badge de periodo "Top 5 Mayo".
+
+
+4. VENTANAS MODALES (POP-UPS)
+================================================================================
+
+  4.1  GESTIÓN DE FLOTA (modalCamiones)
+  --------------------------------------
+  Activación:  Botón "Expandir" en el KPI Estado de Camiones.
+  Contenido:   - Vista completa de toda la flota con ID, VIN y estado.
+               - Filtro de búsqueda por número de unidad.
+               - Filtro por estado (Todos, Activos, Mantenimiento, De Baja).
+               - Contador de total de vehículos en el footer.
+               - Leyenda de estados con indicadores de color.
+               - Fondo difuminado (backdrop-blur).
+
+  4.2  HISTORIAL DE REPARACIONES (modalReparaciones)
+  ---------------------------------------------------
+  Activación:  Clic en cualquier fila de TOP Reparaciones por Unidad.
+  Contenido:   - Encabezado con: Número de Unidad, VIN, Estado Actual.
+               - Tabla detallada de solicitudes: Fecha, Estado (con color),
+                 Solicitante, Repuestos utilizados.
+               - Botón "Entendido" para cerrar.
+
+  4.3  BANNER ESTRATÉGICO
+  ------------------------
+  Ubicación:   Pie del dashboard (ancho completo).
+  Contenido:   - Imagen de fondo con overlay degradado.
+               - Título "Eficiencia en Movimiento".
+               - Subtítulo sobre monitoreo de activos críticos.
+
+
+5. RUTA DE CREACIÓN DEL PROYECTO
+================================================================================
+
+  FASE 1 — FUNDACIÓN (Abril 26, 2026)
+  -------------------------------------
+  [x] Creación del repositorio en GitHub (Inventory-Planner---CTS).
+  [x] Creación de index.html — Pantalla de Ingreso de Material.
+  [x] Implementación del formulario de captura con lógica JavaScript.
+  [x] Sistema de navegación con menú dropdown.
+
+  FASE 2 — FUNCIONALIDAD CORE (Abril 26-27, 2026)
+  -------------------------------------------------
+  [x] Soporte de captura fotográfica (cámara + drag & drop).
+  [x] Modal de edición de registros con estados en tiempo real.
+  [x] Animaciones de UX (bounce-in, pulse highlight, lift hover).
+  [x] Optimización para iOS/iPad (safe areas, auto-zoom prevention).
+  [x] Zebra striping en tablas.
+
+  FASE 3 — EXPANSIÓN DE MÓDULOS (Abril 28-29, 2026)
+  ---------------------------------------------------
+  [x] Creación de recepcion.html — Pantalla de Recepción de Material.
+  [x] Dashboard de recepción con KPIs interactivos.
+  [x] Sincronización de headers y navegación entre páginas.
+  [x] Rebranding de "CS Transportation" a "CSM Legacy".
+  [x] Extensión del menú con sección "Mantenimiento".
+
+  FASE 4 — MANTENIMIENTO Y FLOTA (Abril 29-30, 2026)
+  ----------------------------------------------------
+  [x] Creación de solicitud.html — Solicitud de Orden de Trabajo.
+  [x] Formulario de OT con formato de ticket imprimible.
+  [x] Creación de flota.html — Inventario y Estado de Flota.
+  [x] Integración con API de Supabase (tabla vehiculos).
+
+  FASE 5 — DASHBOARD KPI (Abril 30 - Mayo 1, 2026)
+  --------------------------------------------------
+  [x] Creación de kpi_mantenimiento.html — Dashboard de KPIs.
+  [x] Diseño de layout Bento Grid (grid-cols-12).
+  [x] Implementación de KPI: Gasto Mensual Total con batería segmentada.
+  [x] Implementación de KPI: Eficiencia Operativa con gauge circular.
+  [x] Implementación de KPI: Gasto Total por Camión (dinámico).
+  [x] Implementación de KPI: Disponibilidad de Flota.
+  [x] Implementación de KPI: Flota en Mantenimiento.
+  [x] Implementación de KPI: Estado de Camiones con scroll.
+  [x] Implementación de KPI: TOP Reparaciones por Unidad.
+  [x] Implementación de KPI: Servicios Preventivos (Aceite y Engrasado).
+  [x] Implementación de KPI: Repuestos más Solicitados.
+  [x] Modal: Gestión de Flota (expandir + filtros).
+  [x] Modal: Historial de Reparaciones detallado.
+  [x] Banner estratégico visual.
+
+
+6. ESTRUCTURA DE NAVEGACIÓN
+================================================================================
+
+  CSM Legacy
+  │
+  ├── Inicio
+  │
+  ├── Abastecimiento
+  │   ├── Ordenes de Compras (pendiente)
+  │   └── Solicitudes de Compras (pendiente)
+  │
+  ├── Inventario
+  │   ├── Ingreso de Material Nuevo ──────── index.html
+  │   ├── Recepción Material ─────────────── recepcion.html
+  │   └── Ingreso Material Manual (pendiente)
+  │
+  ├── Mantenimiento
+  │   ├── Solicitud de Orden de Trabajo ──── solicitud.html
+  │   ├── Despacho Orden de Trabajo (pendiente)
+  │   └── Inventario y Estado de Flota ───── flota.html
+  │
+  └── Reportes
+      └── KPI Órdenes de Trabajo (Mantto.) ─ kpi_mantenimiento.html
+
+
+7. TECNOLOGÍAS UTILIZADAS
+================================================================================
+
+  - HTML5 con estructura semántica.
+  - TailwindCSS (CDN) para estilos.
+  - JavaScript vanilla para lógica de negocio.
+  - Google Material Symbols para iconografía.
+  - Google Fonts (Inter) para tipografía.
+  - Supabase como backend (API REST para tabla vehiculos).
+  - GitHub como control de versiones.
+
+
+8. ESTADO ACTUAL Y MÓDULOS PENDIENTES
+================================================================================
+
+  COMPLETADOS:
+  [✓] Ingreso de Material (index.html)
+  [✓] Recepción de Material (recepcion.html)
+  [✓] Solicitud de Orden de Trabajo (solicitud.html)
+  [✓] Inventario y Estado de Flota (flota.html)
+  [✓] Dashboard KPI Mantenimiento (kpi_mantenimiento.html)
+
+  PENDIENTES (enlaces creados en navegación pero sin implementar):
+  [ ] Órdenes de Compras
+  [ ] Solicitudes de Compras
+  [ ] Ingreso Material Manual
+  [ ] Despacho Orden de Trabajo
+
+
+================================================================================
+                     Preparado por: Sistema CSM Legacy
+                     Versión del informe: 1.0
+                     Último commit: ffbb457
+================================================================================
