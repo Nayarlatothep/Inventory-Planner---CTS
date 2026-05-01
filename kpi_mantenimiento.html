@@ -290,7 +290,9 @@
             const deBaja = vehiculos.filter(v => (v.id % 3) === 2).length;
             
             if (totalMantoEl) totalMantoEl.textContent = `${mantenimiento} / ${total}`;
-            if (ratioMantoEl) ratioMantoEl.textContent = `${deBaja} Unidades de Baja`;
+            if (ratioMantoEl) {
+                ratioMantoEl.innerHTML = `<span class="font-black">${deBaja} Unidades</span> <span class="text-rose-600 font-black italic">De Baja</span>`;
+            }
         }
 
         function updateEficienciaGauge(percent) {
