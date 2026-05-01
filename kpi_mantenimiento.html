@@ -539,19 +539,29 @@
                     </div>
 
                     <!-- 2. Eficiencia Operativa -->
-                    <div class="card p-6 flex flex-col items-center justify-center">
-                        <p class="text-[11px] font-black text-on-surface-variant/70 uppercase tracking-[0.15em] mb-4">Eficiencia Operativa</p>
-                        <div class="flex items-center gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center shrink-0">
-                                <span class="material-symbols-outlined text-emerald-600 text-3xl">speed</span>
+                    <div class="card p-6 flex items-center justify-between gap-6 overflow-hidden">
+                        <div class="flex flex-col items-start text-left">
+                            <p class="text-[11px] font-black text-on-surface-variant/70 uppercase tracking-[0.15em] mb-5">Eficiencia Operativa</p>
+                            <div class="flex items-center gap-4 mb-3">
+                                <div class="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-emerald-600 text-2xl">speed</span>
+                                </div>
+                                <p class="text-4xl font-black text-[#001f3f] tracking-tight">94.2%</p>
                             </div>
-                            <p class="text-4xl md:text-5xl font-black text-[#001f3f] tracking-tight">94.2%</p>
-                            <div class="px-3 py-1.5 rounded-full text-[12px] font-black bg-emerald-100 text-emerald-700 flex items-center gap-0.5">
-                                <span class="material-symbols-outlined text-[14px]">trending_up</span>
-                                2.4%
+                            <p class="text-[11px] text-on-surface-variant font-medium opacity-60 leading-relaxed max-w-[140px]">Eficiencia global vs periodo anterior</p>
+                        </div>
+                        
+                        <div class="relative flex items-center justify-center w-32 h-32 shrink-0">
+                            <!-- SVG Gauge -->
+                            <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="42" fill="transparent" stroke="currentColor" stroke-width="8" class="text-slate-100" />
+                                <circle cx="50" cy="50" r="42" fill="transparent" stroke="currentColor" stroke-width="8" stroke-dasharray="263.89" stroke-dashoffset="15.3" stroke-linecap="round" class="text-emerald-500" />
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-xl font-black text-emerald-700 tracking-tighter leading-none">+2.4%</span>
+                                <span class="text-[9px] font-bold text-emerald-600/60 uppercase tracking-widest mt-1">Trend</span>
                             </div>
                         </div>
-                        <p class="mt-5 text-[11px] text-on-surface-variant font-medium opacity-60">Eficiencia global vs periodo anterior</p>
                     </div>
 
                     <!-- 3. Disponibilidad de Flota y Tiempo en Taller -->
