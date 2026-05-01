@@ -325,6 +325,61 @@
                 `;
                 container.insertAdjacentHTML('beforeend', row);
             });
+
+            // Agregar eventos de clic a las filas
+            const rows = container.querySelectorAll('tr');
+            rows.forEach((row, i) => {
+                row.classList.add('cursor-pointer');
+                row.addEventListener('click', () => {
+                    const v = topVehiculos[i];
+                    openReparacionesModal(v);
+                });
+            });
+        }
+
+        function openReparacionesModal(v) {
+            const modal = document.getElementById('modalReparaciones');
+            const headerInfo = document.getElementById('reparacionesHeaderInfo');
+            const tableBody = document.getElementById('reparacionesTableBody');
+            
+            if (!modal || !headerInfo || !tableBody) return;
+
+            headerInfo.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Unidad #</p>
+                        <p class="text-xl font-black text-primary-container">${v.id}</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">VIN</p>
+                        <p class="text-xl font-mono text-primary-container">${v.vin}</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Servicio</p>
+                        <p class="text-xl font-black text-emerald-600">${v.servicio}</p>
+                    </div>
+                </div>
+            `;
+
+            tableBody.innerHTML = '';
+            const solicitantes = ['Juan Pérez', 'Carlos Rodríguez', 'Ing. Roberto M.', 'Luis García', 'Admin Sistema'];
+            const repuestos = ['Filtros de aceite, Aceite sintético', 'Pastillas de freno cerámicas', 'Kit de distribución, Bujías', 'Líquido hidráulico, Sensores', 'Neumáticos MICHELIN (2)'];
+
+            for (let i = 0; i < v.solicitudes; i++) {
+                const fecha = new Date();
+                fecha.setDate(fecha.getDate() - (i * 15 + Math.floor(Math.random() * 10)));
+                const row = `
+                    <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                        <td class="px-6 py-4 text-sm font-semibold text-slate-600 text-center">${fecha.toLocaleDateString()}</td>
+                        <td class="px-6 py-4 text-sm text-slate-600 font-medium text-center">${v.servicio}</td>
+                        <td class="px-6 py-4 text-sm text-slate-600 font-medium text-center">${solicitantes[i % solicitantes.length]}</td>
+                        <td class="px-6 py-4 text-sm text-slate-500 italic text-center">${repuestos[(v.id + i) % repuestos.length]}</td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            }
+
+            modal.classList.remove('invisible', 'opacity-0');
         }
 
         function updateEficienciaGauge(percent) {
@@ -404,6 +459,14 @@
                     dropdown.classList.add('hidden');
                 });
             });
+
+            // Cerrar Modal Reparaciones
+            const btnCloseReparaciones = document.getElementById('btnCloseReparaciones');
+            if (btnCloseReparaciones) {
+                btnCloseReparaciones.addEventListener('click', () => {
+                    document.getElementById('modalReparaciones').classList.add('invisible', 'opacity-0');
+                });
+            }
         });
     </script>
 </head>
@@ -936,6 +999,51 @@
             <!-- Footer Modal -->
             <div class="p-4 bg-surface-container-low border-t border-surface-variant text-center">
                 <p class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Total de vehículos registrados: <span id="modalTotalCount">--</span></p>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Reparaciones Detalladas -->
+    <div id="modalReparaciones" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] flex items-center justify-center p-4 transition-all duration-300 invisible opacity-0">
+        <div class="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
+            <div class="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white">history</span>
+                    </div>
+                    <h2 class="text-2xl font-black text-primary-container uppercase tracking-tight">Historial de Reparaciones</h2>
+                </div>
+                <button id="btnCloseReparaciones" class="w-10 h-10 rounded-full hover:bg-slate-200 transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined text-slate-500">close</span>
+                </button>
+            </div>
+            
+            <div class="p-8 overflow-y-auto custom-scrollbar flex-1">
+                <div id="reparacionesHeaderInfo">
+                    <!-- Se carga dinámicamente -->
+                </div>
+
+                <div class="mt-8">
+                    <h3 class="text-lg font-bold text-primary-container mb-4 uppercase tracking-wider border-l-4 border-emerald-500 pl-3">Detalle de Solicitudes</h3>
+                    <div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm">
+                        <table class="w-full text-left">
+                            <thead class="bg-slate-50 border-b border-slate-100">
+                                <tr>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Fecha</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Servicio</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Solicitado por:</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Repuestos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reparacionesTableBody" class="divide-y divide-slate-50">
+                                <!-- Se carga dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-8 py-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button onclick="document.getElementById('modalReparaciones').classList.add('invisible', 'opacity-0')" class="px-6 py-2 bg-primary-container text-white rounded-xl font-bold hover:bg-opacity-90 transition-all shadow-lg">Entendido</button>
             </div>
         </div>
     </div>
