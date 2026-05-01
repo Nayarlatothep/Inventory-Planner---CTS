@@ -431,11 +431,20 @@
                 });
             }
 
-            if (filterStatus) {
-                filterStatus.addEventListener('change', (e) => {
-                    const status = e.target.value === 'all' ? '' : e.target.value;
-                    renderCamiones(allVehiculos, modalContainer, status);
-                });
+            const searchUnidadModal = document.getElementById('searchUnidadModal');
+
+            if (filterStatus || searchUnidadModal) {
+                const updateModalFilters = () => {
+                    const status = (filterStatus && filterStatus.value !== 'all') ? filterStatus.value : '';
+                    const search = searchUnidadModal ? searchUnidadModal.value : '';
+                    // Nota: renderCamiones ya maneja un filtro de texto. 
+                    // Podemos concatenar o modificar renderCamiones para aceptar múltiples filtros.
+                    // Actualmente renderCamiones(vehiculos, container, filter) usa 'filter' como búsqueda general.
+                    renderCamiones(allVehiculos, modalContainer, search || status);
+                };
+
+                if (filterStatus) filterStatus.addEventListener('change', updateModalFilters);
+                if (searchUnidadModal) searchUnidadModal.addEventListener('input', updateModalFilters);
             }
 
             if (inputFilter) {
@@ -952,7 +961,11 @@
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+                        <input id="searchUnidadModal" type="text" placeholder="Buscar unidad..." class="bg-slate-50 border border-slate-200 text-sm font-bold text-[#1e3a5f] rounded-xl pl-9 pr-4 py-2 outline-none focus:ring-2 focus:ring-[#1e3a5f]/20 transition-all w-48 focus:w-64">
+                    </div>
                     <select id="filterStatus" class="bg-slate-50 border border-slate-200 text-sm font-bold text-[#1e3a5f] rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-[#1e3a5f]/20 transition-all">
                         <option value="all">Todos los Estados</option>
                         <option value="ACTIVO">Activos</option>
