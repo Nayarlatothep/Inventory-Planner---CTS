@@ -180,7 +180,8 @@
             try {
                 const { data: vehiculos, error } = await supabaseClient
                     .from('vehiculos')
-                    .select('id, vin');
+                    .select('id, vin')
+                    .order('id', { ascending: true });
 
                 if (error) throw error;
                 
