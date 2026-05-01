@@ -186,6 +186,7 @@
                 
                 allVehiculos = vehiculos; // Guardar en cache
                 renderCamiones(vehiculos, camionesContainer);
+                renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
             } catch (err) {
                 console.error('Error:', err);
                 camionesContainer.innerHTML = `<p class="text-error text-xs p-4">Error al cargar datos - ${err.message || 'Verifique la API key'}</p>`;
@@ -238,6 +239,36 @@
             if (totalCount && container.id === 'modalCamionesContainer') {
                 totalCount.textContent = filtered.length;
             }
+        }
+
+        function renderGastoCamiones(vehiculos, container) {
+            if (!container) return;
+            container.innerHTML = '';
+            
+            // Simulación de gastos descendentes para la visualización
+            const sortedVehiculos = [...vehiculos].map((v, i) => ({
+                ...v,
+                gasto: 8000 - (i * 450) > 500 ? 8000 - (i * 450) : 500 + (v.id % 1000),
+                porcentaje: 100 - (i * 8) > 15 ? 100 - (i * 8) : 15
+            })).sort((a, b) => b.gasto - a.gasto);
+
+            sortedVehiculos.forEach((v) => {
+                const row = `
+                    <div class="flex flex-col gap-1.5 mb-2">
+                        <div class="flex justify-between items-end">
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm font-black text-primary-container">${v.id}</span>
+                                <span class="text-[9px] font-mono text-on-surface-variant opacity-60">VIN: ${v.vin}</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-primary-container">$${v.gasto.toLocaleString()}</span>
+                        </div>
+                        <div class="w-full h-3 bg-surface-container rounded-full overflow-hidden">
+                            <div class="h-full bg-primary-container transition-all duration-1000" style="width: ${v.porcentaje}%"></div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', row);
+            });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -465,62 +496,10 @@
                     <!-- Gasto Total por Camión -->
                     <div class="card p-5 flex flex-col flex-1">
                         <p class="stat-label text-[#50606f] mb-5">Gasto Total por Camión</p>
-                        <div class="space-y-4 max-h-[220px] overflow-y-auto pr-2 custom-scrollbar">
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs font-bold text-primary-container w-12">TR-089</span>
-                                <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary-container flex items-center justify-end px-2" style="width: 100%">
-                                        <span class="text-[10px] text-white font-bold">$8,420</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs font-bold text-primary-container w-12">TR-102</span>
-                                <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary-container/80 flex items-center justify-end px-2" style="width: 73%">
-                                        <span class="text-[10px] text-white font-bold">$6,150</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs font-bold text-primary-container w-12">TR-045</span>
-                                <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary-container/60 flex items-center justify-end px-2" style="width: 69%">
-                                        <span class="text-[10px] text-white font-bold">$5,800</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs font-bold text-primary-container w-12">TR-077</span>
-                                <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary-container/40 flex items-center justify-end px-2" style="width: 51%">
-                                        <span class="text-[10px] text-white font-bold">$4,290</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs font-bold text-primary-container w-12">TR-034</span>
-                                <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary-container/30 flex items-center justify-end px-2" style="width: 45%">
-                                        <span class="text-[10px] text-white font-bold">$3,850</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs font-bold text-primary-container w-12">TR-056</span>
-                                <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary-container/25 flex items-center justify-end px-2" style="width: 38%">
-                                        <span class="text-[10px] text-white font-bold">$3,120</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs font-bold text-primary-container w-12">TR-112</span>
-                                <div class="flex-1 h-6 bg-surface-container rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary-container/20 flex items-center justify-end px-2" style="width: 32%">
-                                        <span class="text-[10px] text-white font-bold">$2,680</span>
-                                    </div>
-                                </div>
+                        <div id="gastoCamionesContainer" class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                            <!-- Se cargará dinámicamente -->
+                            <div class="flex justify-center items-center py-10">
+                                <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary-container"></div>
                             </div>
                         </div>
                         <p class="mt-4 text-[10px] text-on-surface-variant italic text-center">Distribución de costos por unidad.</p>
