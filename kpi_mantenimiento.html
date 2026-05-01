@@ -187,6 +187,7 @@
                 allVehiculos = vehiculos; // Guardar en cache
                 renderCamiones(vehiculos, camionesContainer);
                 renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
+                updateFleetAvailability(vehiculos);
             } catch (err) {
                 console.error('Error:', err);
                 camionesContainer.innerHTML = `<p class="text-error text-xs p-4">Error al cargar datos - ${err.message || 'Verifique la API key'}</p>`;
@@ -269,6 +270,15 @@
                 `;
                 container.insertAdjacentHTML('beforeend', row);
             });
+        }
+
+        function updateFleetAvailability(vehiculos) {
+            const total = vehiculos.length;
+            const activos = vehiculos.filter(v => (v.id % 3) === 0).length;
+            const totalDispEl = document.getElementById('totalDisponibilidad');
+            if (totalDispEl) {
+                totalDispEl.textContent = `${activos} / ${total}`;
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -541,31 +551,23 @@
                         <p class="mt-3 text-[11px] text-[#74777f]">Disponibilidad de flota vs tiempo en taller</p>
                     </div>
 
-                    <!-- 3. Próximos Vencimientos -->
-                    <div class="card p-5">
-                        <p class="stat-label text-[#50606f] mb-4">Próximos Vencimientos</p>
-                        <div class="space-y-2.5">
-                            <div class="list-row" style="background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.1)">
-                                <div class="flex flex-col">
-                                    <span class="text-xs font-bold text-[#001f3f]">TR-112</span>
-                                    <span class="text-[10px] font-bold text-red-600">HOY — Motor</span>
-                                </div>
-                                <span class="w-2 h-2 rounded-full bg-red-500 pulse-dot"></span>
+                    <!-- 3. Disponibilidad de Flota y Tiempo en Taller -->
+                    <div class="flex gap-5">
+                        <div class="card p-5 flex-1 flex flex-col items-center text-center">
+                            <p class="stat-label text-[#50606f] mb-3">Disp. de Flota</p>
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center mb-2">
+                                <span class="material-symbols-outlined text-emerald-600">check_circle</span>
                             </div>
-                            <div class="list-row" style="background:#f8fafc">
-                                <div class="flex flex-col">
-                                    <span class="text-xs font-bold text-[#001f3f]">TR-034</span>
-                                    <span class="text-[10px] text-[#50606f]">02 May — Frenos</span>
-                                </div>
-                                <span class="material-symbols-outlined text-slate-300 text-base">calendar_today</span>
+                            <p id="totalDisponibilidad" class="text-2xl font-black text-primary-container">-- / --</p>
+                            <p class="text-[10px] text-on-surface-variant uppercase font-bold mt-1 opacity-60">Activos / Total</p>
+                        </div>
+                        <div class="card p-5 flex-1 flex flex-col items-center text-center">
+                            <p class="stat-label text-[#50606f] mb-3">Tiempo en Taller</p>
+                            <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mb-2">
+                                <span class="material-symbols-outlined text-amber-600">hourglass_empty</span>
                             </div>
-                            <div class="list-row" style="background:#f8fafc">
-                                <div class="flex flex-col">
-                                    <span class="text-xs font-bold text-[#001f3f]">TR-019</span>
-                                    <span class="text-[10px] text-[#50606f]">05 May — Aceite</span>
-                                </div>
-                                <span class="material-symbols-outlined text-slate-300 text-base">calendar_today</span>
-                            </div>
+                            <p class="text-2xl font-black text-primary-container">3.2 <span class="text-xs font-bold text-on-surface-variant">Días</span></p>
+                            <p class="text-[10px] text-on-surface-variant uppercase font-bold mt-1 opacity-60">Promedio / Mes</p>
                         </div>
                     </div>
                 </div>
