@@ -152,166 +152,163 @@
     </style>
 </head>
 <body class="bg-background text-on-background min-h-screen flex flex-col">
-    <!-- TopNavBar -->
-    <header class="bg-[#001F3F] dark:bg-slate-950 font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-white/10 shadow-md shadow-slate-900/20">
-        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 max-w-[1440px] mx-auto">
-            <div class="flex items-center gap-4 md:gap-xl">
-                <!-- Mobile Menu Button -->
-                <button id="btnMobileMenu" class="md:hidden text-white p-1 hover:bg-white/10 rounded-md transition-colors">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
-                
-                <!-- Brand Logo -->
-                <div class="flex items-center gap-3 group cursor-pointer" onclick="window.location.href='index.html'">
-                    <div class="bg-slate-800/50 p-3 rounded-xl group-hover:bg-slate-800/70 transition-all border border-white/5 shadow-inner">
-                        <span class="material-symbols-outlined text-white text-[32px] leading-none" style="font-variation-settings: 'FILL' 0, 'wght' 300;">local_shipping</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-xl md:text-2xl font-extrabold text-white tracking-tight leading-tight">CSM Legacy</span>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] leading-none text-center">Sistema de Inventario</span>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full  border-r border-white/10 shadow-2xl">
+        <div class="flex flex-col h-full">
+            <!-- Brand Logo -->
+            <div class="p-8 border-b border-white/5 flex items-center gap-3 bg-[#000d1a]">
+                <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-900/50">
+                    <span class="material-symbols-outlined text-white text-[24px]">local_shipping</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-black tracking-tighter leading-none text-white">CSM LEGACY</span>
+                    <span class="text-[9px] text-blue-400 font-black uppercase tracking-[0.2em] mt-1">Inventory Planner</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+                <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
+                    <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
+                </a>
+
+                <div class="pt-6 pb-2 px-4">
+                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
+                </div>
+
+                <!-- Abastecimiento -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
+                            <span class="font-bold">Abastecimiento</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-11 pr-4 space-y-1">
+                        <a href="#" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Ordenes de Compra</a>
+                        <a href="#" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Solicitudes</a>
                     </div>
                 </div>
 
-                <!-- Vertical Divider -->
-                <div class="hidden md:block w-[1.5px] h-10 bg-white/10 mx-6"></div>
+                <!-- Inventario -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
+                            <span class="font-bold">Inventario</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-11 pr-4 space-y-1">
+                        <a href="ingreso_material.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Ingreso Material</a>
+                        <a href="recepcion.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Recepción</a>
+                    </div>
+                </div>
 
-                <nav id="desktopNav" class="hidden md:flex items-center gap-lg">
-                    <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="index.html">Inicio</a>
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
-                            Abastecimiento
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">shopping_cart</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Ordenes de Compras</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Gestión de OCs activas</span>
-                                </div>
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">request_quote</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Solicitudes de Compras</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Requerimientos de material</span>
-                                </div>
-                            </a>
+                <!-- Mantenimiento -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
+                            <span class="font-bold">Mantenimiento</span>
                         </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-11 pr-4 space-y-1">
+                        <a href="solicitud.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Solicitud Ordenes de Trabajo</a>
+                        <a href="despacho.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Despacho Ordenes de Trabajo</a>
+                        <a href="flota.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Estado de Flota</a>
                     </div>
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-white border-b-2 border-white pb-1 font-bold px-3 py-2 h-full">
-                            Inventario
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">add_circle</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Ingreso de Material Nuevo</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Registro inicial de inventario</span>
-                                </div>
-                            </a>
-                            <a href="recepcion.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-primary-container text-[20px]">package_2</span>
-                                <div class="flex flex-col">
-                                    <span class="font-bold">Recepción Material</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Validación de carga entrante</span>
-                                </div>
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">edit_note</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Ingreso Material Manual</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Ajustes manuales de stock</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
-                            Mantenimiento
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] left-0 w-72 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="solicitud.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">build</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Solicitud de orden de trabajo</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Crear nuevos requerimientos</span>
-                                </div>
-                            </a>
-                            <a href="despacho.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">assignment_turned_in</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Despacho orden de trabajo</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Gestión y salida de materiales</span>
-                                </div>
-                            </a>
-                            <a href="flota.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">directions_car</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Inventario y Estado de Flota</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Control de vehículos y activos</span>
-                                </div>
-                            </a>
-                        </div>
+                <div class="pt-6 pb-2 px-4">
+                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
+                </div>
+
+                <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400 transition-colors">analytics</span>
+                    <span class="font-bold text-slate-300 group-hover:text-white">Reportes y KPIs</span>
+                </a>
+            </nav>
+
+            <!-- User Profile Section -->
+            <div class="p-6 bg-[#000d1a] border-t border-white/5">
+                <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
+                    <div class="relative">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
+                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
                     </div>
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
-                            Reportes
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] right-0 w-72 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="kpi_mantenimiento.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">analytics</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">KPI Ordenes de trabajo (Mantto.)</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Indicadores de mantenimiento</span>
-                                </div>
-                            </a>
-                        </div>
+                    <div class="flex flex-col min-w-0">
+                        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white">Administrador</span>
+                        <span class="text-[9px] text-slate-500 font-bold">Sistema Online</span>
                     </div>
-                </nav>
-            </div>
-            <div class="flex items-center gap-2 md:gap-md">
-                <button class="hover:bg-white/5 rounded-md p-2 transition-all active:scale-95 transform hidden sm:block">
-                    <span class="material-symbols-outlined text-white">notifications</span>
-                </button>
-                <img alt="User profile" class="h-8 w-8 rounded-full border border-white/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx"/>
+                </div>
             </div>
         </div>
-        
-        <!-- Mobile Navigation Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-[#001c3a] border-t border-white/10 px-4 py-4 space-y-4 shadow-xl">
-            <a href="index.html" class="block text-slate-300 hover:text-white font-medium py-2">Inicio</a>
-            <div class="space-y-2 border-l-2 border-white/20 pl-4">
-                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Abastecimiento</p>
-                <a href="#" class="block text-slate-300 py-1">Ordenes de Compras</a>
-                <a href="#" class="block text-slate-300 py-1">Solicitudes de Compras</a>
-            </div>
-            <div class="space-y-2 border-l-2 border-white/20 pl-4">
-                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Inventario</p>
-                <a href="index.html" class="block text-slate-300 py-1">Ingreso Material Nuevo</a>
-                <a href="recepcion.html" class="block text-white font-semibold py-1">Recepción Material</a>
-                <a href="#" class="block text-slate-300 py-1">Ingreso Manual</a>
-            </div>
+    
+            
+            
 
-            <div class="space-y-2 border-l-2 border-white/20 pl-4">
-                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Mantenimiento</p>
-                <a href="solicitud.html" class="block text-slate-300 py-1">Solicitud de orden de trabajo</a>
-                <a href="despacho.html" class="block text-slate-300 py-1">Despacho orden de trabajo</a>
-                <a href="flota.html" class="block text-slate-300 py-1">Inventario y Estado de Flota</a>
+        
+            
+            
+
+        
+            <!-- Toggle Button (Floating on the edge) -->
+            <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
+                <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+            </button>
+
+        </aside>
+
+    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 ">
+        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
+            <div class="flex items-center gap-4">
+                
+                <div class="flex items-center gap-2">
+                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
+                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
+                </div>
             </div>
-            <div class="space-y-2 border-l-2 border-white/20 pl-4">
-                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Reportes</p>
-                <a href="#" class="block text-slate-300 py-1">KPI Ordenes de trabajo (Mantto.)</a>
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
+                </div>
+                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
+                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
+                </button>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow px-4 md:px-margin py-6 md:py-xl max-w-7xl mx-auto w-full">
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden  backdrop-blur-sm transition-opacity" onclick="document.getElementById('sidebar').classList.add('-translate-x-full'); this.classList.add('hidden')"></div>
+
+
+    
+
+    
+
+    <!-- TopNavBar -->
+    
+    
+
+    <!-- Sidebar Overlay for Mobile -->
+    
+
+    
+    
+    
+
+
+
+    <main class=" transition-all duration-300 flex-grow px-4 md:px-margin py-6 md:py-xl max-w-7xl mx-auto w-full" >
         <!-- Hero Editorial Header -->
         <section class="mb-6">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
@@ -455,7 +452,7 @@
                     </div>
 
                     <div class="flex justify-between items-center pt-3 mt-4 border-t border-white/5">
-                        <span class="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Total Órdenes</span>
+                        <span class="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Total Ordenes</span>
                         <div class="flex items-center gap-2">
                             <span id="kpiTotalOrders" class="text-xl font-black text-white">0</span>
                             <span class="material-symbols-outlined text-white/20 text-sm">inventory_2</span>
@@ -1001,603 +998,78 @@
             <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Términos</a>
         </div>
     </footer>
+    
+
+
+    
+
+
+    
+    
+    
+    
+
+
+
+
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Photo Module Logic
-            const photoPlaceholder = document.getElementById('photoPlaceholder');
-            const cameraPreview = document.getElementById('cameraPreview');
-            const imagePreview = document.getElementById('imagePreview');
-            const btnToggleCamera = document.getElementById('btnToggleCamera');
-            const btnCapture = document.getElementById('btnCapture');
-            const fileInput = document.getElementById('fileInput');
-            const photoCanvas = document.getElementById('photoCanvas');
-            const photoModule = document.getElementById('photoModule');
+        (function() {
+            const btnToggle = document.getElementById('btnSidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const header = document.querySelector('header');
+            const main = document.querySelector('main');
+            const toggleIcon = document.getElementById('toggleIcon');
 
-            let currentImageData = null;
-            let stream = null;
-
-            const stopCamera = () => {
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
-                    stream = null;
-                }
-                cameraPreview.classList.add('hidden');
-                btnCapture.classList.add('hidden');
-            };
-
-            const startCamera = async () => {
-                try {
-                    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                    cameraPreview.srcObject = stream;
-                    cameraPreview.classList.remove('hidden');
-                    btnCapture.classList.remove('hidden');
-                    photoPlaceholder.classList.add('hidden');
-                    imagePreview.classList.add('hidden');
-                } catch (err) {
-                    console.error("Error accessing camera: ", err);
-                    alert("No se pudo acceder a la cámara. Verifique los permisos.");
-                }
-            };
-
-            btnToggleCamera.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (stream) {
-                    stopCamera();
-                    photoPlaceholder.classList.remove('hidden');
+            const toggleSidebar = () => {
+                const isHidden = sidebar.classList.contains('-translate-x-full');
+                
+                if (isHidden) {
+                    sidebar.classList.remove('-translate-x-full');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                    if (window.innerWidth >= 768) {
+                        if (header) header.classList.add('md:pl-64');
+                        if (main) main.classList.add('md:ml-64');
+                    } else {
+                        overlay.classList.remove('hidden');
+                    }
                 } else {
-                    startCamera();
+                    sidebar.classList.add('-translate-x-full');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    overlay.classList.add('hidden');
                 }
-            });
-
-            btnCapture.addEventListener('click', (e) => {
-                e.preventDefault();
-                const context = photoCanvas.getContext('2d');
-                photoCanvas.width = cameraPreview.videoWidth;
-                photoCanvas.height = cameraPreview.videoHeight;
-                context.drawImage(cameraPreview, 0, 0, photoCanvas.width, photoCanvas.height);
-                
-                currentImageData = photoCanvas.toDataURL('image/jpeg');
-                imagePreview.src = currentImageData;
-                imagePreview.classList.remove('hidden');
-                
-                stopCamera();
-            });
-
-            photoPlaceholder.addEventListener('click', () => fileInput.click());
-            
-            fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) handleFile(file);
-            });
-
-            const handleFile = (file) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    currentImageData = e.target.result;
-                    imagePreview.src = currentImageData;
-                    imagePreview.classList.remove('hidden');
-                    photoPlaceholder.classList.add('hidden');
-                    stopCamera();
-                };
-                reader.readAsDataURL(file);
             };
 
-            photoModule.addEventListener('dragover', (e) => { 
-                e.preventDefault(); 
-                photoModule.classList.add('border-primary-container'); 
+            if (btnToggle) btnToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
             });
-            photoModule.addEventListener('dragleave', () => { 
-                photoModule.classList.remove('border-primary-container'); 
+            if (overlay) overlay.addEventListener('click', toggleSidebar);
+
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentFile) {
+                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
+                    const icon = link.querySelector('span.material-symbols-outlined');
+                    if (icon) icon.classList.add('text-blue-400');
+                }
             });
-            photoModule.addEventListener('drop', (e) => {
-                e.preventDefault();
-                photoModule.classList.remove('border-primary-container');
-                const file = e.dataTransfer.files[0];
-                if (file && file.type.startsWith('image/')) handleFile(file);
-            });
 
-            // Mobile Menu Toggle
-            const btnMobileMenu = document.getElementById('btnMobileMenu');
-            const mobileMenu = document.getElementById('mobileMenu');
-            
-            if (btnMobileMenu && mobileMenu) {
-                btnMobileMenu.onclick = () => {
-                    mobileMenu.classList.toggle('hidden');
-                    btnMobileMenu.querySelector('span').innerText = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
-                };
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('-translate-x-full');
+                if (header) header.classList.add('md:pl-64');
+                if (main) main.classList.add('md:ml-64');
+                if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
-
-            // Modal & Pagination Logic
-            const modal = document.getElementById('modalNuevoIngreso');
-            const btnNuevaRecepcion = document.getElementById('btnNuevaRecepcion');
-            const btnCloseModal = document.getElementById('btnCloseModal');
-            
-            if (btnNuevaRecepcion && modal) {
-                btnNuevaRecepcion.addEventListener('click', () => {
-                    document.getElementById('modalFooter').classList.remove('hidden');
-                    document.getElementById('modalTitle').innerText = 'Nuevo Ingreso de Material';
-                    modal.classList.remove('hidden');
-                    modal.classList.add('flex');
-                    // setTimeout for transition
-                    setTimeout(() => {
-                        modal.classList.remove('opacity-0');
-                        modal.querySelector('div').classList.remove('scale-95');
-                    }, 10);
-                });
-            }
-            
-            function closeModal() {
-                stopCamera();
-                // Reset photo module
-                currentImageData = null;
-                if (imagePreview) {
-                    imagePreview.src = "";
-                    imagePreview.classList.add('hidden');
-                }
-                if (photoPlaceholder) photoPlaceholder.classList.remove('hidden');
-
-                modal.classList.add('opacity-0');
-                modal.querySelector('div').classList.add('scale-95');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                }, 300);
-            }
-            
-            if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
-            
-            let currentPage = 1;
-            const totalPages = 5;
-
-            const dateInput = document.getElementById('inputFechaRecibo');
-            if (dateInput) {
-                dateInput.valueAsDate = new Date();
-            }
-
-            // OC Selection Logic
-            const inputOCField = document.getElementById('inputOC');
-            const mockOCData = {
-                'OC-12345': { material: 'Aceite Motor 15W-40', sku: 'LU-001', categoria: 'Lubricantes', unidades: 20 },
-                'OC-12348': { material: 'Filtro de Aire XL', sku: 'RP-042', categoria: 'Repuestos', unidades: 5 },
-                'OC-12352': { material: 'EPI Chalecos Reflectantes', sku: 'SG-009', categoria: 'Seguridad', unidades: 50 },
-                'OC-12360': { material: 'Batería 12V 75Ah', sku: 'RP-088', categoria: 'Repuestos', unidades: 2 },
-                'OC-12365': { material: 'Kit de Herramientas', sku: 'HT-015', categoria: 'Herramientas', unidades: 1 },
-                'OC-12370': { material: 'Neumático Frontal', sku: 'RP-102', categoria: 'Repuestos', unidades: 4 }
-            };
-
-            if (inputOCField) {
-                inputOCField.addEventListener('input', (e) => {
-                    const data = mockOCData[e.target.value];
-                    if (data) {
-                        document.getElementById('inputMaterial').value = data.material;
-                        document.getElementById('inputSKU').value = data.sku;
-                        document.getElementById('inputCategoria').value = data.categoria;
-                        document.getElementById('inputUnidades').value = data.unidades;
-                    }
-                });
-            }
-
-            function updateKPIs() {
-                const now = new Date();
-                const timestamp = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')} | ${now.toLocaleDateString()}`;
-                const tsEl = document.getElementById('kpiTimestamp');
-                if (tsEl) tsEl.innerText = timestamp;
-
-                const today = new Date().toISOString().split('T')[0];
-                const tableRows = document.querySelectorAll('#receptionTableBody tr');
-                
-                let countHoy = 0;
-                let countRecibidas = 0;
-                let countAbiertas = 0;
-                let countParciales = 0;
-                let countRechazadas = 0;
-
-                tableRows.forEach(row => {
-                    const materialElement = row.cells[1].querySelector('.font-semibold');
-                    if (!materialElement) return;
-                    
-                    const fecha = row.cells[5].innerText.trim();
-                    const estado = row.cells[6].innerText.trim();
-
-                    if (estado === 'Recibido') {
-                        countRecibidas++;
-                        if (fecha === today) countHoy++;
-                    } else if (estado === 'Ordenes abiertas') {
-                        countAbiertas++;
-                    } else if (estado === 'Parcial') {
-                        countParciales++;
-                    } else if (estado === 'Rechazado') {
-                        countRechazadas++;
-                    }
-                });
-
-                const total = countRecibidas + countAbiertas + countParciales + countRechazadas;
-
-                // Update Big KPIs
-                const kpiHoy = document.getElementById('kpiHoy');
-                const kpiTransito = document.getElementById('kpiTransito');
-                const kpiProblemas = document.getElementById('kpiProblemas');
-                const kpiTotalOrders = document.getElementById('kpiTotalOrders');
-
-                if (kpiHoy) kpiHoy.innerText = countHoy;
-                if (kpiTransito) kpiTransito.innerText = countAbiertas;
-                if (kpiProblemas) kpiProblemas.innerText = countParciales + countRechazadas;
-                if (kpiTotalOrders) kpiTotalOrders.innerText = total;
-
-                // Percentages for cards
-                if (total > 0) {
-                    const hoyPct = Math.round((countHoy / total) * 100);
-                    const abiertasPct = Math.round((countAbiertas / total) * 100);
-                    const problemasPct = Math.round(((countParciales + countRechazadas) / total) * 100);
-
-                    if (document.getElementById('kpiHoyPercent')) document.getElementById('kpiHoyPercent').innerText = `${hoyPct}%`;
-                    if (document.getElementById('kpiAbiertasPercent')) document.getElementById('kpiAbiertasPercent').innerText = `${abiertasPct}%`;
-                    if (document.getElementById('kpiProblemasPercent')) document.getElementById('kpiProblemasPercent').innerText = `${problemasPct}%`;
-
-                    if (document.getElementById('barHoy')) document.getElementById('barHoy').style.width = `${hoyPct}%`;
-                    if (document.getElementById('barAbiertas')) document.getElementById('barAbiertas').style.width = `${abiertasPct}%`;
-                    if (document.getElementById('barProblemas')) document.getElementById('barProblemas').style.width = `${problemasPct}%`;
-                }
-
-                // Update Trend Indicator (Card 1)
-                const kpiTrendHoy = document.getElementById('kpiTrendHoy');
-                const pctRecibidas = total > 0 ? Math.round((countRecibidas / total) * 100) : 0;
-                if (kpiTrendHoy) kpiTrendHoy.innerText = `${pctRecibidas}%`;
-
-                // Update Summary Card (Distribution)
-                const updateStat = (idPrefix, count, barIdSuffix) => {
-                    const pct = total > 0 ? Math.round((count / total) * 100) : 0;
-                    const textEl = document.getElementById(`stat${idPrefix}Text`);
-                    const barEl = document.getElementById(`bar${barIdSuffix || idPrefix}`);
-                    
-                    if (textEl) textEl.innerText = `${count} (${pct}%)`;
-                    if (barEl) barEl.style.width = `${pct}%`;
-                };
-
-                updateStat('Recibidas', countRecibidas);
-                updateStat('Abiertas', countAbiertas, 'AbiertasSum');
-                updateStat('Parciales', countParciales);
-                updateStat('Rechazadas', countRechazadas);
-            }
-            updateKPIs();
-
-            // View Reception Logic
-            function initViewButtons() {
-                document.querySelectorAll('.btn-view-reception').forEach(btn => {
-                    btn.onclick = (e) => {
-                        const row = btn.closest('tr');
-                        const oc = row.cells[2].innerText.trim();
-                        const material = row.cells[1].querySelector('.font-semibold').innerText;
-                        const categoria = row.cells[1].querySelector('.text-xs').innerText;
-                        const cantidadStr = row.cells[3].innerText;
-                        const responsable = row.cells[4].innerText;
-                        const fecha = row.cells[5].innerText;
-                        const estado = row.cells[6].innerText.trim();
-                        
-                        // Populate hidden form inputs for summary generation
-                        document.getElementById('inputOC').value = oc;
-                        document.getElementById('inputMaterial').value = material;
-                        document.getElementById('inputCategoria').value = categoria;
-                        document.getElementById('inputCantRecepcionada').value = cantidadStr.split(' ')[0];
-                        document.getElementById('inputUnidades').value = cantidadStr.split(' ')[0];
-                        document.getElementById('inputResponsable').value = responsable === '-' ? '' : responsable;
-                        document.getElementById('inputFechaRecibo').value = fecha === '-' ? '' : fecha;
-                        
-                        // Handle state for select
-                        const selectEstado = document.getElementById('selectEstado');
-                        if (estado === 'Ordenes abiertas' || estado === '-') {
-                            selectEstado.value = "";
-                        } else {
-                            selectEstado.value = estado;
-                        }
-                        
-                        // Reset or mock other data
-                        document.getElementById('inputSKU').value = mockOCData[oc]?.sku || 'N/A';
-                        document.getElementById('inputProveedor').value = '-';
-                        document.getElementById('inputFactura').value = '-';
-                        document.getElementById('inputLote').value = '-';
-                        document.getElementById('inputFechaManuf').value = '';
-                        document.getElementById('checkEmpaque').checked = (estado !== 'Ordenes abiertas');
-                        document.getElementById('checkCantidad').checked = (estado !== 'Ordenes abiertas');
-                        document.getElementById('inputObservaciones').value = '';
-                        
-                        // Configurar modo vista
-                        document.getElementById('modalFooter').classList.add('hidden');
-                        document.getElementById('modalTitle').innerText = 'Resumen de Recepción';
-
-                        // Open Modal and go to Summary
-                        modal.classList.remove('hidden');
-                        modal.classList.add('flex');
-                        setTimeout(() => {
-                            modal.classList.remove('opacity-0');
-                            modal.querySelector('div').classList.remove('scale-95');
-                            window.goToPage(5);
-                        }, 10);
-                    };
-                });
-            }
-            initViewButtons();
-
-            const btnPrev = document.getElementById('btnPrevPage');
-            const btnNext = document.getElementById('btnNextPage');
-            
-            window.goToPage = function(page) {
-                if (page < 1 || page > totalPages) return;
-                
-                // Generar Resumen en Página 5
-                if (page === 5) {
-                    document.getElementById('summaryOC').innerText = document.getElementById('inputOC').value || '-';
-                    document.getElementById('summaryMaterial').innerText = document.getElementById('inputMaterial').value || '-';
-                    document.getElementById('summarySKU').innerText = document.getElementById('inputSKU').value || 'N/A';
-                    document.getElementById('summaryCategoria').innerText = document.getElementById('inputCategoria').value || '-';
-                    document.getElementById('summaryEsperada').innerText = document.getElementById('inputUnidades').value || '0';
-                    document.getElementById('summaryRecibida').innerText = document.getElementById('inputCantRecepcionada').value || '0';
-                    
-                    document.getElementById('summaryProveedor').innerText = document.getElementById('inputProveedor').value || '-';
-                    document.getElementById('summaryFactura').innerText = document.getElementById('inputFactura').value || '-';
-                    document.getElementById('summaryLote').innerText = document.getElementById('inputLote').value || '-';
-                    document.getElementById('summaryManuf').innerText = document.getElementById('inputFechaManuf').value || '-';
-                    document.getElementById('summaryResponsable').innerText = document.getElementById('inputResponsable').value || '-';
-                    
-                    const fechaRecibo = document.getElementById('inputFechaRecibo').value;
-                    document.getElementById('summaryFecha').innerText = fechaRecibo || new Date().toISOString().split('T')[0];
-                    
-                    const estado = document.getElementById('selectEstado').value;
-                    const summaryStatus = document.getElementById('summaryStatus');
-                    summaryStatus.innerText = estado ? estado.toUpperCase() : 'PENDIENTE';
-                    
-                    // Colores por estado
-                    if (estado === 'Recibido') {
-                        summaryStatus.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-emerald-100 text-emerald-800 uppercase';
-                    } else if (estado === 'Parcial') {
-                        summaryStatus.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-amber-100 text-amber-800 uppercase';
-                    } else if (estado === 'Rechazado') {
-                        summaryStatus.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-red-100 text-red-800 uppercase';
-                    }
-
-                    document.getElementById('summaryObs').innerText = document.getElementById('inputObservaciones').value || 'Sin observaciones adicionales.';
-                    
-                    // Foto
-                    const summaryPhoto = document.getElementById('summaryPhoto');
-                    const noPhotoMsg = document.getElementById('noPhotoMsg');
-                    if (currentImageData) {
-                        summaryPhoto.src = currentImageData;
-                        summaryPhoto.classList.remove('hidden');
-                        noPhotoMsg.classList.add('hidden');
-                    } else {
-                        summaryPhoto.src = "";
-                        summaryPhoto.classList.add('hidden');
-                        noPhotoMsg.classList.remove('hidden');
-                    }
-                    
-                    // Iconos de validación
-                    const checkEmpaque = document.getElementById('checkEmpaque').checked;
-                    const checkCantidad = document.getElementById('checkCantidad').checked;
-                    
-                    const iconEmpaque = document.getElementById('iconEmpaque');
-                    iconEmpaque.innerText = checkEmpaque ? 'check_circle' : 'cancel';
-                    iconEmpaque.className = checkEmpaque ? 'material-symbols-outlined text-emerald-500 text-base' : 'material-symbols-outlined text-error text-base';
-                    
-                    const iconCantidad = document.getElementById('iconCantidad');
-                    iconCantidad.innerText = checkCantidad ? 'check_circle' : 'cancel';
-                    iconCantidad.className = checkCantidad ? 'material-symbols-outlined text-emerald-500 text-base' : 'material-symbols-outlined text-error text-base';
-                }
-
-                // Hide all pages
-                for (let i = 1; i <= totalPages; i++) {
-                    document.getElementById(`page${i}`).classList.add('hidden');
-                    const dot = document.getElementById(`dot${i}`);
-                    const text = document.getElementById(`text${i}`);
-                    
-                    if (i <= page) {
-                        dot.classList.replace('bg-outline-variant', 'bg-[#001F3F]');
-                        text.classList.replace('text-on-surface-variant', 'text-[#001F3F]');
-                    } else {
-                        dot.classList.replace('bg-[#001F3F]', 'bg-outline-variant');
-                        text.classList.replace('text-[#001F3F]', 'text-on-surface-variant');
-                    }
-                }
-                
-                // Show selected page
-                document.getElementById(`page${page}`).classList.remove('hidden');
-                
-                // Update buttons
-                if (btnPrev) btnPrev.disabled = page === 1;
-                
-                if (btnNext) {
-                    if (page === totalPages) {
-                        btnNext.innerHTML = '<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">save</span> Finalizar</span>';
-                        btnNext.classList.replace('bg-[#10b981]', 'bg-[#001F3F]');
-                        btnNext.classList.replace('hover:bg-[#059669]', 'hover:bg-[#001c3a]');
-                    } else {
-                        btnNext.innerHTML = 'Siguiente';
-                        btnNext.classList.replace('bg-[#001F3F]', 'bg-[#10b981]');
-                        btnNext.classList.replace('hover:bg-[#001c3a]', 'hover:bg-[#059669]');
-                    }
-                }
-                
-                currentPage = page;
-            };
-            
-            if (btnPrev) btnPrev.addEventListener('click', () => window.goToPage(currentPage - 1));
-            if (btnNext) {
-                btnNext.addEventListener('click', () => {
-                    // Validación visual para la página 1
-                    if (currentPage === 1) {
-                        const inputOC = document.getElementById('inputOC');
-                        const inputCant = document.getElementById('inputCantRecepcionada');
-                        const errorOC = document.getElementById('errorOC');
-                        const errorCant = document.getElementById('errorCant');
-                        
-                        let isValid = true;
-                        
-                        // Validar OC
-                        if (!inputOC.value) {
-                            inputOC.classList.add('border-error', 'ring-2', 'ring-error/20');
-                            errorOC.classList.remove('hidden');
-                            isValid = false;
-                        } else {
-                            inputOC.classList.remove('border-error', 'ring-2', 'ring-error/20');
-                            errorOC.classList.add('hidden');
-                        }
-                        
-                        // Validar Cantidad
-                        if (!inputCant.value || parseFloat(inputCant.value) <= 0) {
-                            inputCant.classList.add('border-error', 'ring-2', 'ring-error/20');
-                            errorCant.classList.remove('hidden');
-                            isValid = false;
-                        } else {
-                            inputCant.classList.remove('border-error', 'ring-2', 'ring-error/20');
-                            errorCant.classList.add('hidden');
-                        }
-                        
-                        if (!isValid) return;
-                    }
-
-                    // Validación visual para la página 3
-                    if (currentPage === 3) {
-                        const fields = [
-                            { id: 'inputProveedor', errorId: 'errorProveedor' },
-                            { id: 'inputFactura', errorId: 'errorFactura' },
-                            { id: 'inputLote', errorId: 'errorLote' },
-                            { id: 'inputFechaManuf', errorId: 'errorFechaManuf' },
-                            { id: 'inputResponsable', errorId: 'errorResponsable' }
-                        ];
-                        
-                        let isValid = true;
-                        
-                        fields.forEach(field => {
-                            const input = document.getElementById(field.id);
-                            const error = document.getElementById(field.errorId);
-                            if (!input.value || !input.value.trim()) {
-                                input.classList.add('border-error', 'ring-2', 'ring-error/20');
-                                error.classList.remove('hidden');
-                                isValid = false;
-                            } else {
-                                input.classList.remove('border-error', 'ring-2', 'ring-error/20');
-                                error.classList.add('hidden');
-                            }
-                        });
-                        
-                        if (!isValid) return;
-                    }
-
-                    // Validación visual para la página 4
-                    if (currentPage === 4) {
-                        const checkEmpaque = document.getElementById('checkEmpaque');
-                        const checkCantidad = document.getElementById('checkCantidad');
-                        const selectEstado = document.getElementById('selectEstado');
-                        
-                        const errorEmpaque = document.getElementById('errorEmpaque');
-                        const errorCantidad = document.getElementById('errorCantidad');
-                        const errorEstado = document.getElementById('errorEstado');
-                        
-                        let isValid = true;
-                        
-                        // Validar Empaque
-                        if (!checkEmpaque.checked) {
-                            checkEmpaque.parentElement.classList.add('border-error', 'ring-2', 'ring-error/20');
-                            errorEmpaque.classList.remove('hidden');
-                            isValid = false;
-                        } else {
-                            checkEmpaque.parentElement.classList.remove('border-error', 'ring-2', 'ring-error/20');
-                            errorEmpaque.classList.add('hidden');
-                        }
-                        
-                        // Validar Cantidad
-                        if (!checkCantidad.checked) {
-                            checkCantidad.parentElement.classList.add('border-error', 'ring-2', 'ring-error/20');
-                            errorCantidad.classList.remove('hidden');
-                            isValid = false;
-                        } else {
-                            checkCantidad.parentElement.classList.remove('border-error', 'ring-2', 'ring-error/20');
-                            errorCantidad.classList.add('hidden');
-                        }
-                        
-                        // Validar Estado
-                        if (!selectEstado.value) {
-                            selectEstado.classList.add('border-error', 'ring-2', 'ring-error/20');
-                            errorEstado.classList.remove('hidden');
-                            isValid = false;
-                        } else {
-                            selectEstado.classList.remove('border-error', 'ring-2', 'ring-error/20');
-                            errorEstado.classList.add('hidden');
-                        }
-                        
-                        if (!isValid) return;
-                    }
-
-                    if (currentPage === totalPages) {
-                        // Action on finish
-                        const ocValue = document.getElementById('inputOC').value;
-                        const responsableValue = document.getElementById('inputResponsable').value;
-                        const estadoValue = document.getElementById('selectEstado').value;
-                        const fechaValue = document.getElementById('inputFechaRecibo').value;
-
-                        // Actualizar la tabla principal
-                        const tableRows = document.querySelectorAll('#receptionTableBody tr');
-                        tableRows.forEach(row => {
-                            const ocCell = row.cells[2];
-                            if (ocCell && ocCell.innerText.trim() === ocValue) {
-                                // Actualizar Recepcionista (Columna 5)
-                                row.cells[4].innerText = responsableValue || '-';
-                                
-                                // Actualizar Fecha (Columna 6)
-                                row.cells[5].innerText = fechaValue || '-';
-
-                                // Actualizar Estado (Columna 7)
-                                let badgeClass = 'bg-blue-100 text-blue-800';
-                                if (estadoValue === 'Recibido') badgeClass = 'bg-emerald-100 text-emerald-800';
-                                else if (estadoValue === 'Parcial') badgeClass = 'bg-amber-100 text-amber-800';
-                                else if (estadoValue === 'Rechazado') badgeClass = 'bg-red-100 text-red-800';
-
-                                if (estadoValue) {
-                                    row.cells[6].innerHTML = `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${badgeClass}">${estadoValue}</span>`;
-                                }
-                            }
-                        });
-
-                        closeModal();
-                        // Reset to page 1 for next time
-                        setTimeout(() => window.goToPage(1), 300);
-                        
-                        // Actualizar KPIs
-                        updateKPIs();
-                        
-                        // Show a mock notification
-                        alert("Recepción finalizada. Se ha actualizado el estado de la OC " + ocValue + " en la tabla.");
-                    } else {
-                        window.goToPage(currentPage + 1);
-                    }
-                });
-            }
-
-            // Lógica de llenado automático basado en la OC seleccionada
-            const inputOC = document.getElementById('inputOC');
-            const inputMaterial = document.getElementById('inputMaterial');
-            const inputCategoria = document.getElementById('inputCategoria');
-            const inputUnidades = document.getElementById('inputUnidades');
-
-            const materialData = {
-                'OC-12345': { material: 'Aceite Motor 15W-40', category: 'Lubricantes', units: 20 },
-                'OC-12348': { material: 'Filtro de Aire XL', category: 'Repuestos', units: 5 },
-                'OC-12352': { material: 'EPI Chalecos Reflectantes', category: 'Seguridad', units: 50 },
-                'OC-12360': { material: 'Batería 12V 75Ah', category: 'Repuestos', units: 2 },
-                'OC-12365': { material: 'Casco de Seguridad', category: 'Seguridad', units: 10 },
-                'OC-12370': { material: 'Neumático Frontal', category: 'Repuestos', units: 4 }
-            };
-
-            if (inputOC) {
-                inputOC.addEventListener('input', (e) => {
-                    const oc = e.target.value.toUpperCase();
-                    if (materialData[oc]) {
-                        if (inputMaterial) inputMaterial.value = materialData[oc].material;
-                        if (inputCategoria) inputCategoria.value = materialData[oc].category;
-                        if (inputUnidades) inputUnidades.value = materialData[oc].units;
-                    }
-                });
-            }
-        });
+        })();
     </script>
+
 </body>
 </html>

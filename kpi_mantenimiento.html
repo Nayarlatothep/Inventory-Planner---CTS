@@ -172,7 +172,7 @@
         const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW'; // Reemplazar con la clave anon real
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-        let allVehiculos = []; // Cache para búsqueda local
+        let allVehiculos = []; // Cache para b%Q%squeda local
 
         async function fetchCamiones() {
             const camionesContainer = document.getElementById('camionesContainer');
@@ -197,7 +197,6 @@
         }
 
         function renderCamiones(vehiculos, container, filter = '') {
-            const isModal = container.id === 'modalCamionesContainer';
             container.innerHTML = '';
             const estadosSimulados = [
                 { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
@@ -221,25 +220,26 @@
             filtered.forEach((vehiculo, index) => {
                 const estado = estadosSimulados[vehiculo.id % estadosSimulados.length];
                 const row = `
-                    <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high border border-slate-50 shadow-sm">
+                    <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined ${estado.iconoClase}">${estado.icono}</span>
                             <div class="flex items-center gap-4">
-                                <span class="text-lg font-black text-[#1e3a5f]">${vehiculo.id}</span>
-                                ${isModal ? `<span class="text-sm font-mono text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-100">${vehiculo.vin}</span>` : ''}
+                                <span class="text-base md:text-lg font-black text-primary-container">${vehiculo.id}</span>
+                                <span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-black uppercase tracking-widest ${estado.color}">${estado.nombre}</span>
-                            <div class="w-2.5 h-2.5 rounded-full ${estado.bg} pulse-dot shadow-[0_0_10px_rgba(0,0,0,0.1)]"></div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold uppercase ${estado.color}">${estado.nombre}</span>
+                            <div class="w-2 h-2 rounded-full ${estado.bg} pulse-dot"></div>
                         </div>
                     </div>
                 `;
                 container.insertAdjacentHTML('beforeend', row);
             });
             
+            // Actualizar contador en el footer del modal si es necesario
             const totalCount = document.getElementById('modalTotalCount');
-            if (totalCount && isModal) {
+            if (totalCount && container.id === 'modalCamionesContainer') {
                 totalCount.textContent = filtered.length;
             }
         }
@@ -248,7 +248,7 @@
             if (!container) return;
             container.innerHTML = '';
             
-            // Simulación de gastos descendentes para la visualización
+            // Simulaci%%n de gastos descendentes para la visualizaci%%n
             const sortedVehiculos = [...vehiculos].map((v, i) => ({
                 ...v,
                 gasto: 8000 - (i * 450) > 500 ? 8000 - (i * 450) : 500 + (v.id % 1000),
@@ -273,8 +273,6 @@
                 container.insertAdjacentHTML('beforeend', row);
             });
         }
-
-        // renderLubricacion removed
 
         function updateOperationalKPIs(vehiculos) {
             const total = vehiculos.length;
@@ -304,15 +302,12 @@
             if (!container) return;
             container.innerHTML = '';
             
-            const estadosSimulados = [
-                { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
-                { nombre: 'Mantenimiento', color: 'text-amber-500', bg: 'bg-amber-500', icono: 'build', iconoClase: 'text-amber-500' },
-                { nombre: 'De Baja', color: 'text-rose-500', bg: 'bg-rose-500', icono: 'cancel', iconoClase: 'text-rose-500' }
-            ];
+            const servicios = ['Mantenimiento Preventivo', 'Sistema de Frenos', 'Reparación de Motor', 'Transmisión', 'Suspensión', 'Sistema Eléctrico'];
             
+            // Tomamos los primeros 5 para el TOP (simulado)
             const topVehiculos = vehiculos.slice(0, 5).map((v, i) => ({
                 ...v,
-                estado: estadosSimulados[v.id % estadosSimulados.length],
+                servicio: servicios[v.id % servicios.length],
                 solicitudes: 5 - i > 1 ? 5 - i : 2,
                 gasto: (8000 - (i * 1200)) > 1000 ? (8000 - (i * 1200)) : 1200 + (v.id % 500)
             }));
@@ -320,20 +315,12 @@
             topVehiculos.forEach(v => {
                 const row = `
                     <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="px-8 py-5 font-black text-[#1e3a5f] text-center">${v.id}</td>
-                        <td class="px-8 py-5 text-center">
-                            <div class="flex items-center justify-center gap-2">
-                                <span class="text-[10px] font-black uppercase tracking-widest text-slate-600">${v.estado.nombre}</span>
-                                <div class="w-2 h-2 rounded-full bg-slate-300"></div>
-                            </div>
-                        </td>
-                        <td class="px-8 py-5 font-bold text-slate-600 text-center">${v.solicitudes}</td>
-                        <td class="px-8 py-5 font-black text-[#001f3f] text-center">$${v.gasto.toLocaleString()}</td>
-                        <td class="px-8 py-5 text-center">
-                            <button class="p-2 hover:bg-slate-100 rounded-lg transition-all text-slate-400 hover:text-[#1e3a5f]">
-                                <span class="material-symbols-outlined text-lg">visibility</span>
-                            </button>
-                        </td>
+                        <td class="px-lg py-4 font-bold text-primary-container text-center">${v.id}</td>
+                        <td class="px-lg py-4 font-mono text-on-surface-variant text-center">${v.vin}</td>
+                        <td class="px-lg py-4 text-body-sm text-on-surface-variant text-center">${v.servicio}</td>
+                        <td class="px-lg py-4 text-center font-semibold text-secondary">${v.solicitudes}</td>
+                        <td class="px-lg py-4 font-semibold text-primary-container text-center">$${v.gasto.toLocaleString()}</td>
+                        <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span></td>
                     </tr>
                 `;
                 container.insertAdjacentHTML('beforeend', row);
@@ -368,8 +355,8 @@
                         <p class="text-xl font-mono text-primary-container">${v.vin}</p>
                     </div>
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Estado Actual</p>
-                        <p class="text-xl font-black ${v.estado.color}">${v.estado.nombre}</p>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Servicio</p>
+                        <p class="text-xl font-black text-emerald-600">${v.servicio}</p>
                     </div>
                 </div>
             `;
@@ -384,9 +371,7 @@
                 const row = `
                     <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                         <td class="px-6 py-4 text-sm font-semibold text-slate-600 text-center">${fecha.toLocaleDateString()}</td>
-                        <td class="px-6 py-4 text-center">
-                            <span class="px-3 py-1 ${v.estado.color} bg-slate-50 rounded-full text-[10px] font-black uppercase tracking-widest">${v.estado.nombre}</span>
-                        </td>
+                        <td class="px-6 py-4 text-sm text-slate-600 font-medium text-center">${v.servicio}</td>
                         <td class="px-6 py-4 text-sm text-slate-600 font-medium text-center">${solicitantes[i % solicitantes.length]}</td>
                         <td class="px-6 py-4 text-sm text-slate-500 italic text-center">${repuestos[(v.id + i) % repuestos.length]}</td>
                     </tr>
@@ -410,13 +395,13 @@
         document.addEventListener('DOMContentLoaded', () => {
             fetchCamiones();
 
-            const btnExpand = document.getElementById('btnOpenModalCamiones');
+            const btnExpand = document.getElementById('btnExpandCamiones');
             const modal = document.getElementById('modalCamiones');
             const btnCloseModal = document.getElementById('btnCloseModalCamiones');
+            const inputFilter = document.getElementById('filterCamiones');
             const modalContainer = document.getElementById('modalCamionesContainer');
-            const filterStatus = document.getElementById('filterStatus');
 
-            if (btnExpand && modal) {
+            if (btnExpand) {
                 btnExpand.addEventListener('click', () => {
                     modal.classList.remove('hidden');
                     modal.classList.add('flex');
@@ -431,22 +416,6 @@
                 });
             }
 
-            const searchUnidadModal = document.getElementById('searchUnidadModal');
-
-            if (filterStatus || searchUnidadModal) {
-                const updateModalFilters = () => {
-                    const status = (filterStatus && filterStatus.value !== 'all') ? filterStatus.value : '';
-                    const search = searchUnidadModal ? searchUnidadModal.value : '';
-                    // Nota: renderCamiones ya maneja un filtro de texto. 
-                    // Podemos concatenar o modificar renderCamiones para aceptar múltiples filtros.
-                    // Actualmente renderCamiones(vehiculos, container, filter) usa 'filter' como búsqueda general.
-                    renderCamiones(allVehiculos, modalContainer, search || status);
-                };
-
-                if (filterStatus) filterStatus.addEventListener('change', updateModalFilters);
-                if (searchUnidadModal) searchUnidadModal.addEventListener('input', updateModalFilters);
-            }
-
             if (inputFilter) {
                 inputFilter.addEventListener('input', (e) => {
                     renderCamiones(allVehiculos, modalContainer, e.target.value);
@@ -456,7 +425,7 @@
             // Inicializar Eficiencia
             updateEficienciaGauge(75);
 
-            // Lógica Filtro de Meses
+            // L%%gica Filtro de Meses
             const btnFilter = document.getElementById('btnFilterMonth');
             const dropdown = document.getElementById('dropdownMonths');
             const monthOptions = document.querySelectorAll('.month-option');
@@ -473,7 +442,7 @@
             monthOptions.forEach(opt => {
                 opt.addEventListener('click', (e) => {
                     const month = opt.getAttribute('data-month');
-                    // Simular cambio de datos según el mes
+                    // Simular cambio de datos seg%Q%n el mes
                     const randomGasto = Math.floor(Math.random() * (48000 - 35000) + 35000);
                     const percent = Math.floor((randomGasto / 50000) * 100);
                     
@@ -485,18 +454,7 @@
                     if (monthDisplay) monthDisplay.textContent = month;
                     if (valorEl) valorEl.textContent = `$${randomGasto.toLocaleString()}`;
                     if (percentEl) percentEl.textContent = `${percent}%`;
-                    
-                    const cells = document.querySelectorAll('.battery-cell');
-                    const numActive = Math.ceil(percent / 25);
-                    cells.forEach((cell, i) => {
-                        if (i < numActive) {
-                            cell.style.background = 'linear-gradient(to top, #10b981, #34d399)';
-                            cell.style.boxShadow = '0 0 15px rgba(16,185,129,0.3)';
-                        } else {
-                            cell.style.background = 'rgba(255,255,255,0.1)';
-                            cell.style.boxShadow = 'none';
-                        }
-                    });
+                    if (fillEl) fillEl.style.height = `${percent}%`;
                     
                     dropdown.classList.add('hidden');
                 });
@@ -513,134 +471,126 @@
     </script>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
-    <!-- TopNavBar -->
-    <header class="bg-[#001F3F] dark:bg-slate-950 font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-white/10 shadow-md shadow-slate-900/20">
-        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 max-w-[1440px] mx-auto">
-            <div class="flex items-center gap-4 md:gap-xl">
-                <!-- Mobile Menu Button -->
-                <button id="btnMobileMenu" class="md:hidden text-white p-1 hover:bg-white/10 rounded-md transition-colors">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
-                
-                <!-- Brand Logo -->
-                <div class="flex items-center gap-3 group cursor-pointer" onclick="window.location.href='index.html'">
-                    <div class="bg-slate-800/50 p-3 rounded-xl group-hover:bg-slate-800/70 transition-all border border-white/5 shadow-inner">
-                        <span class="material-symbols-outlined text-white text-[32px] leading-none" style="font-variation-settings: 'FILL' 0, 'wght' 300;">local_shipping</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-xl md:text-2xl font-extrabold text-white tracking-tight leading-tight">CSM Legacy</span>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] leading-none text-center">Sistema de Inventario</span>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full border-r border-white/10 shadow-2xl">
+        <div class="flex flex-col h-full">
+            <div class="p-8 border-b border-white/5 flex items-center gap-3 bg-[#000d1a]">
+                <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-900/50">
+                    <span class="material-symbols-outlined text-white text-[24px]">local_shipping</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-black tracking-tighter leading-none text-white">CSM LEGACY</span>
+                    <span class="text-[9px] text-blue-400 font-black uppercase tracking-[0.2em] mt-1">Inventory Planner</span>
+                </div>
+            </div>
+            <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+                <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+                    <span class="material-symbols-outlined text-slate-300 group-hover:text-blue-400 transition-colors">dashboard</span>
+                    <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
+                </a>
+                <div class="pt-6 pb-2 px-4"><p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Gestión</p></div>
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-300 group-hover:text-blue-400">shopping_cart</span>
+                            <span class="font-bold">Abastecimiento</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-11 pr-4 space-y-1">
+                        <a href="#" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Ordenes de Compra</a>
+                        <a href="#" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Solicitudes</a>
                     </div>
                 </div>
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-300 group-hover:text-emerald-400">inventory_2</span>
+                            <span class="font-bold">Inventario</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-11 pr-4 space-y-1">
+                        <a href="ingreso_material.html" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Ingreso Material</a>
+                        <a href="recepcion.html" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Recepción</a>
+                    </div>
+                </div>
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-300 group-hover:text-amber-400">build</span>
+                            <span class="font-bold">Mantenimiento</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-11 pr-4 space-y-1">
+                        <a href="solicitud.html" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Solicitud Ordenes de Trabajo</a>
+                        <a href="despacho.html" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Despacho Ordenes de Trabajo</a>
+                        <a href="flota.html" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Estado de Flota</a>
+                    </div>
+                </div>
+                <div class="pt-6 pb-2 px-4"><p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Análisis</p></div>
+                <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+                    <span class="material-symbols-outlined text-slate-300 group-hover:text-purple-400 transition-colors">analytics</span>
+                    <span class="font-bold text-slate-300 group-hover:text-white">Reportes y KPIs</span>
+                </a>
+            </nav>
+            <div class="p-6 bg-[#000d1a] border-t border-white/5">
+                <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
+                    <div class="relative">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
+                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
+                    </div>
+                    <div class="flex flex-col min-w-0">
+                        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white">Administrador</span>
+                        <span class="text-[9px] text-slate-300 font-bold">Sistema Online</span>
+                    </div>
+                </div>
+            </div>
+            <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
+                <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+            </button>
+        </div>
+    </aside>
 
-                <!-- Vertical Divider -->
-                <div class="hidden md:block w-[1.5px] h-10 bg-white/10 mx-6"></div>
-
-                <nav id="desktopNav" class="hidden md:flex items-center gap-lg">
-                    <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="index.html">Inicio</a>
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
-                            Abastecimiento
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">shopping_cart</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Ordenes de Compras</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Gestión de OCs activas</span>
-                                </div>
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">request_quote</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Solicitudes de Compras</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Requerimientos de material</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
-                            Inventario
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">add_circle</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Ingreso de Material Nuevo</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Registro inicial de inventario</span>
-                                </div>
-                            </a>
-                            <a href="recepcion.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">package_2</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Recepción Material</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Validación de carga entrante</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
-                            Mantenimiento
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] left-0 w-72 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="solicitud.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">build</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Solicitud de orden de trabajo</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Crear nuevos requerimientos</span>
-                                </div>
-                            </a>
-                            <a href="despacho.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">assignment_turned_in</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Despacho orden de trabajo</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Gestión y salida de materiales</span>
-                                </div>
-                            </a>
-                            <a href="flota.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">directions_car</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Inventario y Estado de Flota</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Control de vehículos y activos</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-white border-b-2 border-white pb-1 font-bold px-3 py-2 h-full">
-                            Reportes
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] right-0 w-72 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="kpi_mantenimiento.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-primary-container text-[20px]">analytics</span>
-                                <div class="flex flex-col">
-                                    <span class="font-bold">KPI Ordenes de trabajo (Mantto.)</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Indicadores de mantenimiento</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </nav>
+    <header class="bg-white/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <h2 class="text-lg font-black text-slate-800 tracking-tighter">INVENTORY PLANNER</h2>
+                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full border border-slate-200">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500">Estado: Operativo</span>
+                </div>
+                <div class="w-px h-6 bg-slate-200 mx-1"></div>
+                <button class="text-slate-400 hover:text-slate-600 p-2 transition-colors relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                </button>
             </div>
         </div>
     </header>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity" onclick="document.getElementById('sidebar').classList.add('-translate-x-full'); this.classList.add('hidden')"></div>
 
-    <div class="flex flex-1">
+
+
+    <!-- TopNavBar -->
+    
+
+    
         <!-- Main Content -->
-        <main class="flex-1 pt-8 px-6 md:px-20 lg:px-40 pb-32 w-full">
+        <main class="transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin">
             <div class="w-full">
             <!-- Header Section -->
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
                 <div>
                     <p class="stat-label text-[#50606f] mb-2">Dashboard Mantenimiento</p>
-                    <h1 class="text-3xl font-extrabold text-[#001f3f] tracking-tight">Reporte Mensual de KPIs — Mayo 2026</h1>
+                    <h1 class="text-3xl font-extrabold text-[#001f3f] tracking-tight">Reporte Mensual de KPIs - Mayo 2026</h1>
                     <p class="text-sm text-[#74777f] mt-1">Análisis detallado de operaciones de flota, inventario y eficiencia operativa.</p>
                 </div>
                 <button class="bg-[#001F3F] text-white px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-[#0a3d6b] transition-all shadow-lg active:scale-95">
@@ -649,273 +599,332 @@
                 </button>
             </div>
 
-            <div class="grid grid-cols-12 gap-8 items-stretch">
-                <!-- 1. LEFT COLUMN -->
-                <div class="col-span-12 lg:col-span-4 flex flex-col justify-between">
-                    <!-- Gasto Mensual Total -->
-                    <div class="card p-8 bg-[#1e3a5f] border-none shadow-2xl h-[320px] flex flex-col justify-between relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 transition-all group-hover:scale-150"></div>
-                        <div class="relative z-10">
-                            <div class="flex items-center gap-3 mb-8">
-                                <span class="material-symbols-outlined text-white/50 bg-white/10 p-2 rounded-lg">filter_list</span>
-                                <h3 class="text-xl font-black text-white/90 uppercase tracking-widest">Gasto Mensual Total</h3>
-                            </div>
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <p class="text-xs text-emerald-400 font-black uppercase tracking-[0.2em] mb-2">Mayo</p>
-                                    <p id="valorGastoMensual" class="text-5xl md:text-6xl font-black text-white tracking-tighter">$42,850</p>
-                                    <p class="text-sm text-white/40 mt-4 font-medium italic">Presupuesto: $50,000</p>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <div class="w-6 h-1.5 bg-white/20 rounded-t-md mb-[-1px] relative z-20"></div>
-                                    <div class="relative w-14 h-28 border-[3px] border-white/20 rounded-[12px] p-1.5 bg-white/5 flex flex-col-reverse gap-1 overflow-hidden">
-                                        <div class="battery-cell flex-1 bg-white/10 rounded-sm transition-all duration-700" style="background: linear-gradient(to top, #10b981, #34d399); box-shadow: 0 0 15px rgba(16,185,129,0.3);"></div>
-                                        <div class="battery-cell flex-1 bg-white/10 rounded-sm transition-all duration-700" style="background: linear-gradient(to top, #10b981, #34d399); box-shadow: 0 0 15px rgba(16,185,129,0.3);"></div>
-                                        <div class="battery-cell flex-1 bg-white/10 rounded-sm transition-all duration-700" style="background: linear-gradient(to top, #10b981, #34d399); box-shadow: 0 0 15px rgba(16,185,129,0.3);"></div>
-                                        <div class="battery-cell flex-1 bg-white/10 rounded-sm transition-all duration-700"></div>
+            <div class="bento-grid">
+                <!-- Column 1: Stacked KPIs -->
+                <div class="col-span-12 md:col-span-4 flex flex-col gap-5">
+                    <!-- 1. Gasto Mensual Total (Hero Card) -->
+                    <div class="card card-hero p-6 flex flex-col justify-between h-[280px]">
+                        <div class="flex items-center justify-between w-full relative">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <button id="btnFilterMonth" class="p-1.5 hover:bg-white/10 rounded-lg transition-all text-white/70 border border-white/5 bg-white/5 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-[20px]">filter_list</span>
+                                    </button>
+                                    <!-- Dropdown Meses -->
+                                    <div id="dropdownMonths" class="hidden absolute top-full left-0 mt-3 w-48 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-200 z-[120] overflow-hidden">
+                                        <div class="px-4 py-2 border-b border-slate-100 bg-slate-50">
+                                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Seleccionar Mes</span>
+                                        </div>
+                                        <div class="max-h-60 overflow-y-auto custom-scrollbar">
+                                            <button class="month-option w-full px-4 py-3 text-left text-sm hover:bg-primary-container/10 hover:text-primary-container transition-all text-slate-700 font-medium flex justify-between items-center" data-month="Mayo">Mayo <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span></button>
+                                            <button class="month-option w-full px-4 py-3 text-left text-sm hover:bg-primary-container/10 hover:text-primary-container transition-all text-slate-700 font-medium" data-month="Abril">Abril</button>
+                                            <button class="month-option w-full px-4 py-3 text-left text-sm hover:bg-primary-container/10 hover:text-primary-container transition-all text-slate-700 font-medium" data-month="Marzo">Marzo</button>
+                                            <button class="month-option w-full px-4 py-3 text-left text-sm hover:bg-primary-container/10 hover:text-primary-container transition-all text-slate-700 font-medium" data-month="Febrero">Febrero</button>
+                                            <button class="month-option w-full px-4 py-3 text-left text-sm hover:bg-primary-container/10 hover:text-primary-container transition-all text-slate-700 font-medium" data-month="Enero">Enero</button>
+                                        </div>
                                     </div>
                                 </div>
+                                <h3 class="text-xl md:text-2xl font-black text-white/70 tracking-tight uppercase">Gasto Mensual Total</h3>
                             </div>
                         </div>
-                        <div class="mt-8 pt-6 border-t border-white/10 flex justify-between items-center relative z-10">
-                            <span class="text-xs text-white/40 uppercase font-black tracking-widest">Utilización</span>
-                            <span id="utilizacionPorcentaje" class="text-2xl font-black text-emerald-400">65%</span>
+                        
+                        <div class="flex items-center justify-between gap-4 flex-1">
+                            <div class="flex flex-col">
+                                <p id="nombreMesSeleccionado" class="text-[10px] text-emerald-300 uppercase font-black tracking-[0.2em] mb-1">Mayo</p>
+                                <p id="valorGastoMensual" class="stat-value text-white text-4xl md:text-5xl leading-none">$42,850</p>
+                                <p class="text-[11px] text-white/60 mt-3">Presupuesto: $50,000</p>
+                            </div>
+                            
+                            <!-- Battery Indicator -->
+                            <div class="relative flex items-center justify-center pr-6">
+                                <div class="w-20 h-40 border-4 border-white/20 rounded-[14px] p-2 relative overflow-hidden bg-white/5">
+                                    <div id="bateriaFill" class="absolute bottom-2 left-2 right-2 bg-gradient-to-t from-emerald-500 to-emerald-400 rounded-sm shadow-[0_0_20px_rgba(52,211,153,0.4)] transition-all duration-1000" style="height: 65%"></div>
+                                    <!-- Battery Segments for aesthetic -->
+                                    <div class="absolute inset-2 flex flex-col justify-between pointer-events-none opacity-20">
+                                        <div class="h-[1px] bg-white w-full"></div>
+                                        <div class="h-[1px] bg-white w-full"></div>
+                                        <div class="h-[1px] bg-white w-full"></div>
+                                        <div class="h-[1px] bg-white w-full"></div>
+                                        <div class="h-[1px] bg-white w-full"></div>
+                                    </div>
+                                </div>
+                                <!-- Battery Tip -->
+                                <div class="absolute -top-1 right-12 w-8 h-2.5 bg-white/20 rounded-t-lg"></div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-white/10 flex justify-between items-center">
+                            <p class="text-[11px] text-white/50 uppercase font-bold tracking-wider">Utilización</p>
+                            <p id="utilizacionPorcentaje" class="text-xl font-black text-emerald-300">65%</p>
                         </div>
                     </div>
->
-                    <!-- Eficiencia Operativa -->
-                    <div class="card p-8 bg-slate-500 border-none shadow-xl h-[230px] flex flex-col relative group">
-                        <h3 class="text-lg font-black text-[#001f3f] uppercase tracking-tight mb-2">Eficiencia Operativa</h3>
-                        <div class="flex-1 flex items-center justify-center gap-10">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-emerald-400 text-3xl">speed</span>
+
+                    <!-- 2. Eficiencia Operativa -->
+                    <div class="card p-5 flex flex-col items-center justify-center gap-4 overflow-hidden min-h-[140px] bg-slate-400">
+                        <div class="flex items-center justify-center gap-8 w-full">
+                            <div class="flex flex-col items-start text-left">
+                                <h3 class="text-lg md:text-xl font-black text-primary-container tracking-tight uppercase mb-2">Eficiencia Operativa</h3>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-2xl bg-emerald-50/20 flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-emerald-600 text-xl">speed</span>
+                                    </div>
+                                    <p id="valorEficiencia" class="text-4xl md:text-5xl font-black text-primary-container tracking-tighter">75%</p>
                                 </div>
-                                <p id="valorEficiencia" class="text-8xl font-black text-[#001f3f] tracking-tighter">75%</p>
                             </div>
-                            <!-- Gauge -->
-                            <div class="relative w-32 h-32">
+                            
+                            <div class="relative flex items-center justify-center w-28 h-28 shrink-0">
+                                <!-- Enhanced SVG Gauge -->
                                 <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
-                                    <circle cx="50" cy="50" r="42" fill="transparent" stroke="rgba(255,255,255,0.05)" stroke-width="12" />
-                                    <circle id="eficienciaFill" cx="50" cy="50" r="42" fill="transparent" stroke="#10b981" stroke-width="12" stroke-dasharray="263.89" stroke-dashoffset="65.97" stroke-linecap="round" class="transition-all duration-1000 shadow-lg" />
+                                    <defs>
+                                        <filter id="gaugeGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                            <feGaussianBlur stdDeviation="3" result="blur" />
+                                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                        </filter>
+                                    </defs>
+                                    <!-- Background Track -->
+                                    <circle cx="50" cy="50" r="42" fill="transparent" stroke="rgba(255,255,255,0.15)" stroke-width="12" />
+                                    
+                                    <!-- Progress Fill with Glow -->
+                                    <circle id="eficienciaFill" cx="50" cy="50" r="42" fill="transparent" stroke="#10b981" stroke-width="12" stroke-dasharray="263.89" stroke-dashoffset="65.97" stroke-linecap="round" filter="url(#gaugeGlow)" class="transition-all duration-1000" />
+                                    
+                                    <!-- Internal Segments Overlay (Battery Style) -->
+                                    <circle cx="50" cy="50" r="42" fill="transparent" stroke="rgba(255,255,255,0.25)" stroke-width="12" stroke-dasharray="1.5 11.69" />
                                 </svg>
-                                <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                    <span class="text-xl font-black text-emerald-400 drop-shadow-sm">+2.4%</span>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-xl font-black text-white drop-shadow-md">+2.4%</span>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-[11px] text-white/40 font-black uppercase tracking-widest text-center border-t border-white/5 pt-3">Eficiencia global vs periodo anterior</p>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-5">
-                        <div class="card p-6 bg-slate-200 flex flex-col items-center justify-between border-none shadow-sm h-[190px]">
-                            <div class="flex items-center gap-2 w-full mb-2 opacity-60">
-                                <span class="material-symbols-outlined text-[#1e3a5f]">local_shipping</span>
-                                <span class="text-[10px] font-black text-[#1e3a5f] uppercase tracking-widest">Disponibilidad de Flota</span>
-                            </div>
-                            <p id="totalDisponibilidad" class="text-5xl font-black text-emerald-600 tracking-tighter">36.4%</p>
-                            <p id="ratioDisponibilidad" class="text-[11px] text-slate-500 font-bold uppercase mt-2">20 / 55 Unidades</p>
-                        </div>
-                        <div class="card p-6 bg-slate-200 flex flex-col items-center justify-between border-none shadow-sm h-[190px]">
-                            <div class="flex items-center gap-2 w-full mb-2 opacity-60">
-                                <span class="material-symbols-outlined text-amber-600">build</span>
-                                <span class="text-[10px] font-black text-[#1e3a5f] uppercase tracking-widest">Flota en Mantenimiento</span>
-                            </div>
-                            <p id="totalMantenimiento" class="text-5xl font-black text-amber-600 tracking-tighter">19 / 55</p>
-                            <p id="ratioMantenimiento" class="text-[11px] font-bold uppercase mt-2 text-[#1e3a5f]/60">16 Unidades <span class="text-rose-600 font-black">DE BAJA</span></p>
+                        
+                        <div class="w-full pt-3 border-t border-white/10 mt-1">
+                            <p class="text-[10px] text-white/50 font-bold text-center uppercase tracking-widest">Eficiencia global vs periodo anterior</p>
                         </div>
                     </div>
-                </div>
 
-                <!-- 2. CENTER COLUMN: Expense Details -->
-                <div class="col-span-12 lg:col-span-4 flex flex-col justify-between">
-                    <div class="card p-8 bg-white border border-slate-200 shadow-xl flex flex-col h-[520px]">
-                        <h3 class="text-xl font-black text-[#001f3f] uppercase tracking-tight mb-8">Gasto Total por Camión</h3>
-                        <div id="gastoCamionesContainer" class="space-y-5 overflow-y-auto flex-1 pr-3 custom-scrollbar h-[380px]">
-                            <!-- Items dinámicos -->
+                    <!-- 3. Disponibilidad de Flota y Tiempo en Taller -->
+                    <div class="flex gap-5">
+                        <div class="card p-6 flex-1 flex flex-col items-center justify-between min-h-[220px] bg-slate-300">
+                            <div class="flex items-center gap-3 w-full border-b border-black/5 pb-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary-container/10 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-primary-container text-xl">local_shipping</span>
+                                </div>
+                                <p class="text-[11px] font-black text-primary-container uppercase tracking-[0.05em] leading-tight">Disponibilidad de Flota</p>
+                            </div>
+                            
+                             <div class="flex flex-col items-center py-4">
+                                 <p id="totalDisponibilidad" class="text-5xl font-black text-emerald-500 tracking-tighter">--%</p>
+                             </div>
+                            
+                            <div class="w-full pt-3 border-t border-black/5">
+                                <p id="ratioDisponibilidad" class="text-[11px] text-primary-container/60 font-bold text-center uppercase tracking-wide">-- / -- Unidades</p>
+                            </div>
                         </div>
-                        <p class="text-[11px] text-slate-400 italic text-center mt-8 border-t border-slate-50 pt-4 font-medium">Distribución de costos por unidad operativa.</p>
-                    </div>
-
-                    <div class="card p-8 bg-white border border-slate-200 shadow-xl">
-                        <h3 class="text-[12px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Gasto por Categoría</h3>
-                        <div class="space-y-5">
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-bold text-slate-700">Neumáticos</span><span class="font-black text-[#001f3f]">42%</span></div>
-                                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#1e3a5f]" style="width: 42%"></div></div>
+                        
+                        <div class="card p-6 flex-1 flex flex-col items-center justify-between min-h-[220px] bg-slate-300">
+                            <div class="flex items-center gap-3 w-full border-b border-black/5 pb-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-amber-700 text-xl">build</span>
+                                </div>
+                                <p class="text-[11px] font-black text-primary-container uppercase tracking-[0.05em] leading-tight">FLOTA EN MANTENIMIENTO</p>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-bold text-slate-700">Lubricantes</span><span class="font-black text-[#001f3f]">28%</span></div>
-                                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-emerald-500" style="width: 28%"></div></div>
+                            
+                            <div class="flex flex-col items-center py-4">
+                                <p id="totalMantenimiento" class="text-5xl font-black text-amber-600 tracking-tighter">-- / --</p>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-bold text-slate-700">Motor / Frenos</span><span class="font-black text-[#001f3f]">30%</span></div>
-                                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-slate-300" style="width: 30%"></div></div>
+                            
+                            <div class="w-full pt-3 border-t border-black/5">
+                                <p id="ratioMantenimiento" class="text-[11px] text-primary-container/60 font-bold text-center uppercase tracking-wide">Cargando...</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3. RIGHT COLUMN: Truck List -->
-                <div class="col-span-12 lg:col-span-4 flex flex-col">
-                    <div class="card p-8 bg-white border border-slate-200 shadow-xl flex flex-col h-[785px]">
-                        <div class="flex justify-between items-center mb-8 border-b border-slate-50 pb-6">
-                            <h3 class="text-xl font-black text-[#001f3f] uppercase tracking-tight">Estado Camiones</h3>
-                            <button id="btnOpenModalCamiones" class="flex items-center gap-2 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-[#1e3a5f] rounded-lg transition-all border border-slate-200 group">
-                                <span class="material-symbols-outlined text-sm transition-transform group-hover:scale-110">open_in_full</span>
-                                <span class="text-[10px] font-bold uppercase tracking-wider">Expandir</span>
-                            </button>
+                <!-- Column 2: Distribution and Chart -->
+                <div class="col-span-12 md:col-span-4 flex flex-col gap-5">
+                    <!-- Gasto Total por Camión -->
+                    <div class="card p-5 flex flex-col flex-1">
+                        <h3 class="text-xl md:text-2xl font-black text-primary-container tracking-tight uppercase mb-5">Gasto Total por Camión</h3>
+                        <div id="gastoCamionesContainer" class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                            <!-- Se cargar%� dinámicamente -->
+                            <div class="flex justify-center items-center py-10">
+                                <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary-container"></div>
+                            </div>
                         </div>
-                        <div id="camionesContainer" class="space-y-4 overflow-y-auto flex-1 pr-3 custom-scrollbar h-[620px]">
-                            <!-- Items dinámicos -->
+                        <p class="mt-4 text-[10px] text-on-surface-variant italic text-center">Distribución de costos por unidad.</p>
+                    </div>
+
+                    <!-- Distribución de Gasto por Categoría (NEW) -->
+                    <div class="card p-5">
+                        <p class="stat-label text-[#50606f] mb-4">Gasto por Categoría</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between text-[11px]">
+                                <span class="text-on-surface-variant">Neumáticos</span>
+                                <span class="font-bold text-primary-container">42%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden mb-3">
+                                <div class="h-full bg-primary-container rounded-full" style="width: 42%"></div>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px]">
+                                <span class="text-on-surface-variant">Lubricantes</span>
+                                <span class="font-bold text-primary-container">28%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden mb-3">
+                                <div class="h-full bg-secondary rounded-full" style="width: 28%"></div>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px]">
+                                <span class="text-on-surface-variant">Motor / Frenos</span>
+                                <span class="font-bold text-primary-container">30%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+                                <div class="h-full bg-secondary-fixed-dim rounded-full" style="width: 30%"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Row 4: Secondary Data -->
-                <div class="col-span-12 lg:col-span-8 card overflow-hidden min-h-[450px] shadow-xl border border-slate-200">
-                    <div class="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-[#001f3f]">analytics</span>
-                            <h3 class="text-xl font-black text-[#001f3f] uppercase tracking-tight">TOP Reparaciones por Unidad</h3>
+                <!-- 4. Estado Camiones -->
+                <div class="col-span-12 md:col-span-4 card p-5 flex flex-col relative group/card">
+                    <div class="flex justify-between items-start mb-5">
+                        <div class="w-full text-center">
+                            <h3 class="text-xl md:text-2xl font-black text-primary-container tracking-tight uppercase">Estado Camiones</h3>
                         </div>
-                        <span class="text-xs font-black text-secondary px-4 py-2 bg-white border border-slate-200 rounded-full tracking-widest">MAYO 2026</span>
+                        <button id="btnExpandCamiones" class="absolute top-4 right-4 p-1.5 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all opacity-0 group-hover/card:opacity-100">
+                            <span class="material-symbols-outlined text-[20px]">open_in_full</span>
+                        </button>
+                    </div>
+                    <div id="camionesContainer" class="space-y-3 max-h-[580px] overflow-y-auto pr-2 custom-scrollbar">
+                        <!-- Los camiones se cargar%�n dinámicamente aqu%� -->
+                        <div class="flex justify-center items-center py-10">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. TOP Reparaciones por Unidad -->
+                <div class="col-span-12 lg:col-span-8 card overflow-hidden">
+                    <div class="px-6 py-5 border-b border-slate-100/80 flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-[#001f3f]">TOP Reparaciones por Unidad</h3>
+                        <span class="text-xs font-semibold text-secondary px-3 py-1 bg-surface-container rounded-full uppercase">Mayo 2026</span>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left">
-                            <thead class="bg-slate-50 border-b border-slate-200">
+                            <thead class="bg-surface-container-low border-b border-slate-200">
                                 <tr>
-                                    <th class="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Unidad</th>
-                                    <th class="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Estado</th>
-                                    <th class="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Sol.</th>
-                                    <th class="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Inversión</th>
-                                    <th class="px-8"></th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Unidad (camiones)</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">VIN</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Servicio</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center"># Solicitudes</th>
+                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Gasto Total</th>
+                                    <th class="px-lg py-4"></th>
                                 </tr>
                             </thead>
-                            <tbody id="topReparacionesContainer" class="divide-y divide-slate-100"></tbody>
+                            <tbody id="topReparacionesContainer" class="divide-y divide-slate-100">
+                                <!-- Se cargar%� dinámicamente -->
+                            </tbody>
                         </table>
                     </div>
                 </div>
 
-                <div class="col-span-12 lg:col-span-4 card p-8 bg-white border border-slate-200 shadow-xl flex flex-col h-[560px]">
-                    <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-50">
-                        <h3 class="text-xl font-black text-[#001f3f] uppercase tracking-tight">Servicios Preventivos</h3>
-                        <span class="material-symbols-outlined text-emerald-600">oil_barrel</span>
-                    </div>
-                    
-                    <!-- Table Header -->
-                    <div class="flex items-center justify-between px-4 py-3 bg-slate-50 rounded-t-xl border border-slate-100">
-                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest w-1/3">Unidad</span>
-                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest w-1/3 text-center">Aceite</span>
-                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest w-1/3 text-center">Engrasado</span>
-                    </div>
-                    
-                    <div class="flex-grow overflow-y-auto custom-scrollbar border-x border-b border-slate-100 rounded-b-xl">
-                        <div class="divide-y divide-slate-50">
-                            <!-- Row 1 -->
-                            <div class="flex items-center justify-between p-4 bg-white hover:bg-slate-50 transition-all">
-                                <span class="text-sm font-black text-[#1e3a5f] w-1/3">1042</span>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div></div>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div></div>
+                <!-- 6. Distribución de Inventario por taller -->
+                <div class="col-span-12 lg:col-span-4 card p-5 flex flex-col justify-between">
+                    <div>
+                        <p class="stat-label text-[#50606f] mb-5">Distribución de Inventario por taller</p>
+                        <div class="space-y-2 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
+                            <!-- Motores -->
+                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                    <span class="text-sm font-bold text-primary-container">Motores</span>
+                                </div>
+                                <span class="text-sm font-bold text-secondary">35%</span>
                             </div>
-                            <!-- Row 2 -->
-                            <div class="flex items-center justify-between p-4 bg-white hover:bg-slate-50 transition-all">
-                                <span class="text-sm font-black text-[#1e3a5f] w-1/3">1055</span>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div></div>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></div></div>
+                            <!-- Mecanica Talacha -->
+                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+                                    <span class="text-sm font-bold text-primary-container">Mecanica Talacha</span>
+                                </div>
+                                <span class="text-sm font-bold text-secondary">25%</span>
                             </div>
-                            <!-- Row 3 -->
-                            <div class="flex items-center justify-between p-4 bg-white hover:bg-slate-50 transition-all">
-                                <span class="text-sm font-black text-[#1e3a5f] w-1/3">1089</span>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-rose-500"></div></div>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div></div>
+                            <!-- Electrico -->
+                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                    <span class="text-sm font-bold text-primary-container">Electrico</span>
+                                </div>
+                                <span class="text-sm font-bold text-secondary">15%</span>
                             </div>
-                            <!-- Row 4 -->
-                            <div class="flex items-center justify-between p-4 bg-white hover:bg-slate-50 transition-all">
-                                <span class="text-sm font-black text-[#1e3a5f] w-1/3">1102</span>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div></div>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div></div>
+                            <!-- Soldador -->
+                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-error"></span>
+                                    <span class="text-sm font-bold text-primary-container">Soldador</span>
+                                </div>
+                                <span class="text-sm font-bold text-secondary">15%</span>
                             </div>
-                            <!-- Row 5 -->
-                            <div class="flex items-center justify-between p-4 bg-white hover:bg-slate-50 transition-all">
-                                <span class="text-sm font-black text-[#1e3a5f] w-1/3">1125</span>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div></div>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-slate-200"></div></div>
-                            </div>
-                            <!-- Row 6 -->
-                            <div class="flex items-center justify-between p-4 bg-white hover:bg-slate-50 transition-all">
-                                <span class="text-sm font-black text-[#1e3a5f] w-1/3">1148</span>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></div></div>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-rose-500"></div></div>
-                            </div>
-                            <!-- Row 7 -->
-                            <div class="flex items-center justify-between p-4 bg-white hover:bg-slate-50 transition-all">
-                                <span class="text-sm font-black text-[#1e3a5f] w-1/3">1160</span>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div></div>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div></div>
-                            </div>
-                            <!-- Row 8 -->
-                            <div class="flex items-center justify-between p-4 bg-white hover:bg-slate-50 transition-all">
-                                <span class="text-sm font-black text-[#1e3a5f] w-1/3">1172</span>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div></div>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div></div>
-                            </div>
-                            <!-- Row 9 -->
-                            <div class="flex items-center justify-between p-4 bg-white hover:bg-slate-50 transition-all">
-                                <span class="text-sm font-black text-[#1e3a5f] w-1/3">1185</span>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-rose-500"></div></div>
-                                <div class="w-1/3 flex justify-center"><div class="w-2.5 h-2.5 rounded-full bg-rose-500"></div></div>
+                            <!-- Grasa, Llantera y suspencion -->
+                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                    <span class="text-sm font-bold text-primary-container">Grasa, Llantera y suspencion</span>
+                                </div>
+                                <span class="text-sm font-bold text-secondary">10%</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Row 6: High Demand Spare Parts -->
-                <div class="col-span-12 card overflow-hidden shadow-xl border border-slate-200">
-                    <div class="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-[#001f3f]">settings_suggest</span>
-                            <h3 class="text-xl font-black text-[#001f3f] uppercase tracking-tight">Repuestos más Solicitados (Técnicos)</h3>
-                        </div>
-                        <span class="text-xs font-black text-secondary px-4 py-2 bg-white border border-slate-200 rounded-full tracking-widest uppercase">Top 5 Mayo</span>
+                <!-- 6. Repuestos m%�s Solicitados -->
+                <div class="col-span-12 card overflow-hidden">
+                    <div class="px-6 py-5 border-b border-slate-100/80 flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-[#001f3f]">Repuestos m%�s Solicitados (Técnicos)</h3>
+                        <span class="text-xs font-semibold text-secondary px-3 py-1 bg-surface-container rounded-full uppercase">Top 5 Mayo</span>
                     </div>
                     <div class="divide-y divide-slate-100">
-                        <div class="px-8 py-4 flex items-center justify-between bg-slate-50">
-                            <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest w-1/2">Repuesto</span>
-                            <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest w-1/4 text-center">Unidades</span>
-                            <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest w-1/4 text-center">Prioridad</span>
+                        <div class="px-6 py-3 flex items-center justify-between bg-surface-container-low">
+                            <span class="stat-label text-[#50606f] w-1/2">Repuesto</span>
+                            <span class="stat-label text-[#50606f] w-1/4 text-center"># Unidades</span>
+                            <span class="stat-label text-[#50606f] w-1/4 text-center">Estado</span>
                         </div>
-                        <div class="px-8 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-all">
-                            <div class="flex items-center gap-4 w-1/2">
-                                <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center"><span class="material-symbols-outlined text-rose-600">tire_repair</span></div>
-                                <span class="font-bold text-slate-700">Neumático Radial 295/80</span>
+                        <div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center gap-3 w-1/2">
+                                <div class="w-9 h-9 rounded-lg bg-primary-container/10 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary-container text-lg">tire_repair</span></div>
+                                <span class="font-semibold text-sm text-on-surface">Neum%�tico Radial 295/80</span>
                             </div>
-                            <span class="w-1/4 text-center font-black text-slate-900">12</span>
-                            <div class="w-1/4 flex justify-center"><span class="px-3 py-1 bg-rose-100 text-rose-700 rounded-lg text-[10px] font-black uppercase">Alta</span></div>
+                            <span class="w-1/4 text-center font-bold text-sm text-[#001f3f]">12</span>
+                            <div class="w-1/4 text-center"><span class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold uppercase">Alta demanda</span></div>
                         </div>
-                        <div class="px-8 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-all">
-                            <div class="flex items-center gap-4 w-1/2">
-                                <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center"><span class="material-symbols-outlined text-amber-600">oil_barrel</span></div>
-                                <span class="font-bold text-slate-700">Aceite Sintético 5W-30</span>
+                        <div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center gap-3 w-1/2">
+                                <div class="w-9 h-9 rounded-lg bg-primary-container/10 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary-container text-lg">oil_barrel</span></div>
+                                <span class="font-semibold text-sm text-on-surface">Aceite Sint%�tico 5W-30 (Tambor)</span>
                             </div>
-                            <span class="w-1/4 text-center font-black text-slate-900">8</span>
-                            <div class="w-1/4 flex justify-center"><span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-lg text-[10px] font-black uppercase">Media</span></div>
+                            <span class="w-1/4 text-center font-bold text-sm text-[#001f3f]">8</span>
+                            <div class="w-1/4 text-center"><span class="px-3 py-1 bg-surface-container text-secondary rounded-full text-[10px] font-bold uppercase">Regular</span></div>
                         </div>
-                        <div class="px-8 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-all">
-                            <div class="flex items-center gap-4 w-1/2">
-                                <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center"><span class="material-symbols-outlined text-rose-600">settings_input_component</span></div>
-                                <span class="font-bold text-slate-700">Kit de Embrague HD</span>
+                        <div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center gap-3 w-1/2">
+                                <div class="w-9 h-9 rounded-lg bg-primary-container/10 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary-container text-lg">settings_input_component</span></div>
+                                <span class="font-semibold text-sm text-on-surface">Kit de Embrague Heavy Duty</span>
                             </div>
-                            <span class="w-1/4 text-center font-black text-slate-900">3</span>
-                            <div class="w-1/4 flex justify-center"><span class="px-3 py-1 bg-rose-100 text-rose-700 rounded-lg text-[10px] font-black uppercase">Alta</span></div>
+                            <span class="w-1/4 text-center font-bold text-sm text-[#001f3f]">3</span>
+                            <div class="w-1/4 text-center"><span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-[10px] font-bold uppercase">Importante</span></div>
                         </div>
-                        <div class="px-8 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-all">
-                            <div class="flex items-center gap-4 w-1/2">
-                                <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center"><span class="material-symbols-outlined text-emerald-600">filter_alt</span></div>
-                                <span class="font-bold text-slate-700">Filtro de Aire Ind. XL</span>
+                        <div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center gap-3 w-1/2">
+                                <div class="w-9 h-9 rounded-lg bg-primary-container/10 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary-container text-lg">filter_alt</span></div>
+                                <span class="font-semibold text-sm text-on-surface">Filtro de Aire Industrial XL</span>
                             </div>
-                            <span class="w-1/4 text-center font-black text-slate-900">45</span>
-                            <div class="w-1/4 flex justify-center"><span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-lg text-[10px] font-black uppercase">Baja</span></div>
+                            <span class="w-1/4 text-center font-bold text-sm text-[#001f3f]">45</span>
+                            <div class="w-1/4 text-center"><span class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold uppercase">Alta demanda</span></div>
+                        </div>
+                        <div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center gap-3 w-1/2">
+                                <div class="w-9 h-9 rounded-lg bg-primary-container/10 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary-container text-lg">minor_crash</span></div>
+                                <span class="font-semibold text-sm text-on-surface">Juego de Balatas Delanteras</span>
+                            </div>
+                            <span class="w-1/4 text-center font-bold text-sm text-[#001f3f]">22</span>
+                            <div class="w-1/4 text-center"><span class="px-3 py-1 bg-surface-container text-secondary rounded-full text-[10px] font-bold uppercase">Frecuente</span></div>
                         </div>
                     </div>
                 </div>
@@ -932,8 +941,7 @@
                 </div>
             </div>
 
-        </div>
-    </main>
+        </main>
 
     </div>
 
@@ -955,53 +963,43 @@
 
     <!-- Modal Estado Camiones Extendido -->
     <div id="modalCamiones" class="fixed inset-0 z-[110] hidden items-center justify-center bg-black/70 backdrop-blur-md p-4">
-        <div class="bg-white rounded-[32px] shadow-2xl w-full max-w-4xl h-[85vh] flex flex-col overflow-hidden">
+        <div class="bg-surface w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
             <!-- Header Modal -->
-            <div class="p-8 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-[#1e3a5f] rounded-2xl flex items-center justify-center text-white shadow-lg">
-                        <span class="material-symbols-outlined text-3xl">local_shipping</span>
-                    </div>
+            <div class="p-6 border-b border-surface-variant flex justify-between items-center bg-surface-container-low">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary-container text-[32px]">local_shipping</span>
                     <div>
-                        <h2 class="text-2xl font-black text-[#001f3f] uppercase tracking-tight">Gestión de Flota</h2>
-                        <p class="text-[11px] text-slate-500 font-bold uppercase tracking-widest mt-1">Detalle completo y filtros de estado</p>
+                        <h3 class="font-h3 text-xl text-primary-container">Estado Detallado de Flota</h3>
+                        <p class="text-xs text-on-surface-variant">Vista extendida con filtrado avanzado</p>
                     </div>
                 </div>
-                
-                <div class="flex items-center gap-4">
-                    <div class="relative">
-                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
-                        <input id="searchUnidadModal" type="text" placeholder="Buscar unidad..." class="bg-slate-50 border border-slate-200 text-sm font-bold text-[#1e3a5f] rounded-xl pl-9 pr-4 py-2 outline-none focus:ring-2 focus:ring-[#1e3a5f]/20 transition-all w-48 focus:w-64">
-                    </div>
-                    <select id="filterStatus" class="bg-slate-50 border border-slate-200 text-sm font-bold text-[#1e3a5f] rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-[#1e3a5f]/20 transition-all">
-                        <option value="all">Todos los Estados</option>
-                        <option value="ACTIVO">Activos</option>
-                        <option value="MANTENIMIENTO">En Mantenimiento</option>
-                        <option value="DE BAJA">Baja Temporal</option>
-                    </select>
-                    <button id="btnCloseModalCamiones" class="w-10 h-10 flex items-center justify-center hover:bg-slate-50 rounded-full transition-all active:scale-90 text-slate-400">
-                        <span class="material-symbols-outlined">close</span>
-                    </button>
+                <button id="btnCloseModalCamiones" class="p-2 hover:bg-surface-variant rounded-full transition-all active:scale-90">
+                    <span class="material-symbols-outlined text-on-surface-variant">close</span>
+                </button>
+            </div>
+
+            <!-- Filtros -->
+            <div class="p-6 bg-surface-container-lowest border-b border-surface-variant">
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                    <input id="filterCamiones" type="text" 
+                        class="w-full bg-surface-container px-12 py-4 rounded-2xl border-none focus:ring-2 focus:ring-primary-container/30 outline-none font-body-md text-primary-container transition-all" 
+                        placeholder="Filtrar por ID, VIN o Estado (Activo, Mantenimiento...)"
+                    >
                 </div>
             </div>
-            
+
             <!-- Lista Modal -->
-            <div id="modalCamionesContainer" class="flex-grow overflow-y-auto p-8 space-y-4 custom-scrollbar bg-slate-50/30">
-                <!-- Items dinámicos -->
+            <div id="modalCamionesContainer" class="flex-grow overflow-y-auto p-6 space-y-4 custom-scrollbar bg-surface">
+                <!-- Se poblar%� dinámicamente -->
             </div>
-            
+
             <!-- Footer Modal -->
-            <div class="px-8 py-4 bg-white border-t border-slate-100 flex justify-between items-center shrink-0">
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Total de vehículos registrados: <span id="modalTotalCount" class="text-[#1e3a5f]">--</span></p>
-                <div class="flex gap-2">
-                    <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><span class="text-[9px] font-bold text-slate-500 uppercase">Activo</span></div>
-                    <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-amber-500"></div><span class="text-[9px] font-bold text-slate-500 uppercase">Mantenimiento</span></div>
-                    <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-rose-500"></div><span class="text-[9px] font-bold text-slate-500 uppercase">De Baja</span></div>
-                </div>
+            <div class="p-4 bg-surface-container-low border-t border-surface-variant text-center">
+                <p class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Total de vehículos registrados: <span id="modalTotalCount">--</span></p>
             </div>
         </div>
     </div>
-
     <!-- Modal Reparaciones Detalladas -->
     <div id="modalReparaciones" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] flex items-center justify-center p-4 transition-all duration-300 invisible opacity-0">
         <div class="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
@@ -1029,7 +1027,7 @@
                             <thead class="bg-slate-50 border-b border-slate-100">
                                 <tr>
                                     <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Fecha</th>
-                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-center">Estado</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Servicio</th>
                                     <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Solicitado por:</th>
                                     <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Repuestos</th>
                                 </tr>
@@ -1047,6 +1045,64 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        (function() {
+            const btnToggle = document.getElementById('btnSidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const header = document.querySelector('header');
+            const main = document.querySelector('main');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            const toggleSidebar = () => {
+                const isHidden = sidebar.classList.contains('-translate-x-full');
+                if (isHidden) {
+                    sidebar.classList.remove('-translate-x-full');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                    if (window.innerWidth >= 768) {
+                        if (header) header.classList.add('md:pl-64');
+                        if (main) main.classList.add('md:ml-64');
+                    } else {
+                        overlay.classList.remove('hidden');
+                    }
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    overlay.classList.add('hidden');
+                }
+            };
+
+            if (btnToggle) btnToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            if (overlay) overlay.addEventListener('click', toggleSidebar);
+
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentFile) {
+                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
+                    const icon = link.querySelector('span.material-symbols-outlined');
+                    if (icon) icon.classList.add('text-blue-400');
+                }
+            });
+
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('-translate-x-full');
+                if (header) header.classList.add('md:pl-64');
+                if (main) main.classList.add('md:ml-64');
+                if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+            }
+        })();
+    </script>
+
 </body>
 </html>
-

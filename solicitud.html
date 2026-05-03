@@ -142,152 +142,163 @@
     </style>
 </head>
 <body class="bg-surface text-on-surface min-h-screen pb-10 ios-scrolling">
-    <!-- TopNavBar -->
-    <header class="bg-[#001F3F] dark:bg-slate-950 font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-white/10 shadow-md shadow-slate-900/20">
-        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 max-w-[1440px] mx-auto">
-            <div class="flex items-center gap-4 md:gap-xl">
-                <button id="btnMobileMenu" class="md:hidden text-white p-1 hover:bg-white/10 rounded-md transition-colors">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
-                <div class="flex items-center gap-3 group cursor-pointer" onclick="window.location.href='index.html'">
-                    <div class="bg-slate-800/50 p-3 rounded-xl group-hover:bg-slate-800/70 transition-all border border-white/5 shadow-inner">
-                        <span class="material-symbols-outlined text-white text-[32px] leading-none" style="font-variation-settings: 'FILL' 0, 'wght' 300;">local_shipping</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-xl md:text-2xl font-extrabold text-white tracking-tight leading-tight">CSM Legacy</span>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] leading-none text-center">Sistema de Inventario</span>
-                    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full  border-r border-white/10 shadow-2xl">
+        <div class="flex flex-col h-full">
+            <!-- Brand Logo -->
+            <div class="p-8 border-b border-white/5 flex items-center gap-3 bg-[#000d1a]">
+                <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-900/50">
+                    <span class="material-symbols-outlined text-white text-[24px]">local_shipping</span>
                 </div>
-                <div class="hidden md:block w-[1.5px] h-10 bg-white/10 mx-6"></div>
-                <nav id="desktopNav" class="hidden md:flex items-center gap-lg">
-                    <a class="text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2" href="index.html">Inicio</a>
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
-                            Abastecimiento
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">shopping_cart</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Ordenes de Compras</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Gestión de OCs activas</span>
-                                </div>
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">request_quote</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Solicitudes de Compras</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Requerimientos de material</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
-                            Inventario
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] left-0 w-64 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">add_circle</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Ingreso de Material Nuevo</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Registro inicial de inventario</span>
-                                </div>
-                            </a>
-                            <a href="recepcion.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">package_2</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Recepción Material</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Validación de carga entrante</span>
-                                </div>
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">edit_note</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Ingreso Material Manual</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Ajustes manuales de stock</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-white border-b-2 border-white pb-1 font-bold px-3 py-2 h-full">
-                            Mantenimiento
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] left-0 w-72 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="solicitud.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-primary-container text-[20px]">build</span>
-                                <div class="flex flex-col">
-                                    <span class="font-bold">Solicitud de orden de trabajo</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Crear nuevos requerimientos</span>
-                                </div>
-                            </a>
-                            <a href="despacho.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors border-b border-slate-100">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">assignment_turned_in</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Despacho orden de trabajo</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Gestión y salida de materiales</span>
-                                </div>
-                            </a>
-                            <a href="flota.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">directions_car</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">Inventario y Estado de Flota</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Control de vehículos y activos</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="relative group h-full flex items-center">
-                        <button class="flex items-center gap-1 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-md px-3 py-2 h-full">
-                            Reportes
-                            <span class="material-symbols-outlined text-[18px]">expand_more</span>
-                        </button>
-                        <div class="absolute top-[100%] right-0 w-72 bg-white rounded-b-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] border border-slate-200 overflow-hidden">
-                            <a href="kpi_mantenimiento.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary-container transition-colors">
-                                <span class="material-symbols-outlined text-slate-400 text-[20px]">analytics</span>
-                                <div class="flex flex-col">
-                                    <span class="font-semibold">KPI Ordenes de trabajo (Mantto.)</span>
-                                    <span class="text-[11px] text-slate-500 font-normal">Indicadores de mantenimiento</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <!-- Mobile Navigation Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-[#001c3a] border-t border-white/10 px-4 py-4 space-y-4 shadow-xl">
-            <a href="index.html" class="block text-slate-300 hover:text-white font-medium py-2">Inicio</a>
-            <div class="space-y-2 border-l-2 border-white/20 pl-4">
-                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Abastecimiento</p>
-                <a href="#" class="block text-slate-300 py-1">Ordenes de Compras</a>
-                <a href="#" class="block text-slate-300 py-1">Solicitudes de Compras</a>
-            </div>
-            <div class="space-y-2 border-l-2 border-white/20 pl-4">
-                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Inventario</p>
-                <a href="index.html" class="block text-slate-300 py-1">Ingreso Material Nuevo</a>
-                <a href="recepcion.html" class="block text-slate-300 py-1">Recepción Material</a>
-                <a href="#" class="block text-slate-300 py-1">Ingreso Manual</a>
+                <div class="flex flex-col">
+                    <span class="text-lg font-black tracking-tighter leading-none text-white">CSM LEGACY</span>
+                    <span class="text-[9px] text-blue-400 font-black uppercase tracking-[0.2em] mt-1">Inventory Planner</span>
+                </div>
             </div>
 
-            <div class="space-y-2 border-l-2 border-white/20 pl-4">
-                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Mantenimiento</p>
-                <a href="solicitud.html" class="block text-white font-semibold py-1">Solicitud de orden de trabajo</a>
-                <a href="despacho.html" class="block text-slate-300 py-1">Despacho orden de trabajo</a>
-                <a href="flota.html" class="block text-slate-300 py-1">Inventario y Estado de Flota</a>
+            <!-- Navigation Links -->
+            <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+                <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
+                    <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
+                </a>
+
+                <div class="pt-6 pb-2 px-4">
+                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
+                </div>
+
+                <!-- Abastecimiento -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
+                            <span class="font-bold">Abastecimiento</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-11 pr-4 space-y-1">
+                        <a href="#" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Ordenes de Compra</a>
+                        <a href="#" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Solicitudes</a>
+                    </div>
+                </div>
+
+                <!-- Inventario -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
+                            <span class="font-bold">Inventario</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-11 pr-4 space-y-1">
+                        <a href="ingreso_material.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Ingreso Material</a>
+                        <a href="recepcion.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Recepción</a>
+                    </div>
+                </div>
+
+                <!-- Mantenimiento -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
+                            <span class="font-bold">Mantenimiento</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-11 pr-4 space-y-1">
+                        <a href="solicitud.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Solicitud Ordenes de Trabajo</a>
+                        <a href="despacho.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Despacho Ordenes de Trabajo</a>
+                        <a href="flota.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Estado de Flota</a>
+                    </div>
+                </div>
+
+                <div class="pt-6 pb-2 px-4">
+                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
+                </div>
+
+                <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400 transition-colors">analytics</span>
+                    <span class="font-bold text-slate-300 group-hover:text-white">Reportes y KPIs</span>
+                </a>
+            </nav>
+
+            <!-- User Profile Section -->
+            <div class="p-6 bg-[#000d1a] border-t border-white/5">
+                <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
+                    <div class="relative">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
+                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
+                    </div>
+                    <div class="flex flex-col min-w-0">
+                        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white">Administrador</span>
+                        <span class="text-[9px] text-slate-500 font-bold">Sistema Online</span>
+                    </div>
+                </div>
             </div>
-            <div class="space-y-2 border-l-2 border-white/20 pl-4">
-                <p class="text-white font-bold text-xs uppercase tracking-widest mb-2 opacity-60">Reportes</p>
-                <a href="kpi_mantenimiento.html" class="block text-slate-300 py-1">KPI Ordenes de trabajo (Mantto.)</a>
+        </div>
+    
+            
+            
+
+        
+            
+            
+
+        
+            <!-- Toggle Button (Floating on the edge) -->
+            <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
+                <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+            </button>
+
+        </aside>
+
+    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 ">
+        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
+            <div class="flex items-center gap-4">
+                
+                <div class="flex items-center gap-2">
+                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
+                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
+                </div>
+                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
+                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
+                </button>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter">
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden  backdrop-blur-sm transition-opacity" onclick="document.getElementById('sidebar').classList.add('-translate-x-full'); this.classList.add('hidden')"></div>
+
+
+    
+
+    
+
+    <!-- TopNavBar -->
+    
+    
+
+    <!-- Sidebar Overlay for Mobile -->
+    
+
+    
+    
+    
+
+
+
+    <main class=" transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter" >
         <!-- Page Header -->
         <div class="col-span-1 md:col-span-12 mb-2 md:mb-md">
             <div class="flex items-center gap-3">
@@ -488,201 +499,78 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const btnCreateRequest = document.getElementById('btnCreateRequest');
-            const sparePartsSection = document.getElementById('sparePartsSection');
-            const sparePartsContainer = document.getElementById('sparePartsContainer');
-            const btnAddPart = document.getElementById('btnAddPart');
-            const btnSubmitOrder = document.getElementById('btnSubmitOrder');
-            const summaryModal = document.getElementById('summaryModal');
-            const btnCloseModal = document.getElementById('btnCloseModal');
-            const btnConfirmFinal = document.getElementById('btnConfirmFinal');
-            const searchParts = document.getElementById('searchParts');
-            
-            // Get the badge and ensure it has the correct ID
-            let itemCountBadge = document.querySelector('#sparePartsSection span.bg-primary-container');
-            if (itemCountBadge) itemCountBadge.id = 'itemCountBadge';
+    
 
-            // Spare Parts Master Data
-            const sparePartsMaster = {
-                "Filtro de Aceite": { sku: "AF-100", rack: "A-01" },
-                "Aceite Sintético 5W-30": { sku: "OIL-005", rack: "B-05" },
-                "Balatas Delanteras": { sku: "BK-044", rack: "C-02" },
-                "Bujías (Set)": { sku: "SP-998", rack: "D-10" },
-                "Refrigerante 1G": { sku: "CL-772", rack: "E-04" },
-                "Limpiaparabrisas": { sku: "WP-221", rack: "F-01" },
-                "Llantas 205/55R16": { sku: "TY-556", rack: "G-20" },
-                "Batería 12V": { sku: "BT-12V", rack: "H-12" }
+
+    
+
+
+    
+    
+    
+    
+
+
+
+
+
+    <script>
+        (function() {
+            const btnToggle = document.getElementById('btnSidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const header = document.querySelector('header');
+            const main = document.querySelector('main');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            const toggleSidebar = () => {
+                const isHidden = sidebar.classList.contains('-translate-x-full');
+                
+                if (isHidden) {
+                    sidebar.classList.remove('-translate-x-full');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                    if (window.innerWidth >= 768) {
+                        if (header) header.classList.add('md:pl-64');
+                        if (main) main.classList.add('md:ml-64');
+                    } else {
+                        overlay.classList.remove('hidden');
+                    }
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    overlay.classList.add('hidden');
+                }
             };
 
-            if (btnCreateRequest && sparePartsSection) {
-                btnCreateRequest.addEventListener('click', () => {
-                    sparePartsSection.classList.remove('hidden');
-                    if (btnSubmitOrder) {
-                        btnSubmitOrder.classList.remove('hidden');
-                    }
-                    // Change button text or appearance after click
-                    btnCreateRequest.innerHTML = '<span class="material-symbols-outlined text-[24px]">check_circle</span> SOLICITUD INICIADA';
-                    btnCreateRequest.classList.replace('bg-primary-container', 'bg-emerald-600');
-                    
-                    if (window.innerWidth < 768) {
-                        sparePartsSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            }
+            if (btnToggle) btnToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            if (overlay) overlay.addEventListener('click', toggleSidebar);
 
-
-
-            // 1. Function to update labels and handle deletion (Event Delegation)
-            if (sparePartsContainer) {
-                // Handle Changes (Input Searchable)
-                sparePartsContainer.addEventListener('input', (e) => {
-                    if (e.target.classList.contains('spare-part-input')) {
-                        const card = e.target.closest('.spare-part-card');
-                        const partName = e.target.value;
-                        const data = sparePartsMaster[partName];
-                        
-                        if (card) {
-                            if (data) {
-                                card.querySelector('.sku-label').textContent = data.sku;
-                                card.querySelector('.rack-label').textContent = data.rack;
-                            } else {
-                                card.querySelector('.sku-label').textContent = '---';
-                                card.querySelector('.rack-label').textContent = '---';
-                            }
-                        }
-                    }
-                });
-
-                // Handle Deletion
-                sparePartsContainer.addEventListener('click', (e) => {
-                    const btnDelete = e.target.closest('.btn-delete-part');
-                    if (btnDelete) {
-                        const card = btnDelete.closest('.spare-part-card');
-                        const allCards = sparePartsContainer.querySelectorAll('.spare-part-card');
-                        
-                        if (allCards.length > 1) {
-                            card.remove();
-                            updateItemCount();
-                        } else {
-                            // If it's the last one, just reset it instead of deleting
-                            const input = card.querySelector('.spare-part-input');
-                            if (input) input.value = '';
-                            const skuLabel = card.querySelector('.sku-label');
-                            if (skuLabel) skuLabel.textContent = '---';
-                            const rackLabel = card.querySelector('.rack-label');
-                            if (rackLabel) rackLabel.textContent = '---';
-                            const numInput = card.querySelector('input[type="number"]');
-                            if (numInput) numInput.value = 1;
-                            updateItemCount();
-                        }
-                    }
-                });
-            }
-
-            function updateItemCount() {
-                if (itemCountBadge && sparePartsContainer) {
-                    const count = sparePartsContainer.querySelectorAll('.spare-part-card').length;
-                    itemCountBadge.textContent = `${count} ÍTEM${count > 1 ? 'S' : ''}`;
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentFile) {
+                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
+                    const icon = link.querySelector('span.material-symbols-outlined');
+                    if (icon) icon.classList.add('text-blue-400');
                 }
+            });
+
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('-translate-x-full');
+                if (header) header.classList.add('md:pl-64');
+                if (main) main.classList.add('md:ml-64');
+                if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
-
-            // 2. Function to add a new card
-            if (btnAddPart && sparePartsContainer) {
-                btnAddPart.addEventListener('click', () => {
-                    const firstCard = sparePartsContainer.querySelector('.spare-part-card');
-                    if (firstCard) {
-                        const newCard = firstCard.cloneNode(true);
-                        newCard.style.display = 'flex'; // Ensure it's visible even if filtering
-                        const input = newCard.querySelector('.spare-part-input');
-                        if (input) input.value = '';
-                        const skuLabel = newCard.querySelector('.sku-label');
-                        if (skuLabel) skuLabel.textContent = '---';
-                        const rackLabel = newCard.querySelector('.rack-label');
-                        if (rackLabel) rackLabel.textContent = '---';
-                        const numInput = newCard.querySelector('input[type="number"]');
-                        if (numInput) numInput.value = 1;
-                        sparePartsContainer.appendChild(newCard);
-                        updateItemCount();
-                    }
-                });
-            }
-
-            // 3. Modal Logic
-            if (btnSubmitOrder) {
-            const summaryModal = document.getElementById('summaryModal');
-            const btnCloseModal = document.getElementById('btnCloseModal');
-            const btnConfirmFinal = document.getElementById('btnConfirmFinal');
-
-            if (btnSubmitOrder && summaryModal) {
-                btnSubmitOrder.addEventListener('click', () => {
-                    const tech = document.querySelector('input[placeholder="Nombre del Técnico"]').value;
-                    const vin = document.querySelector('input[placeholder="Ingrese VIN o Placa"]').value;
-                    const repairType = document.querySelector('select').value;
-                    const now = new Date().toLocaleString();
-
-                    document.getElementById('ticketDate').textContent = now;
-                    document.getElementById('ticketTech').textContent = tech || 'N/A';
-                    document.getElementById('ticketVIN').textContent = vin || 'N/A';
-                    document.getElementById('ticketDesc').textContent = repairType || 'No especificada';
-
-                    const ticketPartsList = document.getElementById('ticketPartsList');
-                    ticketPartsList.innerHTML = '';
-                    const partCards = sparePartsContainer.querySelectorAll('.spare-part-card');
-                    
-                    let partsFound = false;
-                    partCards.forEach(card => {
-                        const partName = card.querySelector('.spare-part-input').value;
-                        if (partName) {
-                            partsFound = true;
-                            const qty = card.querySelector('input[type="number"]').value;
-                            const sku = card.querySelector('.sku-label').textContent;
-                            
-                            const partRow = document.createElement('div');
-                            partRow.className = 'flex justify-between items-start text-xs border-b border-slate-100 pb-1';
-                            partRow.innerHTML = `
-                                <div>
-                                    <p class="font-bold">${partName}</p>
-                                    <p class="text-[10px] text-slate-400">SKU: ${sku}</p>
-                                </div>
-                                <div class="text-right">x${qty}</div>
-                            `;
-                            ticketPartsList.appendChild(partRow);
-                        }
-                    });
-
-                    if (!partsFound) {
-                        ticketPartsList.innerHTML = '<p class="text-slate-400 italic">No se agregaron refacciones.</p>';
-                    }
-                    summaryModal.classList.remove('hidden');
-                });
-            }
-
-            if (btnCloseModal) {
-                btnCloseModal.addEventListener('click', () => {
-                    summaryModal.classList.add('hidden');
-                });
-            }
-
-            if (btnConfirmFinal) {
-                btnConfirmFinal.addEventListener('click', () => {
-                    alert('¡Orden enviada exitosamente!');
-                    summaryModal.classList.add('hidden');
-                    window.location.reload();
-                });
-            }
-            }
-
-            const btnMobileMenu = document.getElementById('btnMobileMenu');
-            const mobileMenu = document.getElementById('mobileMenu');
-            if (btnMobileMenu && mobileMenu) {
-                btnMobileMenu.onclick = () => {
-                    mobileMenu.classList.toggle('hidden');
-                    btnMobileMenu.querySelector('span').innerText = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
-                };
-            }
-        });
+        })();
     </script>
+
 </body>
 </html>
