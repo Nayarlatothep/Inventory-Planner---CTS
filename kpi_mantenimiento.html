@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
@@ -172,7 +172,51 @@
         const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW'; // Reemplazar con la clave anon real
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-        let allVehiculos = []; // Cache para b%Q%squeda local
+        let allVehiculos = []; 
+        function renderAceiteEngrasado(vehiculos) {
+            const container = document.getElementById("aceiteEngrasadoContainer");
+            if (!container) return;
+            container.innerHTML = "";
+            vehiculos.forEach(v => {
+                const a = v.id % 3; const e = (v.id + 1) % 3;
+                const getC = (n) => n === 0 ? "bg-emerald-500" : n === 1 ? "bg-amber-500" : "bg-rose-500";
+                container.insertAdjacentHTML("beforeend", `<tr class="hover:bg-slate-50 transition-colors"><td class="py-3 font-bold text-primary-container text-sm">${v.id}</td><td class="py-3 text-center"><div class="flex items-center justify-center"><div class="w-3 h-3 rounded-full ${getC(a)}"></div></div></td><td class="py-3 text-center"><div class="flex items-center justify-center"><div class="w-3 h-3 rounded-full ${getC(e)}"></div></div></td></tr>`);
+            });
+        }
+        function renderAceiteEngrasado(vehiculos) {
+            const container = document.getElementById("aceiteEngrasadoContainer");
+            if (!container) return;
+            container.innerHTML = "";
+            vehiculos.forEach(v => {
+                const a = v.id % 3; const e = (v.id + 1) % 3;
+                const getC = (n) => n === 0 ? "bg-emerald-500" : n === 1 ? "bg-amber-500" : "bg-rose-500";
+                container.insertAdjacentHTML("beforeend", `<tr class="hover:bg-slate-50 transition-colors"><td class="py-3 font-bold text-primary-container text-sm">${v.id}</td><td class="py-3 text-center"><div class="flex items-center justify-center"><div class="w-3 h-3 rounded-full ${getC(a)}"></div></div></td><td class="py-3 text-center"><div class="flex items-center justify-center"><div class="w-3 h-3 rounded-full ${getC(e)}"></div></div></td></tr>`);
+            });
+        }
+        function renderAceiteEngrasado(vehiculos) {
+            const container = document.getElementById("aceiteEngrasadoContainer");
+            if (!container) return;
+            container.innerHTML = "";
+            vehiculos.forEach(v => {
+                const a = v.id % 3; const e = (v.id + 1) % 3;
+                const getC = (n) => n === 0 ? "bg-emerald-500" : n === 1 ? "bg-amber-500" : "bg-rose-500";
+                container.insertAdjacentHTML("beforeend", `
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="py-3 font-bold text-primary-container text-sm">${v.id}</td>
+                        <td class="py-3 text-center">
+                            <div class="flex items-center justify-center">
+                                <div class="w-3 h-3 rounded-full ${getC(a)} shadow-sm"></div>
+                            </div>
+                        </td>
+                        <td class="py-3 text-center">
+                            <div class="flex items-center justify-center">
+                                <div class="w-3 h-3 rounded-full ${getC(e)} shadow-sm"></div>
+                            </div>
+                        </td>
+                    </tr>
+                `);
+            });
+        } // Cache para b%Q%squeda local
 
         async function fetchCamiones() {
             const camionesContainer = document.getElementById('camionesContainer');
@@ -185,10 +229,10 @@
 
                 if (error) throw error;
                 
-                allVehiculos = vehiculos; // Guardar en cache
+                allVehiculos = vehiculos; if (!vehiculos || vehiculos.length === 0) { useSimulatedData(); return; } renderAceiteEngrasado(vehiculos);
                 renderCamiones(vehiculos, camionesContainer);
                 renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
-                renderTopReparaciones(vehiculos);
+                renderTopReparaciones(vehiculos); renderAceiteEngrasado(vehiculos); renderAceiteEngrasado(vehiculos); renderAceiteEngrasado(vehiculos); renderAceiteEngrasado(vehiculos);
                 updateOperationalKPIs(vehiculos);
             } catch (err) {
                 console.error('Error:', err);
@@ -196,7 +240,7 @@
             }
         }
 
-        function renderCamiones(vehiculos, container, filter = '') {
+        function renderCamiones(vehiculos, container, filter = '', showVin = false) {
             container.innerHTML = '';
             const estadosSimulados = [
                 { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
@@ -225,7 +269,7 @@
                             <span class="material-symbols-outlined ${estado.iconoClase}">${estado.icono}</span>
                             <div class="flex items-center gap-4">
                                 <span class="text-base md:text-lg font-black text-primary-container">${vehiculo.id}</span>
-                                <span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>
+                                ${showVin ? `<span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>` : ""}
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -258,9 +302,9 @@
             sortedVehiculos.forEach((v) => {
                 const row = `
                     <div class="flex items-center gap-3 mb-4 group">
-                        <div class="flex items-center gap-2 min-w-[180px] shrink-0">
+                        <div class="flex items-center gap-2 min-w-[80px] shrink-0">
                             <span class="text-sm md:text-base font-black text-primary-container">${v.id}</span>
-                            <span class="text-sm md:text-base font-mono text-primary-container bg-surface-container-low px-1.5 py-0.5 rounded">${v.vin}</span>
+                            
                         </div>
                         <div class="flex-1 h-5 bg-zinc-200 dark:bg-zinc-700 rounded-full overflow-hidden relative shadow-inner">
                             <div class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 group-hover:from-emerald-500 group-hover:to-emerald-300 transition-all duration-1000" style="width: ${v.porcentaje}%"></div>
@@ -316,7 +360,7 @@
                 const row = `
                     <tr class="hover:bg-slate-50 transition-colors">
                         <td class="px-lg py-4 font-bold text-primary-container text-center">${v.id}</td>
-                        <td class="px-lg py-4 font-mono text-on-surface-variant text-center">${v.vin}</td>
+                        
                         <td class="px-lg py-4 text-body-sm text-on-surface-variant text-center">${v.servicio}</td>
                         <td class="px-lg py-4 text-center font-semibold text-secondary">${v.solicitudes}</td>
                         <td class="px-lg py-4 font-semibold text-primary-container text-center">$${v.gasto.toLocaleString()}</td>
@@ -405,7 +449,7 @@
                 btnExpand.addEventListener('click', () => {
                     modal.classList.remove('hidden');
                     modal.classList.add('flex');
-                    renderCamiones(allVehiculos, modalContainer);
+                    renderCamiones(allVehiculos, modalContainer, '', true);
                 });
             }
 
@@ -811,7 +855,7 @@
                             <thead class="bg-surface-container-low border-b border-slate-200">
                                 <tr>
                                     <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Unidad (camiones)</th>
-                                    <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">VIN</th>
+                                    
                                     <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Servicio</th>
                                     <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center"># Solicitudes</th>
                                     <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Gasto Total</th>
@@ -825,55 +869,27 @@
                     </div>
                 </div>
 
-                <!-- 6. Distribución de Inventario por taller -->
-                <div class="col-span-12 lg:col-span-4 card p-5 flex flex-col justify-between">
-                    <div>
-                        <p class="stat-label text-[#50606f] mb-5">Distribución de Inventario por taller</p>
-                        <div class="space-y-2 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
-                            <!-- Motores -->
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                    <span class="text-sm font-bold text-primary-container">Motores</span>
-                                </div>
-                                <span class="text-sm font-bold text-secondary">35%</span>
-                            </div>
-                            <!-- Mecanica Talacha -->
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-                                    <span class="text-sm font-bold text-primary-container">Mecanica Talacha</span>
-                                </div>
-                                <span class="text-sm font-bold text-secondary">25%</span>
-                            </div>
-                            <!-- Electrico -->
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                    <span class="text-sm font-bold text-primary-container">Electrico</span>
-                                </div>
-                                <span class="text-sm font-bold text-secondary">15%</span>
-                            </div>
-                            <!-- Soldador -->
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-error"></span>
-                                    <span class="text-sm font-bold text-primary-container">Soldador</span>
-                                </div>
-                                <span class="text-sm font-bold text-secondary">15%</span>
-                            </div>
-                            <!-- Grasa, Llantera y suspencion -->
-                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                    <span class="text-sm font-bold text-primary-container">Grasa, Llantera y suspencion</span>
-                                </div>
-                                <span class="text-sm font-bold text-secondary">10%</span>
-                            </div>
-                        </div>
+                <!-- 6. Cambios de Aceite y Engrasado -->
+                <div class="col-span-12 lg:col-span-4 card overflow-hidden flex flex-col h-[400px]">
+                    <div class="px-6 py-5 border-b border-slate-100/80 flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-[#001f3f]">Cambios de Aceite y Engrasado</h3>
+                        <span class="text-xs font-semibold text-secondary px-3 py-1 bg-surface-container rounded-full uppercase">Estado</span>
+                    </div>
+                    <div class="overflow-y-auto custom-scrollbar flex-grow p-4">
+                        <table class="w-full text-left">
+                            <thead class="sticky top-0 bg-white border-b border-slate-100 z-10">
+                                <tr>
+                                    <th class="py-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Camiones</th>
+                                    <th class="py-2 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Aceite</th>
+                                    <th class="py-2 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Engrasado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="aceiteEngrasadoContainer" class="divide-y divide-slate-50">
+                                <!-- DinÃ¡mico -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
                 <!-- 6. Repuestos m%�s Solicitados -->
                 <div class="col-span-12 card overflow-hidden">
                     <div class="px-6 py-5 border-b border-slate-100/80 flex justify-between items-center">
