@@ -410,7 +410,7 @@
         </div>
 
         <div class="col-span-1 md:col-span-8 space-y-6">
-            <section id="sparePartsSection" class="bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant flex flex-col h-fit">
+            <section id="sparePartsSection" class="hidden bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant flex flex-col h-fit">
                 <div class="flex justify-between items-center mb-6">
                     <div class="flex items-center gap-2">
                         <h3 class="font-h3 text-h3 text-primary-container">Refacciones</h3>
@@ -467,7 +467,7 @@
             </section>
 
             <!-- Submit Order Button -->
-            <button id="btnSubmitOrder" class="w-full bg-[#001F3F] text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-blue-500/20 mt-4">
+            <button id="btnSubmitOrder" class="hidden w-full bg-[#001F3F] text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-blue-500/20 mt-4">
                 <span class="material-symbols-outlined text-[24px]">send</span>
                 ENVIAR ORDEN DE TRABAJO
             </button>
@@ -698,6 +698,21 @@
             
             document.getElementById('btnAddPart').addEventListener('click', addPartRow);
             document.getElementById('btnSubmitOrder').addEventListener('click', submitOrder);
+            
+            document.getElementById('btnCreateRequest').addEventListener('click', () => {
+                const tecnico = document.getElementById('tecnicoInput').value;
+                const vehiculoId = document.getElementById('vehiculoSelect').value;
+                const reparacion = document.getElementById('tipoReparacionSelect').value;
+
+                if (!tecnico || !vehiculoId || !reparacion) {
+                    alert('Complete la información de la orden primero');
+                    return;
+                }
+
+                document.getElementById('sparePartsSection').classList.remove('hidden');
+                document.getElementById('btnSubmitOrder').classList.remove('hidden');
+                document.getElementById('btnCreateRequest').classList.add('hidden');
+            });
             
             // Inicializar el botón de borrar de la primera fila
             const firstDelete = document.querySelector('.btn-delete-part');
