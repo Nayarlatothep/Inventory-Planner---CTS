@@ -648,6 +648,15 @@
             }
         }
 
+        function setStatusBadge(text, colorClass) {
+            const badge = document.getElementById('orderStatusBadge');
+            if (badge) {
+                badge.textContent = text;
+                badge.className = `px-2 py-1 rounded-full text-white ${colorClass} text-[10px] font-bold uppercase tracking-widest block h-fit mt-1`;
+                badge.classList.remove('hidden');
+            }
+        }
+
         function addPartRow() {
             const container = document.getElementById('sparePartsContainer');
             const original = container.querySelector('.spare-part-card');
@@ -743,6 +752,7 @@
                 document.getElementById('sparePartsSection').classList.remove('hidden');
                 document.getElementById('btnSubmitOrder').classList.remove('hidden');
                 document.getElementById('btnCreateRequest').classList.add('hidden');
+                setStatusBadge('EN PROCESO', 'bg-amber-500 shadow-sm shadow-amber-200');
             });
             
             // Inicializar el botón de borrar de la primera fila
