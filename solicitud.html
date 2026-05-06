@@ -409,9 +409,8 @@
             </section>
         </div>
 
-        <!-- Right Panel: Spare Parts -->
         <div class="col-span-1 md:col-span-8 space-y-6">
-            <section id="sparePartsSection" class="hidden bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant flex flex-col h-fit">
+            <section id="sparePartsSection" class="bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant flex flex-col h-fit">
                 <div class="flex justify-between items-center mb-6">
                     <div class="flex items-center gap-2">
                         <h3 class="font-h3 text-h3 text-primary-container">Refacciones</h3>
@@ -468,7 +467,7 @@
             </section>
 
             <!-- Submit Order Button -->
-            <button id="btnSubmitOrder" class="hidden w-full bg-secondary text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-secondary/20 mt-4">
+            <button id="btnSubmitOrder" class="w-full bg-[#001F3F] text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-blue-500/20 mt-4">
                 <span class="material-symbols-outlined text-[24px]">send</span>
                 ENVIAR ORDEN DE TRABAJO
             </button>
@@ -605,8 +604,111 @@
             }
         }
 
+        function updateDateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('currentDateTimeDisplay').textContent = now.toLocaleDateString('es-ES', options);
+        }
+
+        function updateOTNumber() {
+            const year = new Date().getFullYear();
+            const random = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('workOrderNumberDisplay').textContent = `OT-${year}-${random}`;
+        }
+
+        function addPartRow() {
+            const container = document.getElementById('sparePartsContainer');
+            const original = container.querySelector('.spare-part-card');
+            const clone = original.cloneNode(true);
+            
+            clone.querySelector('.spare-part-input').value = '';
+            clone.querySelector('input[type="number"]').value = '1';
+            clone.querySelector('.sku-label').textContent = '---';
+            clone.querySelector('.rack-label').textContent = '---';
+            
+            const btnDelete = clone.querySelector('.btn-delete-part');
+            btnDelete.style.opacity = '1';
+            btnDelete.addEventListener('click', () => {
+                if (container.querySelectorAll('.spare-part-card').length > 1) {
+                    clone.remove();
+                } else {
+                    alert('Debe haber al menos una refacción');
+                }
+            });
+
+            container.appendChild(clone);
+        }
+
+        async function submitOrder() {
+            const tecnico = document.getElementById('tecnicoInput').value;
+            const vehiculoId = document.getElementById('vehiculoSelect').value;
+            const reparacion = document.getElementById('tipoReparacionSelect').value;
+            const id_ot = document.getElementById('workOrderNumberDisplay').textContent;
+            const vin = document.getElementById('vehiculoVinDisplay').textContent;
+
+            if (!tecnico || !vehiculoId || !reparacion) {
+                alert('Por favor complete todos los campos obligatorios (Técnico, Vehículo y Reparación)');
+                return;
+            }
+
+            const cards = document.querySelectorAll('.spare-part-card');
+            const entries = [];
+            
+            cards.forEach(card => {
+                const repuesto = card.querySelector('.spare-part-input').value;
+                const cantidad = card.querySelector('input[type="number"]').value;
+                if (repuesto) {
+                    entries.push({
+                        id_ot,
+                        fecha: new Date().toISOString(),
+                        tecnico,
+                        id_vehiculo: vehiculoId,
+                        vin,
+                        reparacion,
+                        repuesto,
+                        cantidad: parseInt(cantidad),
+                        estado: 'Pendiente'
+                    });
+                }
+            });
+
+            if (entries.length === 0) {
+                alert('Añada al menos un repuesto');
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient
+                    .from('detalle_solicitud_ot')
+                    .insert(entries);
+
+                if (error) throw error;
+
+                alert('Solicitud creada exitosamente');
+                window.location.href = 'todas_solicitudes.html';
+            } catch (err) {
+                alert('Error al guardar: ' + err.message);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             fetchVehiculos();
+            updateDateTime();
+            updateOTNumber();
+            
+            document.getElementById('btnAddPart').addEventListener('click', addPartRow);
+            document.getElementById('btnSubmitOrder').addEventListener('click', submitOrder);
+            
+            // Inicializar el botón de borrar de la primera fila
+            const firstDelete = document.querySelector('.btn-delete-part');
+            if (firstDelete) {
+                firstDelete.addEventListener('click', () => {
+                    const container = document.getElementById('sparePartsContainer');
+                    if (container.querySelectorAll('.spare-part-card').length > 1) {
+                        firstDelete.closest('.spare-part-card').remove();
+                    }
+                });
+            }
         });
 
         (function() {
