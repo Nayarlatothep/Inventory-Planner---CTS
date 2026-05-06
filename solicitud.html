@@ -681,7 +681,7 @@
                     div.className = 'flex justify-between items-center text-xs pb-1';
                     div.innerHTML = `
                         <span class="flex-1 truncate pr-2">- ${item.repuesto}</span>
-                        <span class="font-bold w-10 text-right">1</span>
+                        <span class="font-bold w-10 text-right">${item.cantidad || 1}</span>
                     `;
                     partsList.appendChild(div);
                 });
@@ -742,6 +742,7 @@
                         VIN: vin,
                         servicio: reparacion,
                         repuesto,
+                        cantidad: parseInt(cantidad),
                         estado_solicitud: 'ENVIADO'
                     });
                 }

@@ -624,11 +624,11 @@
                     if (!groupedMap.has(id)) {
                         groupedMap.set(id, {
                             ...item,
-                            repuestos: item.repuesto ? [item.repuesto] : []
+                            repuestos: item.repuesto ? [{ nombre: item.repuesto, cantidad: item.cantidad || 1 }] : []
                         });
                     } else {
                         if (item.repuesto) {
-                            groupedMap.get(id).repuestos.push(item.repuesto);
+                            groupedMap.get(id).repuestos.push({ nombre: item.repuesto, cantidad: item.cantidad || 1 });
                         }
                     }
                 });
@@ -671,8 +671,8 @@
                     const div = document.createElement('div');
                     div.className = 'flex justify-between items-center text-xs pb-1';
                     div.innerHTML = `
-                        <span class="flex-1 truncate pr-2">- ${part}</span>
-                        <span class="font-bold w-10 text-right">1</span>
+                        <span class="flex-1 truncate pr-2">- ${part.nombre}</span>
+                        <span class="font-bold w-10 text-right">${part.cantidad}</span>
                     `;
                     partsList.appendChild(div);
                 });
