@@ -657,6 +657,69 @@
             }
         }
 
+        function showTicket(entries) {
+            const modal = document.getElementById('ticketModal');
+            const content = document.getElementById('ticketContent');
+            const data = entries[0]; // Datos generales son iguales para todos los items de la misma OT
+
+            let partsHtml = '';
+            entries.forEach(item => {
+                partsHtml += `<div class="flex justify-between border-b border-dashed py-1 text-sm">
+                    <span>${item.repuesto}</span>
+                    <span class="font-bold">x${item.cantidad || 1}</span>
+                </div>`;
+            });
+
+            content.innerHTML = `
+                <div class="text-center border-b-2 pb-4 mb-4">
+                    <h2 class="text-2xl font-black text-[#001F3F]">CSM LEGACY</h2>
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Inventory Planner V1.0</p>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-slate-500 uppercase font-bold">Orden de Trabajo</span>
+                        <span class="text-lg font-black text-blue-600">${data.solicitud}</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-xs">
+                        <div>
+                            <p class="text-slate-400 uppercase font-bold text-[9px]">Fecha</p>
+                            <p class="font-bold">${new Date(data.fecha).toLocaleDateString()}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-slate-400 uppercase font-bold text-[9px]">Técnico</p>
+                            <p class="font-bold">${data.solicitante}</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-[9px] text-slate-400 font-bold uppercase">Vehículo (ID)</span>
+                            <span class="font-black text-sm">${data.unidad}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] text-slate-400 font-bold uppercase">VIN</span>
+                            <span class="font-mono text-[10px] font-bold">${data.VIN}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-bold uppercase mb-1">Servicio/Reparación</p>
+                        <p class="text-sm font-bold text-[#001F3F]">${data.servicio}</p>
+                    </div>
+                    <div class="pt-2">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase mb-2 border-b">Refacciones Solicitadas</p>
+                        <div class="max-h-[200px] overflow-y-auto">
+                            ${partsHtml}
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 pt-4 border-t border-slate-200 text-center">
+                    <p class="text-[9px] italic text-slate-400">© 2026 CSM Legacy. Todos los derechos reservados.</p>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
         function addPartRow() {
             const container = document.getElementById('sparePartsContainer');
             const original = container.querySelector('.spare-part-card');
@@ -724,9 +787,8 @@
 
                 if (error) throw error;
 
-                alert('Solicitud creada exitosamente');
-                // Recargar la página para limpiar el formulario y generar nueva OT
-                window.location.reload();
+                // En lugar de alert, mostrar el ticket
+                showTicket(entries);
             } catch (err) {
                 alert('Error al guardar: ' + err.message);
             }
@@ -820,7 +882,35 @@
 
             if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
 
-            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+    <!-- Ticket Modal -->
+    <div id="ticketModal" class="hidden fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all scale-100">
+            <div class="bg-[#001F3F] p-4 flex justify-between items-center">
+                <div class="flex items-center gap-2 text-white">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                    <span class="font-bold uppercase tracking-widest text-xs">Comprobante de Solicitud</span>
+                </div>
+                <button onclick="location.reload()" class="text-white/70 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div id="ticketContent" class="p-8">
+                <!-- Se llena dinámicamente -->
+            </div>
+            <div class="p-6 bg-slate-50 flex flex-col gap-3">
+                <button onclick="window.print()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-blue-200 transition-all active:scale-95">
+                    <span class="material-symbols-outlined">print</span>
+                    IMPRIMIR TICKET
+                </button>
+                <button onclick="location.reload()" class="w-full border-2 border-slate-200 hover:border-slate-300 text-slate-600 py-3 rounded-xl font-bold transition-all hover:bg-white">
+                    NUEVA SOLICITUD
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const currentFile = window.location.pathname.split('/').pop() || 'index.html';
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === currentFile) {
                     link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
