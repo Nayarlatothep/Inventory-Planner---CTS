@@ -725,7 +725,8 @@
                 if (error) throw error;
 
                 alert('Solicitud creada exitosamente');
-                window.location.href = 'todas_solicitudes.html';
+                // Recargar la página para limpiar el formulario y generar nueva OT
+                window.location.reload();
             } catch (err) {
                 alert('Error al guardar: ' + err.message);
             }
