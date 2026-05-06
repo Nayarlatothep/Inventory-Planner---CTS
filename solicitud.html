@@ -611,10 +611,41 @@
             document.getElementById('currentDateTimeDisplay').textContent = now.toLocaleDateString('es-ES', options);
         }
 
-        function updateOTNumber() {
-            const year = new Date().getFullYear();
-            const random = Math.floor(1000 + Math.random() * 9000);
-            document.getElementById('workOrderNumberDisplay').textContent = `OT-${year}-${random}`;
+        async function updateOTNumber() {
+            if (!supabaseClient) {
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+            }
+            
+            try {
+                const { data, error } = await supabaseClient
+                    .from('detalle_solicitud_ot')
+                    .select('solicitud')
+                    .order('solicitud', { ascending: false })
+                    .limit(1);
+
+                if (error) throw error;
+
+                let nextNum = 1;
+                if (data && data.length > 0) {
+                    const lastOT = data[0].solicitud; // e.g. "OT-2026-00003"
+                    const parts = lastOT.split('-');
+                    if (parts.length === 3) {
+                        const lastNum = parseInt(parts[2]);
+                        if (!isNaN(lastNum)) nextNum = lastNum + 1;
+                    }
+                }
+
+                const year = new Date().getFullYear();
+                const formattedNum = nextNum.toString().padStart(5, '0');
+                const newOT = `OT-${year}-${formattedNum}`;
+                
+                document.getElementById('workOrderNumberDisplay').textContent = newOT;
+
+            } catch (err) {
+                console.error('Error fetching last OT:', err);
+                const year = new Date().getFullYear();
+                document.getElementById('workOrderNumberDisplay').textContent = `OT-${year}-00001`;
+            }
         }
 
         function addPartRow() {
@@ -660,15 +691,15 @@
                 const cantidad = card.querySelector('input[type="number"]').value;
                 if (repuesto) {
                     entries.push({
-                        id_ot,
+                        solicitud: id_ot,
                         fecha: new Date().toISOString(),
-                        tecnico,
-                        id_vehiculo: vehiculoId,
-                        vin,
-                        reparacion,
+                        solicitante: tecnico,
+                        unidad: vehiculoId,
+                        VIN: vin,
+                        servicio: reparacion,
                         repuesto,
                         cantidad: parseInt(cantidad),
-                        estado: 'Pendiente'
+                        estado_solicitud: 'ENVIADO'
                     });
                 }
             });
