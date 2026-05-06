@@ -182,7 +182,7 @@
 
 
     <script>
-        (function() {
+                (function() {
             const btnToggle = document.getElementById('btnSidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
@@ -190,7 +190,14 @@
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            const toggleSidebar = () => {
+            // Detect if it's a page reload
+            const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+            if (isReload) {
+                sessionStorage.removeItem('sidebarCollapsed');
+                sessionStorage.removeItem('openSubmenus');
+            }
+
+            const toggleSidebar = (manual = true) => {
                 const isHidden = sidebar.classList.contains('-translate-x-full');
                 
                 if (isHidden) {
@@ -200,14 +207,16 @@
                         if (header) header.classList.add('md:pl-64');
                         if (main) main.classList.add('md:ml-64');
                     } else {
-                        overlay.classList.remove('hidden');
+                        if (overlay) overlay.classList.remove('hidden');
                     }
+                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
                 } else {
                     sidebar.classList.add('-translate-x-full');
                     if (toggleIcon) toggleIcon.textContent = 'chevron_right';
                     if (header) header.classList.remove('md:pl-64');
                     if (main) main.classList.remove('md:ml-64');
-                    overlay.classList.add('hidden');
+                    if (overlay) overlay.classList.add('hidden');
+                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
                 }
             };
 
@@ -215,7 +224,7 @@
                 e.stopPropagation();
                 toggleSidebar();
             });
-            if (overlay) overlay.addEventListener('click', toggleSidebar);
+            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
 
             const currentFile = window.location.pathname.split('/').pop() || 'index.html';
             document.querySelectorAll('.nav-link').forEach(link => {
@@ -227,11 +236,61 @@
                 }
             });
 
+            // Submenu state management
+            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            
+            const nav = document.querySelector('nav');
+            if (nav) {
+                const submenuBtns = nav.querySelectorAll('button');
+                submenuBtns.forEach(btn => {
+                    const spanTitle = btn.querySelector('.font-bold');
+                    if (!spanTitle) return;
+                    
+                    const menuId = spanTitle.textContent.trim();
+                    const submenuDiv = btn.nextElementSibling;
+                    
+                    if (!submenuDiv) return;
+
+                    // Remove inline onclick
+                    btn.removeAttribute('onclick');
+
+                    // Restore state
+                    if (openSubmenus.includes(menuId)) {
+                        submenuDiv.classList.remove('hidden');
+                    } else {
+                        submenuDiv.classList.add('hidden');
+                    }
+
+                    // Add click listener
+                    btn.addEventListener('click', () => {
+                        const isHidden = submenuDiv.classList.contains('hidden');
+                        if (isHidden) {
+                            submenuDiv.classList.remove('hidden');
+                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                        } else {
+                            submenuDiv.classList.add('hidden');
+                            openSubmenus = openSubmenus.filter(id => id !== menuId);
+                        }
+                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                    });
+                });
+            }
+
+            // Restore sidebar state
+            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
+            
             if (window.innerWidth >= 768) {
-                sidebar.classList.remove('-translate-x-full');
-                if (header) header.classList.add('md:pl-64');
-                if (main) main.classList.add('md:ml-64');
-                if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                if (isSidebarCollapsed === 'true') {
+                    sidebar.classList.add('-translate-x-full');
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                } else {
+                    sidebar.classList.remove('-translate-x-full');
+                    if (header) header.classList.add('md:pl-64');
+                    if (main) main.classList.add('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                }
             } else {
                 sidebar.classList.add('-translate-x-full');
                 if (toggleIcon) toggleIcon.textContent = 'chevron_right';

@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -141,10 +142,10 @@
         }
     </style>
 </head>
-<body class="bg-surface text-on-surface min-h-screen pb-10 ios-scrolling">
+<body class="bg-surface text-on-surface min-h-screen pb-10 ios-scrolling flex-col">
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full  border-r border-white/10 shadow-2xl">
+    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
         <div class="flex flex-col h-full">
             <!-- Brand Logo -->
             <div class="p-8 border-b border-white/5 flex items-center gap-3 bg-[#000d1a]">
@@ -177,9 +178,13 @@
                         </div>
                         <span class="material-symbols-outlined text-xs">expand_more</span>
                     </button>
-                    <div class="hidden pl-11 pr-4 space-y-1">
-                        <a href="#" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Ordenes de Compra</a>
-                        <a href="#" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Solicitudes</a>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
+                        </a>
+                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
+                        </a>
                     </div>
                 </div>
 
@@ -192,9 +197,13 @@
                         </div>
                         <span class="material-symbols-outlined text-xs">expand_more</span>
                     </button>
-                    <div class="hidden pl-11 pr-4 space-y-1">
-                        <a href="ingreso_material.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Ingreso Material</a>
-                        <a href="recepcion.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Recepción</a>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Ingreso Material
+                        </a>
+                        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Recepción
+                        </a>
                     </div>
                 </div>
 
@@ -207,10 +216,19 @@
                         </div>
                         <span class="material-symbols-outlined text-xs">expand_more</span>
                     </button>
-                    <div class="hidden pl-11 pr-4 space-y-1">
-                        <a href="solicitud.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Solicitud Ordenes de Trabajo</a>
-                        <a href="despacho.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Despacho Ordenes de Trabajo</a>
-                        <a href="flota.html" class="block py-2 text-sm text-slate-400 hover:text-white transition-colors">Estado de Flota</a>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Solicitud Ordenes de Trabajo
+                        </a>
+                        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Todas las Solicitudes de Ordenes de Trabajo
+                        </a>
+                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Despacho Ordenes de Trabajo
+                        </a>
+                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
+                        </a>
                     </div>
                 </div>
 
@@ -218,10 +236,20 @@
                     <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
                 </div>
 
-                <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
-                    <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400 transition-colors">analytics</span>
-                    <span class="font-bold text-slate-300 group-hover:text-white">Reportes y KPIs</span>
-                </a>
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
+                            <span class="font-bold">Reportes y KPIs</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
+                        </a>
+                    </div>
+                </div>
             </nav>
 
             <!-- User Profile Section -->
@@ -254,10 +282,13 @@
 
         </aside>
 
-    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 ">
+    
+    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
         <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
             <div class="flex items-center gap-4">
-                
+                <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
                 <div class="flex items-center gap-2">
                     <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
                     <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
@@ -278,7 +309,8 @@
     </header>
 
 
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden  backdrop-blur-sm transition-opacity" onclick="document.getElementById('sidebar').classList.add('-translate-x-full'); this.classList.add('hidden')"></div>
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
 
 
     
@@ -298,11 +330,11 @@
 
 
 
-    <main class=" transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter" >
+    <main class=" transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter md:ml-64" >
         <!-- Page Header -->
         <div class="col-span-1 md:col-span-12 mb-2 md:mb-md">
             <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-primary-container text-[32px] md:text-[40px]">build</span>
+                <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">build</span>
                 <h1 class="font-h2 text-2xl md:text-h2 text-primary-container tracking-tight">Solicitud de Orden de Trabajo</h1>
             </div>
             <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Genere nuevos requerimientos de mantenimiento y suministros para la flota.</p>
@@ -315,10 +347,9 @@
                 <div class="flex justify-between items-start mb-4">
                     <div>
                         <span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1 block">Orden de Trabajo</span>
-                        <h2 class="font-h3 text-h3 text-primary-container">#WO-2026-0892</h2>
+                        <h2 id="workOrderNumberDisplay" class="font-h3 text-h3 text-primary-container">OT-2026-00001</h2>
                     </div>
-                    <div class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest">
-                        ACTIVA
+                    <div id="orderStatusBadge" class="hidden text-[10px] font-bold uppercase tracking-widest">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 gap-4">
@@ -326,19 +357,26 @@
                         <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
                             <span class="material-symbols-outlined text-[14px]">calendar_today</span> Fecha/Hora
                         </span>
-                        <p class="font-body-sm text-body-sm font-semibold">24 May, 2026 - 14:30</p>
+                        <p id="currentDateTimeDisplay" class="font-body-sm text-body-sm font-semibold">Cargando...</p>
                     </div>
                     <div class="space-y-1">
                         <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
                             <span class="material-symbols-outlined text-[14px]">badge</span> Técnico
                         </span>
-                        <input class="w-full bg-surface border border-outline-variant rounded px-2 py-1 font-body-sm text-body-sm focus:border-primary-container outline-none transition-all" placeholder="Nombre del Técnico" type="text" value="J. Pérez"/>
+                        <input id="tecnicoInput" class="w-full bg-surface border border-outline-variant rounded px-2 py-1 font-body-sm text-body-sm focus:border-primary-container outline-none transition-all" placeholder="Nombre del Técnico" type="text" value=""/>
+                        <p id="errTecnico" class="text-red-500 text-xs hidden font-semibold">**Este campo es obligatorio</p>
                     </div>
                     <div class="pt-3 border-t border-surface-variant/50">
                         <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1 mb-1">
-                            <span class="material-symbols-outlined text-[14px]">directions_car</span> Vehículo (VIN/Placa)
+                            <span class="material-symbols-outlined text-[14px]">directions_car</span> Vehículo (ID)
                         </span>
-                        <input class="w-full bg-surface border border-outline-variant rounded px-2 py-2 font-body-md text-body-md font-bold tracking-wider text-primary focus:border-primary-container outline-none transition-all" placeholder="Ingrese VIN o Placa" type="text" value="1FA6P8CF5K5 - P098-JKL"/>
+                        <div class="relative mb-1">
+                            <select id="vehiculoSelect" class="w-full bg-surface border border-outline-variant rounded px-2 py-2 font-body-md text-body-md font-bold tracking-wider text-primary focus:border-primary-container outline-none transition-all cursor-pointer">
+                                <option value="">Cargando vehículos...</option>
+                            </select>
+                        </div>
+                        <p id="errVehiculo" class="text-red-500 text-xs hidden font-semibold mb-1">**Este campo es obligatorio</p>
+                        <p class="text-xs text-on-surface-variant font-medium">VIN: <span id="vehiculoVinDisplay" class="font-mono font-bold text-primary">---</span></p>
                     </div>
                 </div>
             </section>
@@ -348,7 +386,7 @@
                 <div class="space-y-2">
                     <label class="font-label-caps text-label-caps text-on-surface-variant">TIPO DE REPARACIÓN</label>
                     <div class="relative">
-                        <select class="w-full bg-surface border border-outline rounded-lg px-4 py-3 appearance-none font-body-md text-body-md focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all">
+                        <select id="tipoReparacionSelect" class="w-full bg-surface border border-outline rounded-lg px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all">
                             <option value="">Seleccione una reparación</option>
                             <option>Cambio de Aceite y Filtros</option>
                             <option>Revisión de Frenos</option>
@@ -361,8 +399,8 @@
                             <option>Cambio de Luces y Sistema Eléctrico</option>
                             <option>Reparación de Llantas / Ponchadura</option>
                         </select>
-                        <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
                     </div>
+                    <p id="errTipoReparacion" class="text-red-500 text-xs hidden font-semibold">**Este campo es obligatorio</p>
                 </div>
                 <button id="btnCreateRequest" class="w-full bg-primary-container text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary-container/20 mt-4">
                     <span class="material-symbols-outlined text-[24px]">add_task</span>
@@ -432,10 +470,22 @@
             <!-- Submit Order Button -->
             <button id="btnSubmitOrder" class="hidden w-full bg-secondary text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-secondary/20 mt-4">
                 <span class="material-symbols-outlined text-[24px]">send</span>
-                ENVIAR ORDEN DE COMPRA
+                ENVIAR ORDEN DE TRABAJO
             </button>
         </div>
     </main>
+    <!-- Footer -->
+    <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center px-4 md:px-8 max-w-7xl mx-auto gap-4 text-center">
+        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
+        <div class="flex gap-8">
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Privacidad</a>
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Soporte</a>
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Términos</a>
+        </div>
+    </footer>
+
+    
+
 
     <!-- Printable Summary Modal -->
     <div id="summaryModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
@@ -460,7 +510,7 @@
 
                 <!-- Main Info -->
                 <div class="space-y-1 py-2">
-                    <div class="flex justify-between"><span class="text-slate-500">ORDEN:</span> <span id="ticketWO" class="font-bold">#WO-2026-0892</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">ORDEN:</span> <span id="ticketWO" class="font-bold">OT-2026-00001</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">TÉCNICO:</span> <span id="ticketTech">--</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">VEHÍCULO:</span> <span id="ticketVIN">--</span></div>
                 </div>
@@ -515,7 +565,7 @@
 
 
     <script>
-        (function() {
+                (function() {
             const btnToggle = document.getElementById('btnSidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
@@ -523,24 +573,35 @@
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            const toggleSidebar = () => {
-                const isHidden = sidebar.classList.contains('-translate-x-full');
+            // Detect if it's a page reload
+            const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+            if (isReload) {
+                sessionStorage.removeItem('sidebarCollapsed');
+                sessionStorage.removeItem('openSubmenus');
+            }
+
+            const toggleSidebar = (manual = true) => {
+                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
                 
-                if (isHidden) {
+                if (isCurrentlyCollapsed) {
                     sidebar.classList.remove('-translate-x-full');
+                    sidebar.classList.add('md:translate-x-0');
                     if (toggleIcon) toggleIcon.textContent = 'chevron_left';
                     if (window.innerWidth >= 768) {
                         if (header) header.classList.add('md:pl-64');
                         if (main) main.classList.add('md:ml-64');
                     } else {
-                        overlay.classList.remove('hidden');
+                        if (overlay) overlay.classList.remove('hidden');
                     }
+                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
                 } else {
                     sidebar.classList.add('-translate-x-full');
+                    sidebar.classList.remove('md:translate-x-0');
                     if (toggleIcon) toggleIcon.textContent = 'chevron_right';
                     if (header) header.classList.remove('md:pl-64');
                     if (main) main.classList.remove('md:ml-64');
-                    overlay.classList.add('hidden');
+                    if (overlay) overlay.classList.add('hidden');
+                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
                 }
             };
 
@@ -548,7 +609,13 @@
                 e.stopPropagation();
                 toggleSidebar();
             });
-            if (overlay) overlay.addEventListener('click', toggleSidebar);
+            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
+            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+
+            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
 
             const currentFile = window.location.pathname.split('/').pop() || 'index.html';
             document.querySelectorAll('.nav-link').forEach(link => {
@@ -560,13 +627,65 @@
                 }
             });
 
+            // Submenu state management
+            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            
+            const nav = document.querySelector('nav');
+            if (nav) {
+                const submenuBtns = nav.querySelectorAll('button');
+                submenuBtns.forEach(btn => {
+                    const spanTitle = btn.querySelector('.font-bold');
+                    if (!spanTitle) return;
+                    
+                    const menuId = spanTitle.textContent.trim();
+                    const submenuDiv = btn.nextElementSibling;
+                    
+                    if (!submenuDiv) return;
+
+                    // Remove inline onclick
+                    btn.removeAttribute('onclick');
+
+                    // Restore state
+                    if (openSubmenus.includes(menuId)) {
+                        submenuDiv.classList.remove('hidden');
+                    } else {
+                        submenuDiv.classList.add('hidden');
+                    }
+
+                    // Add click listener
+                    btn.addEventListener('click', () => {
+                        const isHidden = submenuDiv.classList.contains('hidden');
+                        if (isHidden) {
+                            submenuDiv.classList.remove('hidden');
+                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                        } else {
+                            submenuDiv.classList.add('hidden');
+                            openSubmenus = openSubmenus.filter(id => id !== menuId);
+                        }
+                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                    });
+                });
+            }
+
+            // Restore sidebar state
+            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
             if (window.innerWidth >= 768) {
-                sidebar.classList.remove('-translate-x-full');
-                if (header) header.classList.add('md:pl-64');
-                if (main) main.classList.add('md:ml-64');
-                if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                if (isSidebarCollapsed === 'true') {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebar.classList.remove('md:translate-x-0');
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                } else {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebar.classList.add('md:translate-x-0');
+                    if (header) header.classList.add('md:pl-64');
+                    if (main) main.classList.add('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                }
             } else {
                 sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('md:translate-x-0');
                 if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
         })();

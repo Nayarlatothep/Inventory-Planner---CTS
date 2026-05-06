@@ -172,51 +172,7 @@
         const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW'; // Reemplazar con la clave anon real
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-        let allVehiculos = []; 
-        function renderAceiteEngrasado(vehiculos) {
-            const container = document.getElementById("aceiteEngrasadoContainer");
-            if (!container) return;
-            container.innerHTML = "";
-            vehiculos.forEach(v => {
-                const a = v.id % 3; const e = (v.id + 1) % 3;
-                const getC = (n) => n === 0 ? "bg-emerald-500" : n === 1 ? "bg-amber-500" : "bg-rose-500";
-                container.insertAdjacentHTML("beforeend", `<tr class="hover:bg-slate-50 transition-colors"><td class="py-3 font-bold text-primary-container text-sm">${v.id}</td><td class="py-3 text-center"><div class="flex items-center justify-center"><div class="w-3 h-3 rounded-full ${getC(a)}"></div></div></td><td class="py-3 text-center"><div class="flex items-center justify-center"><div class="w-3 h-3 rounded-full ${getC(e)}"></div></div></td></tr>`);
-            });
-        }
-        function renderAceiteEngrasado(vehiculos) {
-            const container = document.getElementById("aceiteEngrasadoContainer");
-            if (!container) return;
-            container.innerHTML = "";
-            vehiculos.forEach(v => {
-                const a = v.id % 3; const e = (v.id + 1) % 3;
-                const getC = (n) => n === 0 ? "bg-emerald-500" : n === 1 ? "bg-amber-500" : "bg-rose-500";
-                container.insertAdjacentHTML("beforeend", `<tr class="hover:bg-slate-50 transition-colors"><td class="py-3 font-bold text-primary-container text-sm">${v.id}</td><td class="py-3 text-center"><div class="flex items-center justify-center"><div class="w-3 h-3 rounded-full ${getC(a)}"></div></div></td><td class="py-3 text-center"><div class="flex items-center justify-center"><div class="w-3 h-3 rounded-full ${getC(e)}"></div></div></td></tr>`);
-            });
-        }
-        function renderAceiteEngrasado(vehiculos) {
-            const container = document.getElementById("aceiteEngrasadoContainer");
-            if (!container) return;
-            container.innerHTML = "";
-            vehiculos.forEach(v => {
-                const a = v.id % 3; const e = (v.id + 1) % 3;
-                const getC = (n) => n === 0 ? "bg-emerald-500" : n === 1 ? "bg-amber-500" : "bg-rose-500";
-                container.insertAdjacentHTML("beforeend", `
-                    <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="py-3 font-bold text-primary-container text-sm">${v.id}</td>
-                        <td class="py-3 text-center">
-                            <div class="flex items-center justify-center">
-                                <div class="w-3 h-3 rounded-full ${getC(a)} shadow-sm"></div>
-                            </div>
-                        </td>
-                        <td class="py-3 text-center">
-                            <div class="flex items-center justify-center">
-                                <div class="w-3 h-3 rounded-full ${getC(e)} shadow-sm"></div>
-                            </div>
-                        </td>
-                    </tr>
-                `);
-            });
-        } // Cache para b%Q%squeda local
+        let allVehiculos = []; // Cache para búsqueda local
 
         async function fetchCamiones() {
             const camionesContainer = document.getElementById('camionesContainer');
@@ -229,8 +185,8 @@
 
                 if (error) throw error;
                 
-                allVehiculos = vehiculos; if (!vehiculos || vehiculos.length === 0) { useSimulatedData(); return; } renderAceiteEngrasado(vehiculos);
-                renderCamiones(vehiculos, camionesContainer);
+                allVehiculos = vehiculos; // Guardar en cache
+                renderCamiones(vehiculos, camionesContainer, '', false);
                 renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
                 renderTopReparaciones(vehiculos); renderAceiteEngrasado(vehiculos); renderAceiteEngrasado(vehiculos); renderAceiteEngrasado(vehiculos); renderAceiteEngrasado(vehiculos);
                 updateOperationalKPIs(vehiculos);
@@ -240,7 +196,7 @@
             }
         }
 
-        function renderCamiones(vehiculos, container, filter = '', showVin = false) {
+        function renderCamiones(vehiculos, container, filter = '', isModal = false) {
             container.innerHTML = '';
             const estadosSimulados = [
                 { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
@@ -263,13 +219,15 @@
 
             filtered.forEach((vehiculo, index) => {
                 const estado = estadosSimulados[vehiculo.id % estadosSimulados.length];
+                const vinHtml = isModal ? `<span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>` : '';
+                
                 const row = `
                     <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined ${estado.iconoClase}">${estado.icono}</span>
                             <div class="flex items-center gap-4">
                                 <span class="text-base md:text-lg font-black text-primary-container">${vehiculo.id}</span>
-                                ${showVin ? `<span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>` : ""}
+                                ${vinHtml}
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -292,7 +250,7 @@
             if (!container) return;
             container.innerHTML = '';
             
-            // Simulaci%%n de gastos descendentes para la visualizaci%%n
+            // Simulación de gastos descendentes para la visualización
             const sortedVehiculos = [...vehiculos].map((v, i) => ({
                 ...v,
                 gasto: 8000 - (i * 450) > 500 ? 8000 - (i * 450) : 500 + (v.id % 1000),
@@ -304,7 +262,6 @@
                     <div class="flex items-center gap-3 mb-4 group">
                         <div class="flex items-center gap-2 min-w-[80px] shrink-0">
                             <span class="text-sm md:text-base font-black text-primary-container">${v.id}</span>
-                            
                         </div>
                         <div class="flex-1 h-5 bg-zinc-200 dark:bg-zinc-700 rounded-full overflow-hidden relative shadow-inner">
                             <div class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 group-hover:from-emerald-500 group-hover:to-emerald-300 transition-all duration-1000" style="width: ${v.porcentaje}%"></div>
@@ -360,7 +317,6 @@
                 const row = `
                     <tr class="hover:bg-slate-50 transition-colors">
                         <td class="px-lg py-4 font-bold text-primary-container text-center">${v.id}</td>
-                        
                         <td class="px-lg py-4 text-body-sm text-on-surface-variant text-center">${v.servicio}</td>
                         <td class="px-lg py-4 text-center font-semibold text-secondary">${v.solicitudes}</td>
                         <td class="px-lg py-4 font-semibold text-primary-container text-center">$${v.gasto.toLocaleString()}</td>
@@ -462,14 +418,14 @@
 
             if (inputFilter) {
                 inputFilter.addEventListener('input', (e) => {
-                    renderCamiones(allVehiculos, modalContainer, e.target.value);
+                    renderCamiones(allVehiculos, modalContainer, e.target.value, true);
                 });
             }
 
             // Inicializar Eficiencia
             updateEficienciaGauge(75);
 
-            // L%%gica Filtro de Meses
+            // Lógica Filtro de Meses
             const btnFilter = document.getElementById('btnFilterMonth');
             const dropdown = document.getElementById('dropdownMonths');
             const monthOptions = document.querySelectorAll('.month-option');
@@ -486,7 +442,7 @@
             monthOptions.forEach(opt => {
                 opt.addEventListener('click', (e) => {
                     const month = opt.getAttribute('data-month');
-                    // Simular cambio de datos seg%Q%n el mes
+                    // Simular cambio de datos según el mes
                     const randomGasto = Math.floor(Math.random() * (48000 - 35000) + 35000);
                     const percent = Math.floor((randomGasto / 50000) * 100);
                     
@@ -517,7 +473,7 @@
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full border-r border-white/10 shadow-2xl">
+    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0 border-r border-white/10 shadow-2xl">
         <div class="flex flex-col h-full">
             <div class="p-8 border-b border-white/5 flex items-center gap-3 bg-[#000d1a]">
                 <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-900/50">
@@ -542,9 +498,13 @@
                         </div>
                         <span class="material-symbols-outlined text-xs">expand_more</span>
                     </button>
-                    <div class="hidden pl-11 pr-4 space-y-1">
-                        <a href="#" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Ordenes de Compra</a>
-                        <a href="#" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Solicitudes</a>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-blue-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
+                        </a>
+                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-blue-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
+                        </a>
                     </div>
                 </div>
                 <div class="space-y-1">
@@ -555,9 +515,13 @@
                         </div>
                         <span class="material-symbols-outlined text-xs">expand_more</span>
                     </button>
-                    <div class="hidden pl-11 pr-4 space-y-1">
-                        <a href="ingreso_material.html" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Ingreso Material</a>
-                        <a href="recepcion.html" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Recepción</a>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Ingreso Material
+                        </a>
+                        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Recepción
+                        </a>
                     </div>
                 </div>
                 <div class="space-y-1">
@@ -568,17 +532,36 @@
                         </div>
                         <span class="material-symbols-outlined text-xs">expand_more</span>
                     </button>
-                    <div class="hidden pl-11 pr-4 space-y-1">
-                        <a href="solicitud.html" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Solicitud Ordenes de Trabajo</a>
-                        <a href="despacho.html" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Despacho Ordenes de Trabajo</a>
-                        <a href="flota.html" class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Estado de Flota</a>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Solicitud Ordenes de Trabajo
+                        </a>
+                        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Todas las Solicitudes de Ordenes de Trabajo
+                        </a>
+                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Despacho Ordenes de Trabajo
+                        </a>
+                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
+                        </a>
                     </div>
                 </div>
                 <div class="pt-6 pb-2 px-4"><p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Análisis</p></div>
-                <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
-                    <span class="material-symbols-outlined text-slate-300 group-hover:text-purple-400 transition-colors">analytics</span>
-                    <span class="font-bold text-slate-300 group-hover:text-white">Reportes y KPIs</span>
-                </a>
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
+                            <span class="font-bold">Reportes y KPIs</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
+                        </a>
+                    </div>
+                </div>
             </nav>
             <div class="p-6 bg-[#000d1a] border-t border-white/5">
                 <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
@@ -598,28 +581,33 @@
         </div>
     </aside>
 
-    <header class="bg-white/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 shadow-sm transition-all duration-300">
+    
+    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
         <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
             <div class="flex items-center gap-4">
+                <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
                 <div class="flex items-center gap-2">
-                    <h2 class="text-lg font-black text-slate-800 tracking-tighter">INVENTORY PLANNER</h2>
+                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
                     <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full border border-slate-200">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500">Estado: Operativo</span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
                 </div>
-                <div class="w-px h-6 bg-slate-200 mx-1"></div>
-                <button class="text-slate-400 hover:text-slate-600 p-2 transition-colors relative">
+                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
+                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
                     <span class="material-symbols-outlined">notifications</span>
-                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
                 </button>
             </div>
         </div>
     </header>
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity" onclick="document.getElementById('sidebar').classList.add('-translate-x-full'); this.classList.add('hidden')"></div>
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
 
 
 
@@ -628,13 +616,16 @@
 
     
         <!-- Main Content -->
-        <main class="transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin">
+        <main class="transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin md:ml-64">
             <div class="w-full">
             <!-- Header Section -->
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
                 <div>
-                    <p class="stat-label text-[#50606f] mb-2">Dashboard Mantenimiento</p>
-                    <h1 class="text-3xl font-extrabold text-[#001f3f] tracking-tight">Reporte Mensual de KPIs - Mayo 2026</h1>
+                    <p class="stat-label text-[#50606f] mb-1">Dashboard Mantenimiento</p>
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-purple-600 text-[32px] md:text-[40px]">bar_chart</span>
+                        <h1 class="text-3xl font-extrabold text-[#001f3f] tracking-tight">Reporte Mensual Ordenes de Trabajo</h1>
+                    </div>
                     <p class="text-sm text-[#74777f] mt-1">Análisis detallado de operaciones de flota, inventario y eficiencia operativa.</p>
                 </div>
                 <button class="bg-[#001F3F] text-white px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-[#0a3d6b] transition-all shadow-lg active:scale-95">
@@ -789,7 +780,7 @@
                     <div class="card p-5 flex flex-col flex-1">
                         <h3 class="text-xl md:text-2xl font-black text-primary-container tracking-tight uppercase mb-5">Gasto Total por Camión</h3>
                         <div id="gastoCamionesContainer" class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                            <!-- Se cargar%� dinámicamente -->
+                            <!-- Se cargará dinámicamente -->
                             <div class="flex justify-center items-center py-10">
                                 <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary-container"></div>
                             </div>
@@ -837,7 +828,7 @@
                         </button>
                     </div>
                     <div id="camionesContainer" class="space-y-3 max-h-[580px] overflow-y-auto pr-2 custom-scrollbar">
-                        <!-- Los camiones se cargar%�n dinámicamente aqu%� -->
+                        <!-- Los camiones se cargarán dinámicamente aquí -->
                         <div class="flex justify-center items-center py-10">
                             <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-container"></div>
                         </div>
@@ -855,7 +846,6 @@
                             <thead class="bg-surface-container-low border-b border-slate-200">
                                 <tr>
                                     <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Unidad (camiones)</th>
-                                    
                                     <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Servicio</th>
                                     <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center"># Solicitudes</th>
                                     <th class="px-lg py-4 font-label-caps text-label-caps text-secondary uppercase text-center">Gasto Total</th>
@@ -863,7 +853,7 @@
                                 </tr>
                             </thead>
                             <tbody id="topReparacionesContainer" class="divide-y divide-slate-100">
-                                <!-- Se cargar%� dinámicamente -->
+                                <!-- Se cargará dinámicamente -->
                             </tbody>
                         </table>
                     </div>
@@ -890,10 +880,11 @@
                         </table>
                     </div>
                 </div>
-                <!-- 6. Repuestos m%�s Solicitados -->
+
+                <!-- 6. Repuestos más Solicitados -->
                 <div class="col-span-12 card overflow-hidden">
                     <div class="px-6 py-5 border-b border-slate-100/80 flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-[#001f3f]">Repuestos m%�s Solicitados (Técnicos)</h3>
+                        <h3 class="text-lg font-bold text-[#001f3f]">Repuestos más Solicitados (Técnicos)</h3>
                         <span class="text-xs font-semibold text-secondary px-3 py-1 bg-surface-container rounded-full uppercase">Top 5 Mayo</span>
                     </div>
                     <div class="divide-y divide-slate-100">
@@ -905,7 +896,7 @@
                         <div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
                             <div class="flex items-center gap-3 w-1/2">
                                 <div class="w-9 h-9 rounded-lg bg-primary-container/10 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary-container text-lg">tire_repair</span></div>
-                                <span class="font-semibold text-sm text-on-surface">Neum%�tico Radial 295/80</span>
+                                <span class="font-semibold text-sm text-on-surface">Neumático Radial 295/80</span>
                             </div>
                             <span class="w-1/4 text-center font-bold text-sm text-[#001f3f]">12</span>
                             <div class="w-1/4 text-center"><span class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold uppercase">Alta demanda</span></div>
@@ -913,7 +904,7 @@
                         <div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
                             <div class="flex items-center gap-3 w-1/2">
                                 <div class="w-9 h-9 rounded-lg bg-primary-container/10 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary-container text-lg">oil_barrel</span></div>
-                                <span class="font-semibold text-sm text-on-surface">Aceite Sint%�tico 5W-30 (Tambor)</span>
+                                <span class="font-semibold text-sm text-on-surface">Aceite Sintético 5W-30 (Tambor)</span>
                             </div>
                             <span class="w-1/4 text-center font-bold text-sm text-[#001f3f]">8</span>
                             <div class="w-1/4 text-center"><span class="px-3 py-1 bg-surface-container text-secondary rounded-full text-[10px] font-bold uppercase">Regular</span></div>
@@ -958,6 +949,18 @@
             </div>
 
         </main>
+    <!-- Footer -->
+    <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center px-4 md:px-8 max-w-7xl mx-auto gap-4 text-center">
+        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
+        <div class="flex gap-8">
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Privacidad</a>
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Soporte</a>
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Términos</a>
+        </div>
+    </footer>
+
+    
+
 
     </div>
 
@@ -983,7 +986,7 @@
             <!-- Header Modal -->
             <div class="p-6 border-b border-surface-variant flex justify-between items-center bg-surface-container-low">
                 <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-primary-container text-[32px]">local_shipping</span>
+                    <span class="material-symbols-outlined text-amber-600 text-[32px]">local_shipping</span>
                     <div>
                         <h3 class="font-h3 text-xl text-primary-container">Estado Detallado de Flota</h3>
                         <p class="text-xs text-on-surface-variant">Vista extendida con filtrado avanzado</p>
@@ -1007,7 +1010,7 @@
 
             <!-- Lista Modal -->
             <div id="modalCamionesContainer" class="flex-grow overflow-y-auto p-6 space-y-4 custom-scrollbar bg-surface">
-                <!-- Se poblar%� dinámicamente -->
+                <!-- Se poblará dinámicamente -->
             </div>
 
             <!-- Footer Modal -->
@@ -1021,8 +1024,8 @@
         <div class="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
             <div class="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center">
-                        <span class="material-symbols-outlined text-white">history</span>
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-amber-600">history</span>
                     </div>
                     <h2 class="text-2xl font-black text-primary-container uppercase tracking-tight">Historial de Reparaciones</h2>
                 </div>
@@ -1064,7 +1067,7 @@
 
 
     <script>
-        (function() {
+                (function() {
             const btnToggle = document.getElementById('btnSidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
@@ -1072,23 +1075,35 @@
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            const toggleSidebar = () => {
-                const isHidden = sidebar.classList.contains('-translate-x-full');
-                if (isHidden) {
+            // Detect if it's a page reload
+            const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+            if (isReload) {
+                sessionStorage.removeItem('sidebarCollapsed');
+                sessionStorage.removeItem('openSubmenus');
+            }
+
+            const toggleSidebar = (manual = true) => {
+                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
+                
+                if (isCurrentlyCollapsed) {
                     sidebar.classList.remove('-translate-x-full');
+                    sidebar.classList.add('md:translate-x-0');
                     if (toggleIcon) toggleIcon.textContent = 'chevron_left';
                     if (window.innerWidth >= 768) {
                         if (header) header.classList.add('md:pl-64');
                         if (main) main.classList.add('md:ml-64');
                     } else {
-                        overlay.classList.remove('hidden');
+                        if (overlay) overlay.classList.remove('hidden');
                     }
+                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
                 } else {
                     sidebar.classList.add('-translate-x-full');
+                    sidebar.classList.remove('md:translate-x-0');
                     if (toggleIcon) toggleIcon.textContent = 'chevron_right';
                     if (header) header.classList.remove('md:pl-64');
                     if (main) main.classList.remove('md:ml-64');
-                    overlay.classList.add('hidden');
+                    if (overlay) overlay.classList.add('hidden');
+                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
                 }
             };
 
@@ -1096,7 +1111,13 @@
                 e.stopPropagation();
                 toggleSidebar();
             });
-            if (overlay) overlay.addEventListener('click', toggleSidebar);
+            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
+            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+
+            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
 
             const currentFile = window.location.pathname.split('/').pop() || 'index.html';
             document.querySelectorAll('.nav-link').forEach(link => {
@@ -1108,13 +1129,65 @@
                 }
             });
 
+            // Submenu state management
+            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            
+            const nav = document.querySelector('nav');
+            if (nav) {
+                const submenuBtns = nav.querySelectorAll('button');
+                submenuBtns.forEach(btn => {
+                    const spanTitle = btn.querySelector('.font-bold');
+                    if (!spanTitle) return;
+                    
+                    const menuId = spanTitle.textContent.trim();
+                    const submenuDiv = btn.nextElementSibling;
+                    
+                    if (!submenuDiv) return;
+
+                    // Remove inline onclick
+                    btn.removeAttribute('onclick');
+
+                    // Restore state
+                    if (openSubmenus.includes(menuId)) {
+                        submenuDiv.classList.remove('hidden');
+                    } else {
+                        submenuDiv.classList.add('hidden');
+                    }
+
+                    // Add click listener
+                    btn.addEventListener('click', () => {
+                        const isHidden = submenuDiv.classList.contains('hidden');
+                        if (isHidden) {
+                            submenuDiv.classList.remove('hidden');
+                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                        } else {
+                            submenuDiv.classList.add('hidden');
+                            openSubmenus = openSubmenus.filter(id => id !== menuId);
+                        }
+                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                    });
+                });
+            }
+
+            // Restore sidebar state
+            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
             if (window.innerWidth >= 768) {
-                sidebar.classList.remove('-translate-x-full');
-                if (header) header.classList.add('md:pl-64');
-                if (main) main.classList.add('md:ml-64');
-                if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                if (isSidebarCollapsed === 'true') {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebar.classList.remove('md:translate-x-0');
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                } else {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebar.classList.add('md:translate-x-0');
+                    if (header) header.classList.add('md:pl-64');
+                    if (main) main.classList.add('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                }
             } else {
                 sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('md:translate-x-0');
                 if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
         })();

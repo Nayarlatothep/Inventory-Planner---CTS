@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+    <title>Todas las Solicitudes - CSM Legacy</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#001c3a",
+                      "on-surface": "#1a1c1e",
+                      "on-error-container": "#93000a",
+                      "on-secondary": "#ffffff",
+                      "background": "#faf9fc",
+                      "tertiary-container": "#1d1f1f",
+                      "tertiary-fixed": "#e2e2e2",
+                      "tertiary-fixed-dim": "#c6c6c7",
+                      "surface-container-highest": "#e3e2e5",
+                      "surface-bright": "#faf9fc",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#dbd9dd",
+                      "surface": "#faf9fc",
+                      "on-tertiary-container": "#858687",
+                      "on-secondary-container": "#556474",
+                      "on-primary-container": "#6f88ad",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#afc8f0",
+                      "tertiary": "#040606",
+                      "on-secondary-fixed": "#0d1d2a",
+                      "surface-variant": "#e3e2e5",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#f2f0f3",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#d4e3ff",
+                      "primary-container": "#001f3f",
+                      "surface-container": "#efedf0",
+                      "on-secondary-fixed-variant": "#394857",
+                      "secondary": "#50606f",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#2f3033",
+                      "secondary-fixed-dim": "#b8c8da",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#476083",
+                      "outline": "#74777f",
+                      "on-surface-variant": "#43474e",
+                      "secondary-fixed": "#d4e4f6",
+                      "on-background": "#1a1c1e",
+                      "primary-fixed-dim": "#afc8f0",
+                      "outline-variant": "#c4c6cf",
+                      "surface-container-low": "#f4f3f6",
+                      "secondary-container": "#d1e1f4",
+                      "surface-container-high": "#e9e7eb",
+                      "primary": "#000613",
+                      "on-primary-fixed-variant": "#2f486a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "xs": "4px",
+                      "2xl": "48px",
+                      "base": "4px",
+                      "gutter": "24px",
+                      "sm": "8px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "margin": "32px"
+              },
+              "fontFamily": {
+                      "button": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "h2": ["Inter"],
+                      "h1": ["Inter"],
+                      "body-md": ["Inter"],
+                      "h3": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            min-height: 100dvh; 
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .animate-spin-icon { animation: spin 0.6s linear infinite; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex h-screen overflow-hidden flex-col">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0 border-r border-white/10 shadow-2xl flex-shrink-0">
+        <div class="flex flex-col h-full">
+            <!-- Brand Logo -->
+            <div class="p-8 border-b border-white/5 flex items-center gap-3 bg-[#000d1a]">
+                <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-900/50">
+                    <span class="material-symbols-outlined text-white text-[24px]">local_shipping</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-black tracking-tighter leading-none text-white">CSM LEGACY</span>
+                    <span class="text-[9px] text-blue-400 font-black uppercase tracking-[0.2em] mt-1">Inventory Planner</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+                <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
+                    <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
+                </a>
+
+                <div class="pt-6 pb-2 px-4">
+                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
+                </div>
+
+                <!-- Abastecimiento -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
+                            <span class="font-bold">Abastecimiento</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
+                        </a>
+                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Inventario -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
+                            <span class="font-bold">Inventario</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Ingreso Material
+                        </a>
+                        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Recepción
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mantenimiento -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
+                            <span class="font-bold">Mantenimiento</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="pl-4 pr-4 space-y-1">
+                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Solicitud Ordenes de Trabajo
+                        </a>
+                        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Todas las Solicitudes de Ordenes de Trabajo
+                        </a>
+                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Despacho Ordenes de Trabajo
+                        </a>
+                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pt-6 pb-2 px-4">
+                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
+                </div>
+
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
+                            <span class="font-bold">Reportes y KPIs</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- User Profile -->
+            <div class="p-6 bg-[#000d1a] border-t border-white/5">
+                <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-8 w-8 rounded-full border border-blue-500/30" alt="Admin">
+                    <div class="flex flex-col min-w-0">
+                        <span class="text-[10px] font-black uppercase text-white truncate">Administrador</span>
+                        <span class="text-[8px] text-slate-500 font-bold uppercase tracking-widest">Sistema Online</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Toggle -->
+        <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] z-[70] hover:bg-blue-600 transition-colors">
+            <span id="toggleIcon" class="material-symbols-outlined text-[20px]">chevron_left</span>
+        </button>
+    </aside>
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
+    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
+        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
+            <div class="flex items-center gap-4">
+                <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
+                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
+                </div>
+                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
+                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex flex-col overflow-hidden md:ml-64 transition-all duration-300">
+        <!-- Content Area -->
+        <div class="flex-grow overflow-y-auto bg-surface-container-lowest p-xl ios-scrolling">
+            <!-- Page Header -->
+            <div class="mb-xl">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">list_alt</span>
+                    <h2 class="font-h2 text-h2 text-primary">Todas las Solicitudes de Ordenes de Trabajo</h2>
+                </div>
+                <p class="font-body-md text-secondary mt-1">Revisión y seguimiento de todas las solicitudes generadas en el sistema.</p>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-2xl">
+                <!-- Total -->
+                <div class="bg-white p-lg rounded-xl shadow-soft border border-outline-variant/30 flex flex-col gap-sm">
+                    <div class="flex justify-between items-start">
+                        <span class="text-secondary font-label-caps text-label-caps uppercase tracking-wider">Total Solicitudes</span>
+                        <span class="p-base bg-surface-container rounded-lg">
+                            <span class="material-symbols-outlined text-primary">list_alt</span>
+                        </span>
+                    </div>
+                    <div class="flex items-baseline gap-sm">
+                        <span id="statTotal" class="text-h1 font-h1 text-primary">...</span>
+                        <span class="text-on-primary-container font-bold text-body-sm flex items-center">
+                            <span class="material-symbols-outlined text-sm">trending_up</span> +5%
+                        </span>
+                    </div>
+                </div>
+                <!-- Enviadas -->
+                <div class="bg-white p-lg rounded-xl shadow-soft border border-outline-variant/30 flex flex-col gap-sm">
+                    <div class="flex justify-between items-start">
+                        <span class="text-secondary font-label-caps text-label-caps uppercase tracking-wider">Enviadas</span>
+                        <span class="p-base bg-secondary-container rounded-lg">
+                            <span class="material-symbols-outlined text-secondary">send</span>
+                        </span>
+                    </div>
+                    <div class="flex items-baseline gap-sm">
+                        <span id="statSent" class="text-h1 font-h1 text-primary">...</span>
+                    </div>
+                </div>
+                <!-- En Proceso -->
+                <div class="bg-white p-lg rounded-xl shadow-soft border border-outline-variant/30 flex flex-col gap-sm">
+                    <div class="flex justify-between items-start">
+                        <span class="text-secondary font-label-caps text-label-caps uppercase tracking-wider">En Proceso</span>
+                        <span class="p-base bg-amber-50 rounded-lg">
+                            <span class="material-symbols-outlined text-amber-600">running_with_errors</span>
+                        </span>
+                    </div>
+                    <div class="flex items-baseline gap-sm">
+                        <span id="statProcess" class="text-h1 font-h1 text-amber-600">...</span>
+                    </div>
+                </div>
+                <!-- Completadas -->
+                <div class="bg-white p-lg rounded-xl shadow-soft border border-outline-variant/30 flex flex-col gap-sm">
+                    <div class="flex justify-between items-start">
+                        <span class="text-secondary font-label-caps text-label-caps uppercase tracking-wider">Completadas</span>
+                        <span class="p-base bg-green-50 rounded-lg">
+                            <span class="material-symbols-outlined text-green-600">check_circle</span>
+                        </span>
+                    </div>
+                    <div class="flex items-baseline gap-sm">
+                        <span id="statComplete" class="text-h1 font-h1 text-green-600">...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="bg-white rounded-xl shadow-soft overflow-hidden border border-outline-variant/30">
+                <div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-white sticky top-0 z-10">
+                    <h3 class="font-h3 text-h3 text-primary">Solicitudes Recientes</h3>
+                        <div class="flex gap-sm items-center">
+                            <div class="relative hidden md:flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">search</span>
+                                <input type="text" id="filterInput" onkeyup="applyFilter()" placeholder="Filtrar por servicio o solicitante..." 
+                                       class="pl-9 pr-4 py-1.5 border border-outline-variant rounded-lg text-[13px] focus:ring-2 focus:ring-primary/20 outline-none w-48 lg:w-64 transition-all bg-surface">
+                            </div>
+                            <button class="flex items-center gap-1 bg-primary-container text-white px-3 py-1.5 rounded-lg font-bold text-[11px] uppercase tracking-wider hover:shadow-md transition-all active:scale-95">
+                                <span class="material-symbols-outlined text-[18px]">download</span> Exportar
+                            </button>
+                            <button id="btnRefresh" onclick="refreshData()" class="p-1 hover:bg-surface-container rounded-lg cursor-pointer transition-all">
+                                <span id="refreshIcon" class="material-symbols-outlined text-secondary transition-all">refresh</span>
+                            </button>
+                        </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface-container-low">
+                                <th class="px-lg py-md font-label-caps text-label-caps text-secondary border-b border-outline-variant uppercase">Orden de Trabajo</th>
+                                <th class="px-lg py-md font-label-caps text-label-caps text-secondary border-b border-outline-variant uppercase">Fecha</th>
+                                <th class="px-lg py-md font-label-caps text-label-caps text-secondary border-b border-outline-variant uppercase">Solicitante</th>
+                                <th class="px-lg py-md font-label-caps text-label-caps text-secondary border-b border-outline-variant uppercase">Vehiculo</th>
+                                <th class="px-lg py-md font-label-caps text-label-caps text-secondary border-b border-outline-variant uppercase">Servicio</th>
+                                <th class="px-lg py-md font-label-caps text-label-caps text-secondary border-b border-outline-variant uppercase">Estado</th>
+                                <th class="px-lg py-md font-label-caps text-label-caps text-secondary border-b border-outline-variant uppercase text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="divide-y divide-outline-variant">
+                            <tr>
+                                <td colspan="7" class="px-lg py-12 text-center text-secondary">Cargando datos desde Supabase...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="px-lg py-md bg-white border-t border-outline-variant flex flex-col sm:flex-row justify-between items-center gap-md">
+                    <span id="tableInfo" class="font-body-sm text-secondary">Mostrando 0 solicitudes</span>
+                    <div class="flex gap-sm">
+                        <button class="p-sm border border-outline-variant rounded-lg text-secondary hover:bg-surface-container transition-colors disabled:opacity-50">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <button class="p-sm border border-outline-variant rounded-lg text-secondary hover:bg-surface-container transition-colors">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center px-4 md:px-8 max-w-7xl mx-auto gap-4 text-center">
+        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
+        <div class="flex gap-8">
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Privacidad</a>
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Soporte</a>
+            <a class="text-slate-500 hover:text-[#001F3F] dark:hover:text-white transition-colors" href="#">Términos</a>
+        </div>
+    </footer>
+
+    
+
+
+    <!-- Printable Summary Modal -->
+    <div id="summaryModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">receipt_long</span>
+                    Resumen de Solicitud
+                </h3>
+                <button id="btnCloseModal" class="p-1 hover:bg-slate-200 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-slate-500">close</span>
+                </button>
+            </div>
+            
+            <div id="ticketContent" class="p-6 overflow-y-auto font-mono text-sm space-y-4">
+                <!-- Ticket Header -->
+                <div class="text-center border-b border-dashed border-slate-300 pb-4">
+                    <p class="font-bold text-lg uppercase">CSM Legacy</p>
+                    <p>Solicitud de Orden de Trabajo</p>
+                    <p id="ticketDate" class="text-xs text-slate-500 mt-1">--/--/---- --:--</p>
+                </div>
+
+                <!-- Main Info -->
+                <div class="space-y-1 py-2">
+                    <div class="flex justify-between"><span class="text-slate-500">ORDEN:</span> <span id="ticketWO" class="font-bold">--</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">TÉCNICO:</span> <span id="ticketTech">--</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">VEHÍCULO:</span> <span id="ticketVIN">--</span></div>
+                </div>
+
+                <!-- Service Info -->
+                <div class="border-t border-dashed border-slate-300 pt-2">
+                    <p class="text-xs font-bold text-slate-500 mb-1 uppercase tracking-widest">DETALLES DE LA ORDEN</p>
+                    <p><span class="text-slate-500">REPARACIÓN:</span> <span id="ticketDesc" class="font-bold">--</span></p>
+                </div>
+
+                <!-- Spare Parts -->
+                <div class="border-t border-dashed border-slate-300 pt-2">
+                    <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-widest">REFACCIONES / SUMINISTROS</p>
+                    <div id="ticketPartsList" class="space-y-2">
+                        <!-- Dynamic items here -->
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center border-t border-dashed border-slate-300 pt-4 mt-6">
+                    <p class="text-xs">*** FIN DEL REPORTE ***</p>
+                    <p class="text-[10px] text-slate-400 mt-2 italic">Generado digitalmente por Antigravity AI</p>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-100 grid grid-cols-2 gap-3">
+                <button onclick="window.print()" class="bg-primary-container text-white py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">print</span>
+                    IMPRIMIR
+                </button>
+                <button id="btnConfirmFinal" class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-200 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">check_circle</span>
+                    CERRAR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+        const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
+        
+        let supabaseClient = null;
+        let allOrders = [];
+
+        (function() {
+            const btnToggle = document.getElementById('btnSidebarToggle');
+            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const header = document.querySelector('header');
+            const main = document.querySelector('main');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            // Detect if it's a page reload
+            const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+            if (isReload) {
+                sessionStorage.removeItem('sidebarCollapsed');
+                sessionStorage.removeItem('openSubmenus');
+            }
+
+            const toggleSidebar = (manual = true) => {
+                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
+                
+                if (isCurrentlyCollapsed) {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebar.classList.add('md:translate-x-0');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                    if (window.innerWidth >= 768) {
+                        if (header) header.classList.add('md:pl-64');
+                        if (main) main.classList.add('md:ml-64');
+                    } else {
+                        if (overlay) overlay.classList.remove('hidden');
+                    }
+                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebar.classList.remove('md:translate-x-0');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    if (overlay) overlay.classList.add('hidden');
+                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
+                }
+            };
+
+            if (btnToggle) btnToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
+
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentFile) {
+                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
+                    const icon = link.querySelector('span.material-symbols-outlined');
+                    if (icon) icon.classList.add('text-blue-400');
+                }
+            });
+
+            // Submenu state management
+            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            
+            const nav = document.querySelector('nav');
+            if (nav) {
+                const submenuBtns = nav.querySelectorAll('button');
+                submenuBtns.forEach(btn => {
+                    const spanTitle = btn.querySelector('.font-bold');
+                    if (!spanTitle) return;
+                    
+                    const menuId = spanTitle.textContent.trim();
+                    const submenuDiv = btn.nextElementSibling;
+                    
+                    if (!submenuDiv) return;
+
+                    // Remove inline onclick
+                    btn.removeAttribute('onclick');
+
+                    // Restore state
+                    if (openSubmenus.includes(menuId)) {
+                        submenuDiv.classList.remove('hidden');
+                    } else {
+                        submenuDiv.classList.add('hidden');
+                    }
+
+                    // Add click listener
+                    btn.addEventListener('click', () => {
+                        const isHidden = submenuDiv.classList.contains('hidden');
+                        if (isHidden) {
+                            submenuDiv.classList.remove('hidden');
+                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                        } else {
+                            submenuDiv.classList.add('hidden');
+                            openSubmenus = openSubmenus.filter(id => id !== menuId);
+                        }
+                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                    });
+                });
+            }
+
+            // Restore sidebar state
+            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
+            if (window.innerWidth >= 768) {
+                if (isSidebarCollapsed === 'true') {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebar.classList.remove('md:translate-x-0');
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                } else {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebar.classList.add('md:translate-x-0');
+                    if (header) header.classList.add('md:pl-64');
+                    if (main) main.classList.add('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                }
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('md:translate-x-0');
+                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+            }
+        })();
+
+        async function fetchData() {
+            const tableBody = document.getElementById('tableBody');
+            
+            if (!supabaseClient) {
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+            }
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('detalle_solicitud_ot')
+                    .select('*')
+                    .order('fecha', { ascending: false });
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    renderTable([]);
+                    return;
+                }
+
+                const groupedMap = new Map();
+                
+                data.forEach(item => {
+                    const id = item.solicitud || 'S-ID';
+                    if (!groupedMap.has(id)) {
+                        groupedMap.set(id, {
+                            ...item,
+                            repuestos: item.repuesto ? [item.repuesto] : []
+                        });
+                    } else {
+                        if (item.repuesto) {
+                            groupedMap.get(id).repuestos.push(item.repuesto);
+                        }
+                    }
+                });
+
+                allOrders = Array.from(groupedMap.values());
+
+                document.getElementById('statTotal').textContent = allOrders.length;
+                document.getElementById('statSent').textContent = allOrders.filter(o => o.estado_solicitud === 'ENVIADO').length;
+                document.getElementById('statProcess').textContent = allOrders.filter(o => o.estado_solicitud === 'EN PROCESO').length;
+                document.getElementById('statComplete').textContent = 0;
+
+                renderTable(allOrders);
+            } catch (err) {
+                console.error('Error fetching data:', err);
+                tableBody.innerHTML = `<tr><td colspan="7" class="px-lg py-12 text-center text-red-500 font-bold">Error al cargar datos: ${err.message}</td></tr>`;
+            }
+        }
+
+        function showOrderDetails(orderId) {
+            const order = allOrders.find(o => o.solicitud === orderId);
+            if (!order) return;
+
+            const modal = document.getElementById('summaryModal');
+            if (!modal) return;
+
+            // Poblar campos
+            document.getElementById('ticketWO').textContent = order.solicitud;
+            document.getElementById('ticketTech').textContent = order.solicitante;
+            document.getElementById('ticketVIN').textContent = `ID: ${order.unidad} - VIN: ${order.VIN}`;
+            document.getElementById('ticketDesc').textContent = order.servicio;
+            
+            const rawDate = order.fecha ? new Date(order.fecha) : new Date();
+            document.getElementById('ticketDate').textContent = rawDate.toLocaleString('es-ES');
+
+            // Poblar repuestos
+            const partsList = document.getElementById('ticketPartsList');
+            if (partsList) {
+                partsList.innerHTML = '';
+                order.repuestos.forEach(part => {
+                    const div = document.createElement('div');
+                    div.className = 'flex justify-between items-center text-xs pb-1';
+                    div.innerHTML = `
+                        <span class="flex-1 truncate pr-2">- ${part}</span>
+                        <span class="font-bold w-10 text-right">1</span>
+                    `;
+                    partsList.appendChild(div);
+                });
+            }
+
+            // Mostrar modal
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            const modal = document.getElementById('summaryModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        document.getElementById('btnCloseModal')?.addEventListener('click', closeModal);
+        document.getElementById('btnConfirmFinal')?.addEventListener('click', closeModal);
+
+        function applyFilter() {
+            const query = document.getElementById('filterInput').value.toLowerCase();
+            const filtered = allOrders.filter(order => {
+                const solicitante = (order.solicitante || '').toLowerCase();
+                const servicio = (order.servicio || '').toLowerCase();
+                return solicitante.includes(query) || servicio.includes(query);
+            });
+            renderTable(filtered);
+        }
+
+        async function refreshData() {
+            const icon = document.getElementById('refreshIcon');
+            const btn = document.getElementById('btnRefresh');
+            if (!icon || !btn) return;
+
+            // Animación de giro
+            icon.classList.add('animate-spin-icon');
+            btn.disabled = true;
+
+            await fetchData();
+
+            // Detener giro y mostrar check
+            icon.classList.remove('animate-spin-icon');
+            icon.textContent = 'check_circle';
+            icon.classList.remove('text-secondary');
+            icon.classList.add('text-emerald-500');
+
+            // Volver al ícono original después de 1.5s
+            setTimeout(() => {
+                icon.textContent = 'refresh';
+                icon.classList.remove('text-emerald-500');
+                icon.classList.add('text-secondary');
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        function renderTable(ots) {
+            const tableBody = document.getElementById('tableBody');
+            const tableInfo = document.getElementById('tableInfo');
+            
+            if (ots.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" class="px-lg py-12 text-center text-secondary">No hay solicitudes registradas en la base de datos.</td></tr>`;
+                tableInfo.textContent = '0 registros encontrados';
+                return;
+            }
+
+            tableBody.innerHTML = ots.map(ot => {
+                let statusClass = 'text-slate-500';
+                if (ot.estado_solicitud === 'ENVIADO') statusClass = 'text-emerald-600';
+                if (ot.estado_solicitud === 'EN PROCESO') statusClass = 'text-amber-600';
+
+                const rawDate = ot.fecha ? new Date(ot.fecha) : new Date();
+                const dateDisplay = rawDate.toLocaleDateString('es-ES', { 
+                    day: '2-digit', month: '2-digit', year: 'numeric'
+                });
+                const timeDisplay = rawDate.toLocaleTimeString('es-ES', { 
+                    hour: '2-digit', minute: '2-digit'
+                });
+
+                return `
+                    <tr class="hover:bg-background transition-colors border-b border-outline-variant/30">
+                        <td class="px-lg py-md font-bold text-primary">${ot.solicitud || '---'}</td>
+                        <td class="px-lg py-md font-body-sm text-on-surface-variant">
+                            <div class="font-bold text-sm">${dateDisplay}</div>
+                            <div class="text-[10px] opacity-60">${timeDisplay}</div>
+                        </td>
+                        <td class="px-lg py-md">
+                            <div class="flex items-center gap-sm">
+                                <span class="font-bold text-primary text-sm">${ot.solicitante || 'Sin asignar'}</span>
+                            </div>
+                        </td>
+                        <td class="px-lg py-md font-body-sm text-on-surface-variant">
+                            <div class="font-bold text-primary">${ot.unidad || 'N/A'}</div>
+                        </td>
+                        <td class="px-lg py-md">
+                            <div class="text-[11px] font-bold text-secondary uppercase tracking-tighter">${ot.servicio || 'General'}</div>
+                        </td>
+                        <td class="px-lg py-md">
+                            <span class="${statusClass} text-[11px] font-bold uppercase tracking-widest">${ot.estado_solicitud || 'N/A'}</span>
+                        </td>
+                        <td class="px-lg py-md text-right">
+                            <div class="flex gap-1 justify-end">
+                                <button onclick="showOrderDetails('${ot.solicitud}')" class="p-1 hover:bg-primary-container/10 rounded-lg text-primary transition-colors" title="Detalles">
+                                    <span class="material-symbols-outlined text-[20px]">visibility</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            tableInfo.textContent = `Mostrando ${ots.length} solicitud${ots.length !== 1 ? 'es' : ''}`;
+        }
+
+        // Esperar a que window.supabase (la librería) esté disponible
+        function initApp() {
+            if (typeof window.supabase !== 'undefined' && typeof window.supabase.createClient === 'function') {
+                fetchData();
+            } else {
+                setTimeout(initApp, 150);
+            }
+        }
+
+        initApp();
+    </script>
+</body>
+</html>
