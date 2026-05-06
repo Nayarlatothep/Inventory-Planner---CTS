@@ -348,6 +348,7 @@
                     <div>
                         <span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1 block">Orden de Trabajo</span>
                         <h2 id="workOrderNumberDisplay" class="font-h3 text-h3 text-primary-container">OT-2026-00001</h2>
+                        <p class="text-[9px] text-red-500 font-bold mt-1 uppercase tracking-tighter">* Campos obligatorios</p>
                     </div>
                     <div id="orderStatusBadge" class="hidden text-[10px] font-bold uppercase tracking-widest">
                     </div>
@@ -361,14 +362,14 @@
                     </div>
                     <div class="space-y-1">
                         <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">badge</span> Técnico
+                            <span class="material-symbols-outlined text-[14px]">badge</span> Técnico <span class="text-red-500">*</span>
                         </span>
                         <input id="tecnicoInput" class="w-full bg-surface border border-outline-variant rounded px-2 py-1 font-body-sm text-body-sm focus:border-primary-container outline-none transition-all" placeholder="Nombre del Técnico" type="text" value=""/>
                         <p id="errTecnico" class="text-red-500 text-xs hidden font-semibold">**Este campo es obligatorio</p>
                     </div>
                     <div class="pt-3 border-t border-surface-variant/50">
                         <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1 mb-1">
-                            <span class="material-symbols-outlined text-[14px]">directions_car</span> Vehículo (ID)
+                            <span class="material-symbols-outlined text-[14px]">directions_car</span> Vehículo (ID) <span class="text-red-500">*</span>
                         </span>
                         <div class="relative mb-1">
                             <select id="vehiculoSelect" class="w-full bg-surface border border-outline-variant rounded px-2 py-2 font-body-md text-body-md font-bold tracking-wider text-primary focus:border-primary-container outline-none transition-all cursor-pointer">
@@ -384,7 +385,7 @@
             <!-- Service Detail (Below Work Order Info) -->
             <section class="bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant space-y-4">
                 <div class="space-y-2">
-                    <label class="font-label-caps text-label-caps text-on-surface-variant">TIPO DE REPARACIÓN</label>
+                    <label class="font-label-caps text-label-caps text-on-surface-variant">TIPO DE REPARACIÓN <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <select id="tipoReparacionSelect" class="w-full bg-surface border border-outline rounded-lg px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all">
                             <option value="">Seleccione una reparación</option>
@@ -589,7 +590,7 @@
                     const opt = document.createElement('option');
                     opt.value = v.id;
                     opt.dataset.vin = v.vin || 'N/A';
-                    opt.textContent = `${v.id} - ${v.marca || ''} (${v.vin || ''})`;
+                    opt.textContent = `${v.id}`;
                     vehiculoSelect.appendChild(opt);
                 });
 
