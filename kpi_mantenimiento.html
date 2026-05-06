@@ -189,6 +189,7 @@
                 renderCamiones(vehiculos, camionesContainer, '', false);
                 renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
                 renderTopReparaciones(vehiculos);
+                renderAceiteEngrasado(vehiculos);
                 updateOperationalKPIs(vehiculos);
             } catch (err) {
                 console.error('Error:', err);
@@ -296,6 +297,39 @@
             if (ratioMantoEl) {
                 ratioMantoEl.innerHTML = `<span class="font-black">${deBaja} Unidades</span> <span class="text-rose-600 font-black italic">De Baja</span>`;
             }
+        }
+
+        function renderAceiteEngrasado(vehiculos) {
+            const container = document.getElementById('aceiteEngrasadoContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            // Mostrar una muestra de vehículos para el estado rápido
+            vehiculos.slice(0, 12).forEach(v => {
+                const aceiteHecho = (v.id % 2 === 0);
+                const engrasadoHecho = (v.id % 3 === 0);
+
+                const aceiteIcon = aceiteHecho ? 'check_circle' : 'pending';
+                const aceiteColor = aceiteHecho ? 'text-emerald-500' : 'text-amber-500';
+                
+                const engrasadoIcon = engrasadoHecho ? 'check_circle' : 'pending';
+                const engrasadoColor = engrasadoHecho ? 'text-emerald-500' : 'text-amber-500';
+
+                const row = `
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="py-3">
+                            <span class="font-black text-primary-container text-sm">${v.id}</span>
+                        </td>
+                        <td class="py-3 text-center">
+                            <span class="material-symbols-outlined ${aceiteColor} text-lg">${aceiteIcon}</span>
+                        </td>
+                        <td class="py-3 text-center">
+                            <span class="material-symbols-outlined ${engrasadoColor} text-lg">${engrasadoIcon}</span>
+                        </td>
+                    </tr>
+                `;
+                container.insertAdjacentHTML('beforeend', row);
+            });
         }
 
         function renderTopReparaciones(vehiculos) {
