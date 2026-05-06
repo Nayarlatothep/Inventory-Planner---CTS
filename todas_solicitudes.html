@@ -636,8 +636,8 @@
                 allOrders = Array.from(groupedMap.values());
 
                 document.getElementById('statTotal').textContent = allOrders.length;
-                document.getElementById('statSent').textContent = allOrders.filter(o => o.estado === 'ENVIADO').length;
-                document.getElementById('statProcess').textContent = allOrders.filter(o => o.estado === 'EN PROCESO').length;
+                document.getElementById('statSent').textContent = allOrders.filter(o => o.estado_solicitud === 'ENVIADO').length;
+                document.getElementById('statProcess').textContent = allOrders.filter(o => o.estado_solicitud === 'EN PROCESO').length;
                 document.getElementById('statComplete').textContent = 0;
 
                 renderTable(allOrders);
@@ -699,8 +699,8 @@
             const query = document.getElementById('filterInput').value.toLowerCase();
             const filtered = allOrders.filter(order => {
                 const solicitante = (order.solicitante || '').toLowerCase();
-                const reparacion = (order.reparacion || '').toLowerCase();
-                return solicitante.includes(query) || reparacion.includes(query);
+                const servicio = (order.servicio || '').toLowerCase();
+                return solicitante.includes(query) || servicio.includes(query);
             });
             renderTable(filtered);
         }
@@ -743,8 +743,8 @@
 
             tableBody.innerHTML = ots.map(ot => {
                 let statusClass = 'text-slate-500';
-                if (ot.estado === 'ENVIADO') statusClass = 'text-emerald-600';
-                if (ot.estado === 'EN PROCESO') statusClass = 'text-amber-600';
+                if (ot.estado_solicitud === 'ENVIADO') statusClass = 'text-emerald-600';
+                if (ot.estado_solicitud === 'EN PROCESO') statusClass = 'text-amber-600';
 
                 const rawDate = ot.fecha ? new Date(ot.fecha) : new Date();
                 const dateDisplay = rawDate.toLocaleDateString('es-ES', { 
@@ -770,10 +770,10 @@
                             <div class="font-bold text-primary">${ot.unidad || 'N/A'}</div>
                         </td>
                         <td class="px-lg py-md">
-                            <div class="text-[11px] font-bold text-secondary uppercase tracking-tighter">${ot.reparacion || 'General'}</div>
+                            <div class="text-[11px] font-bold text-secondary uppercase tracking-tighter">${ot.servicio || 'General'}</div>
                         </td>
                         <td class="px-lg py-md">
-                            <span class="${statusClass} text-[11px] font-bold uppercase tracking-widest">${ot.estado || 'N/A'}</span>
+                            <span class="${statusClass} text-[11px] font-bold uppercase tracking-widest">${ot.estado_solicitud || 'N/A'}</span>
                         </td>
                         <td class="px-lg py-md text-right">
                             <div class="flex gap-1 justify-end">
