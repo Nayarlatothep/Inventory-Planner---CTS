@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
@@ -513,7 +514,110 @@
 
 
     <script>
-                (function() {
+        const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+        const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
+        let supabaseClient = null;
+
+        async function fetchVehiculos() {
+            const container = document.getElementById('tablaFlota');
+            const countDisplay = document.getElementById('contadorRegistros');
+            
+            if (!supabaseClient) {
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+            }
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('vehiculos')
+                    .select('*')
+                    .order('id', { ascending: true });
+
+                if (error) throw error;
+
+                container.innerHTML = '';
+                countDisplay.textContent = `${data.length} registros`;
+
+                data.forEach(v => {
+                    const statusColors = {
+                        'Operativo': 'text-emerald-500 bg-emerald-500',
+                        'En Mantenimiento': 'text-amber-500 bg-amber-500',
+                        'Fuera de Servicio': 'text-rose-500 bg-rose-500',
+                        'En Reparación': 'text-blue-500 bg-blue-500'
+                    };
+                    const colorSet = statusColors[v.estado] || 'text-slate-500 bg-slate-500';
+                    const icon = v.estado === 'Operativo' ? 'check_circle' : (v.estado === 'Fuera de Servicio' ? 'cancel' : 'build');
+
+                    const row = `
+                        <div class="flex items-center justify-between p-4 bg-white border border-outline-variant/30 rounded-xl hover:shadow-md transition-all group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-slate-500">${v.tipo === 'Camión de Carga' ? 'local_shipping' : 'directions_car'}</span>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-primary-container">${v.id}</span>
+                                        <span class="text-[10px] font-mono bg-slate-100 px-1.5 py-0.5 rounded text-slate-500">${v.vin || '---'}</span>
+                                    </div>
+                                    <p class="text-xs text-secondary font-medium">${v.marca || 'Sin Marca'}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-6">
+                                <div class="hidden sm:flex flex-col items-end">
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Estado</span>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-bold ${colorSet.split(' ')[0]}">${v.estado || 'S/E'}</span>
+                                        <div class="w-2 h-2 rounded-full ${colorSet.split(' ')[1]} animate-pulse"></div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-1">
+                                    <button onclick="openEditModal('${v.id}')" class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
+                                    <button onclick="deleteVehiculo('${v.id}')" class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', row);
+                });
+
+            } catch (err) {
+                console.error('Error fetching vehicles:', err);
+                container.innerHTML = `<p class="text-center text-red-500 py-10 font-bold">Error: ${err.message}</p>`;
+            }
+        }
+
+        async function saveVehiculo() {
+            const vin = document.getElementById('vehiculoVin').value;
+            const marca = document.getElementById('vehiculoMarca').value;
+            const tipo = document.getElementById('vehiculoTipo').value;
+            const estado = document.getElementById('vehiculoEstado').value;
+
+            if (!vin || !marca) {
+                alert('Por favor complete VIN y Marca');
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient
+                    .from('vehiculos')
+                    .insert([{ vin, marca, tipo, estado }]);
+
+                if (error) throw error;
+                
+                alert('Vehículo guardado correctamente');
+                document.getElementById('vehiculoVin').value = '';
+                document.getElementById('vehiculoMarca').value = '';
+                fetchVehiculos();
+            } catch (err) {
+                alert('Error al guardar: ' + err.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchVehiculos();
+            document.getElementById('btnGuardar').addEventListener('click', saveVehiculo);
+        });
+
+        (function() {
             const btnToggle = document.getElementById('btnSidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');

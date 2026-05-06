@@ -565,7 +565,51 @@
 
 
     <script>
-                (function() {
+        const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+        const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
+        let supabaseClient = null;
+
+        async function fetchVehiculos() {
+            const vehiculoSelect = document.getElementById('vehiculoSelect');
+            const vinDisplay = document.getElementById('vehiculoVinDisplay');
+            
+            if (!supabaseClient) {
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+            }
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('vehiculos')
+                    .select('*')
+                    .order('id', { ascending: true });
+
+                if (error) throw error;
+
+                vehiculoSelect.innerHTML = '<option value="">Seleccione un vehículo</option>';
+                data.forEach(v => {
+                    const opt = document.createElement('option');
+                    opt.value = v.id;
+                    opt.dataset.vin = v.vin || 'N/A';
+                    opt.textContent = `${v.id} - ${v.marca || ''} (${v.vin || ''})`;
+                    vehiculoSelect.appendChild(opt);
+                });
+
+                vehiculoSelect.addEventListener('change', (e) => {
+                    const selected = e.target.options[e.target.selectedIndex];
+                    vinDisplay.textContent = selected.dataset.vin || '---';
+                });
+
+            } catch (err) {
+                console.error('Error fetching vehicles:', err);
+                vehiculoSelect.innerHTML = '<option value="">Error al cargar</option>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchVehiculos();
+        });
+
+        (function() {
             const btnToggle = document.getElementById('btnSidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
