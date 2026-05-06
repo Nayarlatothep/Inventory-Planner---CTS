@@ -487,67 +487,7 @@
     
 
 
-    <!-- Printable Summary Modal -->
-    <div id="summaryModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
-            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h3 class="font-bold text-slate-800 flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary">receipt_long</span>
-                    Resumen de Solicitud
-                </h3>
-                <button id="btnCloseModal" class="p-1 hover:bg-slate-200 rounded-full transition-colors">
-                    <span class="material-symbols-outlined text-slate-500">close</span>
-                </button>
-            </div>
-            
-            <div id="ticketContent" class="p-6 overflow-y-auto font-mono text-sm space-y-4">
-                <!-- Ticket Header -->
-                <div class="text-center border-b border-dashed border-slate-300 pb-4">
-                    <p class="font-bold text-lg uppercase">CSM Legacy</p>
-                    <p>Solicitud de Orden de Trabajo</p>
-                    <p id="ticketDate" class="text-xs text-slate-500 mt-1">--/--/---- --:--</p>
-                </div>
 
-                <!-- Main Info -->
-                <div class="space-y-1 py-2">
-                    <div class="flex justify-between"><span class="text-slate-500">ORDEN:</span> <span id="ticketWO" class="font-bold">OT-2026-00001</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">TÉCNICO:</span> <span id="ticketTech">--</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">VEHÍCULO:</span> <span id="ticketVIN">--</span></div>
-                </div>
-
-                <!-- Service Info -->
-                <div class="border-t border-dashed border-slate-300 pt-2">
-                    <p class="text-xs font-bold text-slate-500 mb-1 uppercase tracking-widest">DETALLES DE LA ORDEN</p>
-                    <p><span class="text-slate-500">REPARACIÓN:</span> <span id="ticketDesc" class="font-bold">--</span></p>
-                </div>
-
-                <!-- Spare Parts -->
-                <div class="border-t border-dashed border-slate-300 pt-2">
-                    <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-widest">REFACCIONES / SUMINISTROS</p>
-                    <div id="ticketPartsList" class="space-y-2">
-                        <!-- Dynamic items here -->
-                    </div>
-                </div>
-
-                <!-- Footer -->
-                <div class="text-center border-t border-dashed border-slate-300 pt-4 mt-6">
-                    <p class="text-xs">*** FIN DEL REPORTE ***</p>
-                    <p class="text-[10px] text-slate-400 mt-2 italic">Generado digitalmente por Antigravity AI</p>
-                </div>
-            </div>
-
-            <div class="p-4 border-t border-slate-100 grid grid-cols-2 gap-3">
-                <button onclick="window.print()" class="bg-primary-container text-white py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
-                    <span class="material-symbols-outlined text-[20px]">print</span>
-                    IMPRIMIR
-                </button>
-                <button id="btnConfirmFinal" class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-200 transition-colors">
-                    <span class="material-symbols-outlined text-[20px]">check_circle</span>
-                    CONFIRMAR
-                </button>
-            </div>
-        </div>
-    </div>
 
     
 
@@ -913,7 +853,7 @@
                 </button>
                 <button onclick="location.reload()" class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-200 transition-colors">
                     <span class="material-symbols-outlined text-[20px]">check_circle</span>
-                    CERRAR
+                    CONFIRMAR
                 </button>
             </div>
         </div>
