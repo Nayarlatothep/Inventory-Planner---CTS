@@ -658,64 +658,36 @@
         }
 
         function showTicket(entries) {
-            const modal = document.getElementById('ticketModal');
-            const content = document.getElementById('ticketContent');
-            const data = entries[0]; // Datos generales son iguales para todos los items de la misma OT
+            const modal = document.getElementById('summaryModal');
+            if (!modal) return;
+            
+            const order = entries[0];
+            
+            // Poblar campos
+            document.getElementById('ticketWO').textContent = order.solicitud;
+            document.getElementById('ticketTech').textContent = order.solicitante;
+            document.getElementById('ticketVIN').textContent = `ID: ${order.unidad} - VIN: ${order.VIN}`;
+            document.getElementById('ticketDesc').textContent = order.servicio;
+            
+            const rawDate = order.fecha ? new Date(order.fecha) : new Date();
+            document.getElementById('ticketDate').textContent = rawDate.toLocaleString('es-ES');
 
-            let partsHtml = '';
-            entries.forEach(item => {
-                partsHtml += `<div class="flex justify-between border-b border-dashed py-1 text-sm">
-                    <span>${item.repuesto}</span>
-                    <span class="font-bold">x${item.cantidad || 1}</span>
-                </div>`;
-            });
+            // Poblar repuestos
+            const partsList = document.getElementById('ticketPartsList');
+            if (partsList) {
+                partsList.innerHTML = '';
+                entries.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'flex justify-between items-center text-xs pb-1';
+                    div.innerHTML = `
+                        <span class="flex-1 truncate pr-2">- ${item.repuesto}</span>
+                        <span class="font-bold w-10 text-right">1</span>
+                    `;
+                    partsList.appendChild(div);
+                });
+            }
 
-            content.innerHTML = `
-                <div class="text-center border-b-2 pb-4 mb-4">
-                    <h2 class="text-2xl font-black text-[#001F3F]">CSM LEGACY</h2>
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Inventory Planner V1.0</p>
-                </div>
-                <div class="space-y-3">
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs text-slate-500 uppercase font-bold">Orden de Trabajo</span>
-                        <span class="text-lg font-black text-blue-600">${data.solicitud}</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 text-xs">
-                        <div>
-                            <p class="text-slate-400 uppercase font-bold text-[9px]">Fecha</p>
-                            <p class="font-bold">${new Date(data.fecha).toLocaleDateString()}</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-slate-400 uppercase font-bold text-[9px]">Técnico</p>
-                            <p class="font-bold">${data.solicitante}</p>
-                        </div>
-                    </div>
-                    <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-[9px] text-slate-400 font-bold uppercase">Vehículo (ID)</span>
-                            <span class="font-black text-sm">${data.unidad}</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-[9px] text-slate-400 font-bold uppercase">VIN</span>
-                            <span class="font-mono text-[10px] font-bold">${data.VIN}</span>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-slate-400 font-bold uppercase mb-1">Servicio/Reparación</p>
-                        <p class="text-sm font-bold text-[#001F3F]">${data.servicio}</p>
-                    </div>
-                    <div class="pt-2">
-                        <p class="text-[9px] text-slate-400 font-bold uppercase mb-2 border-b">Refacciones Solicitadas</p>
-                        <div class="max-h-[200px] overflow-y-auto">
-                            ${partsHtml}
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-8 pt-4 border-t border-slate-200 text-center">
-                    <p class="text-[9px] italic text-slate-400">© 2026 CSM Legacy. Todos los derechos reservados.</p>
-                </div>
-            `;
-
+            // Mostrar modal
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
@@ -884,28 +856,63 @@
         })();
     </script>
 
-    <!-- Ticket Modal -->
-    <div id="ticketModal" class="hidden fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all scale-100">
-            <div class="bg-[#001F3F] p-4 flex justify-between items-center">
-                <div class="flex items-center gap-2 text-white">
-                    <span class="material-symbols-outlined">receipt_long</span>
-                    <span class="font-bold uppercase tracking-widest text-xs">Comprobante de Solicitud</span>
+    <!-- Summary Modal -->
+    <div id="summaryModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">receipt_long</span>
+                    Resumen de Solicitud
+                </h3>
+                <button onclick="location.reload()" class="p-1 hover:bg-slate-200 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-slate-500">close</span>
+                </button>
+            </div>
+            
+            <div id="ticketPrintContent" class="p-6 overflow-y-auto font-mono text-sm space-y-4">
+                <!-- Ticket Header -->
+                <div class="text-center border-b border-dashed border-slate-300 pb-4">
+                    <p class="font-bold text-lg uppercase">CSM Legacy</p>
+                    <p>Solicitud de Orden de Trabajo</p>
+                    <p id="ticketDate" class="text-xs text-slate-500 mt-1">--/--/---- --:--</p>
                 </div>
-                <button onclick="location.reload()" class="text-white/70 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
+
+                <!-- Main Info -->
+                <div class="space-y-1 py-2">
+                    <div class="flex justify-between"><span class="text-slate-500">ORDEN:</span> <span id="ticketWO" class="font-bold">--</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">TÉCNICO:</span> <span id="ticketTech">--</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">VEHÍCULO:</span> <span id="ticketVIN">--</span></div>
+                </div>
+
+                <!-- Service Info -->
+                <div class="border-t border-dashed border-slate-300 pt-2">
+                    <p class="text-xs font-bold text-slate-500 mb-1 uppercase tracking-widest">DETALLES DE LA ORDEN</p>
+                    <p><span class="text-slate-500">REPARACIÓN:</span> <span id="ticketDesc" class="font-bold">--</span></p>
+                </div>
+
+                <!-- Spare Parts -->
+                <div class="border-t border-dashed border-slate-300 pt-2">
+                    <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-widest">REFACCIONES / SUMINISTROS</p>
+                    <div id="ticketPartsList" class="space-y-2">
+                        <!-- Dynamic items here -->
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center border-t border-dashed border-slate-300 pt-4 mt-6">
+                    <p class="text-xs">*** FIN DEL REPORTE ***</p>
+                    <p class="text-[10px] text-slate-400 mt-2 italic">Generado digitalmente por Antigravity AI</p>
+                </div>
             </div>
-            <div id="ticketContent" class="p-8">
-                <!-- Se llena dinámicamente -->
-            </div>
-            <div class="p-6 bg-slate-50 flex flex-col gap-3">
-                <button onclick="window.print()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-blue-200 transition-all active:scale-95">
-                    <span class="material-symbols-outlined">print</span>
-                    IMPRIMIR TICKET
+
+            <div class="p-4 border-t border-slate-100 grid grid-cols-2 gap-3">
+                <button onclick="window.print()" class="bg-primary-container text-white py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">print</span>
+                    IMPRIMIR
                 </button>
-                <button onclick="location.reload()" class="w-full border-2 border-slate-200 hover:border-slate-300 text-slate-600 py-3 rounded-xl font-bold transition-all hover:bg-white">
-                    NUEVA SOLICITUD
+                <button onclick="location.reload()" class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-200 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">check_circle</span>
+                    CERRAR
                 </button>
             </div>
         </div>
