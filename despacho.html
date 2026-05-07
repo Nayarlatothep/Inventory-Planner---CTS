@@ -400,11 +400,11 @@
 
             <!-- Modal Footer -->
             <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-                <button onclick="updateAndClose(this)" class="px-6 py-2.5 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[20px]">sync</span>
-                    Actualizar
+                <button onclick="closeModal()" class="px-6 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-200 transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                    Rechazar
                 </button>
-                <button onclick="confirmDispatch()" class="px-6 py-2.5 bg-primary-container text-white rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
+                <button onclick="confirmDispatch(this)" class="px-6 py-2.5 bg-primary-container text-white rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
                     <span class="material-symbols-outlined text-[20px]">check_circle</span>
                     Confirmar Despacho
                 </button>
@@ -750,54 +750,7 @@
             updateCardUI(order);
         }
 
-        async function updateAndClose(btn) {
-            const orderId = document.getElementById('modalOrderId').textContent;
-            const order = allOrders.find(o => o.id === orderId);
-            if (!order) {
-                alert('No se pudo encontrar la orden.');
-                return;
-            }
 
-            const originalContent = btn.innerHTML;
-            btn.disabled = true;
-            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Guardando...';
-
-            try {
-                console.log(`Guardando cambios para ${order.id}...`);
-                
-                // Prepare batch update data - using individual updates because Supabase RLS/Bulk can be tricky
-                const updatePromises = order.items.map(item => {
-                    const val = item.checked ? 1 : 0;
-                    console.log(`Item ${item.id} (${item.nombre}) -> Estatus: ${val}`);
-                    return supabaseClient
-                        .from('detalle_solicitud_ot')
-                        .update({ estatus: val })
-                        .eq('id', item.id);
-                });
-
-                const results = await Promise.all(updatePromises);
-                
-                // Check for any errors in results
-                const errors = results.filter(r => r.error);
-                if (errors.length > 0) {
-                    console.error('Errores en el guardado:', errors);
-                    throw new Error(errors[0].error.message);
-                }
-
-                console.log('¡Guardado exitoso!');
-                
-                // Reset button BEFORE closing so it's ready for next time
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-                
-                closeModal();
-            } catch (err) {
-                console.error('Error in batch update:', err);
-                alert('Error al guardar: ' + err.message);
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-            }
-        }
 
         function updateCardUI(order) {
             const cardId = `card-${order.id.replace(/\W/g, '_')}`;
@@ -837,10 +790,44 @@
             document.body.style.overflow = 'auto';
         }
 
-        function confirmDispatch() {
-            // Logica futura para actualizar estado en Supabase
-            alert('Funcionalidad de confirmación en desarrollo. Los repuestos han sido marcados para despacho.');
-            closeModal();
+        async function confirmDispatch(btn) {
+            const orderId = document.getElementById('modalOrderId').textContent;
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) {
+                alert('No se pudo encontrar la orden.');
+                return;
+            }
+
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Procesando...';
+
+            try {
+                // Actualizar cada ítem en Supabase
+                const updatePromises = order.items.map(item => 
+                    supabaseClient
+                        .from('detalle_solicitud_ot')
+                        .update({ estatus: item.checked ? 1 : 0 })
+                        .eq('id', item.id)
+                );
+
+                const results = await Promise.all(updatePromises);
+                
+                const errors = results.filter(r => r.error);
+                if (errors.length > 0) throw new Error(errors[0].error.message);
+
+                console.log('¡Despacho confirmado y guardado!');
+                
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+                
+                closeModal();
+            } catch (err) {
+                console.error('Error al confirmar despacho:', err);
+                alert('Error al confirmar: ' + err.message);
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+            }
         }
 
         // Initialize
