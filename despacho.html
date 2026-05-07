@@ -114,6 +114,10 @@
             min-height: 100dvh;
             -webkit-font-smoothing: antialiased;
         }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+        .modal-backdrop-blur { backdrop-filter: blur(8px); }
     </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
@@ -324,6 +328,88 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal de Detalles de Orden -->
+    <div id="detailsModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 modal-backdrop-blur p-4">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh] animate-in fade-in zoom-in duration-300">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-primary-container text-white rounded-lg">
+                        <span class="material-symbols-outlined">assignment</span>
+                    </div>
+                    <div>
+                        <h3 id="modalOrderId" class="font-bold text-slate-800 text-xl">OT-XXXX-XXXX</h3>
+                        <p id="modalOrderDate" class="text-xs text-slate-500 uppercase font-bold tracking-widest mt-0.5">--/--/----</p>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="p-2 hover:bg-slate-200 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-slate-500">close</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto custom-scrollbar space-y-8">
+                <!-- Info Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400">person</span>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Técnico Solicitante</p>
+                                <p id="modalTech" class="font-bold text-slate-700">---</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400">local_shipping</span>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Unidad</p>
+                                <p id="modalUnit" class="font-bold text-slate-700">---</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400">fingerprint</span>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">VIN</p>
+                                <p id="modalVIN" class="font-bold text-slate-700 font-mono">---</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400">settings</span>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Servicio / Reparación</p>
+                                <p id="modalService" class="font-bold text-slate-700">---</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Checklist Section -->
+                <div>
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm text-blue-600">checklist</span>
+                        Checklist de Repuestos para Despacho
+                    </h4>
+                    <div id="modalPartsList" class="space-y-2">
+                        <!-- Repuestos dynamic -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-6 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-200 transition-colors">
+                    Cerrar
+                </button>
+                <button onclick="confirmDispatch()" class="px-6 py-2.5 bg-primary-container text-white rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]">check_circle</span>
+                    Confirmar Despacho
+                </button>
+            </div>
+        </div>
+    </div>
     <!-- Footer -->
     <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
         <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
@@ -478,6 +564,7 @@
         const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
         const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
         let supabaseClient = null;
+        let allOrders = [];
 
         async function fetchOrders() {
             const grid = document.getElementById('ordersGrid');
@@ -513,13 +600,21 @@
                             unidad: item.unidad || 'N/A',
                             tecnico: item.solicitante || 'Sin asignar',
                             estado: item.estado_solicitud || 'PENDIENTE',
+                            servicio: item.servicio || 'Mantenimiento General',
                             items: []
                         });
                     }
-                    grouped.get(item.solicitud).items.push(item);
+                    if (item.repuesto) {
+                        grouped.get(item.solicitud).items.push({
+                            nombre: item.repuesto,
+                            cantidad: item.cantidad || 1,
+                            id: item.id
+                        });
+                    }
                 });
 
-                renderOrders(Array.from(grouped.values()));
+                allOrders = Array.from(grouped.values());
+                renderOrders(allOrders);
             } catch (err) {
                 console.error('Error fetching orders:', err);
                 grid.innerHTML = `<div class="col-span-full py-20 text-center text-red-500 font-bold">Error: ${err.message}</div>`;
@@ -583,13 +678,62 @@
                             </div>
                         </div>
                         <div class="p-md pt-0">
-                            <button class="w-full py-sm bg-primary-container text-white rounded-lg font-button text-button hover:opacity-90 transition-opacity flex items-center justify-center gap-xs" onclick="window.location.href='todas_solicitudes.html?id=${order.id}'">
+                            <button class="w-full py-sm bg-primary-container text-white rounded-lg font-button text-button hover:opacity-90 transition-opacity flex items-center justify-center gap-xs" onclick="showOrderDetails('${order.id}')">
                                 Ver Detalles <span class="material-symbols-outlined text-sm">arrow_forward</span>
                             </button>
                         </div>
                     </div>
                 `;
             }).join('');
+        }
+
+        function showOrderDetails(orderId) {
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+
+            document.getElementById('modalOrderId').textContent = order.id;
+            const rawDate = order.fecha ? new Date(order.fecha) : new Date();
+            document.getElementById('modalOrderDate').textContent = rawDate.toLocaleString('es-ES');
+            document.getElementById('modalTech').textContent = order.tecnico;
+            document.getElementById('modalUnit').textContent = order.unidad;
+            document.getElementById('modalVIN').textContent = order.vin;
+            document.getElementById('modalService').textContent = order.servicio;
+
+            const partsList = document.getElementById('modalPartsList');
+            partsList.innerHTML = order.items.length > 0 ? order.items.map(item => `
+                <label class="flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all group">
+                    <div class="flex items-center gap-4">
+                        <div class="relative flex items-center">
+                            <input type="checkbox" class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-slate-700 group-hover:text-blue-700">${item.nombre}</span>
+                            <span class="text-[10px] text-slate-400 uppercase font-black tracking-widest">ID Refacción: ${item.id}</span>
+                        </div>
+                    </div>
+                    <div class="bg-white px-3 py-1 rounded-lg border border-slate-200 shadow-sm font-black text-blue-600 text-sm">
+                        x${item.cantidad}
+                    </div>
+                </label>
+            `).join('') : '<p class="text-center py-4 text-slate-400 italic">No hay repuestos registrados para esta orden.</p>';
+
+            const modal = document.getElementById('detailsModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('detailsModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function confirmDispatch() {
+            // Logica futura para actualizar estado en Supabase
+            alert('Funcionalidad de confirmación en desarrollo. Los repuestos han sido marcados para despacho.');
+            closeModal();
         }
 
         // Initialize
