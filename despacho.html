@@ -400,8 +400,9 @@
 
             <!-- Modal Footer -->
             <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-                <button onclick="closeModal()" class="px-6 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-200 transition-colors">
-                    Cerrar
+                <button onclick="updateAndClose()" class="px-6 py-2.5 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]">sync</span>
+                    Actualizar
                 </button>
                 <button onclick="confirmDispatch()" class="px-6 py-2.5 bg-primary-container text-white rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
                     <span class="material-symbols-outlined text-[20px]">check_circle</span>
@@ -726,44 +727,61 @@
             document.body.style.overflow = 'hidden';
         }
 
-        async function toggleItem(orderId, itemId) {
+        function toggleItem(orderId, itemId) {
             const order = allOrders.find(o => o.id === orderId);
             if (!order) return;
 
             const item = order.items.find(i => i.id === itemId);
             if (!item) return;
 
-            const newCheckedState = !item.checked;
-            
+            item.checked = !item.checked;
+
+            // Update modal UI immediately (local only)
+            const label = event.target.closest('label');
+            if (item.checked) {
+                label.classList.add('bg-blue-50', 'border-blue-200');
+                label.querySelector('span.font-bold').classList.add('text-blue-700');
+            } else {
+                label.classList.remove('bg-blue-50', 'border-blue-200');
+                label.querySelector('span.font-bold').classList.remove('text-blue-700');
+            }
+
+            // Update main grid card UI
+            updateCardUI(order);
+        }
+
+        async function updateAndClose() {
+            const orderId = document.getElementById('modalOrderId').textContent;
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+
+            const btn = event.currentTarget;
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Guardando...';
+
             try {
-                // Update in Supabase
+                // Prepare batch update data
+                const updates = order.items.map(item => ({
+                    id: item.id,
+                    estatus: item.checked ? 1 : 0
+                }));
+
+                // Batch update in Supabase using upsert (it updates if ID exists)
+                // Note: we must include all required fields if it's a real upsert, 
+                // but in Supabase JS, if we only provide ID and the field to update, it works as a bulk update for those rows.
                 const { error } = await supabaseClient
                     .from('detalle_solicitud_ot')
-                    .update({ estatus: newCheckedState ? 1 : 0 })
-                    .eq('id', itemId);
+                    .upsert(updates);
 
                 if (error) throw error;
 
-                // Update local state only after success
-                item.checked = newCheckedState;
-
-                // Update modal UI
-                const label = event.target.closest('label');
-                if (item.checked) {
-                    label.classList.add('bg-blue-50', 'border-blue-200');
-                    label.querySelector('span.font-bold').classList.add('text-blue-700');
-                } else {
-                    label.classList.remove('bg-blue-50', 'border-blue-200');
-                    label.querySelector('span.font-bold').classList.remove('text-blue-700');
-                }
-
-                // Update main grid card UI
-                updateCardUI(order);
+                closeModal();
             } catch (err) {
-                console.error('Error updating item status:', err);
-                alert('No se pudo guardar el cambio en la base de datos.');
-                // Revert checkbox in UI
-                event.target.checked = item.checked;
+                console.error('Error in batch update:', err);
+                alert('No se pudieron guardar los cambios: ' + err.message);
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
             }
         }
 
