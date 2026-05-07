@@ -707,7 +707,7 @@
                     <div class="flex items-center gap-4">
                         <div class="relative flex items-center">
                             <input type="checkbox" ${item.checked ? 'checked' : ''} 
-                                   onchange="toggleItem('${order.id}', '${item.id}')"
+                                   onchange="toggleItem(this, '${order.id}', '${item.id}')"
                                    class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
                         </div>
                         <div class="flex flex-col">
@@ -727,17 +727,17 @@
             document.body.style.overflow = 'hidden';
         }
 
-        function toggleItem(orderId, itemId) {
+        function toggleItem(checkbox, orderId, itemId) {
             const order = allOrders.find(o => o.id === orderId);
             if (!order) return;
 
-            const item = order.items.find(i => i.id === itemId);
+            const item = order.items.find(i => i.id == itemId);
             if (!item) return;
 
-            item.checked = !item.checked;
+            item.checked = checkbox.checked;
 
             // Update modal UI immediately (local only)
-            const label = event.target.closest('label');
+            const label = checkbox.closest('label');
             if (item.checked) {
                 label.classList.add('bg-blue-50', 'border-blue-200');
                 label.querySelector('span.font-bold').classList.add('text-blue-700');
@@ -753,31 +753,42 @@
         async function updateAndClose(btn) {
             const orderId = document.getElementById('modalOrderId').textContent;
             const order = allOrders.find(o => o.id === orderId);
-            if (!order) return;
+            if (!order) {
+                alert('No se pudo encontrar la orden.');
+                return;
+            }
 
             const originalContent = btn.innerHTML;
             btn.disabled = true;
             btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Guardando...';
 
             try {
-                // Update each item in parallel to ensure accuracy with Supabase
-                const updatePromises = order.items.map(item => 
-                    supabaseClient
+                console.log(`Guardando cambios para ${order.id}...`);
+                
+                // Prepare batch update data - using individual updates because Supabase RLS/Bulk can be tricky
+                const updatePromises = order.items.map(item => {
+                    const val = item.checked ? 1 : 0;
+                    console.log(`Item ${item.id} (${item.nombre}) -> Estatus: ${val}`);
+                    return supabaseClient
                         .from('detalle_solicitud_ot')
-                        .update({ estatus: item.checked ? 1 : 0 })
-                        .eq('id', item.id)
-                );
+                        .update({ estatus: val })
+                        .eq('id', item.id);
+                });
 
                 const results = await Promise.all(updatePromises);
                 
                 // Check for any errors in results
-                const firstError = results.find(r => r.error);
-                if (firstError) throw firstError.error;
+                const errors = results.filter(r => r.error);
+                if (errors.length > 0) {
+                    console.error('Errores en el guardado:', errors);
+                    throw new Error(errors[0].error.message);
+                }
 
+                console.log('¡Guardado exitoso!');
                 closeModal();
             } catch (err) {
                 console.error('Error in batch update:', err);
-                alert('No se pudieron guardar los cambios: ' + err.message);
+                alert('Error al guardar: ' + err.message);
                 btn.disabled = false;
                 btn.innerHTML = originalContent;
             }
