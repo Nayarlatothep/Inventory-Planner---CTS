@@ -630,6 +630,7 @@
                 const totalItems = order.items.length;
                 const checkedItems = order.items.filter(i => i.checked).length;
                 const progress = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+                const isFinalStatus = order.estado === 'COMPLETO' || order.estado === 'RECHAZADO' || progress === 100;
 
                 let statusClass = 'bg-surface-container text-on-surface-variant';
                 let progressColor = 'bg-outline';
@@ -680,7 +681,9 @@
                             </div>
                         </div>
                         <div class="p-md pt-0">
-                            <button class="w-full py-sm bg-primary-container text-white rounded-lg font-button text-button hover:opacity-90 transition-opacity flex items-center justify-center gap-xs" onclick="showOrderDetails('${order.id}')">
+                            <button class="view-details-btn w-full py-sm bg-primary-container text-white rounded-lg font-button text-button hover:opacity-90 transition-opacity flex items-center justify-center gap-xs disabled:bg-slate-300 disabled:cursor-not-allowed" 
+                                    ${isFinalStatus ? 'disabled' : ''} 
+                                    onclick="showOrderDetails('${order.id}')">
                                 Ver Detalles <span class="material-symbols-outlined text-sm">arrow_forward</span>
                             </button>
                         </div>
@@ -760,24 +763,33 @@
             const totalItems = order.items.length;
             const checkedItems = order.items.filter(i => i.checked).length;
             const progress = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
-
             const bar = card.querySelector('.progress-bar');
             const text = card.querySelector('.progress-text');
             const badge = card.querySelector('.status-badge');
+            const btn = card.querySelector('.view-details-btn');
 
             text.textContent = `${progress}%`;
             bar.style.width = `${progress}%`;
 
-            if (progress === 100) {
-                bar.className = 'emerald-600 h-full transition-all duration-500 progress-bar bg-emerald-600';
+            const isFinal = progress === 100 || order.estado === 'RECHAZADO' || order.estado === 'COMPLETO';
+            if (btn) btn.disabled = isFinal;
+
+            if (order.estado === 'RECHAZADO') {
+                bar.className = 'bg-slate-300 h-full transition-all duration-500 progress-bar';
+                badge.className = 'bg-slate-100 text-slate-500 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
+                badge.textContent = 'RECHAZADO';
+                bar.style.width = '100%';
+                text.textContent = '-';
+            } else if (progress === 100 || order.estado === 'COMPLETO') {
+                bar.className = 'bg-emerald-600 h-full transition-all duration-500 progress-bar';
                 badge.className = 'bg-emerald-100 text-emerald-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
                 badge.textContent = 'COMPLETO';
             } else if (progress > 0) {
-                bar.className = 'amber-600 h-full transition-all duration-500 progress-bar bg-amber-600';
+                bar.className = 'bg-amber-600 h-full transition-all duration-500 progress-bar';
                 badge.className = 'bg-amber-100 text-amber-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
                 badge.textContent = 'EN PROCESO';
             } else {
-                bar.className = 'outline h-full transition-all duration-500 progress-bar bg-outline';
+                bar.className = 'bg-outline h-full transition-all duration-500 progress-bar';
                 badge.className = 'bg-surface-container text-on-surface-variant px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
                 badge.textContent = order.estado;
             }
