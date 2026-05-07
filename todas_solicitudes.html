@@ -285,7 +285,7 @@
             </div>
 
             <!-- KPI Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-2xl">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-gutter mb-2xl">
                 <!-- Total -->
                 <div class="bg-white p-lg rounded-xl shadow-soft border border-outline-variant/30 flex flex-col gap-sm">
                     <div class="flex justify-between items-start">
@@ -335,6 +335,18 @@
                     </div>
                     <div class="flex items-baseline gap-sm">
                         <span id="statComplete" class="text-h1 font-h1 text-green-600">...</span>
+                    </div>
+                </div>
+                <!-- Rechazadas -->
+                <div class="bg-white p-lg rounded-xl shadow-soft border border-outline-variant/30 flex flex-col gap-sm">
+                    <div class="flex justify-between items-start">
+                        <span class="text-secondary font-label-caps text-label-caps uppercase tracking-wider">Rechazadas</span>
+                        <span class="p-base bg-red-50 rounded-lg">
+                            <span class="material-symbols-outlined text-red-600">cancel</span>
+                        </span>
+                    </div>
+                    <div class="flex items-baseline gap-sm">
+                        <span id="statRejected" class="text-h1 font-h1 text-red-600">...</span>
                     </div>
                 </div>
             </div>
@@ -634,6 +646,7 @@
                 document.getElementById('statSent').textContent = allOrders.filter(o => o.estado_solicitud === 'ENVIADO').length;
                 document.getElementById('statProcess').textContent = allOrders.filter(o => o.estado_solicitud === 'EN PROCESO').length;
                 document.getElementById('statComplete').textContent = allOrders.filter(o => o.estado_solicitud === 'COMPLETO').length;
+                document.getElementById('statRejected').textContent = allOrders.filter(o => o.estado_solicitud === 'RECHAZADO').length;
 
                 renderTable(allOrders);
             } catch (err) {
@@ -741,6 +754,7 @@
                 if (ot.estado_solicitud === 'ENVIADO') statusClass = 'text-blue-600';
                 if (ot.estado_solicitud === 'EN PROCESO') statusClass = 'text-amber-600';
                 if (ot.estado_solicitud === 'COMPLETO') statusClass = 'text-green-600';
+                if (ot.estado_solicitud === 'RECHAZADO') statusClass = 'text-red-600';
 
                 const rawDate = ot.fecha ? new Date(ot.fecha) : new Date();
                 const dateDisplay = rawDate.toLocaleDateString('es-ES', { 
