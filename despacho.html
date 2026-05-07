@@ -641,6 +641,9 @@
                 } else if (progress > 0) {
                     statusClass = 'bg-amber-100 text-amber-700';
                     progressColor = 'bg-amber-600';
+                } else if (order.estado === 'RECHAZADO') {
+                    statusClass = 'bg-red-100 text-red-700';
+                    progressColor = 'bg-red-600';
                 } else if (order.estado === 'ENVIADO') {
                     statusClass = 'bg-blue-100 text-blue-700';
                 }
@@ -775,11 +778,11 @@
             if (btn) btn.disabled = isFinal;
 
             if (order.estado === 'RECHAZADO') {
-                bar.className = 'bg-slate-300 h-full transition-all duration-500 progress-bar';
-                badge.className = 'bg-slate-100 text-slate-500 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
+                bar.className = 'bg-red-600 h-full transition-all duration-500 progress-bar';
+                badge.className = 'bg-red-100 text-red-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
                 badge.textContent = 'RECHAZADO';
                 bar.style.width = '100%';
-                text.textContent = '-';
+                text.textContent = 'RECHAZADO';
             } else if (progress === 100 || order.estado === 'COMPLETO') {
                 bar.className = 'bg-emerald-600 h-full transition-all duration-500 progress-bar';
                 badge.className = 'bg-emerald-100 text-emerald-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
