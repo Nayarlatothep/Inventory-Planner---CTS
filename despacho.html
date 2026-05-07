@@ -489,7 +489,7 @@
                     .from('detalle_solicitud_ot')
                     .select('*')
                     .like('solicitud', 'OT-2026-%')
-                    .order('fecha', { ascending: false });
+                    .order('solicitud', { ascending: true });
 
                 if (error) throw error;
 
