@@ -785,6 +785,11 @@
                 }
 
                 console.log('¡Guardado exitoso!');
+                
+                // Reset button BEFORE closing so it's ready for next time
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+                
                 closeModal();
             } catch (err) {
                 console.error('Error in batch update:', err);
