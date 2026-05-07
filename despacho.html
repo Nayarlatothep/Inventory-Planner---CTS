@@ -400,7 +400,7 @@
 
             <!-- Modal Footer -->
             <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-                <button onclick="updateAndClose()" class="px-6 py-2.5 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors flex items-center gap-2">
+                <button onclick="updateAndClose(this)" class="px-6 py-2.5 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors flex items-center gap-2">
                     <span class="material-symbols-outlined text-[20px]">sync</span>
                     Actualizar
                 </button>
@@ -750,31 +750,29 @@
             updateCardUI(order);
         }
 
-        async function updateAndClose() {
+        async function updateAndClose(btn) {
             const orderId = document.getElementById('modalOrderId').textContent;
             const order = allOrders.find(o => o.id === orderId);
             if (!order) return;
 
-            const btn = event.currentTarget;
             const originalContent = btn.innerHTML;
             btn.disabled = true;
-            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Guardando...';
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Guardando...';
 
             try {
-                // Prepare batch update data
-                const updates = order.items.map(item => ({
-                    id: item.id,
-                    estatus: item.checked ? 1 : 0
-                }));
+                // Update each item in parallel to ensure accuracy with Supabase
+                const updatePromises = order.items.map(item => 
+                    supabaseClient
+                        .from('detalle_solicitud_ot')
+                        .update({ estatus: item.checked ? 1 : 0 })
+                        .eq('id', item.id)
+                );
 
-                // Batch update in Supabase using upsert (it updates if ID exists)
-                // Note: we must include all required fields if it's a real upsert, 
-                // but in Supabase JS, if we only provide ID and the field to update, it works as a bulk update for those rows.
-                const { error } = await supabaseClient
-                    .from('detalle_solicitud_ot')
-                    .upsert(updates);
-
-                if (error) throw error;
+                const results = await Promise.all(updatePromises);
+                
+                // Check for any errors in results
+                const firstError = results.find(r => r.error);
+                if (firstError) throw firstError.error;
 
                 closeModal();
             } catch (err) {
