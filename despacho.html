@@ -400,7 +400,7 @@
 
             <!-- Modal Footer -->
             <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-                <button onclick="closeModal()" class="px-6 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-200 transition-colors flex items-center gap-2">
+                <button onclick="rejectDispatch(this)" class="px-6 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-200 transition-colors flex items-center gap-2">
                     <span class="material-symbols-outlined text-[20px]">close</span>
                     Rechazar
                 </button>
@@ -780,6 +780,40 @@
                 bar.className = 'outline h-full transition-all duration-500 progress-bar bg-outline';
                 badge.className = 'bg-surface-container text-on-surface-variant px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
                 badge.textContent = order.estado;
+            }
+        }
+
+        async function rejectDispatch(btn) {
+            const orderId = document.getElementById('modalOrderId').textContent;
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+
+            if (!confirm('¿Está seguro de que desea RECHAZAR esta orden de trabajo?')) return;
+
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Procesando...';
+
+            try {
+                const { error } = await supabaseClient
+                    .from('detalle_solicitud_ot')
+                    .update({ estado_solicitud: 'RECHAZADO' })
+                    .eq('solicitud', order.id);
+
+                if (error) throw error;
+
+                console.log('¡Orden rechazada!');
+                order.estado = 'RECHAZADO';
+                updateCardUI(order);
+                
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+                closeModal();
+            } catch (err) {
+                console.error('Error al rechazar:', err);
+                alert('Error: ' + err.message);
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
             }
         }
 
