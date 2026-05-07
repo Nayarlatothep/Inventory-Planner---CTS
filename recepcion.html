@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -1033,32 +1034,210 @@
 
     
     
-    
-    
+          (function() {
+            // Modal Elements
+            const modal = document.getElementById('modalNuevoIngreso');
+            const btnNuevaRecepcion = document.getElementById('btnNuevaRecepcion');
+            const btnCloseModal = document.getElementById('btnCloseModal');
+            const btnPrevPage = document.getElementById('btnPrevPage');
+            const btnNextPage = document.getElementById('btnNextPage');
+            
+            // Camera Elements
+            const video = document.getElementById('cameraPreview');
+            const imgPreview = document.getElementById('imagePreview');
+            const photoPlaceholder = document.getElementById('photoPlaceholder');
+            const btnCapture = document.getElementById('btnCapture');
+            const btnToggleCamera = document.getElementById('btnToggleCamera');
+            const fileInput = document.getElementById('fileInput');
+            const canvas = document.getElementById('photoCanvas');
 
+            let currentPage = 1;
+            const totalPages = 5;
+            let stream = null;
 
+            // --- Modal Logic ---
+            function openModal() {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modal.querySelector('div').classList.remove('scale-95');
+                }, 10);
+                goToPage(1);
+            }
 
+            function closeModal() {
+                modal.classList.add('opacity-0');
+                modal.querySelector('div').classList.add('scale-95');
+                stopCamera();
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 300);
+            }
 
+            if (btnNuevaRecepcion) btnNuevaRecepcion.addEventListener('click', openModal);
+            if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
 
-    <script>
-                (function() {
-            const btnToggle = document.getElementById('btnSidebarToggle');
+            // --- Stepper Logic ---
+            function goToPage(page) {
+                if (page < 1 || page > totalPages) return;
+
+                // Hide all pages
+                for (let i = 1; i <= totalPages; i++) {
+                    const p = document.getElementById(`page${i}`);
+                    if (p) p.classList.add('hidden');
+                    
+                    const dot = document.getElementById(`dot${i}`);
+                    const text = document.getElementById(`text${i}`);
+                    
+                    if (dot) {
+                        if (i <= page) {
+                            dot.classList.replace('bg-outline-variant', 'bg-[#001F3F]');
+                        } else {
+                            dot.classList.replace('bg-[#001F3F]', 'bg-outline-variant');
+                        }
+                    }
+                    if (text) {
+                        if (i <= page) {
+                            text.classList.replace('text-on-surface-variant', 'text-[#001F3F]');
+                        } else {
+                            text.classList.replace('text-[#001F3F]', 'text-on-surface-variant');
+                        }
+                    }
+                }
+
+                // Show target page
+                const targetPage = document.getElementById(`page${page}`);
+                if (targetPage) targetPage.classList.remove('hidden');
+
+                // Populate Summary if Page 5
+                if (page === 5) {
+                    document.getElementById('summaryMaterial').textContent = document.getElementById('inputMaterial').value || 'Sin descripción';
+                    document.getElementById('summarySKU').textContent = document.getElementById('inputSKU').value || 'SKU-000000';
+                    document.getElementById('summaryOC').textContent = document.getElementById('inputOC').value || '-';
+                    document.getElementById('summaryCategoria').textContent = document.getElementById('inputCategoria').value || '-';
+                    document.getElementById('summaryEsperada').textContent = document.getElementById('inputUnidades').value || '-';
+                    document.getElementById('summaryRecibida').textContent = document.getElementById('inputCantRecepcionada').value || '-';
+                    document.getElementById('summaryProveedor').textContent = document.getElementById('inputProveedor').value || '-';
+                    document.getElementById('summaryFactura').textContent = document.getElementById('inputFactura').value || '-';
+                    document.getElementById('summaryLote').textContent = document.getElementById('inputLote').value || '-';
+                    document.getElementById('summaryManuf').textContent = document.getElementById('inputFechaManuf').value || '-';
+                    document.getElementById('summaryResponsable').textContent = document.getElementById('inputResponsable').value || '-';
+                    document.getElementById('summaryObs').textContent = document.getElementById('inputObservaciones').value || 'Sin observaciones.';
+                    document.getElementById('summaryStatus').textContent = document.getElementById('selectEstado').value || 'RECIBIDO';
+                    
+                    const photo = document.getElementById('imagePreview').src;
+                    const summaryPhoto = document.getElementById('summaryPhoto');
+                    const noPhotoMsg = document.getElementById('noPhotoMsg');
+                    if (photo && photo.startsWith('data:')) {
+                        summaryPhoto.src = photo;
+                        summaryPhoto.classList.remove('hidden');
+                        noPhotoMsg.classList.add('hidden');
+                    } else {
+                        summaryPhoto.classList.add('hidden');
+                        noPhotoMsg.classList.remove('hidden');
+                    }
+                }
+
+                // Update Footer Buttons
+                btnPrevPage.disabled = (page === 1);
+                
+                if (page === totalPages) {
+                    btnNextPage.innerHTML = 'Finalizar';
+                    btnNextPage.classList.replace('bg-[#10b981]', 'bg-[#001F3F]');
+                } else {
+                    btnNextPage.innerHTML = 'Siguiente';
+                    btnNextPage.classList.replace('bg-[#001F3F]', 'bg-[#10b981]');
+                }
+
+                currentPage = page;
+                
+                // Camera handling
+                if (page !== 2) stopCamera();
+            }
+
+            window.goToPage = goToPage; // Make it global for onclick in dots
+
+            if (btnPrevPage) btnPrevPage.addEventListener('click', () => goToPage(currentPage - 1));
+            if (btnNextPage) btnNextPage.addEventListener('click', () => {
+                if (currentPage === totalPages) {
+                    alert("Recepción guardada con éxito (Simulación)");
+                    closeModal();
+                } else {
+                    goToPage(currentPage + 1);
+                }
+            });
+
+            // --- Camera Logic ---
+            async function startCamera() {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                    video.srcObject = stream;
+                    video.classList.remove('hidden');
+                    imgPreview.classList.add('hidden');
+                    photoPlaceholder.classList.add('hidden');
+                    btnCapture.classList.remove('hidden');
+                } catch (err) {
+                    console.error("Error accessing camera:", err);
+                    alert("No se pudo acceder a la cámara.");
+                }
+            }
+
+            function stopCamera() {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                }
+                if (video) video.classList.add('hidden');
+            }
+
+            if (btnToggleCamera) btnToggleCamera.addEventListener('click', () => {
+                if (stream) stopCamera();
+                else startCamera();
+            });
+
+            if (btnCapture) btnCapture.addEventListener('click', () => {
+                const context = canvas.getContext('2d');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                const dataUrl = canvas.toDataURL('image/webp');
+                imgPreview.src = dataUrl;
+                imgPreview.classList.remove('hidden');
+                video.classList.add('hidden');
+                btnCapture.classList.add('hidden');
+                stopCamera();
+            });
+
+            if (photoPlaceholder) photoPlaceholder.addEventListener('click', () => fileInput.click());
+            
+            if (fileInput) fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        imgPreview.src = event.target.result;
+                        imgPreview.classList.remove('hidden');
+                        photoPlaceholder.classList.add('hidden');
+                        video.classList.add('hidden');
+                        stopCamera();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Existing Sidebar Logic (Consolidated)
+            const btnToggleSidebar = document.getElementById('btnSidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
             const header = document.querySelector('header');
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            // Detect if it's a page reload
-            const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
-            if (isReload) {
-                sessionStorage.removeItem('sidebarCollapsed');
-                sessionStorage.removeItem('openSubmenus');
-            }
-
             const toggleSidebar = (manual = true) => {
-                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
-                
+                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full');
                 if (isCurrentlyCollapsed) {
                     sidebar.classList.remove('-translate-x-full');
                     sidebar.classList.add('md:translate-x-0');
@@ -1069,7 +1248,6 @@
                     } else {
                         if (overlay) overlay.classList.remove('hidden');
                     }
-                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
                 } else {
                     sidebar.classList.add('-translate-x-full');
                     sidebar.classList.remove('md:translate-x-0');
@@ -1077,22 +1255,13 @@
                     if (header) header.classList.remove('md:pl-64');
                     if (main) main.classList.remove('md:ml-64');
                     if (overlay) overlay.classList.add('hidden');
-                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
                 }
             };
 
-            if (btnToggle) btnToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-
+            if (btnToggleSidebar) btnToggleSidebar.addEventListener('click', toggleSidebar);
             if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
 
+            // Navigation Active State
             const currentFile = window.location.pathname.split('/').pop() || 'index.html';
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === currentFile) {
@@ -1103,66 +1272,16 @@
                 }
             });
 
-            // Submenu state management
-            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
-            
+            // Submenu state
             const nav = document.querySelector('nav');
             if (nav) {
                 const submenuBtns = nav.querySelectorAll('button');
                 submenuBtns.forEach(btn => {
-                    const spanTitle = btn.querySelector('.font-bold');
-                    if (!spanTitle) return;
-                    
-                    const menuId = spanTitle.textContent.trim();
-                    const submenuDiv = btn.nextElementSibling;
-                    
-                    if (!submenuDiv) return;
-
-                    // Remove inline onclick
-                    btn.removeAttribute('onclick');
-
-                    // Restore state
-                    if (openSubmenus.includes(menuId)) {
-                        submenuDiv.classList.remove('hidden');
-                    } else {
-                        submenuDiv.classList.add('hidden');
-                    }
-
-                    // Add click listener
                     btn.addEventListener('click', () => {
-                        const isHidden = submenuDiv.classList.contains('hidden');
-                        if (isHidden) {
-                            submenuDiv.classList.remove('hidden');
-                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                        } else {
-                            submenuDiv.classList.add('hidden');
-                            openSubmenus = openSubmenus.filter(id => id !== menuId);
-                        }
-                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                        const submenuDiv = btn.nextElementSibling;
+                        if (submenuDiv) submenuDiv.classList.toggle('hidden');
                     });
                 });
-            }
-
-            // Restore sidebar state
-            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
-            if (window.innerWidth >= 768) {
-                if (isSidebarCollapsed === 'true') {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                } else {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
-                    if (header) header.classList.add('md:pl-64');
-                    if (main) main.classList.add('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                }
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('md:translate-x-0');
-                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
         })();
     </script>
