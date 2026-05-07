@@ -287,66 +287,63 @@
             <!-- KPI Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-gutter mb-2xl">
                 <!-- Total -->
-                <div class="bg-white hover:bg-slate-800 p-lg rounded-xl shadow-soft border border-outline-variant/30 flex flex-col gap-sm group transition-all duration-300 ease-in-out transform hover:scale-[1.02] cursor-default hover:shadow-xl hover:border-slate-700">
+                <div class="bg-slate-800 p-lg rounded-xl shadow-soft border border-slate-700 flex flex-col gap-sm cursor-default shadow-xl">
                     <div class="flex justify-between items-start">
-                        <span class="text-secondary font-label-caps text-label-caps uppercase tracking-wider group-hover:text-white/70 transition-colors">Total Solicitudes</span>
-                        <span class="p-base bg-surface-container rounded-lg group-hover:bg-white/20 transition-colors">
-                            <span class="material-symbols-outlined text-primary group-hover:text-white">list_alt</span>
+                        <span class="text-white/70 font-label-caps text-label-caps uppercase tracking-wider transition-colors">Total Solicitudes</span>
+                        <span class="p-base bg-white/20 rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-white">list_alt</span>
                         </span>
                     </div>
                     <div class="flex items-baseline gap-sm">
-                        <span id="statTotal" class="text-h1 font-h1 text-primary group-hover:text-white transition-colors">...</span>
-                        <span class="text-on-primary-container font-bold text-body-sm flex items-center group-hover:text-white/60">
-                            <span class="material-symbols-outlined text-sm">trending_up</span> +5%
-                        </span>
+                        <span id="statTotal" class="text-h1 font-h1 text-white transition-colors">...</span>
                     </div>
                 </div>
                 <!-- Enviadas -->
-                <div class="bg-white hover:bg-blue-600 p-lg rounded-xl shadow-soft border border-blue-500/20 flex flex-col gap-sm group transition-all duration-300 ease-in-out transform hover:scale-[1.02] cursor-default hover:shadow-xl hover:border-blue-400">
+                <div class="bg-blue-600 p-lg rounded-xl shadow-soft border border-blue-400 flex flex-col gap-sm cursor-default shadow-xl">
                     <div class="flex justify-between items-start">
-                        <span class="text-secondary font-label-caps text-label-caps uppercase tracking-wider group-hover:text-white/70 transition-colors">Enviadas</span>
-                        <span class="p-base bg-secondary-container rounded-lg group-hover:bg-white/20 transition-colors">
-                            <span class="material-symbols-outlined text-secondary group-hover:text-white">send</span>
+                        <span class="text-white/70 font-label-caps text-label-caps uppercase tracking-wider transition-colors">Enviadas</span>
+                        <span class="p-base bg-white/20 rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-white">send</span>
                         </span>
                     </div>
                     <div class="flex items-baseline gap-sm">
-                        <span id="statSent" class="text-h1 font-h1 text-primary group-hover:text-white transition-colors">...</span>
+                        <span id="statSent" class="text-h1 font-h1 text-white transition-colors">...</span>
                     </div>
                 </div>
                 <!-- En Proceso -->
-                <div class="bg-white hover:bg-amber-600 p-lg rounded-xl shadow-soft border border-amber-500/20 flex flex-col gap-sm group transition-all duration-300 ease-in-out transform hover:scale-[1.02] cursor-default hover:shadow-xl hover:border-amber-400">
+                <div class="bg-amber-600 p-lg rounded-xl shadow-soft border border-amber-400 flex flex-col gap-sm cursor-default shadow-xl">
                     <div class="flex justify-between items-start">
-                        <span class="text-secondary font-label-caps text-label-caps uppercase tracking-wider group-hover:text-white/70 transition-colors">En Proceso</span>
-                        <span class="p-base bg-amber-50 rounded-lg group-hover:bg-white/20 transition-colors">
-                            <span class="material-symbols-outlined text-amber-600 group-hover:text-white">running_with_errors</span>
+                        <span class="text-white/70 font-label-caps text-label-caps uppercase tracking-wider transition-colors">En Proceso</span>
+                        <span class="p-base bg-white/20 rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-white">running_with_errors</span>
                         </span>
                     </div>
                     <div class="flex items-baseline gap-sm">
-                        <span id="statProcess" class="text-h1 font-h1 text-amber-600 group-hover:text-white transition-colors">...</span>
+                        <span id="statProcess" class="text-h1 font-h1 text-white transition-colors">...</span>
                     </div>
                 </div>
                 <!-- Completadas -->
-                <div class="bg-white hover:bg-emerald-600 p-lg rounded-xl shadow-soft border border-emerald-500/20 flex flex-col gap-sm group transition-all duration-300 ease-in-out transform hover:scale-[1.02] cursor-default hover:shadow-xl hover:border-emerald-400">
+                <div class="bg-emerald-600 p-lg rounded-xl shadow-soft border border-emerald-400 flex flex-col gap-sm cursor-default shadow-xl">
                     <div class="flex justify-between items-start">
-                        <span class="text-secondary font-label-caps text-label-caps uppercase tracking-wider group-hover:text-white/70 transition-colors">Completadas</span>
-                        <span class="p-base bg-green-50 rounded-lg group-hover:bg-white/20 transition-colors">
-                            <span class="material-symbols-outlined text-green-600 group-hover:text-white">check_circle</span>
+                        <span class="text-white/70 font-label-caps text-label-caps uppercase tracking-wider transition-colors">Completadas</span>
+                        <span class="p-base bg-white/20 rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-white">check_circle</span>
                         </span>
                     </div>
                     <div class="flex items-baseline gap-sm">
-                        <span id="statComplete" class="text-h1 font-h1 text-green-600 group-hover:text-white transition-colors">...</span>
+                        <span id="statComplete" class="text-h1 font-h1 text-white transition-colors">...</span>
                     </div>
                 </div>
                 <!-- Rechazadas -->
-                <div class="bg-white hover:bg-red-600 p-lg rounded-xl shadow-soft border border-red-500/20 flex flex-col gap-sm group transition-all duration-300 ease-in-out transform hover:scale-[1.02] cursor-default hover:shadow-xl hover:border-red-400">
+                <div class="bg-red-600 p-lg rounded-xl shadow-soft border border-red-400 flex flex-col gap-sm cursor-default shadow-xl">
                     <div class="flex justify-between items-start">
-                        <span class="text-secondary font-label-caps text-label-caps uppercase tracking-wider group-hover:text-white/70 transition-colors">Rechazadas</span>
-                        <span class="p-base bg-red-50 rounded-lg group-hover:bg-white/20 transition-colors">
-                            <span class="material-symbols-outlined text-red-600 group-hover:text-white">cancel</span>
+                        <span class="text-white/70 font-label-caps text-label-caps uppercase tracking-wider transition-colors">Rechazadas</span>
+                        <span class="p-base bg-white/20 rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-white">cancel</span>
                         </span>
                     </div>
                     <div class="flex items-baseline gap-sm">
-                        <span id="statRejected" class="text-h1 font-h1 text-red-600 group-hover:text-white transition-colors">...</span>
+                        <span id="statRejected" class="text-h1 font-h1 text-white transition-colors">...</span>
                     </div>
                 </div>
             </div>
