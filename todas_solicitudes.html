@@ -633,7 +633,7 @@
                 document.getElementById('statTotal').textContent = allOrders.length;
                 document.getElementById('statSent').textContent = allOrders.filter(o => o.estado_solicitud === 'ENVIADO').length;
                 document.getElementById('statProcess').textContent = allOrders.filter(o => o.estado_solicitud === 'EN PROCESO').length;
-                document.getElementById('statComplete').textContent = 0;
+                document.getElementById('statComplete').textContent = allOrders.filter(o => o.estado_solicitud === 'COMPLETO').length;
 
                 renderTable(allOrders);
             } catch (err) {
@@ -740,6 +740,7 @@
                 let statusClass = 'text-slate-500';
                 if (ot.estado_solicitud === 'ENVIADO') statusClass = 'text-emerald-600';
                 if (ot.estado_solicitud === 'EN PROCESO') statusClass = 'text-amber-600';
+                if (ot.estado_solicitud === 'COMPLETO') statusClass = 'text-green-600';
 
                 const rawDate = ot.fecha ? new Date(ot.fecha) : new Date();
                 const dateDisplay = rawDate.toLocaleDateString('es-ES', { 
