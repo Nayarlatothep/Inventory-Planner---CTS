@@ -803,21 +803,42 @@
             btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Procesando...';
 
             try {
-                // Actualizar cada ítem en Supabase
-                const updatePromises = order.items.map(item => 
+                // Determinar el nuevo estado general de la solicitud
+                const totalItems = order.items.length;
+                const checkedItems = order.items.filter(i => i.checked).length;
+                let newGlobalStatus = 'PENDIENTE';
+                
+                if (checkedItems === totalItems && totalItems > 0) {
+                    newGlobalStatus = 'COMPLETO';
+                } else if (checkedItems > 0) {
+                    newGlobalStatus = 'EN PROCESO';
+                }
+
+                // 1. Actualizar estatus individual de cada ítem
+                const itemUpdatePromises = order.items.map(item => 
                     supabaseClient
                         .from('detalle_solicitud_ot')
                         .update({ estatus: item.checked ? 1 : 0 })
                         .eq('id', item.id)
                 );
 
-                const results = await Promise.all(updatePromises);
+                // 2. Actualizar el estado_solicitud para TODAS las filas de esta OT
+                const statusUpdatePromise = supabaseClient
+                    .from('detalle_solicitud_ot')
+                    .update({ estado_solicitud: newGlobalStatus })
+                    .eq('solicitud', order.id);
+
+                const results = await Promise.all([...itemUpdatePromises, statusUpdatePromise]);
                 
                 const errors = results.filter(r => r.error);
                 if (errors.length > 0) throw new Error(errors[0].error.message);
 
-                console.log('¡Despacho confirmado y guardado!');
+                console.log(`¡Despacho confirmado! Estado: ${newGlobalStatus}`);
                 
+                // Actualizar estado local para reflejar en la UI
+                order.estado = newGlobalStatus;
+                updateCardUI(order);
+
                 btn.disabled = false;
                 btn.innerHTML = originalContent;
                 
