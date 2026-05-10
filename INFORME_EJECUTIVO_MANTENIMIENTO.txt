@@ -1,0 +1,46 @@
+================================================================================
+INFORME EJECUTIVO - MANTENIMIENTO (INVENTORY PLANNER)
+Fecha: 09 de Mayo, 2026
+Repositorio: Inventory-Planner---CTS
+================================================================================
+
+1. RESUMEN DEL MODULO DE MANTENIMIENTO
+--------------------------------------------------------------------------------
+Este modulo permite la gestion integral de las ordenes de trabajo (OT), el control
+de la flota vehicular y el despacho de refacciones, asegurando un seguimiento
+detallado del estado operativo y el uso de recursos.
+
+2. FUNCIONALIDADES PRINCIPALES
+================================================================================
+
+2.1 SOLICITUD DE ORDEN DE TRABAJO (OT)
+--------------------------------------
+- Generacion automatica de folios para seguimiento.
+- Gestion de tecnicos asignados y vehiculos involucrados.
+- Emision de tickets de taller para documentacion fisica.
+- Busqueda en tiempo real mediante combo lists en campos clave.
+
+2.2 GESTION DE FLOTA
+--------------------
+- Registro detallado de cada unidad vehicular.
+- Monitoreo del estado operativo en tiempo real.
+- Vinculacion directa con ordenes de trabajo activas e historicas.
+
+2.3 DESPACHO DE MATERIALES Y REFACCIONES
+----------------------------------------
+- Control de almacen mediante checklists digitales.
+- Seguimiento visual del progreso de entrega de materiales.
+- Validacion de cantidades minimas (minimo 1 unidad por refaccion).
+- Sincronizacion con el inventario general.
+
+2.4 DASHBOARD DE CONTROL (KPIs)
+-------------------------------
+- Monitoreo de indicadores clave de rendimiento (KPIs).
+- Seguimiento de ordenes por estado: Enviadas, En Proceso, Completadas y Rechazadas.
+- Visualizacion rapida para la toma de decisiones gerenciales.
+
+3. CONCLUSIONES
+--------------------------------------------------------------------------------
+El sistema Inventory Planner - CTS ofrece ahora una solucion robusta y validada
+para la gestion de mantenimiento, con interfaces intuitivas y controles de 
+integridad de datos que minimizan errores operativos.
