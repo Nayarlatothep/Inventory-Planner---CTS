@@ -616,7 +616,18 @@
                     }
                 });
 
-                allOrders = Array.from(grouped.values());
+                allOrders = Array.from(grouped.values()).filter(order => {
+                    const totalItems = order.items.length;
+                    const checkedItems = order.items.filter(i => i.checked).length;
+                    const progress = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+                    
+                    // Definir el estado visual actual basado en la misma lógica de renderizado
+                    const visualStatus = progress === 100 ? 'COMPLETO' : (progress > 0 ? 'EN PROCESO' : order.estado);
+                    
+                    // Solo mostrar 'EN PROCESO' y 'ENVIADO'
+                    return visualStatus === 'EN PROCESO' || visualStatus === 'ENVIADO';
+                });
+
                 renderOrders(allOrders);
             } catch (err) {
                 console.error('Error fetching orders:', err);
