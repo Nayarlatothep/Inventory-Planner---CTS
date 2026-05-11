@@ -903,6 +903,8 @@
                 btn.innerHTML = originalContent;
                 
                 closeModal();
+                // Refresh the page to reflect the new filtered list
+                window.location.reload();
             } catch (err) {
                 console.error('Error al confirmar despacho:', err);
                 alert('Error al confirmar: ' + err.message);
