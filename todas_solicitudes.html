@@ -786,6 +786,21 @@
                                 <button onclick="showOrderDetails('${ot.solicitud}')" class="p-1 hover:bg-primary-container/10 rounded-lg text-primary transition-colors" title="Detalles">
                                     <span class="material-symbols-outlined text-[20px]">visibility</span>
                                 </button>
+                                ${ot.estado_solicitud === 'RECHAZADO' ? `
+                                <button onclick="editOrder('${ot.solicitud}')" class="p-1 hover:bg-amber-100 rounded-lg text-amber-600 transition-colors" title="Modificar">
+                                    <span class="material-symbols-outlined text-[20px]">edit</span>
+                                </button>
+                                <button onclick="deleteOrder('${ot.solicitud}')" class="p-1 hover:bg-red-100 rounded-lg text-red-600 transition-colors" title="Eliminar">
+                                    <span class="material-symbols-outlined text-[20px]">close</span>
+                                </button>
+                                ` : `
+                                <button disabled class="p-1 opacity-20 cursor-not-allowed rounded-lg text-slate-400" title="Modificar (Solo en Rechazados)">
+                                    <span class="material-symbols-outlined text-[20px]">edit</span>
+                                </button>
+                                <button disabled class="p-1 opacity-20 cursor-not-allowed rounded-lg text-slate-400" title="Eliminar (Solo en Rechazados)">
+                                    <span class="material-symbols-outlined text-[20px]">close</span>
+                                </button>
+                                `}
                             </div>
                         </td>
                     </tr>
@@ -793,6 +808,35 @@
             }).join('');
 
             tableInfo.textContent = `Mostrando ${ots.length} solicitud${ots.length !== 1 ? 'es' : ''}`;
+        }
+
+        async function editOrder(orderId) {
+            // Lógica para modificar
+            const order = allOrders.find(o => o.solicitud === orderId);
+            if (!order) return;
+            
+            // Podría redirigir a solicitud.html con parámetros o abrir un modal
+            alert(`Iniciando modificación de la solicitud ${orderId}. Redirigiendo al editor...`);
+            // Ejemplo: window.location.href = `solicitud.html?id=${orderId}`;
+        }
+
+        async function deleteOrder(orderId) {
+            if (!confirm(`¿Está seguro de que desea eliminar permanentemente la solicitud ${orderId}?`)) return;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('detalle_solicitud_ot')
+                    .delete()
+                    .eq('solicitud', orderId);
+
+                if (error) throw error;
+
+                alert('Solicitud eliminada exitosamente.');
+                refreshData(); // Recargar la tabla
+            } catch (err) {
+                console.error('Error al eliminar:', err);
+                alert('Error al intentar eliminar la solicitud: ' + err.message);
+            }
         }
 
         // Esperar a que window.supabase (la librería) esté disponible
