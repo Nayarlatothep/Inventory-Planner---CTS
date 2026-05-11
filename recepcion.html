@@ -1221,6 +1221,201 @@
                         imgPreview.src = event.target.result;
                         imgPreview.classList.remove('hidden');
                         photoPlaceholder.classList.add('hidden');
+    
+
+
+    
+
+
+    
+    
+          (function() {
+            // Modal Elements
+            const modal = document.getElementById('modalNuevoIngreso');
+            const btnNuevaRecepcion = document.getElementById('btnNuevaRecepcion');
+            const btnCloseModal = document.getElementById('btnCloseModal');
+            const btnPrevPage = document.getElementById('btnPrevPage');
+            const btnNextPage = document.getElementById('btnNextPage');
+            
+            // Camera Elements
+            const video = document.getElementById('cameraPreview');
+            const imgPreview = document.getElementById('imagePreview');
+            const photoPlaceholder = document.getElementById('photoPlaceholder');
+            const btnCapture = document.getElementById('btnCapture');
+            const btnToggleCamera = document.getElementById('btnToggleCamera');
+            const fileInput = document.getElementById('fileInput');
+            const canvas = document.getElementById('photoCanvas');
+
+            let currentPage = 1;
+            const totalPages = 5;
+            let stream = null;
+
+            // --- Modal Logic ---
+            function openModal() {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modal.querySelector('div').classList.remove('scale-95');
+                }, 10);
+                goToPage(1);
+            }
+
+            function closeModal() {
+                modal.classList.add('opacity-0');
+                modal.querySelector('div').classList.add('scale-95');
+                stopCamera();
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 300);
+            }
+
+            if (btnNuevaRecepcion) btnNuevaRecepcion.addEventListener('click', openModal);
+            if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+
+            // --- Stepper Logic ---
+            function goToPage(page) {
+                if (page < 1 || page > totalPages) return;
+
+                // Hide all pages
+                for (let i = 1; i <= totalPages; i++) {
+                    const p = document.getElementById(`page${i}`);
+                    if (p) p.classList.add('hidden');
+                    
+                    const dot = document.getElementById(`dot${i}`);
+                    const text = document.getElementById(`text${i}`);
+                    
+                    if (dot) {
+                        if (i <= page) {
+                            dot.classList.replace('bg-outline-variant', 'bg-[#001F3F]');
+                        } else {
+                            dot.classList.replace('bg-[#001F3F]', 'bg-outline-variant');
+                        }
+                    }
+                    if (text) {
+                        if (i <= page) {
+                            text.classList.replace('text-on-surface-variant', 'text-[#001F3F]');
+                        } else {
+                            text.classList.replace('text-[#001F3F]', 'text-on-surface-variant');
+                        }
+                    }
+                }
+
+                // Show target page
+                const targetPage = document.getElementById(`page${page}`);
+                if (targetPage) targetPage.classList.remove('hidden');
+
+                // Populate Summary if Page 5
+                if (page === 5) {
+                    document.getElementById('summaryMaterial').textContent = document.getElementById('inputMaterial').value || 'Sin descripción';
+                    document.getElementById('summarySKU').textContent = document.getElementById('inputSKU').value || 'SKU-000000';
+                    document.getElementById('summaryOC').textContent = document.getElementById('inputOC').value || '-';
+                    document.getElementById('summaryCategoria').textContent = document.getElementById('inputCategoria').value || '-';
+                    document.getElementById('summaryEsperada').textContent = document.getElementById('inputUnidades').value || '-';
+                    document.getElementById('summaryRecibida').textContent = document.getElementById('inputCantRecepcionada').value || '-';
+                    document.getElementById('summaryProveedor').textContent = document.getElementById('inputProveedor').value || '-';
+                    document.getElementById('summaryFactura').textContent = document.getElementById('inputFactura').value || '-';
+                    document.getElementById('summaryLote').textContent = document.getElementById('inputLote').value || '-';
+                    document.getElementById('summaryManuf').textContent = document.getElementById('inputFechaManuf').value || '-';
+                    document.getElementById('summaryResponsable').textContent = document.getElementById('inputResponsable').value || '-';
+                    document.getElementById('summaryObs').textContent = document.getElementById('inputObservaciones').value || 'Sin observaciones.';
+                    document.getElementById('summaryStatus').textContent = document.getElementById('selectEstado').value || 'RECIBIDO';
+                    
+                    const photo = document.getElementById('imagePreview').src;
+                    const summaryPhoto = document.getElementById('summaryPhoto');
+                    const noPhotoMsg = document.getElementById('noPhotoMsg');
+                    if (photo && photo.startsWith('data:')) {
+                        summaryPhoto.src = photo;
+                        summaryPhoto.classList.remove('hidden');
+                        noPhotoMsg.classList.add('hidden');
+                    } else {
+                        summaryPhoto.classList.add('hidden');
+                        noPhotoMsg.classList.remove('hidden');
+                    }
+                }
+
+                // Update Footer Buttons
+                btnPrevPage.disabled = (page === 1);
+                
+                if (page === totalPages) {
+                    btnNextPage.innerHTML = 'Finalizar';
+                    btnNextPage.classList.replace('bg-[#10b981]', 'bg-[#001F3F]');
+                } else {
+                    btnNextPage.innerHTML = 'Siguiente';
+                    btnNextPage.classList.replace('bg-[#001F3F]', 'bg-[#10b981]');
+                }
+
+                currentPage = page;
+                
+                // Camera handling
+                if (page !== 2) stopCamera();
+            }
+
+            window.goToPage = goToPage; // Make it global for onclick in dots
+
+            if (btnPrevPage) btnPrevPage.addEventListener('click', () => goToPage(currentPage - 1));
+            if (btnNextPage) btnNextPage.addEventListener('click', () => {
+                if (currentPage === totalPages) {
+                    alert("Recepción guardada con éxito (Simulación)");
+                    closeModal();
+                } else {
+                    goToPage(currentPage + 1);
+                }
+            });
+
+            // --- Camera Logic ---
+            async function startCamera() {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                    video.srcObject = stream;
+                    video.classList.remove('hidden');
+                    imgPreview.classList.add('hidden');
+                    photoPlaceholder.classList.add('hidden');
+                    btnCapture.classList.remove('hidden');
+                } catch (err) {
+                    console.error("Error accessing camera:", err);
+                    alert("No se pudo acceder a la cámara.");
+                }
+            }
+
+            function stopCamera() {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                }
+                if (video) video.classList.add('hidden');
+            }
+
+            if (btnToggleCamera) btnToggleCamera.addEventListener('click', () => {
+                if (stream) stopCamera();
+                else startCamera();
+            });
+
+            if (btnCapture) btnCapture.addEventListener('click', () => {
+                const context = canvas.getContext('2d');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                const dataUrl = canvas.toDataURL('image/webp');
+                imgPreview.src = dataUrl;
+                imgPreview.classList.remove('hidden');
+                video.classList.add('hidden');
+                btnCapture.classList.add('hidden');
+                stopCamera();
+            });
+
+            if (photoPlaceholder) photoPlaceholder.addEventListener('click', () => fileInput.click());
+            
+            if (fileInput) fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        imgPreview.src = event.target.result;
+                        imgPreview.classList.remove('hidden');
+                        photoPlaceholder.classList.add('hidden');
                         video.classList.add('hidden');
                         stopCamera();
                     };
@@ -1228,7 +1423,7 @@
                 }
             });
 
-            // Optimized Sidebar Logic
+            // --- Sidebar Logic ---
             const btnToggle = document.getElementById('btnSidebarToggle');
             const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
             const sidebar = document.getElementById('sidebar');
@@ -1291,8 +1486,34 @@
 
             // Restore submenus
             let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
             const nav = document.querySelector('nav');
+
             if (nav) {
+                // Auto-open submenu containing current page and highlight link
+                const allLinks = nav.querySelectorAll('a');
+                allLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === currentFile || (currentFile === '' && href === 'index.html')) {
+                        // Highlight current link
+                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
+                        const icon = link.querySelector('span.material-symbols-outlined');
+                        if (icon) icon.classList.add('text-blue-400');
+
+                        // Find parent submenu (the div containing the link)
+                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
+                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
+                            const btn = submenuDiv.previousElementSibling;
+                            const spanTitle = btn.querySelector('.font-bold');
+                            if (spanTitle) {
+                                const menuId = spanTitle.textContent.trim();
+                                if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                            }
+                        }
+                    }
+                });
+
                 const submenuBtns = nav.querySelectorAll('button');
                 submenuBtns.forEach(btn => {
                     const spanTitle = btn.querySelector('.font-bold');
@@ -1321,6 +1542,9 @@
                         sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
                     });
                 });
+                
+                // Save state
+                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
             }
 
             // Re-enable transitions after a short delay
@@ -1339,16 +1563,6 @@
                 toggleSidebar();
             });
             if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-
-            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === currentFile) {
-                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
-                    const icon = link.querySelector('span.material-symbols-outlined');
-                    if (icon) icon.classList.add('text-blue-400');
-                }
-            });
         })();
     </script>
 

@@ -1159,8 +1159,34 @@
 
             // Restore submenus
             let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
             const nav = document.querySelector('nav');
+
             if (nav) {
+                // Auto-open submenu containing current page and highlight link
+                const allLinks = nav.querySelectorAll('a');
+                allLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === currentFile || (currentFile === '' && href === 'index.html')) {
+                        // Highlight current link
+                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
+                        const icon = link.querySelector('span.material-symbols-outlined');
+                        if (icon) icon.classList.add('text-blue-400');
+
+                        // Find parent submenu (the div containing the link)
+                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
+                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
+                            const btn = submenuDiv.previousElementSibling;
+                            const spanTitle = btn.querySelector('.font-bold');
+                            if (spanTitle) {
+                                const menuId = spanTitle.textContent.trim();
+                                if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                            }
+                        }
+                    }
+                });
+
                 const submenuBtns = nav.querySelectorAll('button');
                 submenuBtns.forEach(btn => {
                     const spanTitle = btn.querySelector('.font-bold');
@@ -1189,6 +1215,9 @@
                         sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
                     });
                 });
+                
+                // Save state
+                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
             }
 
             // Re-enable transitions after a short delay
@@ -1207,16 +1236,6 @@
                 toggleSidebar();
             });
             if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-
-            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === currentFile) {
-                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
-                    const icon = link.querySelector('span.material-symbols-outlined');
-                    if (icon) icon.classList.add('text-blue-400');
-                }
-            });
         })();
     </script>
 
