@@ -1215,12 +1215,12 @@
             
             if (fileInput) fileInput.addEventListener('change', (e) => {
                 const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        imgPreview.src = event.target.result;
-                        imgPreview.classList.remove('hidden');
-                        photoPlaceholder.classList.add('hidden');
+<footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
+        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
+    </footer>
+
+
+    
     
 
 
@@ -1229,7 +1229,8 @@
 
     
     
-          (function() {
+    <script>
+        (function() {
             // Modal Elements
             const modal = document.getElementById('modalNuevoIngreso');
             const btnNuevaRecepcion = document.getElementById('btnNuevaRecepcion');
@@ -1252,18 +1253,22 @@
 
             // --- Modal Logic ---
             function openModal() {
+                if (!modal) return;
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
                 setTimeout(() => {
                     modal.classList.remove('opacity-0');
-                    modal.querySelector('div').classList.remove('scale-95');
+                    const modalContent = modal.querySelector('div');
+                    if (modalContent) modalContent.classList.remove('scale-95');
                 }, 10);
                 goToPage(1);
             }
 
             function closeModal() {
+                if (!modal) return;
                 modal.classList.add('opacity-0');
-                modal.querySelector('div').classList.add('scale-95');
+                const modalContent = modal.querySelector('div');
+                if (modalContent) modalContent.classList.add('scale-95');
                 stopCamera();
                 setTimeout(() => {
                     modal.classList.add('hidden');
@@ -1308,42 +1313,53 @@
 
                 // Populate Summary if Page 5
                 if (page === 5) {
-                    document.getElementById('summaryMaterial').textContent = document.getElementById('inputMaterial').value || 'Sin descripción';
-                    document.getElementById('summarySKU').textContent = document.getElementById('inputSKU').value || 'SKU-000000';
-                    document.getElementById('summaryOC').textContent = document.getElementById('inputOC').value || '-';
-                    document.getElementById('summaryCategoria').textContent = document.getElementById('inputCategoria').value || '-';
-                    document.getElementById('summaryEsperada').textContent = document.getElementById('inputUnidades').value || '-';
-                    document.getElementById('summaryRecibida').textContent = document.getElementById('inputCantRecepcionada').value || '-';
-                    document.getElementById('summaryProveedor').textContent = document.getElementById('inputProveedor').value || '-';
-                    document.getElementById('summaryFactura').textContent = document.getElementById('inputFactura').value || '-';
-                    document.getElementById('summaryLote').textContent = document.getElementById('inputLote').value || '-';
-                    document.getElementById('summaryManuf').textContent = document.getElementById('inputFechaManuf').value || '-';
-                    document.getElementById('summaryResponsable').textContent = document.getElementById('inputResponsable').value || '-';
-                    document.getElementById('summaryObs').textContent = document.getElementById('inputObservaciones').value || 'Sin observaciones.';
-                    document.getElementById('summaryStatus').textContent = document.getElementById('selectEstado').value || 'RECIBIDO';
+                    const safeSetText = (id, value) => {
+                        const el = document.getElementById(id);
+                        if (el) el.textContent = value || '-';
+                    };
                     
-                    const photo = document.getElementById('imagePreview').src;
+                    safeSetText('summaryMaterial', document.getElementById('inputMaterial')?.value || 'Sin descripción');
+                    safeSetText('summarySKU', document.getElementById('inputSKU')?.value || 'SKU-000000');
+                    safeSetText('summaryOC', document.getElementById('inputOC')?.value || '-');
+                    safeSetText('summaryCategoria', document.getElementById('inputCategoria')?.value || '-');
+                    safeSetText('summaryEsperada', document.getElementById('inputUnidades')?.value || '-');
+                    safeSetText('summaryRecibida', document.getElementById('inputCantRecepcionada')?.value || '-');
+                    safeSetText('summaryProveedor', document.getElementById('inputProveedor')?.value || '-');
+                    safeSetText('summaryFactura', document.getElementById('inputFactura')?.value || '-');
+                    safeSetText('summaryLote', document.getElementById('inputLote')?.value || '-');
+                    safeSetText('summaryManuf', document.getElementById('inputFechaManuf')?.value || '-');
+                    safeSetText('summaryResponsable', document.getElementById('inputResponsable')?.value || '-');
+                    safeSetText('summaryObs', document.getElementById('inputObservaciones')?.value || 'Sin observaciones.');
+                    safeSetText('summaryStatus', document.getElementById('selectEstado')?.value || 'RECIBIDO');
+                    
+                    const photo = imgPreview?.src;
                     const summaryPhoto = document.getElementById('summaryPhoto');
                     const noPhotoMsg = document.getElementById('noPhotoMsg');
-                    if (photo && photo.startsWith('data:')) {
-                        summaryPhoto.src = photo;
-                        summaryPhoto.classList.remove('hidden');
-                        noPhotoMsg.classList.add('hidden');
-                    } else {
-                        summaryPhoto.classList.add('hidden');
-                        noPhotoMsg.classList.remove('hidden');
+                    if (summaryPhoto && noPhotoMsg) {
+                        if (photo && photo.startsWith('data:')) {
+                            summaryPhoto.src = photo;
+                            summaryPhoto.classList.remove('hidden');
+                            noPhotoMsg.classList.add('hidden');
+                        } else {
+                            summaryPhoto.classList.add('hidden');
+                            noPhotoMsg.classList.remove('hidden');
+                        }
                     }
                 }
 
                 // Update Footer Buttons
-                btnPrevPage.disabled = (page === 1);
+                if (btnPrevPage) btnPrevPage.disabled = (page === 1);
                 
-                if (page === totalPages) {
-                    btnNextPage.innerHTML = 'Finalizar';
-                    btnNextPage.classList.replace('bg-[#10b981]', 'bg-[#001F3F]');
-                } else {
-                    btnNextPage.innerHTML = 'Siguiente';
-                    btnNextPage.classList.replace('bg-[#001F3F]', 'bg-[#10b981]');
+                if (btnNextPage) {
+                    if (page === totalPages) {
+                        btnNextPage.innerHTML = 'Finalizar';
+                        btnNextPage.classList.remove('bg-[#10b981]');
+                        btnNextPage.classList.add('bg-[#001F3F]');
+                    } else {
+                        btnNextPage.innerHTML = 'Siguiente';
+                        btnNextPage.classList.remove('bg-[#001F3F]');
+                        btnNextPage.classList.add('bg-[#10b981]');
+                    }
                 }
 
                 currentPage = page;
@@ -1357,7 +1373,7 @@
             if (btnPrevPage) btnPrevPage.addEventListener('click', () => goToPage(currentPage - 1));
             if (btnNextPage) btnNextPage.addEventListener('click', () => {
                 if (currentPage === totalPages) {
-                    alert("Recepción guardada con éxito (Simulación)");
+                    alert("Recepción guardada con éxito (Simulación)");
                     closeModal();
                 } else {
                     goToPage(currentPage + 1);
@@ -1368,14 +1384,16 @@
             async function startCamera() {
                 try {
                     stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                    video.srcObject = stream;
-                    video.classList.remove('hidden');
-                    imgPreview.classList.add('hidden');
-                    photoPlaceholder.classList.add('hidden');
-                    btnCapture.classList.remove('hidden');
+                    if (video) {
+                        video.srcObject = stream;
+                        video.classList.remove('hidden');
+                    }
+                    if (imgPreview) imgPreview.classList.add('hidden');
+                    if (photoPlaceholder) photoPlaceholder.classList.add('hidden');
+                    if (btnCapture) btnCapture.classList.remove('hidden');
                 } catch (err) {
                     console.error("Error accessing camera:", err);
-                    alert("No se pudo acceder a la cámara.");
+                    alert("No se pudo acceder a la cámara.");
                 }
             }
 
@@ -1399,24 +1417,28 @@
                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
                 
                 const dataUrl = canvas.toDataURL('image/webp');
-                imgPreview.src = dataUrl;
-                imgPreview.classList.remove('hidden');
-                video.classList.add('hidden');
-                btnCapture.classList.add('hidden');
+                if (imgPreview) {
+                    imgPreview.src = dataUrl;
+                    imgPreview.classList.remove('hidden');
+                }
+                if (video) video.classList.add('hidden');
+                if (btnCapture) btnCapture.classList.add('hidden');
                 stopCamera();
             });
 
-            if (photoPlaceholder) photoPlaceholder.addEventListener('click', () => fileInput.click());
+            if (photoPlaceholder) photoPlaceholder.addEventListener('click', () => fileInput && fileInput.click());
             
             if (fileInput) fileInput.addEventListener('change', (e) => {
                 const file = e.target.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = (event) => {
-                        imgPreview.src = event.target.result;
-                        imgPreview.classList.remove('hidden');
-                        photoPlaceholder.classList.add('hidden');
-                        video.classList.add('hidden');
+                        if (imgPreview) {
+                            imgPreview.src = event.target.result;
+                            imgPreview.classList.remove('hidden');
+                        }
+                        if (photoPlaceholder) photoPlaceholder.classList.add('hidden');
+                        if (video) video.classList.add('hidden');
                         stopCamera();
                     };
                     reader.readAsDataURL(file);
@@ -1433,11 +1455,12 @@
             const toggleIcon = document.getElementById('toggleIcon');
 
             // Disable transitions temporarily to avoid animation on load
-            sidebar.style.transition = 'none';
+            if (sidebar) sidebar.style.transition = 'none';
             if (header) header.style.transition = 'none';
             if (main) main.style.transition = 'none';
 
             const toggleSidebar = (manual = true) => {
+                if (!sidebar) return;
                 const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
                 
                 if (isCurrentlyCollapsed) {
@@ -1464,24 +1487,26 @@
 
             // Restore sidebar state
             const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
-            if (window.innerWidth >= 768) {
-                if (isSidebarCollapsed === 'true') {
+            if (sidebar) {
+                if (window.innerWidth >= 768) {
+                    if (isSidebarCollapsed === 'true') {
+                        sidebar.classList.add('-translate-x-full');
+                        sidebar.classList.remove('md:translate-x-0');
+                        if (header) header.classList.remove('md:pl-64');
+                        if (main) main.classList.remove('md:ml-64');
+                        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                    } else {
+                        sidebar.classList.remove('-translate-x-full');
+                        sidebar.classList.add('md:translate-x-0');
+                        if (header) header.classList.add('md:pl-64');
+                        if (main) main.classList.add('md:ml-64');
+                        if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                    }
+                } else {
                     sidebar.classList.add('-translate-x-full');
                     sidebar.classList.remove('md:translate-x-0');
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
                     if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                } else {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
-                    if (header) header.classList.add('md:pl-64');
-                    if (main) main.classList.add('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
                 }
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('md:translate-x-0');
-                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
 
             // Restore submenus
@@ -1495,13 +1520,11 @@
                 allLinks.forEach(link => {
                     const href = link.getAttribute('href');
                     if (href === currentFile || (currentFile === '' && href === 'index.html')) {
-                        // Highlight current link
                         link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
                         link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
                         const icon = link.querySelector('span.material-symbols-outlined');
                         if (icon) icon.classList.add('text-blue-400');
 
-                        // Find parent submenu (the div containing the link)
                         const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
                         if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
                             const btn = submenuDiv.previousElementSibling;
@@ -1543,13 +1566,12 @@
                     });
                 });
                 
-                // Save state
                 sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
             }
 
             // Re-enable transitions after a short delay
             setTimeout(() => {
-                sidebar.style.transition = '';
+                if (sidebar) sidebar.style.transition = '';
                 if (header) header.style.transition = '';
                 if (main) main.style.transition = '';
             }, 50);

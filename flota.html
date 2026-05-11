@@ -495,115 +495,115 @@
 
     
 
-
+                    </div>
+                </div>
+            </div>
+        </div>
     
-
-
-    
-    
-    
-    
-
-
-
-
-
-    <script>
-        const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
-        const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
-        let supabaseClient = null;
-
-        async function fetchVehiculos() {
-            const container = document.getElementById('tablaFlota');
-            const countDisplay = document.getElementById('contadorRegistros');
             
-            if (!supabaseClient) {
-                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
-            }
+            
 
-            try {
-                const { data, error } = await supabaseClient
-                    .from('vehiculos')
-                    .select('*')
-                    .order('id', { ascending: true });
+        
+            
+            
 
-                if (error) throw error;
+        
+            <!-- Toggle Button (Floating on the edge) -->
+            <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
+                <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+            </button>
 
-                container.innerHTML = '';
-                countDisplay.textContent = `${data.length} registros`;
+        </aside>
 
-                data.forEach(v => {
-                    const statusColors = {
-                        'Operativo': 'text-emerald-500 bg-emerald-500',
-                        'En Mantenimiento': 'text-amber-500 bg-amber-500',
-                        'Fuera de Servicio': 'text-rose-500 bg-rose-500',
-                        'En Reparación': 'text-blue-500 bg-blue-500'
-                    };
-                    const colorSet = statusColors[v.estado] || 'text-slate-500 bg-slate-500';
-                    const icon = v.estado === 'Operativo' ? 'check_circle' : (v.estado === 'Fuera de Servicio' ? 'cancel' : 'build');
+    
+    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
+        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
+            <div class="flex items-center gap-4">
+                <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
+                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
+                </div>
+                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
+                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-                    const row = `
-                        <div class="flex items-center justify-between p-4 bg-white border border-outline-variant/30 rounded-xl hover:shadow-md transition-all group">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-slate-500">${v.tipo === 'Camión de Carga' ? 'local_shipping' : 'directions_car'}</span>
-                                </div>
-                                <div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="font-bold text-primary-container">${v.id}</span>
-                                        <span class="text-[10px] font-mono bg-slate-100 px-1.5 py-0.5 rounded text-slate-500">${v.vin || '---'}</span>
-                                    </div>
-                                    <p class="text-xs text-secondary font-medium">${v.marca || 'Sin Marca'}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-6">
-                                <div class="hidden sm:flex flex-col items-end">
-                                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Estado</span>
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-xs font-bold ${colorSet.split(' ')[0]}">${v.estado || 'S/E'}</span>
-                                        <div class="w-2 h-2 rounded-full ${colorSet.split(' ')[1]} animate-pulse"></div>
-                                    </div>
-                                </div>
-                                <div class="flex gap-1">
-                                    <button onclick="openEditModal('${v.id}')" class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
-                                    <button onclick="deleteVehiculo('${v.id}')" class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    container.insertAdjacentHTML('beforeend', row);
-                });
 
-            } catch (err) {
-                console.error('Error fetching vehicles:', err);
-                container.innerHTML = `<p class="text-center text-red-500 py-10 font-bold">Error: ${err.message}</p>`;
-            }
-        }
 
-        async function saveVehiculo() {
-            const vin = document.getElementById('vehiculoVin').value;
-            const marca = document.getElementById('vehiculoMarca').value;
-            const tipo = document.getElementById('vehiculoTipo').value;
-            const estado = document.getElementById('vehiculoEstado').value;
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
 
-            if (!vin || !marca) {
-                alert('Por favor complete VIN y Marca');
-                return;
-            }
 
-            try {
-                const { error } = await supabaseClient
-                    .from('vehiculos')
-                    .insert([{ vin, marca, tipo, estado }]);
+    
 
-                if (error) throw error;
-                
-                alert('Vehículo guardado correctamente');
-                document.getElementById('vehiculoVin').value = '';
-                document.getElementById('vehiculoMarca').value = '';
-                fetchVehiculos();
-            } catch (err) {
-                alert('Error al guardar: ' + err.message);
+    
+
+    <!-- TopNavBar -->
+    
+    
+
+    <!-- Sidebar Overlay for Mobile -->
+    
+
+    
+    
+    
+
+
+
+    <!-- Main Content -->
+    <main class=" transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter md:ml-64" >
+        <!-- Header -->
+        <div class="col-span-1 md:col-span-12 mb-2 md:mb-md">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">directions_car</span>
+                <h1 class="font-h2 text-2xl md:text-h2 text-primary-container">Inventario y Estado de Flota</h1>
+            </div>
+            <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Registre y gestione el estado de los vehículos y activos de la flota.</p>
+        </div>
+
+        <!-- Form Section -->
+        <div class="col-span-1 lg:col-span-4 bg-surface-container-lowest rounded-lg shadow-soft p-lg border border-surface-variant h-fit">
+            <h2 class="font-h3 text-h3 text-primary-container mb-md border-b border-surface-variant pb-sm">Detalles del Vehículo</h2>
+            <form class="space-y-md">
+                <div>
+                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">VIN (Número de Chasis)</label>
+                    <input id="vehiculoVin" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface" placeholder="Ej. 1HGCM82635A000001" type="text"/>
+                </div>
+                <div>
+                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">MARCA / MODELO</label>
+                    <input id="vehiculoMarca" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface" placeholder="Ej. Toyota Hilux 2026" type="text"/>
+                </div>
+                <div>
+                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">TIPO DE VEHÍCULO</label>
+                    <select id="vehiculoTipo" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface appearance-none">
+                        <option>Seleccione un tipo</option>
+                        <option>Sedán</option>
+                        <option>SUV</option>
+                        <option>Pickup</option>
+                        <option>Camión de Carga</option>
+                        <option>Montacargas</option>
+                        <option>Motocicleta</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">ESTADO OPERATIVO</label>
+                    <select id="vehiculoEstado" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface appearance-none">
+                        <option value="Operativo">Operativo</option>
+                        <option value="En Mantenimiento">En Mantenimiento</option>
+                        <option value="Fuera de Servicio">Fuera de Servicio</option>
                         <option value="En Reparación">En Reparación</option>
                     </select>
                 </div>
@@ -688,36 +688,25 @@
         </div>
     </div>
 
-    
-
-
-    
-
-
-    
-    
-    
-    
-
-
-
-
-
     <script>
         const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
         const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
         let supabaseClient = null;
 
-        async function fetchVehiculos() {
-            const container = document.getElementById('tablaFlota');
-            const countDisplay = document.getElementById('contadorRegistros');
-            
+        function getSupabase() {
             if (!supabaseClient) {
                 supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
             }
+            return supabaseClient;
+        }
+
+        async function fetchVehiculos() {
+            const container = document.getElementById('tablaFlota');
+            const countDisplay = document.getElementById('contadorRegistros');
+            const client = getSupabase();
 
             try {
-                const { data, error } = await supabaseClient
+                const { data, error } = await client
                     .from('vehiculos')
                     .select('*')
                     .order('id', { ascending: true });
@@ -735,8 +724,7 @@
                         'En Reparación': 'text-blue-500 bg-blue-500'
                     };
                     const colorSet = statusColors[v.estado] || 'text-slate-500 bg-slate-500';
-                    const icon = v.estado === 'Operativo' ? 'check_circle' : (v.estado === 'Fuera de Servicio' ? 'cancel' : 'build');
-
+                    
                     const row = `
                         <div class="flex items-center justify-between p-4 bg-white border border-outline-variant/30 rounded-xl hover:shadow-md transition-all group">
                             <div class="flex items-center gap-4">
@@ -768,7 +756,6 @@
                     `;
                     container.insertAdjacentHTML('beforeend', row);
                 });
-
             } catch (err) {
                 console.error('Error fetching vehicles:', err);
                 container.innerHTML = `<p class="text-center text-red-500 py-10 font-bold">Error: ${err.message}</p>`;
@@ -786,8 +773,9 @@
                 return;
             }
 
+            const client = getSupabase();
             try {
-                const { error } = await supabaseClient
+                const { error } = await client
                     .from('vehiculos')
                     .insert([{ vin, marca, tipo, estado }]);
 
@@ -802,11 +790,23 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchVehiculos();
-            document.getElementById('btnGuardar').addEventListener('click', saveVehiculo);
-        
-            (function() {
+        async function deleteVehiculo(id) {
+            if (!confirm('¿Está seguro de eliminar este vehículo?')) return;
+            const client = getSupabase();
+            try {
+                const { error } = await client
+                    .from('vehiculos')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+                fetchVehiculos();
+            } catch (err) {
+                alert('Error al eliminar: ' + err.message);
+            }
+        }
+
+        (function() {
             const btnToggle = document.getElementById('btnSidebarToggle');
             const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
             const sidebar = document.getElementById('sidebar');
@@ -815,13 +815,14 @@
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            // Disable transitions temporarily to avoid animation on load
+            if (!sidebar) return;
+
             sidebar.style.transition = 'none';
             if (header) header.style.transition = 'none';
             if (main) main.style.transition = 'none';
 
             const toggleSidebar = (manual = true) => {
-                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
+                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full');
                 
                 if (isCurrentlyCollapsed) {
                     sidebar.classList.remove('-translate-x-full');
@@ -845,7 +846,6 @@
                 }
             };
 
-            // Restore sidebar state
             const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
             if (window.innerWidth >= 768) {
                 if (isSidebarCollapsed === 'true') {
@@ -867,24 +867,20 @@
                 if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
 
-            // Restore submenus
             let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
             const currentFile = window.location.pathname.split('/').pop() || 'index.html';
             const nav = document.querySelector('nav');
 
             if (nav) {
-                // Auto-open submenu containing current page and highlight link
                 const allLinks = nav.querySelectorAll('a');
                 allLinks.forEach(link => {
                     const href = link.getAttribute('href');
                     if (href === currentFile || (currentFile === '' && href === 'index.html')) {
-                        // Highlight current link
                         link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
                         link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
                         const icon = link.querySelector('span.material-symbols-outlined');
                         if (icon) icon.classList.add('text-blue-400');
 
-                        // Find parent submenu (the div containing the link)
                         const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
                         if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
                             const btn = submenuDiv.previousElementSibling;
@@ -925,12 +921,9 @@
                         sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
                     });
                 });
-                
-                // Save state
                 sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
             }
 
-            // Re-enable transitions after a short delay
             setTimeout(() => {
                 sidebar.style.transition = '';
                 if (header) header.style.transition = '';
@@ -946,8 +939,11 @@
                 toggleSidebar();
             });
             if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
+
+            fetchVehiculos();
+            const btnGuardar = document.getElementById('btnGuardar');
+            if (btnGuardar) btnGuardar.addEventListener('click', saveVehiculo);
         })();
-        });
     </script>
 
 </body>
