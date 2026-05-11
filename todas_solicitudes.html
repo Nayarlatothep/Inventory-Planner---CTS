@@ -408,6 +408,64 @@
     
 
 
+    <!-- Edit Request Modal -->
+    <div id="editModal" class="fixed inset-0 z-[110] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[95dvh] animate-in fade-in zoom-in duration-200">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-amber-600">edit_note</span>
+                    Modificar Solicitud <span id="editModalTitle">#--</span>
+                </h3>
+                <button onclick="closeEditModal()" class="p-1 hover:bg-slate-200 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-slate-500">close</span>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto custom-scrollbar space-y-6">
+                <!-- Basic Info Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Técnico Solicitante</label>
+                        <input type="text" id="editTech" class="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all font-bold text-slate-700">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Servicio / Reparación</label>
+                        <input type="text" id="editService" class="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all font-bold text-slate-700">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Unidad (ID)</label>
+                        <input type="text" id="editUnit" class="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all font-bold text-slate-700">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">VIN / Placa</label>
+                        <input type="text" id="editVIN" class="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all font-bold text-slate-700">
+                    </div>
+                </div>
+
+                <!-- Spare Parts Section -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-[0.2em] flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm text-amber-600">inventory_2</span>
+                        Refacciones Solicitadas
+                    </h4>
+                    <div id="editPartsContainer" class="space-y-2">
+                        <!-- Dynamic items here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+                <button onclick="closeEditModal()" class="px-6 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-200 transition-colors">
+                    Cancelar
+                </button>
+                <button id="btnSaveEdit" class="bg-amber-600 text-white px-8 py-2.5 rounded-xl font-bold hover:bg-amber-700 transition-all flex items-center gap-2 shadow-lg shadow-amber-600/20 active:scale-95">
+                    <span class="material-symbols-outlined text-[20px]">save</span>
+                    GUARDAR Y REENVIAR
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Printable Summary Modal -->
     <div id="summaryModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
         <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
@@ -453,7 +511,7 @@
                 <!-- Footer -->
                 <div class="text-center border-t border-dashed border-slate-300 pt-4 mt-6">
                     <p class="text-xs">*** FIN DEL REPORTE ***</p>
-                    
+                </div>
             </div>
 
             <div class="p-4 border-t border-slate-100 grid grid-cols-2 gap-3">
@@ -811,13 +869,107 @@
         }
 
         async function editOrder(orderId) {
-            // Lógica para modificar
             const order = allOrders.find(o => o.solicitud === orderId);
             if (!order) return;
+
+            document.getElementById('editModalTitle').textContent = orderId;
+            document.getElementById('editTech').value = order.solicitante || '';
+            document.getElementById('editService').value = order.servicio || '';
+            document.getElementById('editUnit').value = order.unidad || '';
+            document.getElementById('editVIN').value = order.VIN || '';
+
+            const partsContainer = document.getElementById('editPartsContainer');
+            partsContainer.innerHTML = '';
             
-            // Podría redirigir a solicitud.html con parámetros o abrir un modal
-            alert(`Iniciando modificación de la solicitud ${orderId}. Redirigiendo al editor...`);
-            // Ejemplo: window.location.href = `solicitud.html?id=${orderId}`;
+            order.repuestos.forEach((part, index) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100';
+                div.innerHTML = `
+                    <div class="flex-grow">
+                        <input type="text" value="${part.nombre}" class="edit-part-name w-full bg-transparent border-none focus:ring-0 font-bold text-slate-700 text-sm" placeholder="Nombre de refacción">
+                    </div>
+                    <div class="flex items-center gap-2 bg-white px-3 py-1 rounded-lg border border-slate-200">
+                        <span class="text-[10px] font-black text-slate-400">CANT.</span>
+                        <input type="number" value="${part.cantidad}" min="1" class="edit-part-qty w-12 bg-transparent border-none focus:ring-0 font-bold text-amber-600 text-sm text-center">
+                    </div>
+                `;
+                partsContainer.appendChild(div);
+            });
+
+            document.getElementById('editModal').classList.remove('hidden');
+            document.getElementById('editModal').classList.add('flex');
+            
+            // Add event listener to save button (once)
+            const saveBtn = document.getElementById('btnSaveEdit');
+            saveBtn.onclick = () => saveEdit(orderId);
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('editModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function saveEdit(orderId) {
+            const saveBtn = document.getElementById('btnSaveEdit');
+            const originalContent = saveBtn.innerHTML;
+            
+            const newTech = document.getElementById('editTech').value;
+            const newService = document.getElementById('editService').value;
+            const newUnit = document.getElementById('editUnit').value;
+            const newVIN = document.getElementById('editVIN').value;
+            
+            const partNames = Array.from(document.querySelectorAll('.edit-part-name')).map(input => input.value);
+            const partQtys = Array.from(document.querySelectorAll('.edit-part-qty')).map(input => input.value);
+
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">refresh</span> PROCESANDO...';
+
+            try {
+                // Primero obtenemos los IDs de las filas originales para esta solicitud
+                const { data: originalRows, error: fetchError } = await supabaseClient
+                    .from('detalle_solicitud_ot')
+                    .select('id')
+                    .eq('solicitud', orderId)
+                    .order('id', { ascending: true });
+
+                if (fetchError) throw fetchError;
+
+                // Actualizamos cada fila. Si hay más filas en la base que en el editor, las dejamos o las borramos.
+                // Si hay más en el editor, tendríamos que crear nuevas. 
+                // Por simplicidad, actualizaremos las existentes 1 a 1.
+                const updatePromises = originalRows.map((row, index) => {
+                    if (index < partNames.length) {
+                        return supabaseClient
+                            .from('detalle_solicitud_ot')
+                            .update({
+                                solicitante: newTech,
+                                servicio: newService,
+                                unidad: newUnit,
+                                VIN: newVIN,
+                                repuesto: partNames[index],
+                                cantidad: parseInt(partQtys[index]),
+                                estado_solicitud: 'ENVIADO' // El usuario pidió cambiar a ENVIADO
+                            })
+                            .eq('id', row.id);
+                    }
+                    return Promise.resolve();
+                });
+
+                const results = await Promise.all(updatePromises);
+                const error = results.find(r => r && r.error);
+                if (error) throw error.error;
+
+                alert('Solicitud actualizada y reenviada con éxito.');
+                closeEditModal();
+                refreshData();
+            } catch (err) {
+                console.error('Error al guardar:', err);
+                alert('Error al guardar los cambios: ' + err.message);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = originalContent;
+            }
         }
 
         async function deleteOrder(orderId) {
