@@ -118,6 +118,8 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
         .modal-backdrop-blur { backdrop-filter: blur(8px); }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .animate-spin-icon { animation: spin 0.6s linear infinite; }
     </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
@@ -311,12 +313,18 @@
     <!-- Main Content -->
     <main class=" transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin md:ml-64" >
         <!-- Header Info -->
-        <div class="mb-xl">
-            <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">local_shipping</span>
-                <h2 class="font-h2 text-h2 text-primary">Despacho de Ordenes de Trabajo</h2>
+        <div class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">local_shipping</span>
+                    <h2 class="font-h2 text-h2 text-primary">Despacho de Ordenes de Trabajo</h2>
+                </div>
+                <p class="font-body-md text-secondary mt-1">Gestión de salida y seguimiento de repuestos para mantenimiento.</p>
             </div>
-            <p class="font-body-md text-secondary mt-1">Gestión de salida y seguimiento de repuestos para mantenimiento.</p>
+            <button id="btnRefresh" onclick="refreshData()" class="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-outline-variant/30 shadow-sm hover:shadow-md transition-all active:scale-95 group w-fit">
+                <span id="refreshIcon" class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">refresh</span>
+                <span class="text-xs font-bold text-secondary group-hover:text-primary uppercase tracking-widest">Actualizar</span>
+            </button>
         </div>
 
         <!-- Content Grid (Asymmetric Bento) -->
@@ -566,6 +574,30 @@
         const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
         let supabaseClient = null;
         let allOrders = [];
+        
+        async function refreshData() {
+            const icon = document.getElementById('refreshIcon');
+            const btn = document.getElementById('btnRefresh');
+            if (!icon || !btn) return;
+
+            // Animación de giro
+            icon.classList.add('animate-spin-icon');
+            btn.disabled = true;
+
+            await fetchOrders();
+
+            // Detener giro y mostrar check
+            icon.classList.remove('animate-spin-icon');
+            icon.textContent = 'check_circle';
+            icon.classList.add('text-emerald-500');
+
+            // Volver al ícono original después de 1.5s
+            setTimeout(() => {
+                icon.textContent = 'refresh';
+                icon.classList.remove('text-emerald-500');
+                btn.disabled = false;
+            }, 1500);
+        }
 
         async function fetchOrders() {
             const grid = document.getElementById('ordersGrid');
