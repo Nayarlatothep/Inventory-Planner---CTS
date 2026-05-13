@@ -79,8 +79,6 @@
         body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
-        .maintenance-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .maintenance-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
@@ -319,54 +317,49 @@
             btnMobileToggle.onclick = () => toggleSidebar();
             overlay.onclick = () => toggleSidebar(false);
 
-            // Demo Data Injection
+            // Demo Data Injection with Despacho Style
             const demoUnits = [
-                { id: "534", type: "Camión de Carga", time: "02d 04h 30m", vin: "1FUJA6CV87LW93851" },
-                { id: "6802", type: "Remolque", time: "00d 12h 15m", vin: "1XKYDP9X3GJ492001" },
-                { id: "125", type: "Vehículo Utilitario", time: "05d 08h 00m", vin: "3AKJGEDV2ESBA8723" }
+                { id: "534", type: "Camión de Carga", time: "02d 04h 30m", vin: "1FUJA6CV87LW93851", tecnico: "Juan Pérez" },
+                { id: "6802", type: "Remolque", time: "00d 12h 15m", vin: "1XKYDP9X3GJ492001", tecnico: "M. Rodríguez" },
+                { id: "125", type: "Vehículo Utilitario", time: "05d 08h 00m", vin: "3AKJGEDV2ESBA8723", tecnico: "Carlos G." }
             ];
 
             const grid = document.getElementById('maintenanceGrid');
             grid.innerHTML = demoUnits.map(unit => `
-                <div class="maintenance-card bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex flex-col gap-6">
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center">
-                                <span class="material-symbols-outlined text-slate-400 text-2xl">
-                                    ${unit.type === 'Camión de Carga' ? 'local_shipping' : 'directions_car'}
-                                </span>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-primary-container text-lg leading-tight">${unit.id}</h3>
-                                <p class="text-xs text-secondary font-medium uppercase tracking-wider">${unit.type}</p>
-                            </div>
+                <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+                    <div class="p-md border-b border-outline-variant flex justify-between items-start">
+                        <div>
+                            <h3 class="font-bold text-primary text-lg leading-tight">Unidad ${unit.id}</h3>
+                            <p class="text-[10px] text-outline font-black uppercase tracking-widest mt-1">${unit.type}</p>
                         </div>
-                        <div class="px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-amber-100">
-                            En Taller
-                        </div>
+                        <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">En Taller</span>
                     </div>
-
-                    <div class="space-y-4">
-                        <div class="flex flex-col gap-1">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tiempo en Mantenimiento</span>
-                            <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-amber-500">timer</span>
-                                <span class="text-xl font-black text-slate-700 font-mono">${unit.time}</span>
-                            </div>
+                    
+                    <div class="p-md space-y-sm flex-grow">
+                        <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
+                            <span class="material-symbols-outlined text-[18px]">fingerprint</span>
+                            <span class="font-mono text-[11px]">VIN: ${unit.vin}</span>
+                        </div>
+                        <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
+                            <span class="material-symbols-outlined text-[18px]">person</span>
+                            <span>Asignado: ${unit.tecnico}</span>
                         </div>
                         
-                        <div class="flex flex-col gap-1">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Identificación VIN</span>
-                            <span class="text-xs font-mono text-slate-500 bg-slate-50 p-2 rounded-lg border border-slate-100">${unit.vin}</span>
+                        <div class="mt-md bg-amber-50/50 p-3 rounded-xl border border-amber-100/50">
+                            <div class="flex justify-between text-[10px] font-black text-amber-600 uppercase tracking-widest mb-1">
+                                <span>Tiempo en Mantenimiento</span>
+                                <span class="material-symbols-outlined text-sm">timer</span>
+                            </div>
+                            <div class="text-xl font-black text-slate-700 font-mono">${unit.time}</div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-                        <button class="px-4 py-3 bg-emerald-50 text-emerald-600 rounded-2xl text-xs font-bold hover:bg-emerald-100 transition-colors border border-emerald-100 flex items-center justify-center gap-2">
-                            <span class="material-symbols-outlined text-sm">play_arrow</span>Comenzar
+                    <div class="p-md pt-0 grid grid-cols-2 gap-3">
+                        <button class="w-full py-sm bg-emerald-50 text-emerald-600 rounded-lg font-bold text-xs hover:bg-emerald-100 transition-all border border-emerald-100 flex items-center justify-center gap-1">
+                            <span class="material-symbols-outlined text-sm">play_arrow</span> Comenzar
                         </button>
-                        <button class="px-4 py-3 bg-primary text-white rounded-2xl text-xs font-bold hover:bg-opacity-90 transition-all shadow-lg flex items-center justify-center gap-2">
-                            <span class="material-symbols-outlined text-sm">check_circle</span>Finalizar
+                        <button class="w-full py-sm bg-primary text-white rounded-lg font-bold text-xs hover:opacity-90 transition-opacity flex items-center justify-center gap-1 shadow-sm">
+                            <span class="material-symbols-outlined text-sm">check_circle</span> Finalizar
                         </button>
                     </div>
                 </div>
