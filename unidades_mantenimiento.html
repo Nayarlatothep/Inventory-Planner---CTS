@@ -447,8 +447,13 @@
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
+            // Disable transitions temporarily to avoid animation on load
+            sidebar.style.transition = 'none';
+            if (header) header.style.transition = 'none';
+            if (main) main.style.transition = 'none';
+
             const toggleSidebar = (manual = true) => {
-                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full');
+                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
                 
                 if (isCurrentlyCollapsed) {
                     sidebar.classList.remove('-translate-x-full');
@@ -472,15 +477,107 @@
                 }
             };
 
-            if (btnToggle) btnToggle.addEventListener('click', () => toggleSidebar());
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', () => toggleSidebar());
-            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-
             // Restore sidebar state
             const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
-            if (isSidebarCollapsed === 'true' && window.innerWidth >= 768) {
-                toggleSidebar(false);
+            if (window.innerWidth >= 768) {
+                if (isSidebarCollapsed === 'true') {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebar.classList.remove('md:translate-x-0');
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                } else {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebar.classList.add('md:translate-x-0');
+                    if (header) header.classList.add('md:pl-64');
+                    if (main) main.classList.add('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                }
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('md:translate-x-0');
+                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
+
+            // Restore submenus
+            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            const nav = document.querySelector('nav');
+
+            if (nav) {
+                // Auto-open submenu containing current page and highlight link
+                const allLinks = nav.querySelectorAll('a');
+                allLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === currentFile || (currentFile === '' && href === 'index.html')) {
+                        // Highlight current link
+                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
+                        const icon = link.querySelector('span.material-symbols-outlined');
+                        if (icon) icon.classList.add('text-blue-400');
+
+                        // Find parent submenu (the div containing the link)
+                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
+                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
+                            const btn = submenuDiv.previousElementSibling;
+                            const spanTitle = btn.querySelector('.font-bold');
+                            if (spanTitle) {
+                                const menuId = spanTitle.textContent.trim();
+                                if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                            }
+                        }
+                    }
+                });
+
+                const submenuBtns = nav.querySelectorAll('button');
+                submenuBtns.forEach(btn => {
+                    const spanTitle = btn.querySelector('.font-bold');
+                    if (!spanTitle) return;
+                    
+                    const menuId = spanTitle.textContent.trim();
+                    const submenuDiv = btn.nextElementSibling;
+                    if (!submenuDiv) return;
+
+                    btn.removeAttribute('onclick');
+                    if (openSubmenus.includes(menuId)) {
+                        submenuDiv.classList.remove('hidden');
+                    } else {
+                        submenuDiv.classList.add('hidden');
+                    }
+
+                    btn.addEventListener('click', () => {
+                        const isHidden = submenuDiv.classList.contains('hidden');
+                        if (isHidden) {
+                            submenuDiv.classList.remove('hidden');
+                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                        } else {
+                            submenuDiv.classList.add('hidden');
+                            openSubmenus = openSubmenus.filter(id => id !== menuId);
+                        }
+                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                    });
+                });
+                
+                // Save state
+                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+            }
+
+            // Re-enable transitions after a short delay
+            setTimeout(() => {
+                sidebar.style.transition = '';
+                if (header) header.style.transition = '';
+                if (main) main.style.transition = '';
+            }, 50);
+
+            if (btnToggle) btnToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
         })();
     </script>
 </body>
