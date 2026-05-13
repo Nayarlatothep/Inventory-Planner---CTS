@@ -98,36 +98,96 @@
             </div>
 
             <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
-                <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group">
-                    <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">dashboard</span>
+                <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+                    <span class="material-symbols-outlined text-slate-300 group-hover:text-blue-400 transition-colors">dashboard</span>
                     <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
                 </a>
 
                 <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
+                    <p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Gestión</p>
+                </div>
+
+                <!-- Abastecimiento -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-300 group-hover:text-blue-400">shopping_cart</span>
+                            <span class="font-bold">Abastecimiento</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-blue-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
+                        </a>
+                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-blue-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Inventario -->
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-300 group-hover:text-emerald-400">inventory_2</span>
+                            <span class="font-bold">Inventario</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Ingreso Material
+                        </a>
+                        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Recepción
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Mantenimiento -->
                 <div class="space-y-1">
                     <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
                         <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
+                            <span class="material-symbols-outlined text-slate-300 group-hover:text-amber-400">build</span>
                             <span class="font-bold">Mantenimiento</span>
                         </div>
                         <span class="material-symbols-outlined text-xs">expand_more</span>
                     </button>
                     <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 group">
-                            <span class="material-symbols-outlined text-[16px]">assignment</span>Solicitud OT
+                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Solicitud Ordenes de Trabajo
                         </a>
-                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 group">
-                            <span class="material-symbols-outlined text-[16px]">local_shipping</span>Despacho OT
+                        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Todas las Solicitudes de Ordenes de Trabajo
                         </a>
-                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold group">
-                            <span class="material-symbols-outlined text-[16px] text-blue-400">engineering</span>Unidades en Mantenimiento
+                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Despacho Ordenes de Trabajo
                         </a>
-                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 group">
-                            <span class="material-symbols-outlined text-[16px]">directions_car</span>Estado de Flota
+                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
+                        </a>
+                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pt-6 pb-2 px-4">
+                    <p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Análisis</p>
+                </div>
+
+                <div class="space-y-1">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
+                            <span class="font-bold">Reportes y KPIs</span>
+                        </div>
+                        <span class="material-symbols-outlined text-xs">expand_more</span>
+                    </button>
+                    <div class="hidden pl-4 pr-4 space-y-1">
+                        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
                         </a>
                     </div>
                 </div>
