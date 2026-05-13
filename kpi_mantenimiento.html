@@ -1103,7 +1103,14 @@
             // --- Dashboard Business Logic ---
             const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
             const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
-            const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+            if (!supabaseClient) {
+                const clientObj = (window.supabase && window.supabase.createClient) ? window.supabase : (typeof supabase !== 'undefined' && supabase.createClient) ? supabase : null;
+                if (clientObj) {
+                    supabaseClient = clientObj.createClient(supabaseUrl, supabaseAnonKey);
+                } else {
+                    console.error('Supabase library not found');
+                }
+            }
 
             let allVehiculos = [];
 
@@ -1483,17 +1490,17 @@
                 const updateMenuStyles = (btn, isOpen) => {
                     const icon = btn.querySelector('.material-symbols-outlined:first-child');
                     if (!icon) return;
-                    const colorClass = icon.classList.contains('group-hover:text-blue-400') ? 'text-blue-400' :
-                                       icon.classList.contains('group-hover:text-emerald-400') ? 'text-emerald-400' :
-                                       icon.classList.contains('group-hover:text-amber-400') ? 'text-amber-400' :
-                                       icon.classList.contains('group-hover:text-purple-400') ? 'text-purple-400' : '';
-
+                    const colors = {'group-hover:text-blue-400':'text-blue-400','group-hover:text-emerald-400':'text-emerald-400','group-hover:text-amber-400':'text-amber-400','group-hover:text-purple-400':'text-purple-400'};
+                    let active = null;
+                    for (const [h, a] of Object.entries(colors)) { if (icon.classList.contains(h)) { active = a; break; } }
                     if (isOpen) {
-                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10 shadow-lg');
-                        if (colorClass) icon.classList.add(colorClass);
+                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+                        btn.classList.remove('text-slate-300');
+                        if (active) { icon.classList.add(active); icon.classList.remove('text-slate-400'); }
                     } else {
-                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10 shadow-lg');
-                        if (colorClass) icon.classList.remove(colorClass);
+                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+                        btn.classList.add('text-slate-300');
+                        if (active) { icon.classList.remove(active); icon.classList.add('text-slate-400'); }
                     }
                 };
 

@@ -62,74 +62,24 @@
                       "on-secondary-container": "#556474",
                       "on-surface-variant": "#43474e"
               },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "base": "4px",
-                      "xl": "32px",
-                      "sm": "8px",
-                      "md": "16px",
-                      "gutter": "24px",
-                      "xs": "4px",
-                      "2xl": "48px",
-                      "lg": "24px",
-                      "margin": "32px",
-                      "p-md": "16px",
-                      "p-sm": "8px",
-                      "p-lg": "24px",
-                      "gap-xs": "4px",
-                      "gap-sm": "8px",
-                      "gap-md": "16px"
-              },
-              "fontFamily": {
-                      "h1": ["Inter"],
-                      "label-caps": ["Inter"],
-                      "button": ["Inter"],
-                      "h2": ["Inter"],
-                      "body-lg": ["Inter"],
-                      "h3": ["Inter"],
-                      "body-md": ["Inter"],
-                      "body-sm": ["Inter"]
-              },
+              "borderRadius": { "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+              "spacing": { "md": "16px", "lg": "24px", "xl": "32px", "margin": "32px", "gutter": "24px" },
+              "fontFamily": { "body-md": ["Inter"] },
               "fontSize": {
-                      "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                      "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
-                      "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                      "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}]
+                      "h1": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "h2": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.5"}],
+                      "body-sm": ["14px", {"lineHeight": "1.4"}]
               }
             }
           }
         }
     </script>
     <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100dvh;
-            -webkit-font-smoothing: antialiased;
-        }
+        .material-symbols-outlined { vertical-align: middle; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
-        
-        .p-md { padding: 16px; }
-        .p-sm { padding: 8px; }
-        .p-lg { padding: 24px; }
-        .gap-xs { gap: 4px; }
-        .gap-sm { gap: 8px; }
-        .gap-md { gap: 16px; }
     </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
@@ -137,7 +87,6 @@
     <!-- Sidebar -->
     <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
         <div class="flex flex-col h-full">
-            <!-- Brand Logo -->
             <div class="p-8 border-b border-white/5 flex items-center gap-3 bg-[#000d1a]">
                 <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-900/50">
                     <span class="material-symbols-outlined text-white text-[24px]">local_shipping</span>
@@ -148,10 +97,9 @@
                 </div>
             </div>
 
-            <!-- Navigation Links -->
             <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
-                <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
-                    <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
+                <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">dashboard</span>
                     <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
                 </a>
 
@@ -159,47 +107,9 @@
                     <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
                 </div>
 
-                <!-- Abastecimiento -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
-                            <span class="font-bold">Abastecimiento</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
-                        </a>
-                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Inventario -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
-                            <span class="font-bold">Inventario</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Ingreso Material
-                        </a>
-                        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Recepción
-                        </a>
-                    </div>
-                </div>
-
                 <!-- Mantenimiento -->
                 <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
                             <span class="font-bold">Mantenimiento</span>
@@ -207,238 +117,63 @@
                         <span class="material-symbols-outlined text-xs">expand_more</span>
                     </button>
                     <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Solicitud Ordenes de Trabajo
+                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 group">
+                            <span class="material-symbols-outlined text-[16px]">assignment</span>Solicitud OT
                         </a>
-                        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Todas las Solicitudes de Ordenes de Trabajo
+                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 group">
+                            <span class="material-symbols-outlined text-[16px]">local_shipping</span>Despacho OT
                         </a>
-                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Despacho Ordenes de Trabajo
+                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold group">
+                            <span class="material-symbols-outlined text-[16px] text-blue-400">engineering</span>Unidades en Mantenimiento
                         </a>
-                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
-                        </a>
-                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
-                </div>
-
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
-                            <span class="font-bold">Reportes y KPIs</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
+                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 group">
+                            <span class="material-symbols-outlined text-[16px]">directions_car</span>Estado de Flota
                         </a>
                     </div>
                 </div>
             </nav>
-
-            <!-- User Profile Section -->
-            <div class="p-6 bg-[#000d1a] border-t border-white/5">
-                <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
-                    <div class="relative">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
-                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
-                    </div>
-                    <div class="flex flex-col min-w-0">
-                        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white">Administrador</span>
-                        <span class="text-[9px] text-slate-500 font-bold">Sistema Online</span>
-                    </div>
-                </div>
-            </div>
         </div>
-        
-        <!-- Toggle Button -->
-        <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
-            <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+        <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 shadow-lg group">
+            <span id="toggleIcon" class="material-symbols-outlined text-[20px]">chevron_left</span>
         </button>
     </aside>
 
-    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
-        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
+    <header class="bg-white/90 backdrop-blur-xl w-full sticky top-0 z-50 border-b border-slate-200 transition-all duration-300 md:pl-64">
+        <div class="flex justify-between items-center px-4 md:px-8 py-3">
             <div class="flex items-center gap-4">
-                <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
-                <div class="flex items-center gap-2">
-                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
-                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
-                </div>
+                <button id="btnMobileSidebarToggle" class="md:hidden p-1 text-slate-600"><span class="material-symbols-outlined">menu</span></button>
+                <h2 class="text-lg font-black text-slate-800 tracking-tighter">INVENTORY PLANNER</h2>
             </div>
-            <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
-                </div>
-                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
-                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
-                    <span class="material-symbols-outlined">notifications</span>
-                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
-                </button>
+            <div id="connectionStatus" class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full border border-slate-200">
+                <span id="statusDot" class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                <span id="statusText" class="text-[9px] font-black uppercase tracking-widest text-slate-500">Supabase: Conectando...</span>
             </div>
         </div>
     </header>
 
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm"></div>
 
-    <!-- Main Content -->
-    <main class="transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin md:ml-64">
+    <main class="transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:ml-64">
         <div class="mb-xl">
             <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">engineering</span>
+                <span class="material-symbols-outlined text-amber-600 text-[40px]">engineering</span>
                 <h1 class="font-h2 text-h2 text-primary">Unidades en Mantenimiento</h1>
             </div>
-            <p class="font-body-md text-secondary mt-1">Seguimiento de vehículos actualmente en proceso de reparación o mantenimiento preventivo.</p>
+            <p class="text-secondary mt-1">Gestión operativa de vehículos en taller.</p>
         </div>
 
-        <!-- Maintenance Grid -->
         <div id="maintenanceGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-            <!-- Card 1 -->
-            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                <div class="p-md border-b border-outline-variant flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-primary text-lg">OT-2024-0045</h3>
-                        <p class="text-body-sm text-outline">Fecha: 12/05/2026</p>
-                    </div>
-                    <span class="bg-amber-100 text-amber-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge">EN MANTENIMIENTO</span>
-                </div>
-                <div class="p-md space-y-sm flex-grow">
-                    <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[18px]">fingerprint</span>
-                        <span class="font-mono">VIN: 1HGCP268X9A002345</span>
-                    </div>
-                    <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[18px]">person</span>
-                        <span>Técnico: Juan Pérez</span>
-                    </div>
-                    <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[18px]">local_shipping</span>
-                        <span>Unidad: Camión N-45</span>
-                    </div>
-                    <div class="mt-md p-3 bg-slate-50 rounded-lg border border-slate-100">
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Tiempo en Mantenimiento</p>
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-amber-600 text-[20px]">schedule</span>
-                            <span class="text-lg font-black text-primary tracking-tight">02d 04h 15m</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-md pt-0 flex flex-col gap-2">
-                    <button class="w-full py-2.5 bg-emerald-600 text-white rounded-lg font-bold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined text-[18px]">play_arrow</span>
-                        Comenzar Mantenimiento
-                    </button>
-                    <button class="w-full py-2.5 bg-primary-container text-white rounded-lg font-bold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined text-[18px]">check_circle</span>
-                        Finalizar Mantenimiento
-                    </button>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                <div class="p-md border-b border-outline-variant flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-primary text-lg">OT-2024-0048</h3>
-                        <p class="text-body-sm text-outline">Fecha: 11/05/2026</p>
-                    </div>
-                    <span class="bg-surface-container text-on-surface-variant px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge">PENDIENTE</span>
-                </div>
-                <div class="p-md space-y-sm flex-grow">
-                    <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[18px]">fingerprint</span>
-                        <span class="font-mono">VIN: 2GNAXKEV3C6123456</span>
-                    </div>
-                    <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[18px]">person</span>
-                        <span>Técnico: Carlos Ruiz</span>
-                    </div>
-                    <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[18px]">local_shipping</span>
-                        <span>Unidad: Camión S-12</span>
-                    </div>
-                    <div class="mt-md p-3 bg-slate-50 rounded-lg border border-slate-100">
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Tiempo en Mantenimiento</p>
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-slate-400 text-[20px]">schedule</span>
-                            <span class="text-lg font-black text-slate-400 tracking-tight">--d --h --m</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-md pt-0 flex flex-col gap-2">
-                    <button class="w-full py-2.5 bg-emerald-600 text-white rounded-lg font-bold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined text-[18px]">play_arrow</span>
-                        Comenzar Mantenimiento
-                    </button>
-                    <button class="w-full py-2.5 bg-primary-container text-white rounded-lg font-bold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined text-[18px]">check_circle</span>
-                        Finalizar Mantenimiento
-                    </button>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                <div class="p-md border-b border-outline-variant flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-primary text-lg">OT-2024-0042</h3>
-                        <p class="text-body-sm text-outline">Fecha: 10/05/2026</p>
-                    </div>
-                    <span class="bg-emerald-100 text-emerald-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge">REVISADO</span>
-                </div>
-                <div class="p-md space-y-sm flex-grow">
-                    <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[18px]">fingerprint</span>
-                        <span class="font-mono">VIN: 5FNRL3H65EB123456</span>
-                    </div>
-                    <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[18px]">person</span>
-                        <span>Técnico: Roberto M.</span>
-                    </div>
-                    <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[18px]">local_shipping</span>
-                        <span>Unidad: Camión N-02</span>
-                    </div>
-                    <div class="mt-md p-3 bg-slate-50 rounded-lg border border-slate-100">
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Tiempo en Mantenimiento</p>
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-emerald-600 text-[20px]">schedule</span>
-                            <span class="text-lg font-black text-primary tracking-tight">05d 12h 30m</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-md pt-0 flex flex-col gap-2">
-                    <button class="w-full py-2.5 bg-emerald-600 text-white rounded-lg font-bold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2 opacity-50 cursor-not-allowed" disabled>
-                        <span class="material-symbols-outlined text-[18px]">play_arrow</span>
-                        Comenzar Mantenimiento
-                    </button>
-                    <button class="w-full py-2.5 bg-primary-container text-white rounded-lg font-bold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2 opacity-50 cursor-not-allowed" disabled>
-                        <span class="material-symbols-outlined text-[18px]">check_circle</span>
-                        Finalizar Mantenimiento
-                    </button>
-                </div>
+            <!-- Cards will be injected here -->
+            <div class="col-span-full py-20 text-center text-slate-400">
+                <span class="material-symbols-outlined text-6xl animate-pulse mb-4">database</span>
+                <p class="font-bold">Cargando datos desde Supabase...</p>
             </div>
         </div>
     </main>
 
-    <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
-        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
-    </footer>
-
     <script>
         (function() {
+            // Sidebar Logic
             const btnToggle = document.getElementById('btnSidebarToggle');
             const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
             const sidebar = document.getElementById('sidebar');
@@ -447,158 +182,108 @@
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            // Disable transitions temporarily to avoid animation on load
             sidebar.style.transition = 'none';
             if (header) header.style.transition = 'none';
             if (main) main.style.transition = 'none';
 
             const toggleSidebar = (manual = true) => {
-                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
-                
-                if (isCurrentlyCollapsed) {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
+                const isCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
+                if (isCollapsed) {
+                    sidebar.classList.remove('-translate-x-full'); sidebar.classList.add('md:translate-x-0');
                     if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                    if (window.innerWidth >= 768) {
-                        if (header) header.classList.add('md:pl-64');
-                        if (main) main.classList.add('md:ml-64');
-                    } else {
-                        if (overlay) overlay.classList.remove('hidden');
-                    }
+                    if (window.innerWidth >= 768) { if (header) header.classList.add('md:pl-64'); if (main) main.classList.add('md:ml-64'); }
+                    else overlay.classList.remove('hidden');
                     if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
                 } else {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
+                    sidebar.classList.add('-translate-x-full'); sidebar.classList.remove('md:translate-x-0');
                     if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
-                    if (overlay) overlay.classList.add('hidden');
+                    if (header) header.classList.remove('md:pl-64'); if (main) main.classList.remove('md:ml-64');
+                    overlay.classList.add('hidden');
                     if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
                 }
             };
 
-            // Restore sidebar state
-            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
-            if (window.innerWidth >= 768) {
-                if (isSidebarCollapsed === 'true') {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                } else {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
-                    if (header) header.classList.add('md:pl-64');
-                    if (main) main.classList.add('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                }
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('md:translate-x-0');
-                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-            }
+            const stored = sessionStorage.getItem('sidebarCollapsed');
+            if (window.innerWidth >= 768 && stored === 'true') toggleSidebar(false);
+            else if (window.innerWidth < 768) { sidebar.classList.add('-translate-x-full'); }
 
-            // Restore submenus
+            // Submenu Logic
+            const nav = document.querySelector('nav');
             let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
             const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-            const nav = document.querySelector('nav');
 
             if (nav) {
-                // Auto-open submenu containing current page and highlight link
-                const allLinks = nav.querySelectorAll('a');
-                allLinks.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href === currentFile || (currentFile === '' && href === 'index.html')) {
-                        // Highlight current link
-                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
-                        const icon = link.querySelector('span.material-symbols-outlined');
-                        if (icon) icon.classList.add('text-blue-400');
-
-                        // Find parent submenu (the div containing the link)
-                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
-                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
-                            const btn = submenuDiv.previousElementSibling;
-                            const spanTitle = btn.querySelector('.font-bold');
-                            if (spanTitle) {
-                                const menuId = spanTitle.textContent.trim();
-                                if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            }
-                        }
-                    }
-                });
-
-                const submenuBtns = nav.querySelectorAll('button');
-                
                 const updateMenuStyles = (btn, isOpen) => {
                     const icon = btn.querySelector('.material-symbols-outlined:first-child');
-                    const colorClass = icon.classList.contains('group-hover:text-blue-400') ? 'text-blue-400' :
-                                       icon.classList.contains('group-hover:text-emerald-400') ? 'text-emerald-400' :
-                                       icon.classList.contains('group-hover:text-amber-400') ? 'text-amber-400' :
-                                       icon.classList.contains('group-hover:text-purple-400') ? 'text-purple-400' : '';
-
+                    if (!icon) return;
+                    const colors = {'group-hover:text-blue-400':'text-blue-400','group-hover:text-emerald-400':'text-emerald-400','group-hover:text-amber-400':'text-amber-400','group-hover:text-purple-400':'text-purple-400'};
+                    let active = null;
+                    for (const [h, a] of Object.entries(colors)) { if (icon.classList.contains(h)) { active = a; break; } }
                     if (isOpen) {
-                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10 shadow-lg');
-                        if (colorClass) icon.classList.add(colorClass);
+                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+                        if (active) { icon.classList.add(active); icon.classList.remove('text-slate-400'); }
                     } else {
-                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10 shadow-lg');
-                        if (colorClass) icon.classList.remove(colorClass);
+                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+                        if (active) { icon.classList.remove(active); icon.classList.add('text-slate-400'); }
                     }
                 };
 
-                submenuBtns.forEach(btn => {
-                    const spanTitle = btn.querySelector('.font-bold');
-                    if (!spanTitle) return;
-                    
-                    const menuId = spanTitle.textContent.trim();
-                    const submenuDiv = btn.nextElementSibling;
-                    if (!submenuDiv) return;
-
-                    btn.removeAttribute('onclick');
-                    if (openSubmenus.includes(menuId)) {
-                        submenuDiv.classList.remove('hidden');
-                        updateMenuStyles(btn, true);
-                    } else {
-                        submenuDiv.classList.add('hidden');
-                        updateMenuStyles(btn, false);
-                    }
-
-                    btn.addEventListener('click', () => {
-                        const isHidden = submenuDiv.classList.contains('hidden');
-                        if (isHidden) {
-                            submenuDiv.classList.remove('hidden');
+                nav.querySelectorAll('a').forEach(link => {
+                    if (link.getAttribute('href') === currentFile) {
+                        link.classList.add('bg-blue-600/10', 'text-blue-400');
+                        const div = link.closest('div.hidden, div:not(.hidden)');
+                        if (div && div.previousElementSibling?.tagName === 'BUTTON') {
+                            const menuId = div.previousElementSibling.querySelector('.font-bold').textContent.trim();
                             if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            updateMenuStyles(btn, true);
-                        } else {
-                            submenuDiv.classList.add('hidden');
-                            openSubmenus = openSubmenus.filter(id => id !== menuId);
-                            updateMenuStyles(btn, false);
                         }
+                    }
+                });
+
+                nav.querySelectorAll('button').forEach(btn => {
+                    const menuId = btn.querySelector('.font-bold')?.textContent.trim();
+                    const div = btn.nextElementSibling;
+                    if (!div || !menuId) return;
+                    if (openSubmenus.includes(menuId)) { div.classList.remove('hidden'); updateMenuStyles(btn, true); }
+                    btn.addEventListener('click', () => {
+                        const isH = div.classList.contains('hidden');
+                        if (isH) { div.classList.remove('hidden'); openSubmenus.push(menuId); updateMenuStyles(btn, true); }
+                        else { div.classList.add('hidden'); openSubmenus = openSubmenus.filter(id => id !== menuId); updateMenuStyles(btn, false); }
                         sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
                     });
                 });
-                
-                // Save state
-                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
             }
 
-            // Re-enable transitions after a short delay
-            setTimeout(() => {
-                sidebar.style.transition = '';
-                if (header) header.style.transition = '';
-                if (main) main.style.transition = '';
-            }, 50);
+            setTimeout(() => { sidebar.style.transition = ''; if (header) header.style.transition = ''; if (main) main.style.transition = ''; }, 50);
+            btnToggle.onclick = () => toggleSidebar();
+            btnMobileToggle.onclick = () => toggleSidebar();
+            overlay.onclick = () => toggleSidebar(false);
 
-            if (btnToggle) btnToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
+            // Supabase Logic
+            const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+            const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
+            const client = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(supabaseUrl, supabaseAnonKey) : null;
+
+            if (client) {
+                const statusDot = document.getElementById('statusDot');
+                const statusText = document.getElementById('statusText');
+                
+                async function testConn() {
+                    try {
+                        const { data, error } = await client.from('detalle_solicitud_ot').select('*').limit(1);
+                        if (error) throw error;
+                        statusDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse';
+                        statusText.textContent = 'Supabase: Conectado';
+                        console.log('Supabase Connection Success');
+                    } catch (e) {
+                        statusDot.className = 'w-1.5 h-1.5 rounded-full bg-red-500';
+                        statusText.textContent = 'Supabase: Error de Conexión';
+                        console.error('Supabase Error:', e);
+                    }
+                }
+                testConn();
+            } else {
+                console.error('Supabase library not loaded correctly.');
+            }
         })();
     </script>
 </body>
