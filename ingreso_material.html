@@ -822,6 +822,23 @@
                 });
 
                 const submenuBtns = nav.querySelectorAll('button');
+
+                const updateMenuStyles = (btn, isOpen) => {
+                    const icon = btn.querySelector('.material-symbols-outlined:first-child');
+                    const colorClass = icon.classList.contains('group-hover:text-blue-400') ? 'text-blue-400' :
+                                       icon.classList.contains('group-hover:text-emerald-400') ? 'text-emerald-400' :
+                                       icon.classList.contains('group-hover:text-amber-400') ? 'text-amber-400' :
+                                       icon.classList.contains('group-hover:text-purple-400') ? 'text-purple-400' : '';
+
+                    if (isOpen) {
+                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10 shadow-lg');
+                        if (colorClass) icon.classList.add(colorClass);
+                    } else {
+                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10 shadow-lg');
+                        if (colorClass) icon.classList.remove(colorClass);
+                    }
+                };
+
                 submenuBtns.forEach(btn => {
                     const spanTitle = btn.querySelector('.font-bold');
                     if (!spanTitle) return;
@@ -833,8 +850,10 @@
                     btn.removeAttribute('onclick');
                     if (openSubmenus.includes(menuId)) {
                         submenuDiv.classList.remove('hidden');
+                        updateMenuStyles(btn, true);
                     } else {
                         submenuDiv.classList.add('hidden');
+                        updateMenuStyles(btn, false);
                     }
 
                     btn.addEventListener('click', () => {
@@ -842,9 +861,11 @@
                         if (isHidden) {
                             submenuDiv.classList.remove('hidden');
                             if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                            updateMenuStyles(btn, true);
                         } else {
                             submenuDiv.classList.add('hidden');
                             openSubmenus = openSubmenus.filter(id => id !== menuId);
+                            updateMenuStyles(btn, false);
                         }
                         sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
                     });
