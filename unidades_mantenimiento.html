@@ -240,7 +240,7 @@
                     <span class="material-symbols-outlined text-[20px]">inventory_2</span>
                     <span id="unitCount">0</span> <span class="text-[10px] uppercase tracking-wider opacity-60">Unidades</span>
                 </div>
-                <button onclick="fetchMaintenanceUnits()" class="p-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm flex items-center justify-center group" title="Refrescar datos">
+                <button onclick="fetchMaintenanceUnits(true)" class="p-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm flex items-center justify-center group" title="Refrescar datos">
                     <span class="material-symbols-outlined text-[22px] group-hover:rotate-180 transition-transform duration-500">refresh</span>
                 </button>
             </div>
@@ -424,13 +424,16 @@
             const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
             let allMaintenanceUnits = [];
 
-            async function fetchMaintenanceUnits() {
+            async function fetchMaintenanceUnits(quiet = false) {
                 const grid = document.getElementById('maintenanceGrid');
-                grid.innerHTML = `
-                    <div class="col-span-full py-20 text-center text-secondary">
-                        <span class="material-symbols-outlined animate-spin text-4xl mb-2">refresh</span>
-                        <p class="font-bold">Cargando unidades desde Supabase...</p>
-                    </div>`;
+                
+                if (!quiet) {
+                    grid.innerHTML = `
+                        <div class="col-span-full py-20 text-center text-secondary">
+                            <span class="material-symbols-outlined animate-spin text-4xl mb-2">refresh</span>
+                            <p class="font-bold">Cargando unidades desde Supabase...</p>
+                        </div>`;
+                }
 
                 try {
                     const { data, error } = await supabaseClient
