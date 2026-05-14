@@ -517,7 +517,7 @@
                             <button onclick="startMaintenance('${unit.id}', this)" ${unit.statusManto !== 'LISTO' ? 'disabled' : ''} class="w-full py-2.5 ${unit.statusManto !== 'LISTO' ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'} rounded-lg font-bold text-body-md transition-all border border-emerald-100 flex items-center justify-center gap-1">
                                 <span class="material-symbols-outlined text-[20px]">play_arrow</span> Comenzar
                             </button>
-                            <button onclick="finishMaintenance('${unit.id}', this)" ${unit.statusManto === 'FINALIZADO' ? 'disabled' : ''} class="w-full py-2.5 ${unit.statusManto === 'FINALIZADO' ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-[#001f3f] text-white hover:opacity-90'} rounded-lg font-bold text-body-md transition-opacity flex items-center justify-center gap-1 shadow-sm">
+                            <button onclick="finishMaintenance('${unit.id}', this)" ${unit.statusManto !== 'INICIADO' ? 'disabled' : ''} class="w-full py-2.5 ${unit.statusManto !== 'INICIADO' ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-[#001f3f] text-white hover:opacity-90'} rounded-lg font-bold text-body-md transition-opacity flex items-center justify-center gap-1 shadow-sm">
                                 <span class="material-symbols-outlined text-[20px]">check_circle</span> Finalizar
                             </button>
                         </div>
@@ -560,6 +560,14 @@
                     btn.classList.add('bg-slate-50', 'text-slate-400', 'cursor-not-allowed');
                     btn.disabled = true;
                     btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">play_arrow</span> Comenzar';
+                    
+                    // Habilitar el botón de Finalizar
+                    const finishBtn = card.querySelector('button[onclick*="finishMaintenance"]');
+                    if (finishBtn) {
+                        finishBtn.disabled = false;
+                        finishBtn.classList.remove('bg-slate-50', 'text-slate-400', 'cursor-not-allowed');
+                        finishBtn.classList.add('bg-[#001f3f]', 'text-white', 'hover:opacity-90');
+                    }
                     
                 } catch (err) {
                     console.error('Error al iniciar mantenimiento:', err);
