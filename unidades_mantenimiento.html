@@ -65,10 +65,14 @@
               "spacing": { "md": "16px", "lg": "24px", "xl": "32px", "margin": "32px", "gutter": "24px" },
               "fontFamily": { "body-md": ["Inter"] },
               "fontSize": {
-                      "h1": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
-                      "h2": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}],
-                      "body-md": ["16px", {"lineHeight": "1.5"}],
-                      "body-sm": ["14px", {"lineHeight": "1.4"}]
+                      "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}]
               }
             }
           }
@@ -103,7 +107,7 @@
                 </a>
 
                 <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Gestión</p>
+                    <p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Gestion</p>
                 </div>
 
                 <!-- Abastecimiento -->
@@ -139,7 +143,7 @@
                             <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Ingreso Material
                         </a>
                         <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-emerald-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Recepción
+                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Recepcion
                         </a>
                     </div>
                 </div>
@@ -173,7 +177,7 @@
                 </div>
 
                 <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Análisis</p>
+                    <p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Analisis</p>
                 </div>
 
                 <div class="space-y-1">
@@ -192,6 +196,7 @@
                 </div>
             </nav>
         </div>
+
         <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 shadow-lg group">
             <span id="toggleIcon" class="material-symbols-outlined text-[20px]">chevron_left</span>
         </button>
@@ -220,7 +225,7 @@
                 <span class="material-symbols-outlined text-amber-600 text-[40px]">engineering</span>
                 <h1 class="font-h2 text-h2 text-primary uppercase tracking-tight">Unidades en Mantenimiento</h1>
             </div>
-            <p class="text-secondary mt-1">Gestión operativa de vehículos en taller (Vista de Demostración).</p>
+            <p class="text-secondary mt-1">Gestion operativa de vehiculos en taller (Vista de Demostracion).</p>
         </div>
 
         <div id="maintenanceGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
@@ -319,9 +324,9 @@
 
             // Demo Data Injection with Despacho Style
             const demoUnits = [
-                { id: "534", type: "Camión de Carga", time: "02d 04h 30m", vin: "1FUJA6CV87LW93851", tecnico: "Juan Pérez" },
-                { id: "6802", type: "Remolque", time: "00d 12h 15m", vin: "1XKYDP9X3GJ492001", tecnico: "M. Rodríguez" },
-                { id: "125", type: "Vehículo Utilitario", time: "05d 08h 00m", vin: "3AKJGEDV2ESBA8723", tecnico: "Carlos G." }
+                { id: "534", type: "Camion de Carga", time: "02d 04h 30m", vin: "1FUJA6CV87LW93851", tecnico: "Juan Perez" },
+                { id: "6802", type: "Remolque", time: "00d 12h 15m", vin: "1XKYDP9X3GJ492001", tecnico: "M. Rodriguez" },
+                { id: "125", type: "Vehiculo Utilitario", time: "05d 08h 00m", vin: "3AKJGEDV2ESBA8723", tecnico: "Carlos G." }
             ];
 
             const grid = document.getElementById('maintenanceGrid');
@@ -354,18 +359,18 @@
                         </div>
                     </div>
 
-                    <div class="p-md pt-0 grid grid-cols-2 gap-3">
-                        <button class="w-full py-sm bg-emerald-50 text-emerald-600 rounded-lg font-bold text-xs hover:bg-emerald-100 transition-all border border-emerald-100 flex items-center justify-center gap-1">
-                            <span class="material-symbols-outlined text-sm">play_arrow</span> Comenzar
+                    <div class="p-md pt-0 flex flex-col gap-2">
+                        <button class="w-full py-2.5 bg-emerald-50 text-emerald-600 rounded-lg font-bold text-body-md hover:bg-emerald-100 transition-all border border-emerald-100 flex items-center justify-center gap-1">
+                            <span class="material-symbols-outlined text-[20px]">play_arrow</span> Comenzar
                         </button>
-                        <button class="w-full py-sm bg-primary text-white rounded-lg font-bold text-xs hover:opacity-90 transition-opacity flex items-center justify-center gap-1 shadow-sm">
-                            <span class="material-symbols-outlined text-sm">check_circle</span> Finalizar
+                        <button class="w-full py-2.5 bg-primary text-white rounded-lg font-bold text-body-md hover:opacity-90 transition-opacity flex items-center justify-center gap-1 shadow-sm">
+                            <span class="material-symbols-outlined text-[20px]">check_circle</span> Finalizar
                         </button>
                     </div>
                 </div>
             `).join('');
 
         })();
-    </script>
-</body>
+    </script></body>script>
+</html>body>
 </html>
