@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
@@ -321,53 +322,103 @@
             btnMobileToggle.onclick = () => toggleSidebar();
             overlay.onclick = () => toggleSidebar(false);
 
-            // Demo Data Injection with Despacho Style
-            const demoUnits = [
-                { id: "534", type: "Camión de Carga", time: "02d 04h 30m", vin: "1FUJA6CV87LW93851", tecnico: "Juan Pérez" },
-                { id: "6802", type: "Remolque", time: "00d 12h 15m", vin: "1XKYDP9X3GJ492001", tecnico: "M. Rodríguez" },
-                { id: "125", type: "Vehículo Utilitario", time: "05d 08h 00m", vin: "3AKJGEDV2ESBA8723", tecnico: "Carlos G." }
-            ];
+            // Supabase Configuration
+            const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+            const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
+            const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-            const grid = document.getElementById('maintenanceGrid');
-            grid.innerHTML = demoUnits.map(unit => `
-                <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                    <div class="p-md border-b border-outline-variant flex justify-between items-start">
-                        <div>
-                            <h3 class="font-bold text-primary text-lg leading-tight">Unidad ${unit.id}</h3>
-                            <p class="text-[10px] text-outline font-black uppercase tracking-widest mt-1">${unit.type}</p>
-                        </div>
-                        <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">En Taller</span>
-                    </div>
-                    
-                    <div class="p-md space-y-sm flex-grow">
-                        <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                            <span class="material-symbols-outlined text-[18px]">fingerprint</span>
-                            <span class="font-mono text-[11px]">VIN: ${unit.vin}</span>
-                        </div>
-                        <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                            <span class="material-symbols-outlined text-[18px]">person</span>
-                            <span>Asignado: ${unit.tecnico}</span>
+            async function fetchMaintenanceUnits() {
+                const grid = document.getElementById('maintenanceGrid');
+                grid.innerHTML = `
+                    <div class="col-span-full py-20 text-center text-secondary">
+                        <span class="material-symbols-outlined animate-spin text-4xl mb-2">refresh</span>
+                        <p class="font-bold">Cargando unidades desde Supabase...</p>
+                    </div>`;
+
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('detalle_solicitud_ot')
+                        .select('*')
+                        .eq('estado_solicitud', 'COMPLETO');
+
+                    if (error) throw error;
+
+                    if (!data || data.length === 0) {
+                        grid.innerHTML = `
+                            <div class="col-span-full py-20 text-center text-secondary">
+                                <span class="material-symbols-outlined text-4xl mb-2">info</span>
+                                <p>No hay unidades con estatus "COMPLETO" listas para mantenimiento.</p>
+                            </div>`;
+                        return;
+                    }
+
+                    // Agrupar por solicitud para evitar duplicados de la misma OT
+                    const grouped = new Map();
+                    data.forEach(item => {
+                        if (!grouped.has(item.solicitud)) {
+                            grouped.set(item.solicitud, {
+                                id: item.solicitud,
+                                type: item.unidad || 'Unidad',
+                                vin: item.VIN || 'N/A',
+                                tecnico: item.solicitante || 'Sin asignar',
+                                time: "00d 00h 00m" // Tiempo reseteado a 0
+                            });
+                        }
+                    });
+
+                    const units = Array.from(grouped.values());
+                    renderUnits(units);
+                } catch (err) {
+                    console.error('Error al cargar unidades:', err);
+                    grid.innerHTML = `<div class="col-span-full py-20 text-center text-red-500 font-bold">Error: ${err.message}</div>`;
+                }
+            }
+
+            function renderUnits(units) {
+                const grid = document.getElementById('maintenanceGrid');
+                grid.innerHTML = units.map(unit => `
+                    <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+                        <div class="p-md border-b border-outline-variant flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-primary text-lg leading-tight">${unit.id}</h3>
+                                <p class="text-[10px] text-outline font-black uppercase tracking-widest mt-1">${unit.type}</p>
+                            </div>
+                            <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Listo p/ Inicio</span>
                         </div>
                         
-                        <div class="mt-md bg-amber-50/50 p-3 rounded-xl border border-amber-100/50">
-                            <div class="flex justify-between text-[10px] font-black text-amber-600 uppercase tracking-widest mb-1">
-                                <span>Tiempo en Mantenimiento</span>
-                                <span class="material-symbols-outlined text-sm">timer</span>
+                        <div class="p-md space-y-sm flex-grow">
+                            <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
+                                <span class="material-symbols-outlined text-[18px]">fingerprint</span>
+                                <span class="font-mono text-[11px]">VIN: ${unit.vin}</span>
                             </div>
-                            <div class="text-xl font-black text-slate-700 font-mono">${unit.time}</div>
+                            <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
+                                <span class="material-symbols-outlined text-[18px]">person</span>
+                                <span>Asignado: ${unit.tecnico}</span>
+                            </div>
+                            
+                            <div class="mt-md bg-amber-50/50 p-3 rounded-xl border border-amber-100/50">
+                                <div class="flex justify-between text-[10px] font-black text-amber-600 uppercase tracking-widest mb-1">
+                                    <span>Tiempo en Mantenimiento</span>
+                                    <span class="material-symbols-outlined text-sm">timer</span>
+                                </div>
+                                <div class="text-xl font-black text-slate-700 font-mono">${unit.time}</div>
+                            </div>
+                        </div>
+
+                        <div class="p-md pt-0 flex flex-col gap-2">
+                            <button class="w-full py-2.5 bg-emerald-50 text-emerald-600 rounded-lg font-bold text-body-md hover:bg-emerald-100 transition-all border border-emerald-100 flex items-center justify-center gap-1">
+                                <span class="material-symbols-outlined text-[20px]">play_arrow</span> Comenzar
+                            </button>
+                            <button class="w-full py-2.5 bg-primary text-white rounded-lg font-bold text-body-md hover:opacity-90 transition-opacity flex items-center justify-center gap-1 shadow-sm">
+                                <span class="material-symbols-outlined text-[20px]">check_circle</span> Finalizar
+                            </button>
                         </div>
                     </div>
+                `).join('');
+            }
 
-                    <div class="p-md pt-0 flex flex-col gap-2">
-                        <button class="w-full py-2.5 bg-emerald-50 text-emerald-600 rounded-lg font-bold text-body-md hover:bg-emerald-100 transition-all border border-emerald-100 flex items-center justify-center gap-1">
-                            <span class="material-symbols-outlined text-[20px]">play_arrow</span> Comenzar
-                        </button>
-                        <button class="w-full py-2.5 bg-primary text-white rounded-lg font-bold text-body-md hover:opacity-90 transition-opacity flex items-center justify-center gap-1 shadow-sm">
-                            <span class="material-symbols-outlined text-[20px]">check_circle</span> Finalizar
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+            // Inicializar carga
+            fetchMaintenanceUnits();
 
         })();
     </script>
