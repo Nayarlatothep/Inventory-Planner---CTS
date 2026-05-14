@@ -442,8 +442,9 @@
                                 tecnico: item.solicitante || 'Sin asignar',
                                 servicio: item.servicio || 'Mantenimiento General',
                                 fecha: item.fecha,
-                                time: "00d 00h 00m", // Tiempo reseteado a 0
                                 statusManto: item.estado_manto || 'LISTO',
+                                fechaInicio: item.fecha_inicio_manto,
+                                fechaFin: item.fecha_fin_manto,
                                 items: []
                             });
                         }
@@ -506,7 +507,9 @@
                                     <span>Tiempo en Mantenimiento</span>
                                     <span class="material-symbols-outlined text-sm">timer</span>
                                 </div>
-                                <div class="text-xl font-black text-slate-700 font-mono">${unit.time}</div>
+                                <div data-timer-id="${unit.id}" class="text-xl font-black text-slate-700 font-mono">
+                                    ${formatTimeDiff(unit.fechaInicio, unit.statusManto === 'FINALIZADO' ? unit.fechaFin : (unit.statusManto === 'INICIADO' ? new Date() : null))}
+                                </div>
                             </div>
                         </div>
 
@@ -529,15 +532,23 @@
                 btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">refresh</span>';
 
                 try {
+                    const now = new Date().toISOString();
                     const { error } = await supabaseClient
                         .from('detalle_solicitud_ot')
                         .update({ 
                             estado_manto: 'INICIADO', 
-                            fecha_inicio_manto: new Date().toISOString() 
+                            fecha_inicio_manto: now 
                         })
                         .eq('solicitud', unitId);
 
                     if (error) throw error;
+
+                    // Actualizar datos locales
+                    const unit = allMaintenanceUnits.find(u => u.id === unitId);
+                    if (unit) {
+                        unit.statusManto = 'INICIADO';
+                        unit.fechaInicio = now;
+                    }
 
                     // Actualizar UI localmente
                     const card = btn.closest('.bg-surface-container-lowest');
@@ -564,15 +575,23 @@
                 btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">refresh</span>';
 
                 try {
+                    const now = new Date().toISOString();
                     const { error } = await supabaseClient
                         .from('detalle_solicitud_ot')
                         .update({ 
                             estado_manto: 'FINALIZADO', 
-                            fecha_fin_manto: new Date().toISOString() 
+                            fecha_fin_manto: now 
                         })
                         .eq('solicitud', unitId);
 
                     if (error) throw error;
+
+                    // Actualizar datos locales
+                    const unit = allMaintenanceUnits.find(u => u.id === unitId);
+                    if (unit) {
+                        unit.statusManto = 'FINALIZADO';
+                        unit.fechaFin = now;
+                    }
 
                     // Actualizar UI localmente
                     const card = btn.closest('.bg-surface-container-lowest');
@@ -639,6 +658,36 @@
                 modal.classList.remove('flex');
                 document.body.style.overflow = 'auto';
             };
+
+            // Chronometer Logic
+            function formatTimeDiff(start, end) {
+                if (!start) return "00d 00h 00m 00s";
+                const startTime = new Date(start);
+                const endTime = end ? new Date(end) : new Date();
+                const diff = endTime - startTime;
+                
+                if (diff < 0) return "00d 00h 00m 00s";
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                return `${String(days).padStart(2, '0')}d ${String(hours).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+            }
+
+            function updateChronometers() {
+                allMaintenanceUnits.forEach(unit => {
+                    if (unit.statusManto === 'INICIADO') {
+                        const timerDisplay = document.querySelector(`[data-timer-id="${unit.id}"]`);
+                        if (timerDisplay) {
+                            timerDisplay.textContent = formatTimeDiff(unit.fechaInicio);
+                        }
+                    }
+                });
+            }
+
+            setInterval(updateChronometers, 1000);
 
             // Inicializar carga
             fetchMaintenanceUnits();
