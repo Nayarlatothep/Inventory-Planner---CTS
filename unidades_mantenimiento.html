@@ -473,8 +473,16 @@
                                 <h3 class="font-bold text-primary text-lg leading-tight">${unit.id}</h3>
                                 <p class="text-body-sm text-on-surface-variant font-bold mt-1">Unidad: ${unit.type}</p>
                             </div>
-                            <span class="${unit.statusManto === 'INICIADO' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'} px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0">
-                                ${unit.statusManto === 'INICIADO' ? 'Iniciado' : 'Listo p/ Inicio'}
+                            <span class="${
+                                unit.statusManto === 'FINALIZADO' ? 'bg-emerald-100 text-emerald-700' : 
+                                unit.statusManto === 'INICIADO' ? 'bg-blue-100 text-blue-700' : 
+                                'bg-amber-100 text-amber-700'
+                            } px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0">
+                                ${
+                                    unit.statusManto === 'FINALIZADO' ? 'Finalizado' : 
+                                    unit.statusManto === 'INICIADO' ? 'Iniciado' : 
+                                    'Listo p/ Inicio'
+                                }
                             </span>
                         </div>
                         
@@ -503,10 +511,10 @@
                         </div>
 
                         <div class="p-md pt-0 flex flex-col gap-2">
-                            <button onclick="startMaintenance('${unit.id}', this)" ${unit.statusManto === 'INICIADO' ? 'disabled' : ''} class="w-full py-2.5 ${unit.statusManto === 'INICIADO' ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'} rounded-lg font-bold text-body-md transition-all border border-emerald-100 flex items-center justify-center gap-1">
+                            <button onclick="startMaintenance('${unit.id}', this)" ${unit.statusManto !== 'LISTO' ? 'disabled' : ''} class="w-full py-2.5 ${unit.statusManto !== 'LISTO' ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'} rounded-lg font-bold text-body-md transition-all border border-emerald-100 flex items-center justify-center gap-1">
                                 <span class="material-symbols-outlined text-[20px]">play_arrow</span> Comenzar
                             </button>
-                            <button class="w-full py-2.5 bg-primary text-white rounded-lg font-bold text-body-md hover:opacity-90 transition-opacity flex items-center justify-center gap-1 shadow-sm">
+                            <button onclick="finishMaintenance('${unit.id}', this)" ${unit.statusManto === 'FINALIZADO' ? 'disabled' : ''} class="w-full py-2.5 ${unit.statusManto === 'FINALIZADO' ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-[#001f3f] text-white hover:opacity-90'} rounded-lg font-bold text-body-md transition-opacity flex items-center justify-center gap-1 shadow-sm">
                                 <span class="material-symbols-outlined text-[20px]">check_circle</span> Finalizar
                             </button>
                         </div>
@@ -544,6 +552,49 @@
                     
                 } catch (err) {
                     console.error('Error al iniciar mantenimiento:', err);
+                    alert('Error: ' + err.message);
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            };
+
+            window.finishMaintenance = async function(unitId, btn) {
+                const originalText = btn.innerHTML;
+                btn.disabled = true;
+                btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">refresh</span>';
+
+                try {
+                    const { error } = await supabaseClient
+                        .from('detalle_solicitud_ot')
+                        .update({ 
+                            estado_manto: 'FINALIZADO', 
+                            fecha_fin_manto: new Date().toISOString() 
+                        })
+                        .eq('solicitud', unitId);
+
+                    if (error) throw error;
+
+                    // Actualizar UI localmente
+                    const card = btn.closest('.bg-surface-container-lowest');
+                    const badge = card.querySelector('span[class*="rounded"]');
+                    badge.className = 'bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0';
+                    badge.textContent = 'Finalizado';
+                    
+                    btn.classList.remove('bg-[#001f3f]', 'text-white', 'hover:opacity-90');
+                    btn.classList.add('bg-slate-50', 'text-slate-400', 'cursor-not-allowed');
+                    btn.disabled = true;
+                    btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span> Finalizar';
+                    
+                    // Asegurar que el botón de Comenzar también esté deshabilitado
+                    const startBtn = card.querySelector('button[onclick*="startMaintenance"]');
+                    if (startBtn) {
+                        startBtn.disabled = true;
+                        startBtn.classList.remove('bg-emerald-50', 'text-emerald-600', 'hover:bg-emerald-100');
+                        startBtn.classList.add('bg-slate-50', 'text-slate-400', 'cursor-not-allowed');
+                    }
+                    
+                } catch (err) {
+                    console.error('Error al finalizar mantenimiento:', err);
                     alert('Error: ' + err.message);
                     btn.disabled = false;
                     btn.innerHTML = originalText;
