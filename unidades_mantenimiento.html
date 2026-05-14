@@ -424,7 +424,7 @@
             const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
             let allMaintenanceUnits = [];
 
-            async function fetchMaintenanceUnits(quiet = false) {
+            window.fetchMaintenanceUnits = async function(quiet = false) {
                 const grid = document.getElementById('maintenanceGrid');
                 
                 if (!quiet) {
