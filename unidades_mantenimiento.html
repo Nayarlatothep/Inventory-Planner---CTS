@@ -233,6 +233,84 @@
         </div>
     </main>
 
+    <!-- Modal de Detalles de Orden (Ticket) -->
+    <div id="detailsModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh] animate-in fade-in zoom-in duration-300">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-[#001f3f] text-white rounded-lg">
+                        <span class="material-symbols-outlined">assignment</span>
+                    </div>
+                    <div>
+                        <h3 id="modalOrderId" class="font-bold text-slate-800 text-xl">OT-XXXX-XXXX</h3>
+                        <p id="modalOrderDate" class="text-xs text-slate-500 uppercase font-bold tracking-widest mt-0.5">--/--/----</p>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="p-2 hover:bg-slate-200 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-slate-500">close</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto custom-scrollbar space-y-8">
+                <!-- Info Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400">person</span>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Técnico Solicitante</p>
+                                <p id="modalTech" class="font-bold text-slate-700">---</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400">local_shipping</span>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Unidad</p>
+                                <p id="modalUnit" class="font-bold text-slate-700">---</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400">fingerprint</span>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">VIN</p>
+                                <p id="modalVIN" class="font-bold text-slate-700 font-mono">---</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400">settings</span>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Servicio / Reparación</p>
+                                <p id="modalService" class="font-bold text-slate-700">---</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Checklist Section -->
+                <div>
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm text-blue-600">checklist</span>
+                        Repuestos Despachados
+                    </h4>
+                    <div id="modalPartsList" class="space-y-2">
+                        <!-- Repuestos dynamic -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-6 py-2.5 bg-[#001f3f] text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
+                    Cerrar Ticket
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         (function() {
             // Sidebar Logic
@@ -326,6 +404,7 @@
             const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
             const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
             const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
+            let allMaintenanceUnits = [];
 
             async function fetchMaintenanceUnits() {
                 const grid = document.getElementById('maintenanceGrid');
@@ -361,13 +440,23 @@
                                 type: item.unidad || 'Unidad',
                                 vin: item.VIN || 'N/A',
                                 tecnico: item.solicitante || 'Sin asignar',
-                                time: "00d 00h 00m" // Tiempo reseteado a 0
+                                servicio: item.servicio || 'Mantenimiento General',
+                                fecha: item.fecha,
+                                time: "00d 00h 00m", // Tiempo reseteado a 0
+                                items: []
+                            });
+                        }
+                        if (item.repuesto) {
+                            grouped.get(item.solicitud).items.push({
+                                nombre: item.repuesto,
+                                cantidad: item.cantidad || 1,
+                                id: item.id
                             });
                         }
                     });
 
-                    const units = Array.from(grouped.values()).sort((a, b) => a.id.localeCompare(b.id, undefined, {numeric: true, sensitivity: 'base'}));
-                    renderUnits(units);
+                    allMaintenanceUnits = Array.from(grouped.values()).sort((a, b) => a.id.localeCompare(b.id, undefined, {numeric: true, sensitivity: 'base'}));
+                    renderUnits(allMaintenanceUnits);
                 } catch (err) {
                     console.error('Error al cargar unidades:', err);
                     grid.innerHTML = `<div class="col-span-full py-20 text-center text-red-500 font-bold">Error: ${err.message}</div>`;
@@ -386,7 +475,12 @@
                             <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0">Listo p/ Inicio</span>
                         </div>
                         
-                        <div class="p-md space-y-sm flex-grow">
+                        <div class="p-md space-y-sm flex-grow relative">
+                            <!-- Botón de Ticket (Hoja) -->
+                            <button onclick="showUnitDetails('${unit.id}')" class="absolute right-4 top-4 w-10 h-10 bg-slate-100 text-slate-600 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-sm group">
+                                <span class="material-symbols-outlined text-[20px]">description</span>
+                            </button>
+
                             <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
                                 <span class="material-symbols-outlined text-[18px]">fingerprint</span>
                                 <span class="font-mono text-[11px]">VIN: ${unit.vin}</span>
@@ -416,6 +510,45 @@
                     </div>
                 `).join('');
             }
+
+            // Modal Logic
+            window.showUnitDetails = function(unitId) {
+                const unit = allMaintenanceUnits.find(u => u.id === unitId);
+                if (!unit) return;
+
+                document.getElementById('modalOrderId').textContent = unit.id;
+                const rawDate = unit.fecha ? new Date(unit.fecha) : new Date();
+                document.getElementById('modalOrderDate').textContent = rawDate.toLocaleString('es-ES');
+                document.getElementById('modalTech').textContent = unit.tecnico;
+                document.getElementById('modalUnit').textContent = unit.type;
+                document.getElementById('modalVIN').textContent = unit.vin;
+                document.getElementById('modalService').textContent = unit.servicio;
+
+                const partsList = document.getElementById('modalPartsList');
+                partsList.innerHTML = unit.items.length > 0 ? unit.items.map(item => `
+                    <div class="flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-slate-700">${item.nombre}</span>
+                            <span class="text-[10px] text-slate-400 uppercase font-black tracking-widest">ID Refacción: ${item.id}</span>
+                        </div>
+                        <div class="bg-white px-3 py-1 rounded-lg border border-slate-200 shadow-sm font-black text-blue-600 text-sm">
+                            x${item.cantidad}
+                        </div>
+                    </div>
+                `).join('') : '<p class="text-center py-4 text-slate-400 italic">No hay repuestos registrados.</p>';
+
+                const modal = document.getElementById('detailsModal');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            };
+
+            window.closeModal = function() {
+                const modal = document.getElementById('detailsModal');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            };
 
             // Inicializar carga
             fetchMaintenanceUnits();
