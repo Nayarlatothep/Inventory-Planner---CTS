@@ -443,7 +443,7 @@
                                 servicio: item.servicio || 'Mantenimiento General',
                                 fecha: item.fecha,
                                 time: "00d 00h 00m", // Tiempo reseteado a 0
-                                statusMando: item.estado_mando || 'LISTO',
+                                statusManto: item.estado_manto || 'LISTO',
                                 items: []
                             });
                         }
@@ -473,8 +473,8 @@
                                 <h3 class="font-bold text-primary text-lg leading-tight">${unit.id}</h3>
                                 <p class="text-body-sm text-on-surface-variant font-bold mt-1">Unidad: ${unit.type}</p>
                             </div>
-                            <span class="${unit.statusMando === 'INICIADO' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'} px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0">
-                                ${unit.statusMando === 'INICIADO' ? 'Iniciado' : 'Listo p/ Inicio'}
+                            <span class="${unit.statusManto === 'INICIADO' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'} px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0">
+                                ${unit.statusManto === 'INICIADO' ? 'Iniciado' : 'Listo p/ Inicio'}
                             </span>
                         </div>
                         
@@ -503,7 +503,7 @@
                         </div>
 
                         <div class="p-md pt-0 flex flex-col gap-2">
-                            <button onclick="startMaintenance('${unit.id}', this)" ${unit.statusMando === 'INICIADO' ? 'disabled' : ''} class="w-full py-2.5 ${unit.statusMando === 'INICIADO' ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'} rounded-lg font-bold text-body-md transition-all border border-emerald-100 flex items-center justify-center gap-1">
+                            <button onclick="startMaintenance('${unit.id}', this)" ${unit.statusManto === 'INICIADO' ? 'disabled' : ''} class="w-full py-2.5 ${unit.statusManto === 'INICIADO' ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'} rounded-lg font-bold text-body-md transition-all border border-emerald-100 flex items-center justify-center gap-1">
                                 <span class="material-symbols-outlined text-[20px]">play_arrow</span> Comenzar
                             </button>
                             <button class="w-full py-2.5 bg-primary text-white rounded-lg font-bold text-body-md hover:opacity-90 transition-opacity flex items-center justify-center gap-1 shadow-sm">
@@ -524,7 +524,7 @@
                     const { error } = await supabaseClient
                         .from('detalle_solicitud_ot')
                         .update({ 
-                            estado_mando: 'INICIADO', 
+                            estado_manto: 'INICIADO', 
                             fecha_inicio_manto: new Date().toISOString() 
                         })
                         .eq('solicitud', unitId);
