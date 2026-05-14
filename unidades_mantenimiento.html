@@ -443,6 +443,7 @@
                                 servicio: item.servicio || 'Mantenimiento General',
                                 fecha: item.fecha,
                                 time: "00d 00h 00m", // Tiempo reseteado a 0
+                                statusMando: item.estado_mando || 'LISTO',
                                 items: []
                             });
                         }
@@ -472,7 +473,9 @@
                                 <h3 class="font-bold text-primary text-lg leading-tight">${unit.id}</h3>
                                 <p class="text-body-sm text-on-surface-variant font-bold mt-1">Unidad: ${unit.type}</p>
                             </div>
-                            <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0">Listo p/ Inicio</span>
+                            <span class="${unit.statusMando === 'INICIADO' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'} px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0">
+                                ${unit.statusMando === 'INICIADO' ? 'Iniciado' : 'Listo p/ Inicio'}
+                            </span>
                         </div>
                         
                         <div class="p-md space-y-sm flex-grow relative">
@@ -500,7 +503,7 @@
                         </div>
 
                         <div class="p-md pt-0 flex flex-col gap-2">
-                            <button class="w-full py-2.5 bg-emerald-50 text-emerald-600 rounded-lg font-bold text-body-md hover:bg-emerald-100 transition-all border border-emerald-100 flex items-center justify-center gap-1">
+                            <button onclick="startMaintenance('${unit.id}', this)" ${unit.statusMando === 'INICIADO' ? 'disabled' : ''} class="w-full py-2.5 ${unit.statusMando === 'INICIADO' ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'} rounded-lg font-bold text-body-md transition-all border border-emerald-100 flex items-center justify-center gap-1">
                                 <span class="material-symbols-outlined text-[20px]">play_arrow</span> Comenzar
                             </button>
                             <button class="w-full py-2.5 bg-primary text-white rounded-lg font-bold text-body-md hover:opacity-90 transition-opacity flex items-center justify-center gap-1 shadow-sm">
@@ -510,6 +513,42 @@
                     </div>
                 `).join('');
             }
+
+            // Maintenance Logic
+            window.startMaintenance = async function(unitId, btn) {
+                const originalText = btn.innerHTML;
+                btn.disabled = true;
+                btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">refresh</span>';
+
+                try {
+                    const { error } = await supabaseClient
+                        .from('detalle_solicitud_ot')
+                        .update({ 
+                            estado_mando: 'INICIADO', 
+                            fecha_inicio_manto: new Date().toISOString() 
+                        })
+                        .eq('solicitud', unitId);
+
+                    if (error) throw error;
+
+                    // Actualizar UI localmente
+                    const card = btn.closest('.bg-surface-container-lowest');
+                    const badge = card.querySelector('span[class*="rounded"]');
+                    badge.className = 'bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0';
+                    badge.textContent = 'Iniciado';
+                    
+                    btn.classList.remove('bg-emerald-50', 'text-emerald-600', 'hover:bg-emerald-100');
+                    btn.classList.add('bg-slate-50', 'text-slate-400', 'cursor-not-allowed');
+                    btn.disabled = true;
+                    btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">play_arrow</span> Comenzar';
+                    
+                } catch (err) {
+                    console.error('Error al iniciar mantenimiento:', err);
+                    alert('Error: ' + err.message);
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            };
 
             // Modal Logic
             window.showUnitDetails = function(unitId) {
