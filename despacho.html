@@ -982,10 +982,16 @@
                         .eq('id', item.id)
                 );
 
-                // 2. Actualizar el estado_solicitud para TODAS las filas de esta OT
+                // 2. Actualizar el estado_solicitud y fecha_finprep para TODAS las filas de esta OT
+                const updateData = { estado_solicitud: newGlobalStatus };
+                if (newGlobalStatus === 'COMPLETO') {
+                    // Guardar la fecha y hora actual en formato ISO para Supabase
+                    updateData.fecha_finprep = new Date().toISOString();
+                }
+
                 const statusUpdatePromise = supabaseClient
                     .from('detalle_solicitud_ot')
-                    .update({ estado_solicitud: newGlobalStatus })
+                    .update(updateData)
                     .eq('solicitud', order.id);
 
                 const results = await Promise.all([...itemUpdatePromises, statusUpdatePromise]);
