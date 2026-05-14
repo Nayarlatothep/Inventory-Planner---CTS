@@ -366,7 +366,7 @@
                         }
                     });
 
-                    const units = Array.from(grouped.values());
+                    const units = Array.from(grouped.values()).sort((a, b) => a.id.localeCompare(b.id, undefined, {numeric: true, sensitivity: 'base'}));
                     renderUnits(units);
                 } catch (err) {
                     console.error('Error al cargar unidades:', err);
@@ -378,12 +378,11 @@
                 const grid = document.getElementById('maintenanceGrid');
                 grid.innerHTML = units.map(unit => `
                     <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                        <div class="p-md border-b border-outline-variant flex justify-between items-start">
-                            <div>
-                                <h3 class="font-bold text-primary text-lg leading-tight">${unit.id}</h3>
-                                <p class="text-[10px] text-outline font-black uppercase tracking-widest mt-1">${unit.type}</p>
+                        <div class="p-md border-b border-outline-variant flex justify-between items-start gap-4">
+                            <div class="flex-grow">
+                                <h3 class="font-bold text-primary text-lg leading-tight">${unit.id} - ${unit.type}</h3>
                             </div>
-                            <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Listo p/ Inicio</span>
+                            <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0">Listo p/ Inicio</span>
                         </div>
                         
                         <div class="p-md space-y-sm flex-grow">
