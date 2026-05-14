@@ -235,9 +235,14 @@
                 <input type="text" id="searchInput" placeholder="Filtrar por Unidad, OT, VIN o Asignado..." 
                        class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-slate-700 placeholder:text-slate-400 shadow-inner bg-slate-50/50">
             </div>
-            <div class="flex items-center gap-3 px-4 py-2 bg-slate-100 rounded-xl text-slate-600 font-bold text-sm shrink-0 border border-slate-200">
-                <span class="material-symbols-outlined text-[20px]">inventory_2</span>
-                <span id="unitCount">0</span> <span class="text-[10px] uppercase tracking-wider opacity-60">Unidades</span>
+            <div class="flex items-center gap-2 shrink-0">
+                <div class="flex items-center gap-3 px-4 py-2 bg-slate-100 rounded-xl text-slate-600 font-bold text-sm border border-slate-200">
+                    <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                    <span id="unitCount">0</span> <span class="text-[10px] uppercase tracking-wider opacity-60">Unidades</span>
+                </div>
+                <button onclick="fetchMaintenanceUnits()" class="p-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm flex items-center justify-center group" title="Refrescar datos">
+                    <span class="material-symbols-outlined text-[22px] group-hover:rotate-180 transition-transform duration-500">refresh</span>
+                </button>
             </div>
         </div>
 
@@ -431,7 +436,8 @@
                     const { data, error } = await supabaseClient
                         .from('detalle_solicitud_ot')
                         .select('*')
-                        .eq('estado_solicitud', 'COMPLETO');
+                        .eq('estado_solicitud', 'COMPLETO')
+                        .or('estado_manto.is.null,estado_manto.neq.FINALIZADO');
 
                     if (error) throw error;
 
