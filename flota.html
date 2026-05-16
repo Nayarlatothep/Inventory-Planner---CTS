@@ -536,42 +536,47 @@
                     'En Reparación': 'text-blue-500 bg-blue-500'
                 };
                 const colorSet = statusColors[v.estado] || 'text-slate-500 bg-slate-500';
+                const colors = colorSet.split(' ');
                 const hasHistory = window.vinsWithHistory && window.vinsWithHistory.has(v.vin);
                 
                 const row = `
                     <div class="flex items-center justify-between p-4 bg-white border border-outline-variant/30 rounded-xl hover:shadow-md transition-all group">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-slate-500">${v.tipo === 'Camión de Carga' ? 'local_shipping' : 'directions_car'}</span>
+                            <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center shadow-inner">
+                                <span class="material-symbols-outlined text-slate-500 text-[28px]">${v.tipo === 'Camión de Carga' ? 'local_shipping' : 'directions_car'}</span>
                             </div>
                             <div>
                                 <div class="flex items-center gap-2">
-                                    <span class="font-bold text-primary-container">${v.id}</span>
-                                    <span class="text-[10px] font-mono bg-slate-100 px-1.5 py-0.5 rounded text-slate-500">${v.vin || '---'}</span>
+                                    <span class="font-black text-primary-container text-lg tracking-tight">${v.id}</span>
+                                    <span class="text-[10px] font-mono bg-slate-100 px-2 py-0.5 rounded-full text-slate-500 border border-slate-200">${v.vin || '---'}</span>
                                 </div>
-                                <p class="text-xs text-secondary font-medium">${v.marca || 'Sin Marca'}</p>
+                                <p class="text-sm text-secondary font-bold">${v.marca || 'Sin Marca'}</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-6">
-                            <div class="hidden sm:flex flex-col items-end">
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Estado</span>
+
+                        <div class="flex items-center gap-8">
+                            <!-- Estado Badge (Prominent) -->
+                            <div class="hidden md:flex items-center gap-3 bg-slate-50 px-6 py-2.5 rounded-full border border-slate-100 shadow-sm">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-xs font-bold ${colorSet.split(' ')[0]}">${v.estado || 'S/E'}</span>
-                                    <div class="w-2 h-2 rounded-full ${colorSet.split(' ')[1]} animate-pulse"></div>
+                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Estado:</span>
+                                    <span class="text-base font-black ${colors[0]} tracking-tight uppercase">${v.estado || 'S/E'}</span>
                                 </div>
+                                <div class="w-3.5 h-3.5 rounded-full ${colors[1]} animate-pulse shadow-sm border-2 border-white"></div>
                             </div>
-                            <div class="flex gap-1">
+
+                            <!-- Acciones -->
+                            <div class="flex gap-1.5">
                                 <button onclick="showHistory('${v.vin}')" 
-                                        class="p-2 ${hasHistory ? 'text-amber-600 hover:bg-amber-50' : 'text-slate-200 cursor-not-allowed opacity-50'}" 
+                                        class="w-10 h-10 flex items-center justify-center ${hasHistory ? 'text-amber-600 hover:bg-amber-50' : 'text-slate-200 cursor-not-allowed opacity-40'} rounded-xl transition-all border border-transparent ${hasHistory ? 'hover:border-amber-100' : ''}" 
                                         ${hasHistory ? '' : 'disabled'}
                                         title="${hasHistory ? 'Histórico de Mantenimiento' : 'Sin historial disponible'}">
-                                    <span class="material-symbols-outlined text-[20px]">history</span>
+                                    <span class="material-symbols-outlined text-[24px]">history</span>
                                 </button>
-                                <button onclick="openEditModal('${v.id}')" class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" title="Editar Vehículo">
-                                    <span class="material-symbols-outlined text-[20px]">edit_square</span>
+                                <button onclick="openEditModal('${v.id}')" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all border border-transparent hover:border-blue-100" title="Editar Vehículo">
+                                    <span class="material-symbols-outlined text-[22px]">edit_square</span>
                                 </button>
-                                <button onclick="deleteVehiculo('${v.id}')" class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all" title="Eliminar Vehículo">
-                                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                                <button onclick="deleteVehiculo('${v.id}')" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all border border-transparent hover:border-red-100" title="Eliminar Vehículo">
+                                    <span class="material-symbols-outlined text-[22px]">delete</span>
                                 </button>
                             </div>
                         </div>
