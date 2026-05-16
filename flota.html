@@ -540,32 +540,37 @@
                 const hasHistory = window.vinsWithHistory && window.vinsWithHistory.has(v.vin);
                 
                 const row = `
-                    <div class="flex items-center justify-between p-4 bg-white border border-outline-variant/30 rounded-xl hover:shadow-md transition-all group">
-                        <!-- Icon & Info Table-like Layout -->
-                        <div class="flex items-center gap-6 flex-grow">
-                            <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center shadow-inner shrink-0">
-                                <span class="material-symbols-outlined text-slate-500 text-[28px]">${v.tipo === 'Camión de Carga' ? 'local_shipping' : 'directions_car'}</span>
+                    <div class="flex items-center p-4 bg-white border border-outline-variant/30 rounded-xl hover:shadow-md transition-all group overflow-hidden">
+                        <!-- Icon -->
+                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center shadow-inner shrink-0 mr-6">
+                            <span class="material-symbols-outlined text-slate-500 text-[28px]">${v.tipo === 'Camión de Carga' ? 'local_shipping' : 'directions_car'}</span>
+                        </div>
+                        
+                        <!-- Columns with rigid alignment -->
+                        <div class="flex flex-grow items-center min-w-0">
+                            <!-- Unidad -->
+                            <div class="w-20 md:w-32 shrink-0 flex flex-col">
+                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Unidad</span>
+                                <span class="font-black text-primary-container text-lg tracking-tight leading-none">${v.id}</span>
                             </div>
                             
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-12 flex-grow items-center">
-                                <div class="flex flex-col">
-                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Unidad</span>
-                                    <span class="font-black text-primary-container text-lg tracking-tight leading-none">${v.id}</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Marca</span>
-                                    <p class="text-sm md:text-base text-secondary font-bold leading-tight uppercase truncate">${v.marca || '---'}</p>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">VIN</span>
-                                    <p class="text-sm md:text-base text-slate-500 font-mono tracking-tighter leading-tight truncate">${v.vin || '---'}</p>
-                                </div>
+                            <!-- Marca -->
+                            <div class="w-32 md:w-48 shrink-0 flex flex-col">
+                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Marca</span>
+                                <p class="text-sm md:text-base text-secondary font-bold leading-tight uppercase truncate pr-4">${v.marca || '---'}</p>
+                            </div>
+                            
+                            <!-- VIN -->
+                            <div class="flex-grow flex flex-col min-w-0">
+                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">VIN</span>
+                                <p class="text-sm md:text-base text-slate-500 font-mono tracking-tighter leading-tight truncate pr-4">${v.vin || '---'}</p>
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-8 ml-4">
+                        <!-- Status & Actions -->
+                        <div class="flex items-center gap-6 shrink-0 ml-4">
                             <!-- Estado Badge (Prominent) -->
-                            <div class="hidden lg:flex items-center gap-3 bg-slate-50 px-6 py-2.5 rounded-full border border-slate-100 shadow-sm min-w-[200px] justify-center">
+                            <div class="hidden lg:flex items-center gap-3 bg-slate-50 px-6 py-2.5 rounded-full border border-slate-100 shadow-sm w-[220px] justify-center">
                                 <div class="flex items-center gap-2">
                                     <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Estado:</span>
                                     <span class="text-base font-black ${colors[0]} tracking-tight uppercase">${v.estado || 'S/E'}</span>
