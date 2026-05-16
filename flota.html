@@ -444,15 +444,34 @@
             const client = getSupabase();
 
             try {
-                const { data, error } = await client
+                // 1. Obtener todos los vehículos registrados
+                const { data: vehiculos, error: vError } = await client
                     .from('vehiculos')
                     .select('*')
                     .order('id', { ascending: true });
 
-                if (error) throw error;
+                if (vError) throw vError;
 
-                window.allVehiculos = data; // Store for filtering
-                renderVehiculos(data);
+                // 2. Obtener registros de mantenimiento activos (no finalizados)
+                // Se consideran activos si estado_manto no es 'FINALIZADO' o es NULL
+                const { data: mantenimientos, error: mError } = await client
+                    .from('detalle_solicitud_ot')
+                    .select('VIN, estado_manto')
+                    .or('estado_manto.neq.FINALIZADO,estado_manto.is.null');
+
+                if (mError) throw mError;
+
+                // 3. Cruzar información: si el VIN existe en mantenimientos activos, el estado es MANTENIMIENTO
+                const updatedVehiculos = (vehiculos || []).map(v => {
+                    const hasActiveManto = (mantenimientos || []).some(m => m.VIN === v.vin);
+                    if (hasActiveManto) {
+                        return { ...v, estado: 'En Mantenimiento' };
+                    }
+                    return v;
+                });
+
+                window.allVehiculos = updatedVehiculos; // Guardar para el filtrado de búsqueda
+                renderVehiculos(updatedVehiculos);
             } catch (err) {
                 console.error('Error fetching vehicles:', err);
                 container.innerHTML = `<p class="text-center text-red-500 py-10 font-bold">Error: ${err.message}</p>`;
