@@ -408,7 +408,7 @@
                     <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Estado Operativo</label>
                     <select id="editEstado" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all">
                         <option value="Operativo">Operativo</option>
-                        <option value="En Mantenimiento">En Mantenimiento</option>
+                        <option value="Mantenimiento">Mantenimiento</option>
                         <option value="Fuera de Servicio">Fuera de Servicio</option>
                         <option value="En Reparación">En Reparación</option>
                     </select>
@@ -502,12 +502,12 @@
                 if (hError) throw hError;
 
                 // 3. Cruzar información:
-                // Si el VIN tiene algún mantenimiento no finalizado -> 'En Mantenimiento'
+                // Si el VIN tiene algún mantenimiento no finalizado -> 'Mantenimiento'
                 // De lo contrario (todos finalizados o inexistentes) -> 'Operativo' (Activo)
                 const updatedVehiculos = (vehiculos || []).map(v => {
                     const hasActiveManto = (mantenimientos || []).some(m => m.VIN === v.vin);
                     if (hasActiveManto) {
-                        return { ...v, estado: 'En Mantenimiento' };
+                        return { ...v, estado: 'Mantenimiento' };
                     } else {
                         return { ...v, estado: 'Operativo' };
                     }
@@ -531,7 +531,7 @@
             data.forEach(v => {
                 const statusColors = {
                     'Operativo': 'text-emerald-500 bg-emerald-500',
-                    'En Mantenimiento': 'text-amber-500 bg-amber-500',
+                    'Mantenimiento': 'text-amber-500 bg-amber-500',
                     'Fuera de Servicio': 'text-rose-500 bg-rose-500',
                     'En Reparación': 'text-blue-500 bg-blue-500'
                 };
