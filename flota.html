@@ -461,13 +461,17 @@
 
                 if (mError) throw mError;
 
-                // 3. Cruzar información: si el VIN existe en mantenimientos activos, el estado es MANTENIMIENTO
+                // 3. Cruzar información:
+                // Si el VIN tiene algún mantenimiento no finalizado -> 'En Mantenimiento'
+                // De lo contrario (todos finalizados o inexistentes) -> 'Operativo' (Activo)
                 const updatedVehiculos = (vehiculos || []).map(v => {
                     const hasActiveManto = (mantenimientos || []).some(m => m.VIN === v.vin);
                     if (hasActiveManto) {
                         return { ...v, estado: 'En Mantenimiento' };
+                    } else {
+                        // Todos los registros están FINALIZADOS o no existen registros activos
+                        return { ...v, estado: 'Operativo' };
                     }
-                    return v;
                 });
 
                 window.allVehiculos = updatedVehiculos; // Guardar para el filtrado de búsqueda
