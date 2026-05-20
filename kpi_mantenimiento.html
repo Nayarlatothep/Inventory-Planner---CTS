@@ -207,7 +207,7 @@
                 renderGastoCamiones(updatedVehiculos, document.getElementById('gastoCamionesContainer'));
                 renderTopReparaciones(updatedVehiculos);
                 renderAceiteEngrasado(updatedVehiculos);
-                updateOperationalKPIs(updatedVehiculos);
+                updateOperationalKPIs(updatedVehiculos, mantenimientos);
             } catch (err) {
                 console.error('Error:', err);
                 camionesContainer.innerHTML = `<p class="text-error text-xs p-4">Error al cargar datos - ${err.message || 'Verifique la API key'}</p>`;
@@ -293,18 +293,21 @@
             });
         }
 
-        function updateOperationalKPIs(vehiculos) {
+        function updateOperationalKPIs(vehiculos, mantenimientos = []) {
             const total = vehiculos.length;
             const activos = vehiculos.filter(v => v.calculatedEstado === 'Activo').length;
             const mantenimiento = vehiculos.filter(v => v.calculatedEstado === 'Mantenimiento').length;
             const deBaja = vehiculos.filter(v => v.calculatedEstado === 'De Baja').length;
             
-            // Disponibilidad de Flota
-            const percentDisp = total > 0 ? ((activos / total) * 100).toFixed(1) : 0;
+            // Disponibilidad de Flota (usando detalle_solicitud_ot)
+            const totalOTs = mantenimientos.length;
+            const finalizadas = mantenimientos.filter(m => m.estado_manto === 'FINALIZADO').length;
+            const percentDisp = totalOTs > 0 ? ((finalizadas / totalOTs) * 100).toFixed(1) : 0;
+            
             const totalDispEl = document.getElementById('totalDisponibilidad');
             const ratioDispEl = document.getElementById('ratioDisponibilidad');
             if (totalDispEl) totalDispEl.textContent = `${percentDisp}%`;
-            if (ratioDispEl) ratioDispEl.textContent = `${activos} / ${total} Unidades`;
+            if (ratioDispEl) ratioDispEl.textContent = `${finalizadas} / ${totalOTs} Unidades`;
             
             // Unidades en Mantenimiento
             const totalMantoEl = document.getElementById('totalMantenimiento');
@@ -1165,7 +1168,7 @@
                     renderGastoCamiones(updatedVehiculos, document.getElementById('gastoCamionesContainer'));
                     renderTopReparaciones(updatedVehiculos);
                     renderAceiteEngrasado(updatedVehiculos);
-                    updateOperationalKPIs(updatedVehiculos);
+                    updateOperationalKPIs(updatedVehiculos, mantenimientos);
                 } catch (err) {
                     console.error('Error:', err);
                     camionesContainer.innerHTML = `<p class="text-error text-xs p-4">Error al cargar datos - ${err.message || 'Verifique la API key'}</p>`;
@@ -1250,17 +1253,20 @@
                 });
             }
 
-            function updateOperationalKPIs(vehiculos) {
+            function updateOperationalKPIs(vehiculos, mantenimientos = []) {
                 const total = vehiculos.length;
                 const activos = vehiculos.filter(v => v.calculatedEstado === 'Activo').length;
                 const mantenimiento = vehiculos.filter(v => v.calculatedEstado === 'Mantenimiento').length;
                 const deBaja = vehiculos.filter(v => v.calculatedEstado === 'De Baja').length;
                 
-                const percentDisp = total > 0 ? ((activos / total) * 100).toFixed(1) : 0;
+                const totalOTs = mantenimientos.length;
+                const finalizadas = mantenimientos.filter(m => m.estado_manto === 'FINALIZADO').length;
+                const percentDisp = totalOTs > 0 ? ((finalizadas / totalOTs) * 100).toFixed(1) : 0;
+                
                 const totalDispEl = document.getElementById('totalDisponibilidad');
                 const ratioDispEl = document.getElementById('ratioDisponibilidad');
                 if (totalDispEl) totalDispEl.textContent = `${percentDisp}%`;
-                if (ratioDispEl) ratioDispEl.textContent = `${activos} / ${total} Unidades`;
+                if (ratioDispEl) ratioDispEl.textContent = `${finalizadas} / ${totalOTs} Unidades`;
                 
                 const totalMantoEl = document.getElementById('totalMantenimiento');
                 const ratioMantoEl = document.getElementById('ratioMantenimiento');
