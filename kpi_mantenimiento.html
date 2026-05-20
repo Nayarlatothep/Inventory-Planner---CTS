@@ -299,15 +299,14 @@
             const mantenimiento = vehiculos.filter(v => v.calculatedEstado === 'Mantenimiento').length;
             const deBaja = vehiculos.filter(v => v.calculatedEstado === 'De Baja').length;
             
-            // Disponibilidad de Flota (usando detalle_solicitud_ot)
-            const totalOTs = mantenimientos.length;
-            const finalizadas = mantenimientos.filter(m => m.estado_manto === 'FINALIZADO').length;
-            const percentDisp = totalOTs > 0 ? ((finalizadas / totalOTs) * 100).toFixed(1) : 0;
+            // Disponibilidad de Flota
+            // La disponibilidad es el porcentaje de unidades activas (total - en mantenimiento)
+            const percentDisp = total > 0 ? (((total - mantenimiento) / total) * 100).toFixed(1) : 0;
             
             const totalDispEl = document.getElementById('totalDisponibilidad');
             const ratioDispEl = document.getElementById('ratioDisponibilidad');
             if (totalDispEl) totalDispEl.textContent = `${percentDisp}%`;
-            if (ratioDispEl) ratioDispEl.textContent = `${finalizadas} / ${totalOTs} Unidades`;
+            if (ratioDispEl) ratioDispEl.textContent = `${mantenimiento} / ${total} Unidades`;
             
             // Unidades en Mantenimiento
             const totalMantoEl = document.getElementById('totalMantenimiento');
@@ -1259,14 +1258,14 @@
                 const mantenimiento = vehiculos.filter(v => v.calculatedEstado === 'Mantenimiento').length;
                 const deBaja = vehiculos.filter(v => v.calculatedEstado === 'De Baja').length;
                 
-                const totalOTs = mantenimientos.length;
-                const finalizadas = mantenimientos.filter(m => m.estado_manto === 'FINALIZADO').length;
-                const percentDisp = totalOTs > 0 ? ((finalizadas / totalOTs) * 100).toFixed(1) : 0;
+                // Disponibilidad de Flota
+                // La disponibilidad es el porcentaje de unidades activas (total - en mantenimiento)
+                const percentDisp = total > 0 ? (((total - mantenimiento) / total) * 100).toFixed(1) : 0;
                 
                 const totalDispEl = document.getElementById('totalDisponibilidad');
                 const ratioDispEl = document.getElementById('ratioDisponibilidad');
                 if (totalDispEl) totalDispEl.textContent = `${percentDisp}%`;
-                if (ratioDispEl) ratioDispEl.textContent = `${finalizadas} / ${totalOTs} Unidades`;
+                if (ratioDispEl) ratioDispEl.textContent = `${mantenimiento} / ${total} Unidades`;
                 
                 const totalMantoEl = document.getElementById('totalMantenimiento');
                 const ratioMantoEl = document.getElementById('ratioMantenimiento');
