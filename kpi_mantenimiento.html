@@ -185,12 +185,29 @@
 
                 if (error) throw error;
                 
-                allVehiculos = vehiculos; // Guardar en cache
-                renderCamiones(vehiculos, camionesContainer, '', false);
-                renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
-                renderTopReparaciones(vehiculos);
-                renderAceiteEngrasado(vehiculos);
-                updateOperationalKPIs(vehiculos);
+                const { data: mantenimientos, error: mError } = await supabaseClient
+                    .from('detalle_solicitud_ot')
+                    .select('unidad, estado_manto');
+
+                if (mError) throw mError;
+
+                const updatedVehiculos = (vehiculos || []).map(v => {
+                    const hasActiveManto = (mantenimientos || []).some(m => 
+                        String(m.unidad) === String(v.id) && 
+                        (m.estado_manto !== 'FINALIZADO')
+                    );
+                    
+                    let estado = hasActiveManto ? 'Mantenimiento' : 'Activo';
+                    
+                    return { ...v, calculatedEstado: estado };
+                });
+
+                allVehiculos = updatedVehiculos; // Guardar en cache
+                renderCamiones(updatedVehiculos, camionesContainer, '', false);
+                renderGastoCamiones(updatedVehiculos, document.getElementById('gastoCamionesContainer'));
+                renderTopReparaciones(updatedVehiculos);
+                renderAceiteEngrasado(updatedVehiculos);
+                updateOperationalKPIs(updatedVehiculos);
             } catch (err) {
                 console.error('Error:', err);
                 camionesContainer.innerHTML = `<p class="text-error text-xs p-4">Error al cargar datos - ${err.message || 'Verifique la API key'}</p>`;
@@ -199,18 +216,18 @@
 
         function renderCamiones(vehiculos, container, filter = '', isModal = false) {
             container.innerHTML = '';
-            const estadosSimulados = [
-                { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
-                { nombre: 'Mantenimiento', color: 'text-amber-500', bg: 'bg-amber-500', icono: 'build', iconoClase: 'text-amber-500' },
-                { nombre: 'De Baja', color: 'text-rose-500', bg: 'bg-rose-500', icono: 'cancel', iconoClase: 'text-rose-500' }
-            ];
+            const estados = {
+                'Activo': { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
+                'Mantenimiento': { nombre: 'Mantenimiento', color: 'text-amber-500', bg: 'bg-amber-500', icono: 'build', iconoClase: 'text-amber-500' },
+                'De Baja': { nombre: 'De Baja', color: 'text-rose-500', bg: 'bg-rose-500', icono: 'cancel', iconoClase: 'text-rose-500' }
+            };
 
             const filtered = vehiculos.filter(v => {
                 const search = filter.toLowerCase();
-                const estado = estadosSimulados[v.id % estadosSimulados.length].nombre.toLowerCase();
+                const estadoName = (v.calculatedEstado || 'Activo').toLowerCase();
                 return v.id.toString().includes(search) || 
-                       v.vin.toLowerCase().includes(search) ||
-                       estado.includes(search);
+                       (v.vin && v.vin.toLowerCase().includes(search)) ||
+                       estadoName.includes(search);
             });
 
             if (filtered.length === 0) {
@@ -218,9 +235,9 @@
                 return;
             }
 
-            filtered.forEach((vehiculo, index) => {
-                const estado = estadosSimulados[vehiculo.id % estadosSimulados.length];
-                const vinHtml = isModal ? `<span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>` : '';
+            filtered.forEach((vehiculo) => {
+                const estado = estados[vehiculo.calculatedEstado || 'Activo'] || estados['Activo'];
+                const vinHtml = isModal ? `<span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin || '---'}</span>` : '';
                 
                 const row = `
                     <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high">
@@ -278,8 +295,9 @@
 
         function updateOperationalKPIs(vehiculos) {
             const total = vehiculos.length;
-            const activos = vehiculos.filter(v => (v.id % 3) === 0).length;
-            const mantenimiento = vehiculos.filter(v => (v.id % 3) === 1).length;
+            const activos = vehiculos.filter(v => v.calculatedEstado === 'Activo').length;
+            const mantenimiento = vehiculos.filter(v => v.calculatedEstado === 'Mantenimiento').length;
+            const deBaja = vehiculos.filter(v => v.calculatedEstado === 'De Baja').length;
             
             // Disponibilidad de Flota
             const percentDisp = total > 0 ? ((activos / total) * 100).toFixed(1) : 0;
@@ -291,7 +309,6 @@
             // Unidades en Mantenimiento
             const totalMantoEl = document.getElementById('totalMantenimiento');
             const ratioMantoEl = document.getElementById('ratioMantenimiento');
-            const deBaja = vehiculos.filter(v => (v.id % 3) === 2).length;
             
             if (totalMantoEl) totalMantoEl.textContent = `${mantenimiento} / ${total}`;
             if (ratioMantoEl) {
@@ -1126,12 +1143,29 @@
 
                     if (error) throw error;
                     
-                    allVehiculos = vehiculos;
-                    renderCamiones(vehiculos, camionesContainer, '', false);
-                    renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
-                    renderTopReparaciones(vehiculos);
-                    renderAceiteEngrasado(vehiculos);
-                    updateOperationalKPIs(vehiculos);
+                    const { data: mantenimientos, error: mError } = await supabaseClient
+                        .from('detalle_solicitud_ot')
+                        .select('unidad, estado_manto');
+
+                    if (mError) throw mError;
+
+                    const updatedVehiculos = (vehiculos || []).map(v => {
+                        const hasActiveManto = (mantenimientos || []).some(m => 
+                            String(m.unidad) === String(v.id) && 
+                            (m.estado_manto !== 'FINALIZADO')
+                        );
+                        
+                        let estado = hasActiveManto ? 'Mantenimiento' : 'Activo';
+                        
+                        return { ...v, calculatedEstado: estado };
+                    });
+
+                    allVehiculos = updatedVehiculos;
+                    renderCamiones(updatedVehiculos, camionesContainer, '', false);
+                    renderGastoCamiones(updatedVehiculos, document.getElementById('gastoCamionesContainer'));
+                    renderTopReparaciones(updatedVehiculos);
+                    renderAceiteEngrasado(updatedVehiculos);
+                    updateOperationalKPIs(updatedVehiculos);
                 } catch (err) {
                     console.error('Error:', err);
                     camionesContainer.innerHTML = `<p class="text-error text-xs p-4">Error al cargar datos - ${err.message || 'Verifique la API key'}</p>`;
@@ -1141,18 +1175,18 @@
             function renderCamiones(vehiculos, container, filter = '', isModal = false) {
                 if (!container) return;
                 container.innerHTML = '';
-                const estadosSimulados = [
-                    { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
-                    { nombre: 'Mantenimiento', color: 'text-amber-500', bg: 'bg-amber-500', icono: 'build', iconoClase: 'text-amber-500' },
-                    { nombre: 'De Baja', color: 'text-rose-500', bg: 'bg-rose-500', icono: 'cancel', iconoClase: 'text-rose-500' }
-                ];
+                const estados = {
+                    'Activo': { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
+                    'Mantenimiento': { nombre: 'Mantenimiento', color: 'text-amber-500', bg: 'bg-amber-500', icono: 'build', iconoClase: 'text-amber-500' },
+                    'De Baja': { nombre: 'De Baja', color: 'text-rose-500', bg: 'bg-rose-500', icono: 'cancel', iconoClase: 'text-rose-500' }
+                };
 
                 const filtered = vehiculos.filter(v => {
                     const search = filter.toLowerCase();
-                    const estado = estadosSimulados[v.id % estadosSimulados.length].nombre.toLowerCase();
+                    const estadoName = (v.calculatedEstado || 'Activo').toLowerCase();
                     return v.id.toString().includes(search) || 
                            (v.vin && v.vin.toLowerCase().includes(search)) ||
-                           estado.includes(search);
+                           estadoName.includes(search);
                 });
 
                 if (filtered.length === 0) {
@@ -1161,7 +1195,7 @@
                 }
 
                 filtered.forEach((vehiculo) => {
-                    const estado = estadosSimulados[vehiculo.id % estadosSimulados.length];
+                    const estado = estados[vehiculo.calculatedEstado || 'Activo'] || estados['Activo'];
                     const vinHtml = isModal ? `<span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin || '---'}</span>` : '';
                     
                     const row = `
@@ -1218,8 +1252,9 @@
 
             function updateOperationalKPIs(vehiculos) {
                 const total = vehiculos.length;
-                const activos = vehiculos.filter(v => (v.id % 3) === 0).length;
-                const mantenimiento = vehiculos.filter(v => (v.id % 3) === 1).length;
+                const activos = vehiculos.filter(v => v.calculatedEstado === 'Activo').length;
+                const mantenimiento = vehiculos.filter(v => v.calculatedEstado === 'Mantenimiento').length;
+                const deBaja = vehiculos.filter(v => v.calculatedEstado === 'De Baja').length;
                 
                 const percentDisp = total > 0 ? ((activos / total) * 100).toFixed(1) : 0;
                 const totalDispEl = document.getElementById('totalDisponibilidad');
@@ -1229,7 +1264,6 @@
                 
                 const totalMantoEl = document.getElementById('totalMantenimiento');
                 const ratioMantoEl = document.getElementById('ratioMantenimiento');
-                const deBaja = vehiculos.filter(v => (v.id % 3) === 2).length;
                 
                 if (totalMantoEl) totalMantoEl.textContent = `${mantenimiento} / ${total}`;
                 if (ratioMantoEl) {

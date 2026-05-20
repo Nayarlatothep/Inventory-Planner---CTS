@@ -1,0 +1,21 @@
+REPORTE TÉCNICO - MÓDULO DE MANTENIMIENTO
+
+1. Pantalla: Unidades en Mantenimiento
+- Funcionalidad: Gestión operativa de vehículos dentro del taller en tiempo real.
+- Operación: Permite visualizar las solicitudes de mantenimiento aprobadas y controlar su flujo de trabajo desde el inicio hasta su finalización.
+- Características principales:
+    - Integración de cronómetro activo para medir la duración exacta de cada servicio de mantenimiento.
+    - Automatización de transiciones de estado y marcas de tiempo en la base de datos al accionar los controles de flujo.
+    - Filtro de búsqueda global que permite localizar registros por número de unidad, técnico asignado, VIN o folio de orden.
+    - Visualización detallada de repuestos mediante un modal de ticket de servicio.
+    - Mecanismo de actualización manual para sincronizar datos operativos de forma instantánea.
+
+2. Pantalla: Estado de Flota
+- Funcionalidad: Control administrativo y registro centralizado de los activos vehiculares.
+- Operación: Permite el alta, modificación y monitoreo de la disponibilidad operativa de cada unidad del parque vehicular.
+- Características principales:
+    - Diseño optimizado de columnas para una identificación clara de Unidad, Marca y VIN.
+    - Seguimiento dinámico de estados operativos con indicadores visuales codificados por colores (Operativo, Mantenimiento, Fuera de Servicio).
+    - Formulario estructurado para el registro técnico de nuevos vehículos con especificación de tipo y marca.
+    - Interfaz de edición rápida mediante ventanas modales para mantener la información actualizada.
+    - Buscador integrado para localización inmediata de activos específicos dentro del inventario global.
