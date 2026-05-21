@@ -533,7 +533,7 @@
                 <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
             </div>
             <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
-                <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+                <a href="inicio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
                     <span class="material-symbols-outlined text-slate-300 group-hover:text-blue-400 transition-colors">dashboard</span>
                     <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
                 </a>
@@ -1015,7 +1015,7 @@
 
     <!-- BottomNavBar (Mobile Only) -->
     <nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 bg-white border-t border-slate-200 z-50">
-        <a href="index.html" class="flex flex-col items-center justify-center text-slate-500">
+        <a href="inicio.html" class="flex flex-col items-center justify-center text-slate-500">
             <span class="material-symbols-outlined">dashboard</span>
             <span class="text-[10px] font-bold uppercase">Inicio</span>
         </a>
@@ -1507,12 +1507,12 @@
             }
 
             let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
-            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            const currentFile = window.location.pathname.split('/').pop() || 'inicio.html';
             const nav = document.querySelector('nav');
             if (nav) {
                 nav.querySelectorAll('a').forEach(link => {
                     const href = link.getAttribute('href');
-                    if (href === currentFile || (currentFile === '' && href === 'index.html')) {
+                    if (href === currentFile || (currentFile === '' && href === 'inicio.html')) {
                         link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
                         link.classList.remove('text-slate-300', 'hover:bg-white/5');
                         const icon = link.querySelector('span.material-symbols-outlined');

@@ -16,13 +16,13 @@ window.appRole = 'guest';
 
 // Verificar sesión y proteger rutas
 async function checkAuth() {
-    const isLoginPage = window.location.pathname.endsWith('login.html');
+    const isLoginPage = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || window.location.pathname === '';
     
     const { data: { session }, error } = await supabaseClient.auth.getSession();
     
     if (!session) {
         if (!isLoginPage) {
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }
     } else {
         window.appUser = session.user;
@@ -38,7 +38,7 @@ async function checkAuth() {
         }
         
         if (isLoginPage) {
-            window.location.href = 'index.html';
+            window.location.href = 'inicio.html';
         } else {
             applyVisualRestrictions();
         }
@@ -97,7 +97,7 @@ function applyVisualRestrictions() {
 // Función global de Logout
 window.logout = async function() {
     await supabaseClient.auth.signOut();
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
 };
 
 // Iniciar verificación automáticamente

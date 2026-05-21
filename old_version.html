@@ -227,7 +227,7 @@
             });
             if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
 
-            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            const currentFile = window.location.pathname.split('/').pop() || 'inicio.html';
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === currentFile) {
                     link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
