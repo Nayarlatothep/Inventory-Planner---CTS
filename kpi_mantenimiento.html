@@ -185,29 +185,12 @@
 
                 if (error) throw error;
                 
-                const { data: mantenimientos, error: mError } = await supabaseClient
-                    .from('detalle_solicitud_ot')
-                    .select('unidad, estado_manto');
-
-                if (mError) throw mError;
-
-                const updatedVehiculos = (vehiculos || []).map(v => {
-                    const hasActiveManto = (mantenimientos || []).some(m => 
-                        String(m.unidad) === String(v.id) && 
-                        (m.estado_manto !== 'FINALIZADO')
-                    );
-                    
-                    let estado = hasActiveManto ? 'Mantenimiento' : 'Activo';
-                    
-                    return { ...v, calculatedEstado: estado };
-                });
-
-                allVehiculos = updatedVehiculos; // Guardar en cache
-                renderCamiones(updatedVehiculos, camionesContainer, '', false);
-                renderGastoCamiones(updatedVehiculos, document.getElementById('gastoCamionesContainer'));
-                renderTopReparaciones(updatedVehiculos);
-                renderAceiteEngrasado(updatedVehiculos);
-                updateOperationalKPIs(updatedVehiculos, mantenimientos);
+                allVehiculos = vehiculos; // Guardar en cache
+                renderCamiones(vehiculos, camionesContainer, '', false);
+                renderGastoCamiones(vehiculos, document.getElementById('gastoCamionesContainer'));
+                renderTopReparaciones(vehiculos);
+                renderAceiteEngrasado(vehiculos);
+                updateOperationalKPIs(vehiculos);
             } catch (err) {
                 console.error('Error:', err);
                 camionesContainer.innerHTML = `<p class="text-error text-xs p-4">Error al cargar datos - ${err.message || 'Verifique la API key'}</p>`;
@@ -216,18 +199,18 @@
 
         function renderCamiones(vehiculos, container, filter = '', isModal = false) {
             container.innerHTML = '';
-            const estados = {
-                'Activo': { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
-                'Mantenimiento': { nombre: 'Mantenimiento', color: 'text-amber-500', bg: 'bg-amber-500', icono: 'build', iconoClase: 'text-amber-500' },
-                'De Baja': { nombre: 'De Baja', color: 'text-rose-500', bg: 'bg-rose-500', icono: 'cancel', iconoClase: 'text-rose-500' }
-            };
+            const estadosSimulados = [
+                { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
+                { nombre: 'Mantenimiento', color: 'text-amber-500', bg: 'bg-amber-500', icono: 'build', iconoClase: 'text-amber-500' },
+                { nombre: 'De Baja', color: 'text-rose-500', bg: 'bg-rose-500', icono: 'cancel', iconoClase: 'text-rose-500' }
+            ];
 
             const filtered = vehiculos.filter(v => {
                 const search = filter.toLowerCase();
-                const estadoName = (v.calculatedEstado || 'Activo').toLowerCase();
+                const estado = estadosSimulados[v.id % estadosSimulados.length].nombre.toLowerCase();
                 return v.id.toString().includes(search) || 
-                       (v.vin && v.vin.toLowerCase().includes(search)) ||
-                       estadoName.includes(search);
+                       v.vin.toLowerCase().includes(search) ||
+                       estado.includes(search);
             });
 
             if (filtered.length === 0) {
@@ -235,9 +218,9 @@
                 return;
             }
 
-            filtered.forEach((vehiculo) => {
-                const estado = estados[vehiculo.calculatedEstado || 'Activo'] || estados['Activo'];
-                const vinHtml = isModal ? `<span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin || '---'}</span>` : '';
+            filtered.forEach((vehiculo, index) => {
+                const estado = estadosSimulados[vehiculo.id % estadosSimulados.length];
+                const vinHtml = isModal ? `<span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin}</span>` : '';
                 
                 const row = `
                     <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high">
@@ -249,7 +232,7 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="text-base md:text-lg font-black uppercase ${estado.color}">${estado.nombre}</span>
+                            <span class="text-[10px] font-bold uppercase ${estado.color}">${estado.nombre}</span>
                             <div class="w-2 h-2 rounded-full ${estado.bg} pulse-dot"></div>
                         </div>
                     </div>
@@ -293,16 +276,13 @@
             });
         }
 
-        function updateOperationalKPIs(vehiculos, mantenimientos = []) {
+        function updateOperationalKPIs(vehiculos) {
             const total = vehiculos.length;
-            const activos = vehiculos.filter(v => v.calculatedEstado === 'Activo').length;
-            const mantenimiento = vehiculos.filter(v => v.calculatedEstado === 'Mantenimiento').length;
-            const deBaja = vehiculos.filter(v => v.calculatedEstado === 'De Baja').length;
+            const activos = vehiculos.filter(v => (v.id % 3) === 0).length;
+            const mantenimiento = vehiculos.filter(v => (v.id % 3) === 1).length;
             
             // Disponibilidad de Flota
-            // La disponibilidad es el porcentaje de unidades activas (total - en mantenimiento)
-            const percentDisp = total > 0 ? (((total - mantenimiento) / total) * 100).toFixed(1) : 0;
-            
+            const percentDisp = total > 0 ? ((activos / total) * 100).toFixed(1) : 0;
             const totalDispEl = document.getElementById('totalDisponibilidad');
             const ratioDispEl = document.getElementById('ratioDisponibilidad');
             if (totalDispEl) totalDispEl.textContent = `${percentDisp}%`;
@@ -311,6 +291,7 @@
             // Unidades en Mantenimiento
             const totalMantoEl = document.getElementById('totalMantenimiento');
             const ratioMantoEl = document.getElementById('ratioMantenimiento');
+            const deBaja = vehiculos.filter(v => (v.id % 3) === 2).length;
             
             if (totalMantoEl) totalMantoEl.textContent = `${mantenimiento} / ${total}`;
             if (ratioMantoEl) {
@@ -528,14 +509,8 @@
     <!-- Sidebar -->
     <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0 border-r border-white/10 shadow-2xl">
         <div class="flex flex-col h-full">
-            <div class="p-8 border-b border-white/5 flex items-center gap-3 bg-[#000d1a]">
-                <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-900/50">
-                    <span class="material-symbols-outlined text-white text-[24px]">local_shipping</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-lg font-black tracking-tighter leading-none text-white">CSM LEGACY</span>
-                    <span class="text-[9px] text-blue-400 font-black uppercase tracking-[0.2em] mt-1">Inventory Planner</span>
-                </div>
+            <div class="p-6 border-b border-white/5 flex justify-center items-center bg-[#000d1a]">
+                <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain bg-white rounded-xl p-2">
             </div>
             <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
                 <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
@@ -594,9 +569,6 @@
                         </a>
                         <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
                             <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Despacho Ordenes de Trabajo
-                        </a>
-                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
                         </a>
                         <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
                             <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
@@ -883,7 +855,7 @@
                             <span class="material-symbols-outlined text-[20px]">open_in_full</span>
                         </button>
                     </div>
-                    <div id="camionesContainer" class="space-y-3 max-h-[640px] overflow-y-auto pr-2 custom-scrollbar">
+                    <div id="camionesContainer" class="space-y-3 max-h-[580px] overflow-y-auto pr-2 custom-scrollbar">
                         <!-- Los camiones se cargarán dinámicamente aquí -->
                         <div class="flex justify-center items-center py-10">
                             <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-container"></div>
@@ -1118,353 +1090,24 @@
 
 
     <script>
-        (function() {
-            // --- Dashboard Business Logic ---
-            const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
-            const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
-            if (!supabaseClient) {
-                const clientObj = (window.supabase && window.supabase.createClient) ? window.supabase : (typeof supabase !== 'undefined' && supabase.createClient) ? supabase : null;
-                if (clientObj) {
-                    supabaseClient = clientObj.createClient(supabaseUrl, supabaseAnonKey);
-                } else {
-                    console.error('Supabase library not found');
-                }
-            }
-
-            let allVehiculos = [];
-
-            async function fetchCamiones() {
-                const camionesContainer = document.getElementById('camionesContainer');
-                if (!camionesContainer) return;
-                
-                try {
-                    const { data: vehiculos, error } = await supabaseClient
-                        .from('vehiculos')
-                        .select('id, vin')
-                        .order('id', { ascending: true });
-
-                    if (error) throw error;
-                    
-                    const { data: mantenimientos, error: mError } = await supabaseClient
-                        .from('detalle_solicitud_ot')
-                        .select('unidad, estado_manto');
-
-                    if (mError) throw mError;
-
-                    const updatedVehiculos = (vehiculos || []).map(v => {
-                        const hasActiveManto = (mantenimientos || []).some(m => 
-                            String(m.unidad) === String(v.id) && 
-                            (m.estado_manto !== 'FINALIZADO')
-                        );
-                        
-                        let estado = hasActiveManto ? 'Mantenimiento' : 'Activo';
-                        
-                        return { ...v, calculatedEstado: estado };
-                    });
-
-                    allVehiculos = updatedVehiculos;
-                    renderCamiones(updatedVehiculos, camionesContainer, '', false);
-                    renderGastoCamiones(updatedVehiculos, document.getElementById('gastoCamionesContainer'));
-                    renderTopReparaciones(updatedVehiculos);
-                    renderAceiteEngrasado(updatedVehiculos);
-                    updateOperationalKPIs(updatedVehiculos, mantenimientos);
-                } catch (err) {
-                    console.error('Error:', err);
-                    camionesContainer.innerHTML = `<p class="text-error text-xs p-4">Error al cargar datos - ${err.message || 'Verifique la API key'}</p>`;
-                }
-            }
-
-            function renderCamiones(vehiculos, container, filter = '', isModal = false) {
-                if (!container) return;
-                container.innerHTML = '';
-                const estados = {
-                    'Activo': { nombre: 'Activo', color: 'text-emerald-500', bg: 'bg-emerald-500', icono: 'check_circle', iconoClase: 'text-emerald-500' },
-                    'Mantenimiento': { nombre: 'Mantenimiento', color: 'text-amber-500', bg: 'bg-amber-500', icono: 'build', iconoClase: 'text-amber-500' },
-                    'De Baja': { nombre: 'De Baja', color: 'text-rose-500', bg: 'bg-rose-500', icono: 'cancel', iconoClase: 'text-rose-500' }
-                };
-
-                const filtered = vehiculos.filter(v => {
-                    const search = filter.toLowerCase();
-                    const estadoName = (v.calculatedEstado || 'Activo').toLowerCase();
-                    return v.id.toString().includes(search) || 
-                           (v.vin && v.vin.toLowerCase().includes(search)) ||
-                           estadoName.includes(search);
-                });
-
-                if (filtered.length === 0) {
-                    container.innerHTML = '<p class="text-center text-on-surface-variant py-10 opacity-50">No se encontraron resultados</p>';
-                    return;
-                }
-
-                filtered.forEach((vehiculo) => {
-                    const estado = estados[vehiculo.calculatedEstado || 'Activo'] || estados['Activo'];
-                    const vinHtml = isModal ? `<span class="text-base md:text-lg font-mono text-on-surface-variant opacity-70 bg-surface-container px-1.5 py-0.5 rounded">${vehiculo.vin || '---'}</span>` : '';
-                    
-                    const row = `
-                        <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg group transition-all hover:bg-surface-container-high">
-                            <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined ${estado.iconoClase}">${estado.icono}</span>
-                                <div class="flex items-center gap-4">
-                                    <span class="text-base md:text-lg font-black text-primary-container">${vehiculo.id}</span>
-                                    ${vinHtml}
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-base md:text-lg font-black uppercase ${estado.color}">${estado.nombre}</span>
-                                <div class="w-2 h-2 rounded-full ${estado.bg} pulse-dot"></div>
-                            </div>
-                        </div>
-                    `;
-                    container.insertAdjacentHTML('beforeend', row);
-                });
-                
-                const totalCount = document.getElementById('modalTotalCount');
-                if (totalCount && container.id === 'modalCamionesContainer') {
-                    totalCount.textContent = filtered.length;
-                }
-            }
-
-            function renderGastoCamiones(vehiculos, container) {
-                if (!container) return;
-                container.innerHTML = '';
-                
-                const sortedVehiculos = [...vehiculos].map((v, i) => ({
-                    ...v,
-                    gasto: 8000 - (i * 450) > 500 ? 8000 - (i * 450) : 500 + (v.id % 1000),
-                    porcentaje: 100 - (i * 8) > 15 ? 100 - (i * 8) : 15
-                })).sort((a, b) => b.gasto - a.gasto);
-
-                sortedVehiculos.forEach((v) => {
-                    const row = `
-                        <div class="flex items-center gap-3 mb-4 group">
-                            <div class="flex items-center gap-2 min-w-[80px] shrink-0">
-                                <span class="text-sm md:text-base font-black text-primary-container">${v.id}</span>
-                            </div>
-                            <div class="flex-1 h-5 bg-zinc-200 dark:bg-zinc-700 rounded-full overflow-hidden relative shadow-inner">
-                                <div class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 group-hover:from-emerald-500 group-hover:to-emerald-300 transition-all duration-1000" style="width: ${v.porcentaje}%"></div>
-                                <div class="absolute inset-0 flex items-center justify-end px-3">
-                                    <span class="text-[10px] font-black text-slate-800 dark:text-emerald-50 drop-shadow-sm">$${v.gasto.toLocaleString()}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    container.insertAdjacentHTML('beforeend', row);
-                });
-            }
-
-            function updateOperationalKPIs(vehiculos, mantenimientos = []) {
-                const total = vehiculos.length;
-                const activos = vehiculos.filter(v => v.calculatedEstado === 'Activo').length;
-                const mantenimiento = vehiculos.filter(v => v.calculatedEstado === 'Mantenimiento').length;
-                const deBaja = vehiculos.filter(v => v.calculatedEstado === 'De Baja').length;
-                
-                // Disponibilidad de Flota
-                // La disponibilidad es el porcentaje de unidades activas (total - en mantenimiento)
-                const percentDisp = total > 0 ? (((total - mantenimiento) / total) * 100).toFixed(1) : 0;
-                
-                const totalDispEl = document.getElementById('totalDisponibilidad');
-                const ratioDispEl = document.getElementById('ratioDisponibilidad');
-                if (totalDispEl) totalDispEl.textContent = `${percentDisp}%`;
-                if (ratioDispEl) ratioDispEl.textContent = `${activos} / ${total} Unidades`;
-                
-                const totalMantoEl = document.getElementById('totalMantenimiento');
-                const ratioMantoEl = document.getElementById('ratioMantenimiento');
-                
-                if (totalMantoEl) totalMantoEl.textContent = `${mantenimiento} / ${total}`;
-                if (ratioMantoEl) {
-                    ratioMantoEl.innerHTML = `<span class="font-black">${deBaja} Unidades</span> <span class="text-rose-600 font-black italic">De Baja</span>`;
-                }
-            }
-
-            function renderAceiteEngrasado(vehiculos) {
-                const container = document.getElementById('aceiteEngrasadoContainer');
-                if (!container) return;
-                container.innerHTML = '';
-
-                vehiculos.slice(0, 12).forEach(v => {
-                    const aceiteHecho = (v.id % 2 === 0);
-                    const engrasadoHecho = (v.id % 3 === 0);
-                    const aceiteIcon = aceiteHecho ? 'check_circle' : 'pending';
-                    const aceiteColor = aceiteHecho ? 'text-emerald-500' : 'text-amber-500';
-                    const engrasadoIcon = engrasadoHecho ? 'check_circle' : 'pending';
-                    const engrasadoColor = engrasadoHecho ? 'text-emerald-500' : 'text-amber-500';
-
-                    const row = `
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="py-3">
-                                <span class="font-black text-primary-container text-sm">${v.id}</span>
-                            </td>
-                            <td class="py-3 text-center">
-                                <span class="material-symbols-outlined ${aceiteColor} text-lg">${aceiteIcon}</span>
-                            </td>
-                            <td class="py-3 text-center">
-                                <span class="material-symbols-outlined ${engrasadoColor} text-lg">${engrasadoIcon}</span>
-                            </td>
-                        </tr>
-                    `;
-                    container.insertAdjacentHTML('beforeend', row);
-                });
-            }
-
-            function renderTopReparaciones(vehiculos) {
-                const container = document.getElementById('topReparacionesContainer');
-                if (!container) return;
-                container.innerHTML = '';
-                
-                const servicios = ['Mantenimiento Preventivo', 'Sistema de Frenos', 'Reparación de Motor', 'Transmisión', 'Suspensión', 'Sistema Eléctrico'];
-                const topVehiculos = vehiculos.slice(0, 5).map((v, i) => ({
-                    ...v,
-                    servicio: servicios[v.id % servicios.length],
-                    solicitudes: 5 - i > 1 ? 5 - i : 2,
-                    gasto: (8000 - (i * 1200)) > 1000 ? (8000 - (i * 1200)) : 1200 + (v.id % 500)
-                }));
-
-                topVehiculos.forEach(v => {
-                    const row = `
-                        <tr class="hover:bg-slate-50 transition-colors cursor-pointer">
-                            <td class="px-lg py-4 font-bold text-primary-container text-center">${v.id}</td>
-                            <td class="px-lg py-4 text-body-sm text-on-surface-variant text-center">${v.servicio}</td>
-                            <td class="px-lg py-4 text-center font-semibold text-secondary">${v.solicitudes}</td>
-                            <td class="px-lg py-4 font-semibold text-primary-container text-center">$${v.gasto.toLocaleString()}</td>
-                            <td class="px-lg py-4 text-right"><span class="material-symbols-outlined text-slate-400">chevron_right</span></td>
-                        </tr>
-                    `;
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = row;
-                    tr.className = "hover:bg-slate-50 transition-colors cursor-pointer";
-                    tr.addEventListener('click', () => openReparacionesModal(v));
-                    container.appendChild(tr);
-                });
-            }
-
-            function openReparacionesModal(v) {
-                const modal = document.getElementById('modalReparaciones');
-                const headerInfo = document.getElementById('reparacionesHeaderInfo');
-                const tableBody = document.getElementById('reparacionesTableBody');
-                if (!modal || !headerInfo || !tableBody) return;
-
-                headerInfo.innerHTML = `
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
-                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Unidad #</p>
-                            <p class="text-xl font-black text-primary-container">${v.id}</p>
-                        </div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
-                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">VIN</p>
-                            <p class="text-xl font-mono text-primary-container">${v.vin || '---'}</p>
-                        </div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
-                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Servicio</p>
-                            <p class="text-xl font-black text-emerald-600">${v.servicio}</p>
-                        </div>
-                    </div>
-                `;
-
-                tableBody.innerHTML = '';
-                const solicitantes = ['Juan Pérez', 'Carlos Rodríguez', 'Ing. Roberto M.', 'Luis García', 'Admin Sistema'];
-                const repuestos = ['Filtros de aceite, Aceite sintético', 'Pastillas de freno cerámicas', 'Kit de distribución, Bujías', 'Líquido hidráulico, Sensores', 'Neumáticos MICHELIN (2)'];
-
-                for (let i = 0; i < v.solicitudes; i++) {
-                    const fecha = new Date();
-                    fecha.setDate(fecha.getDate() - (i * 15 + Math.floor(Math.random() * 10)));
-                    const row = `
-                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                            <td class="px-6 py-4 text-sm font-semibold text-slate-600 text-center">${fecha.toLocaleDateString()}</td>
-                            <td class="px-6 py-4 text-sm text-slate-600 font-medium text-center">${v.servicio}</td>
-                            <td class="px-6 py-4 text-sm text-slate-600 font-medium text-center">${solicitantes[i % solicitantes.length]}</td>
-                            <td class="px-6 py-4 text-sm text-slate-500 italic text-center">${repuestos[(v.id + i) % repuestos.length]}</td>
-                        </tr>
-                    `;
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                }
-                modal.classList.remove('invisible', 'opacity-0');
-            }
-
-            function updateEficienciaGauge(percent) {
-                const dashArray = 263.89;
-                const offset = dashArray * (1 - (percent / 100));
-                const fillEl = document.getElementById('eficienciaFill');
-                const valueEl = document.getElementById('valorEficiencia');
-                if (fillEl) fillEl.style.strokeDashoffset = offset;
-                if (valueEl) valueEl.textContent = `${percent}%`;
-            }
-
-            function initDashboardHandlers() {
-                const btnExpand = document.getElementById('btnExpandCamiones');
-                const modal = document.getElementById('modalCamiones');
-                const btnCloseModal = document.getElementById('btnCloseModalCamiones');
-                const inputFilter = document.getElementById('filterCamiones');
-                const modalContainer = document.getElementById('modalCamionesContainer');
-
-                if (btnExpand) {
-                    btnExpand.addEventListener('click', () => {
-                        modal.classList.remove('hidden');
-                        modal.classList.add('flex');
-                        renderCamiones(allVehiculos, modalContainer, '', true);
-                    });
-                }
-                if (btnCloseModal) {
-                    btnCloseModal.addEventListener('click', () => {
-                        modal.classList.add('hidden');
-                        modal.classList.remove('flex');
-                    });
-                }
-                if (inputFilter) {
-                    inputFilter.addEventListener('input', (e) => {
-                        renderCamiones(allVehiculos, modalContainer, e.target.value, true);
-                    });
-                }
-
-                updateEficienciaGauge(75);
-
-                const btnFilter = document.getElementById('btnFilterMonth');
-                const dropdown = document.getElementById('dropdownMonths');
-                if (btnFilter) {
-                    btnFilter.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        dropdown.classList.toggle('hidden');
-                    });
-                }
-                document.addEventListener('click', () => dropdown?.classList.add('hidden'));
-
-                document.querySelectorAll('.month-option').forEach(opt => {
-                    opt.addEventListener('click', (e) => {
-                        const month = opt.getAttribute('data-month');
-                        const randomGasto = Math.floor(Math.random() * (48000 - 35000) + 35000);
-                        const percent = Math.floor((randomGasto / 50000) * 100);
-                        document.getElementById('nombreMesSeleccionado').textContent = month;
-                        document.getElementById('valorGastoMensual').textContent = `$${randomGasto.toLocaleString()}`;
-                        document.getElementById('utilizacionPorcentaje').textContent = `${percent}%`;
-                        document.getElementById('bateriaFill').style.height = `${percent}%`;
-                        dropdown.classList.add('hidden');
-                    });
-                });
-
-                const btnCloseReparaciones = document.getElementById('btnCloseReparaciones');
-                if (btnCloseReparaciones) {
-                    btnCloseReparaciones.addEventListener('click', () => {
-                        document.getElementById('modalReparaciones').classList.add('invisible', 'opacity-0');
-                    });
-                }
-            }
-
-            // --- Sidebar Logic ---
+                (function() {
             const btnToggle = document.getElementById('btnSidebarToggle');
-            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
             const header = document.querySelector('header');
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            if (!sidebar) return;
-
-            sidebar.style.transition = 'none';
-            if (header) header.style.transition = 'none';
-            if (main) main.style.transition = 'none';
+            // Detect if it's a page reload
+            const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+            if (isReload) {
+                sessionStorage.removeItem('sidebarCollapsed');
+                sessionStorage.removeItem('openSubmenus');
+            }
 
             const toggleSidebar = (manual = true) => {
-                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full');
+                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
+                
                 if (isCurrentlyCollapsed) {
                     sidebar.classList.remove('-translate-x-full');
                     sidebar.classList.add('md:translate-x-0');
@@ -1487,6 +1130,69 @@
                 }
             };
 
+            if (btnToggle) btnToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
+            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+
+            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
+
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentFile) {
+                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
+                    const icon = link.querySelector('span.material-symbols-outlined');
+                    if (icon) icon.classList.add('text-blue-400');
+                }
+            });
+
+            // Submenu state management
+            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            
+            const nav = document.querySelector('nav');
+            if (nav) {
+                const submenuBtns = nav.querySelectorAll('button');
+                submenuBtns.forEach(btn => {
+                    const spanTitle = btn.querySelector('.font-bold');
+                    if (!spanTitle) return;
+                    
+                    const menuId = spanTitle.textContent.trim();
+                    const submenuDiv = btn.nextElementSibling;
+                    
+                    if (!submenuDiv) return;
+
+                    // Remove inline onclick
+                    btn.removeAttribute('onclick');
+
+                    // Restore state
+                    if (openSubmenus.includes(menuId)) {
+                        submenuDiv.classList.remove('hidden');
+                    } else {
+                        submenuDiv.classList.add('hidden');
+                    }
+
+                    // Add click listener
+                    btn.addEventListener('click', () => {
+                        const isHidden = submenuDiv.classList.contains('hidden');
+                        if (isHidden) {
+                            submenuDiv.classList.remove('hidden');
+                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                        } else {
+                            submenuDiv.classList.add('hidden');
+                            openSubmenus = openSubmenus.filter(id => id !== menuId);
+                        }
+                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                    });
+                });
+            }
+
+            // Restore sidebar state
             const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
             if (window.innerWidth >= 768) {
                 if (isSidebarCollapsed === 'true') {
@@ -1507,85 +1213,6 @@
                 sidebar.classList.remove('md:translate-x-0');
                 if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
-
-            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
-            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-            const nav = document.querySelector('nav');
-            if (nav) {
-                nav.querySelectorAll('a').forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href === currentFile || (currentFile === '' && href === 'index.html')) {
-                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                        link.classList.remove('text-slate-300', 'hover:bg-white/5');
-                        const icon = link.querySelector('span.material-symbols-outlined');
-                        if (icon) icon.classList.add('text-blue-400');
-                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
-                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
-                            const menuId = submenuDiv.previousElementSibling.querySelector('.font-bold').textContent.trim();
-                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                        }
-                    }
-                });
-                const updateMenuStyles = (btn, isOpen) => {
-                    const icon = btn.querySelector('.material-symbols-outlined:first-child');
-                    if (!icon) return;
-                    const colors = {'group-hover:text-blue-400':'text-blue-400','group-hover:text-emerald-400':'text-emerald-400','group-hover:text-amber-400':'text-amber-400','group-hover:text-purple-400':'text-purple-400'};
-                    let active = null;
-                    for (const [h, a] of Object.entries(colors)) { if (icon.classList.contains(h)) { active = a; break; } }
-                    if (isOpen) {
-                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.remove('text-slate-300');
-                        if (active) { icon.classList.add(active); icon.classList.remove('text-slate-400'); }
-                    } else {
-                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.add('text-slate-300');
-                        if (active) { icon.classList.remove(active); icon.classList.add('text-slate-400'); }
-                    }
-                };
-
-                nav.querySelectorAll('button').forEach(btn => {
-                    const spanTitle = btn.querySelector('.font-bold');
-                    if (!spanTitle) return;
-                    const menuId = spanTitle.textContent.trim();
-                    const submenuDiv = btn.nextElementSibling;
-                    if (!submenuDiv) return;
-                    btn.removeAttribute('onclick');
-                    if (openSubmenus.includes(menuId)) {
-                        submenuDiv.classList.remove('hidden');
-                        updateMenuStyles(btn, true);
-                    } else {
-                        submenuDiv.classList.add('hidden');
-                        updateMenuStyles(btn, false);
-                    }
-                    btn.addEventListener('click', () => {
-                        if (submenuDiv.classList.contains('hidden')) {
-                            submenuDiv.classList.remove('hidden');
-                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            updateMenuStyles(btn, true);
-                        } else {
-                            submenuDiv.classList.add('hidden');
-                            openSubmenus = openSubmenus.filter(id => id !== menuId);
-                            updateMenuStyles(btn, false);
-                        }
-                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-                    });
-                });
-                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-            }
-
-            setTimeout(() => {
-                sidebar.style.transition = '';
-                if (header) header.style.transition = '';
-                if (main) main.style.transition = '';
-            }, 50);
-
-            if (btnToggle) btnToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleSidebar(); });
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleSidebar(); });
-            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-
-            // Initialize Dashboard
-            fetchCamiones();
-            initDashboardHandlers();
         })();
     </script>
 

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+    <title>CSM Legacy - Reporte Mensual de KPIs</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#1a1c1e",
+                      "surface-container": "#efedf0",
+                      "on-error-container": "#93000a",
+                      "background": "#faf9fc",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "tertiary-fixed": "#e2e2e2",
+                      "error-container": "#ffdad6",
+                      "on-primary-container": "#6f88ad",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "surface-dim": "#dbd9dd",
+                      "surface-tint": "#476083",
+                      "inverse-primary": "#afc8f0",
+                      "on-secondary-fixed-variant": "#394857",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "primary-container": "#001f3f",
+                      "on-primary-fixed": "#001c3a",
+                      "error": "#ba1a1a",
+                      "on-background": "#1a1c1e",
+                      "secondary-fixed": "#d4e4f6",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "on-primary": "#ffffff",
+                      "outline": "#74777f",
+                      "tertiary": "#040606",
+                      "surface-container-lowest": "#ffffff",
+                      "outline-variant": "#c4c6cf",
+                      "surface-container-low": "#f4f3f6",
+                      "inverse-surface": "#2f3033",
+                      "on-secondary-fixed": "#0d1d2a",
+                      "primary-fixed": "#d4e3ff",
+                      "tertiary-fixed-dim": "#c6c6c7",
+                      "on-tertiary-container": "#858687",
+                      "primary-fixed-dim": "#afc8f0",
+                      "primary": "#000613",
+                      "surface": "#faf9fc",
+                      "secondary-fixed-dim": "#b8c8da",
+                      "surface-bright": "#faf9fc",
+                      "surface-container-highest": "#e3e2e5",
+                      "secondary-container": "#d1e1f4",
+                      "inverse-on-surface": "#f2f0f3",
+                      "surface-container-high": "#e9e7eb",
+                      "tertiary-container": "#1d1f1f",
+                      "surface-variant": "#e3e2e5",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#50606f",
+                      "on-secondary-container": "#556474",
+                      "on-surface-variant": "#43474e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "xl": "32px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "gutter": "24px",
+                      "xs": "4px",
+                      "2xl": "48px",
+                      "lg": "24px",
+                      "margin": "32px"
+              },
+              "fontFamily": {
+                      "h1": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "button": ["Inter"],
+                      "h2": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "h3": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                      "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["20px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-md": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-sm": ["16px", {"lineHeight": "1.4", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8edf5 50%, #f5f3f0 100%);
+            min-height: 100vh;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 31, 63, 0.06);
+            box-shadow: 0 1px 3px rgba(0, 31, 63, 0.04), 0 6px 16px rgba(0, 31, 63, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card:hover {
+            box-shadow: 0 2px 6px rgba(0, 31, 63, 0.06), 0 12px 28px rgba(0, 31, 63, 0.06);
+            transform: translateY(-2px);
+        }
+        .card-hero {
+            background: linear-gradient(135deg, #001f3f 0%, #0a3d6b 60%, #145a8a 100%);
+            color: white;
+            border: none;
+        }
+        .card-hero:hover {
+            box-shadow: 0 4px 12px rgba(0, 31, 63, 0.15), 0 16px 40px rgba(0, 31, 63, 0.12);
+        }
+        .badge-up { background: rgba(16, 185, 129, 0.15); color: #047857; }
+        .badge-warn { background: rgba(245, 158, 11, 0.12); color: #b45309; }
+        .badge-danger { background: rgba(239, 68, 68, 0.1); color: #b91c1c; }
+        .stat-value { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+        .stat-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+        .list-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 14px; border-radius: 10px;
+            transition: background 0.2s ease;
+        }
+        .list-row:hover { background: #f0f4f8; }
+        .progress-bar {
+            height: 8px; border-radius: 999px; overflow: hidden;
+            background: #e8edf5;
+        }
+        .progress-fill {
+            height: 100%; border-radius: 999px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c4c6cf; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #74777f; }
+        table th { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #50606f; }
+        table td { font-size: 14px; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+
+
+    
+
+
+    
+    
+    
+    
+
+
+
+
+
+    <script>
+                (function() {
+            const btnToggle = document.getElementById('btnSidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const header = document.querySelector('header');
+            const main = document.querySelector('main');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            // Detect if it's a page reload
+            const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+            if (isReload) {
+                sessionStorage.removeItem('sidebarCollapsed');
+                sessionStorage.removeItem('openSubmenus');
+            }
+
+            const toggleSidebar = (manual = true) => {
+                const isHidden = sidebar.classList.contains('-translate-x-full');
+                
+                if (isHidden) {
+                    sidebar.classList.remove('-translate-x-full');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                    if (window.innerWidth >= 768) {
+                        if (header) header.classList.add('md:pl-64');
+                        if (main) main.classList.add('md:ml-64');
+                    } else {
+                        if (overlay) overlay.classList.remove('hidden');
+                    }
+                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    if (overlay) overlay.classList.add('hidden');
+                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
+                }
+            };
+
+            if (btnToggle) btnToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
+
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentFile) {
+                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
+                    const icon = link.querySelector('span.material-symbols-outlined');
+                    if (icon) icon.classList.add('text-blue-400');
+                }
+            });
+
+            // Submenu state management
+            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            
+            const nav = document.querySelector('nav');
+            if (nav) {
+                const submenuBtns = nav.querySelectorAll('button');
+                submenuBtns.forEach(btn => {
+                    const spanTitle = btn.querySelector('.font-bold');
+                    if (!spanTitle) return;
+                    
+                    const menuId = spanTitle.textContent.trim();
+                    const submenuDiv = btn.nextElementSibling;
+                    
+                    if (!submenuDiv) return;
+
+                    // Remove inline onclick
+                    btn.removeAttribute('onclick');
+
+                    // Restore state
+                    if (openSubmenus.includes(menuId)) {
+                        submenuDiv.classList.remove('hidden');
+                    } else {
+                        submenuDiv.classList.add('hidden');
+                    }
+
+                    // Add click listener
+                    btn.addEventListener('click', () => {
+                        const isHidden = submenuDiv.classList.contains('hidden');
+                        if (isHidden) {
+                            submenuDiv.classList.remove('hidden');
+                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                        } else {
+                            submenuDiv.classList.add('hidden');
+                            openSubmenus = openSubmenus.filter(id => id !== menuId);
+                        }
+                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                    });
+                });
+            }
+
+            // Restore sidebar state
+            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
+            
+            if (window.innerWidth >= 768) {
+                if (isSidebarCollapsed === 'true') {
+                    sidebar.classList.add('-translate-x-full');
+                    if (header) header.classList.remove('md:pl-64');
+                    if (main) main.classList.remove('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+                } else {
+                    sidebar.classList.remove('-translate-x-full');
+                    if (header) header.classList.add('md:pl-64');
+                    if (main) main.classList.add('md:ml-64');
+                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+                }
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+            }
+        })();
+    </script>
+
+</body>
+</html>
+

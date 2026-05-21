@@ -185,16 +185,9 @@
     <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
         <div class="flex flex-col h-full">
             <!-- Brand Logo -->
-            <div class="p-8 border-b border-white/5 flex items-center gap-3 bg-[#000d1a]">
-                <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-900/50">
-                    <span class="material-symbols-outlined text-white text-[24px]">local_shipping</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-lg font-black tracking-tighter leading-none text-white">CSM LEGACY</span>
-                    <span class="text-[9px] text-blue-400 font-black uppercase tracking-[0.2em] mt-1">Inventory Planner</span>
-                </div>
+            <div class="p-6 border-b border-white/5 flex justify-center items-center bg-[#000d1a]">
+                <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain bg-white rounded-xl p-2">
             </div>
-
             <!-- Navigation Links -->
             <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
                 <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
@@ -262,9 +255,6 @@
                         </a>
                         <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
                             <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Despacho Ordenes de Trabajo
-                        </a>
-                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
                         </a>
                         <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
                             <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
@@ -523,201 +513,6 @@
 
 
     
-</button>
-                <div class="flex items-center gap-2">
-                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
-                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
-                </div>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
-                </div>
-                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
-                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
-                    <span class="material-symbols-outlined">notifications</span>
-                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-
-
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
-
-
-    
-
-    
-
-    <!-- TopNavBar -->
-    
-    
-
-    <!-- Sidebar Overlay for Mobile -->
-    
-
-    
-    
-    
-
-
-
-    <!-- Main Content -->
-    <main class=" transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter md:ml-64" >
-        <!-- Header -->
-        <div class="col-span-1 md:col-span-12 mb-2 md:mb-md">
-            <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-emerald-600 text-[32px] md:text-[40px]">add_circle</span>
-                <h1 class="font-h2 text-2xl md:text-h2 text-primary-container">Ingreso de Nuevo Material</h1>
-            </div>
-            <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Registre los detalles del material para el inventario central.</p>
-        </div>
-
-        <!-- Form Section -->
-        <div class="col-span-1 lg:col-span-4 bg-surface-container-lowest rounded-lg shadow-soft p-lg border border-surface-variant h-fit">
-            <h2 class="font-h3 text-h3 text-primary-container mb-md border-b border-surface-variant pb-sm">Detalles del Artículo</h2>
-            <form class="space-y-md">
-                <div>
-                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">ARTÍCULO (ID)</label>
-                    <input id="articuloId" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface" placeholder="Ej. MAT-2026-001" type="text"/>
-                </div>
-                <div>
-                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">NOMBRE DEL ARTÍCULO</label>
-                    <input id="articuloNombre" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface" placeholder="Nombre descriptivo" type="text"/>
-                </div>
-                <div>
-                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">CATEGORÍA</label>
-                    <select id="articuloCategoria" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface appearance-none">
-                        <option>Seleccione una categoría</option>
-                        <option>Electrónica</option>
-                        <option>Mecánica</option>
-                        <option>Consumibles</option>
-                        <option>Herramientas</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">DESCRIPCIÓN</label>
-                    <textarea id="articuloDescripcion" class="w-full border border-outline-variant rounded-DEFAULT px-md py-sm focus:border-primary-container input-glow outline-none transition-all font-body-md text-body-md bg-surface text-on-surface resize-none" placeholder="Especificaciones técnicas o detalles adicionales..." rows="3"></textarea>
-                </div>
-
-                <!-- Photo Module -->
-                <div class="mt-lg">
-                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs">FOTOGRAFÍAS DEL MATERIAL</label>
-                    <div id="photoModule" class="relative border-2 border-dashed border-outline-variant rounded-lg overflow-hidden bg-surface group transition-all duration-300 min-h-[180px]">
-                        <!-- Camera Preview -->
-                        <video id="cameraPreview" class="hidden w-full h-[180px] object-cover bg-black" autoplay playsinline></video>
-                        
-                        <!-- Image Preview -->
-                        <img id="imagePreview" class="hidden w-full h-[180px] object-cover" src=""/>
-
-                        <!-- Placeholder / Drag Zone -->
-                        <div id="photoPlaceholder" class="flex flex-col items-center justify-center p-lg text-center h-[180px] gap-sm cursor-pointer hover:bg-surface-container-low transition-colors">
-                            <span class="material-symbols-outlined text-outline text-[40px]">add_a_photo</span>
-                            <p class="font-body-md text-body-md text-on-surface-variant">Click para <span class="text-primary-container font-semibold">Cámara</span> o arrastre imagen</p>
-                            <p class="font-body-sm text-body-sm text-outline">JPG, PNG admitidos</p>
-                        </div>
-
-                        <!-- Controls -->
-                        <div class="absolute bottom-2 right-2 flex gap-2">
-                            <button id="btnToggleCamera" type="button" class="bg-white/90 hover:bg-white text-primary-container p-2 rounded-full shadow-md transition-all active:scale-95 flex items-center justify-center border border-slate-200">
-                                <span class="material-symbols-outlined text-[20px]">videocam</span>
-                            </button>
-                            <button id="btnCapture" type="button" class="hidden bg-primary-container text-white p-2 rounded-full shadow-md transition-all active:scale-95 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[20px]">photo_camera</span>
-                            </button>
-                        </div>
-                        
-                        <!-- Hidden Inputs -->
-                        <input type="file" id="fileInput" accept="image/*" class="hidden"/>
-                        <canvas id="photoCanvas" class="hidden" width="640" height="480"></canvas>
-                    </div>
-                </div>
-
-                <div class="pt-md mt-md border-t border-surface-variant">
-                    <button id="btnGuardar" class="w-full bg-primary-container text-on-primary font-button text-button py-sm px-md rounded-DEFAULT hover:bg-[#00142B] active:scale-[0.98] transition-all flex items-center justify-center gap-sm border border-[#001F3F] btn-ios-tap" type="button">
-                        <span class="material-symbols-outlined text-[18px]">save</span>
-                        Guardar Registro
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Dashboard List Section -->
-        <div class="col-span-1 md:col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-lg shadow-soft border border-surface-variant overflow-hidden flex flex-col">
-            <div class="p-4 md:p-lg border-b border-surface-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest">
-                <h2 class="font-h3 text-xl md:text-h3 text-primary-container">Ingresos Recientes</h2>
-                <div class="relative w-full sm:w-auto">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
-                    <input id="searchMaterial" class="border border-outline-variant rounded-DEFAULT pl-[36px] pr-md py-[6px] focus:border-primary-container input-glow outline-none transition-all font-body-sm text-body-sm bg-surface w-full sm:w-[250px]" placeholder="Buscar material..." type="text"/>
-                </div>
-            </div>
-            <div id="tablaIngresos" class="flex-grow p-2 md:p-sm flex flex-col gap-sm overflow-y-auto min-h-[300px]">
-                <!-- Las filas se agregarán aquí dinámicamente -->
-            </div>
-            <div class="p-4 border-t border-surface-variant bg-surface-container-lowest flex justify-between items-center text-outline font-body-sm text-body-sm">
-                <span id="contadorRegistros">0 registros</span>
-                <div class="flex gap-1">
-                    <button class="p-1 hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
-                    <button class="p-1 hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
-                </div>
-            </div>
-        </div>
-    </main>
-    <!-- Footer -->
-    <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
-        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
-    </footer>
-
-
-    
-
-    <!-- Edit Modal -->
-    <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all scale-95 opacity-0 duration-300" id="modalContent">
-            <div class="bg-primary-container p-4 flex justify-between items-center text-white">
-                <h3 class="font-h3 text-lg flex items-center gap-2">
-                    <span class="material-symbols-outlined">edit_square</span>
-                    Modificar Artículo
-                </h3>
-                <button id="btnCloseModal" class="hover:bg-white/10 p-1 rounded-full"><span class="material-symbols-outlined">close</span></button>
-            </div>
-            <div class="p-6 space-y-4">
-                <div class="flex items-center gap-2 p-3 bg-blue-50 rounded-lg border border-blue-100 mb-2">
-                    <span class="material-symbols-outlined text-blue-600">info</span>
-                    <p class="text-[12px] text-blue-800">Editando el artículo: <span id="editIdLabel" class="font-bold"></span></p>
-                </div>
-                <div>
-                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Nombre del Artículo</label>
-                    <input id="editNombre" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all" type="text"/>
-                </div>
-                <div>
-                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Categoría</label>
-                    <select id="editCategoria" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all">
-                        <option>Electrónica</option>
-                        <option>Mecánica</option>
-                        <option>Consumibles</option>
-                        <option>Herramientas</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Descripción</label>
-                    <textarea id="editDescripcion" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all resize-none" rows="3"></textarea>
-                </div>
-                <div class="pt-4 flex gap-3">
-                    <button id="btnCancelEdit" class="flex-1 px-4 py-2 border border-slate-200 rounded-lg font-semibold text-slate-600 hover:bg-slate-50 transition-colors">Cancelar</button>
-                    <button id="btnSaveEdit" class="flex-1 px-4 py-2 bg-primary-container text-white rounded-lg font-semibold hover:bg-[#00142B] transition-colors">Guardar Cambios</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-
-
-    
 
 
     
@@ -730,19 +525,20 @@
 
 
     <script>
-        (function() {
+                (function() {
             const btnToggle = document.getElementById('btnSidebarToggle');
-            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
             const header = document.querySelector('header');
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            // Disable transitions temporarily to avoid animation on load
-            sidebar.style.transition = 'none';
-            if (header) header.style.transition = 'none';
-            if (main) main.style.transition = 'none';
+            // Detect if it's a page reload
+            const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+            if (isReload) {
+                sessionStorage.removeItem('sidebarCollapsed');
+                sessionStorage.removeItem('openSubmenus');
+            }
 
             const toggleSidebar = (manual = true) => {
                 const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
@@ -769,6 +565,68 @@
                 }
             };
 
+            if (btnToggle) btnToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
+            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+
+            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
+
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentFile) {
+                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
+                    const icon = link.querySelector('span.material-symbols-outlined');
+                    if (icon) icon.classList.add('text-blue-400');
+                }
+            });
+
+            // Submenu state management
+            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            
+            const nav = document.querySelector('nav');
+            if (nav) {
+                const submenuBtns = nav.querySelectorAll('button');
+                submenuBtns.forEach(btn => {
+                    const spanTitle = btn.querySelector('.font-bold');
+                    if (!spanTitle) return;
+                    
+                    const menuId = spanTitle.textContent.trim();
+                    const submenuDiv = btn.nextElementSibling;
+                    
+                    if (!submenuDiv) return;
+
+                    // Remove inline onclick
+                    btn.removeAttribute('onclick');
+
+                    // Restore state
+                    if (openSubmenus.includes(menuId)) {
+                        submenuDiv.classList.remove('hidden');
+                    } else {
+                        submenuDiv.classList.add('hidden');
+                    }
+
+                    // Add click listener
+                    btn.addEventListener('click', () => {
+                        const isHidden = submenuDiv.classList.contains('hidden');
+                        if (isHidden) {
+                            submenuDiv.classList.remove('hidden');
+                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                        } else {
+                            submenuDiv.classList.add('hidden');
+                            openSubmenus = openSubmenus.filter(id => id !== menuId);
+                        }
+                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                    });
+                });
+            }
+
             // Restore sidebar state
             const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
             if (window.innerWidth >= 768) {
@@ -790,108 +648,6 @@
                 sidebar.classList.remove('md:translate-x-0');
                 if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
-
-            // Restore submenus
-            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
-            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-            const nav = document.querySelector('nav');
-
-            if (nav) {
-                // Auto-open submenu containing current page and highlight link
-                const allLinks = nav.querySelectorAll('a');
-                allLinks.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href === currentFile || (currentFile === '' && href === 'index.html')) {
-                        // Highlight current link
-                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
-                        const icon = link.querySelector('span.material-symbols-outlined');
-                        if (icon) icon.classList.add('text-blue-400');
-
-                        // Find parent submenu (the div containing the link)
-                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
-                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
-                            const btn = submenuDiv.previousElementSibling;
-                            const spanTitle = btn.querySelector('.font-bold');
-                            if (spanTitle) {
-                                const menuId = spanTitle.textContent.trim();
-                                if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            }
-                        }
-                    }
-                });
-
-                const submenuBtns = nav.querySelectorAll('button');
-
-                const updateMenuStyles = (btn, isOpen) => {
-                    const icon = btn.querySelector('.material-symbols-outlined:first-child');
-                    if (!icon) return;
-                    const colors = {'group-hover:text-blue-400':'text-blue-400','group-hover:text-emerald-400':'text-emerald-400','group-hover:text-amber-400':'text-amber-400','group-hover:text-purple-400':'text-purple-400'};
-                    let active = null;
-                    for (const [h, a] of Object.entries(colors)) { if (icon.classList.contains(h)) { active = a; break; } }
-                    if (isOpen) {
-                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.remove('text-slate-300');
-                        if (active) { icon.classList.add(active); icon.classList.remove('text-slate-400'); }
-                    } else {
-                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.add('text-slate-300');
-                        if (active) { icon.classList.remove(active); icon.classList.add('text-slate-400'); }
-                    }
-                };
-
-                submenuBtns.forEach(btn => {
-                    const spanTitle = btn.querySelector('.font-bold');
-                    if (!spanTitle) return;
-                    
-                    const menuId = spanTitle.textContent.trim();
-                    const submenuDiv = btn.nextElementSibling;
-                    if (!submenuDiv) return;
-
-                    btn.removeAttribute('onclick');
-                    if (openSubmenus.includes(menuId)) {
-                        submenuDiv.classList.remove('hidden');
-                        updateMenuStyles(btn, true);
-                    } else {
-                        submenuDiv.classList.add('hidden');
-                        updateMenuStyles(btn, false);
-                    }
-
-                    btn.addEventListener('click', () => {
-                        const isHidden = submenuDiv.classList.contains('hidden');
-                        if (isHidden) {
-                            submenuDiv.classList.remove('hidden');
-                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            updateMenuStyles(btn, true);
-                        } else {
-                            submenuDiv.classList.add('hidden');
-                            openSubmenus = openSubmenus.filter(id => id !== menuId);
-                            updateMenuStyles(btn, false);
-                        }
-                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-                    });
-                });
-                
-                // Save state
-                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-            }
-
-            // Re-enable transitions after a short delay
-            setTimeout(() => {
-                sidebar.style.transition = '';
-                if (header) header.style.transition = '';
-                if (main) main.style.transition = '';
-            }, 50);
-
-            if (btnToggle) btnToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
         })();
     </script>
 
