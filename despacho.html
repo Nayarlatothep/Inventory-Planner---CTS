@@ -571,7 +571,7 @@
         async function fetchOrders() {
             const grid = document.getElementById('ordersGrid');
             if (!window.supabase) return;
-            if (!supabaseClient) // supabaseClient already created
+            // supabaseClient already created
 
             try {
                 const { data, error } = await supabaseClient
