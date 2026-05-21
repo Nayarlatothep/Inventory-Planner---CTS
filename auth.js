@@ -37,6 +37,26 @@ async function checkAuth() {
             window.appRole = 'admin';
         }
         
+        // Actualizar UI del perfil de usuario
+        const updateProfileUI = () => {
+            const nameEl = document.getElementById('userProfileName');
+            const roleEl = document.getElementById('userProfileRole');
+            if (nameEl) {
+                const metadataName = session.user.user_metadata?.full_name || session.user.user_metadata?.name;
+                const emailName = email.split('@')[0].replace('.', ' ');
+                nameEl.textContent = metadataName || emailName;
+            }
+            if (roleEl) {
+                roleEl.textContent = `Rol: ${window.appRole === 'dev' ? 'Dev' : 'Admin'}`;
+            }
+        };
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', updateProfileUI);
+        } else {
+            updateProfileUI();
+        }
+        
         if (isLoginPage) {
             sessionStorage.removeItem('openSubmenus');
             window.location.href = 'inicio.html';
