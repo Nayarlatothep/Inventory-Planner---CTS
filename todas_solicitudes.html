@@ -129,6 +129,7 @@
             <div class="p-6 border-b border-white/5 flex justify-center items-center bg-[#000d1a]">
                 <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
             </div>
+
             <!-- Navigation Links -->
             <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
                 <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
@@ -197,8 +198,7 @@
                         <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
                             <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Despacho Ordenes de Trabajo
                         </a>
-
-                        <a href="unidades_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
                             <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
                         </a>
                         <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
@@ -409,6 +409,64 @@
     
 
 
+    <!-- Edit Request Modal -->
+    <div id="editModal" class="fixed inset-0 z-[110] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[95dvh] animate-in fade-in zoom-in duration-200">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-amber-600">edit_note</span>
+                    Modificar Solicitud <span id="editModalTitle">#--</span>
+                </h3>
+                <button onclick="closeEditModal()" class="p-1 hover:bg-slate-200 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-slate-500">close</span>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto custom-scrollbar space-y-6">
+                <!-- Basic Info Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Técnico Solicitante</label>
+                        <input type="text" id="editTech" class="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all font-bold text-slate-700">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Servicio / Reparación</label>
+                        <input type="text" id="editService" class="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all font-bold text-slate-700">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Unidad (ID)</label>
+                        <input type="text" id="editUnit" class="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all font-bold text-slate-700">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">VIN / Placa</label>
+                        <input type="text" id="editVIN" class="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all font-bold text-slate-700">
+                    </div>
+                </div>
+
+                <!-- Spare Parts Section -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-[0.2em] flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm text-amber-600">inventory_2</span>
+                        Refacciones Solicitadas
+                    </h4>
+                    <div id="editPartsContainer" class="space-y-2">
+                        <!-- Dynamic items here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+                <button onclick="closeEditModal()" class="px-6 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-200 transition-colors">
+                    Cancelar
+                </button>
+                <button id="btnSaveEdit" class="bg-amber-600 text-white px-8 py-2.5 rounded-xl font-bold hover:bg-amber-700 transition-all flex items-center gap-2 shadow-lg shadow-amber-600/20 active:scale-95">
+                    <span class="material-symbols-outlined text-[20px]">save</span>
+                    GUARDAR Y REENVIAR
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Printable Summary Modal -->
     <div id="summaryModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
         <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
@@ -486,12 +544,10 @@
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            // Detect if it's a page reload
-            const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
-            if (isReload) {
-                sessionStorage.removeItem('sidebarCollapsed');
-                sessionStorage.removeItem('openSubmenus');
-            }
+            // Disable transitions temporarily to avoid animation on load
+            sidebar.style.transition = 'none';
+            if (header) header.style.transition = 'none';
+            if (main) main.style.transition = 'none';
 
             const toggleSidebar = (manual = true) => {
                 const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
@@ -518,66 +574,6 @@
                 }
             };
 
-            if (btnToggle) btnToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-
-            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === currentFile) {
-                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
-                    const icon = link.querySelector('span.material-symbols-outlined');
-                    if (icon) icon.classList.add('text-blue-400');
-                }
-            });
-
-            // Submenu state management
-            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
-            
-            const nav = document.querySelector('nav');
-            if (nav) {
-                const submenuBtns = nav.querySelectorAll('button');
-                submenuBtns.forEach(btn => {
-                    const spanTitle = btn.querySelector('.font-bold');
-                    if (!spanTitle) return;
-                    
-                    const menuId = spanTitle.textContent.trim();
-                    const submenuDiv = btn.nextElementSibling;
-                    
-                    if (!submenuDiv) return;
-
-                    // Remove inline onclick
-                    btn.removeAttribute('onclick');
-
-                    // Restore state
-                    if (openSubmenus.includes(menuId)) {
-                        submenuDiv.classList.remove('hidden');
-                    } else {
-                        submenuDiv.classList.add('hidden');
-                    }
-
-                    // Add click listener
-                    btn.addEventListener('click', () => {
-                        const isHidden = submenuDiv.classList.contains('hidden');
-                        if (isHidden) {
-                            submenuDiv.classList.remove('hidden');
-                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                        } else {
-                            submenuDiv.classList.add('hidden');
-                            openSubmenus = openSubmenus.filter(id => id !== menuId);
-                        }
-                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-                    });
-                });
-            }
-
             // Restore sidebar state
             const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
             if (window.innerWidth >= 768) {
@@ -599,13 +595,141 @@
                 sidebar.classList.remove('md:translate-x-0');
                 if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
+
+            // Restore submenus
+            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            const nav = document.querySelector('nav');
+
+            if (nav) {
+                // Auto-open submenu containing current page and highlight link
+                const allLinks = nav.querySelectorAll('a');
+                allLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === currentFile || (currentFile === '' && href === 'index.html')) {
+                        // Highlight current link
+                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
+                        const icon = link.querySelector('span.material-symbols-outlined');
+                        if (icon) icon.classList.add('text-blue-400');
+
+                        // Find parent submenu (the div containing the link)
+                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
+                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
+                            const btn = submenuDiv.previousElementSibling;
+                            const spanTitle = btn.querySelector('.font-bold');
+                            if (spanTitle) {
+                                const menuId = spanTitle.textContent.trim();
+                                if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                            }
+                        }
+                    }
+                });
+
+                const submenuBtns = nav.querySelectorAll('button');
+
+                const updateMenuStyles = (btn, isOpen) => {
+                    const icon = btn.querySelector('.material-symbols-outlined:first-child');
+                    if (!icon) return;
+                    
+                    const colorClasses = {
+                        'group-hover:text-blue-400': 'text-blue-400',
+                        'group-hover:text-emerald-400': 'text-emerald-400',
+                        'group-hover:text-amber-400': 'text-amber-400',
+                        'group-hover:text-purple-400': 'text-purple-400'
+                    };
+
+                    let activeColor = null;
+                    for (const [hover, active] of Object.entries(colorClasses)) {
+                        if (icon.classList.contains(hover)) {
+                            activeColor = active;
+                            break;
+                        }
+                    }
+
+                    if (isOpen) {
+                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+                        btn.classList.remove('text-slate-300');
+                        if (activeColor) {
+                            icon.classList.add(activeColor);
+                            icon.classList.remove('text-slate-400', 'text-slate-300');
+                        }
+                    } else {
+                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+                        btn.classList.add('text-slate-300');
+                        if (activeColor) {
+                            icon.classList.remove(activeColor);
+                            icon.classList.add('text-slate-400');
+                        }
+                    }
+                };
+
+                submenuBtns.forEach(btn => {
+                    const spanTitle = btn.querySelector('.font-bold');
+                    if (!spanTitle) return;
+                    
+                    const menuId = spanTitle.textContent.trim();
+                    const submenuDiv = btn.nextElementSibling;
+                    if (!submenuDiv) return;
+
+                    btn.removeAttribute('onclick');
+                    if (openSubmenus.includes(menuId)) {
+                        submenuDiv.classList.remove('hidden');
+                        updateMenuStyles(btn, true);
+                    } else {
+                        submenuDiv.classList.add('hidden');
+                        updateMenuStyles(btn, false);
+                    }
+
+                    btn.addEventListener('click', () => {
+                        const isHidden = submenuDiv.classList.contains('hidden');
+                        if (isHidden) {
+                            submenuDiv.classList.remove('hidden');
+                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                            updateMenuStyles(btn, true);
+                        } else {
+                            submenuDiv.classList.add('hidden');
+                            openSubmenus = openSubmenus.filter(id => id !== menuId);
+                            updateMenuStyles(btn, false);
+                        }
+                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                    });
+                });
+                
+                // Save state
+                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+            }
+
+            // Re-enable transitions after a short delay
+            setTimeout(() => {
+                sidebar.style.transition = '';
+                if (header) header.style.transition = '';
+                if (main) main.style.transition = '';
+            }, 50);
+
+            if (btnToggle) btnToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
         })();
 
         async function fetchData() {
             const tableBody = document.getElementById('tableBody');
             
             if (!supabaseClient) {
-                // supabaseClient already created
+            if (!supabaseClient) {
+                const clientObj = (window.supabase && window.supabase.createClient) ? window.supabase : (typeof supabase !== 'undefined' && supabase.createClient) ? supabase : null;
+                if (clientObj) {
+                    supabaseClient = clientObj.createClient(supabaseUrl, supabaseAnonKey);
+                } else {
+                    console.error('Supabase library not found');
+                }
+            }
             }
 
             try {
@@ -787,6 +911,21 @@
                                 <button onclick="showOrderDetails('${ot.solicitud}')" class="p-1 hover:bg-primary-container/10 rounded-lg text-primary transition-colors" title="Detalles">
                                     <span class="material-symbols-outlined text-[20px]">visibility</span>
                                 </button>
+                                ${ot.estado_solicitud === 'RECHAZADO' ? `
+                                <button onclick="editOrder('${ot.solicitud}')" class="p-1 hover:bg-amber-100 rounded-lg text-amber-600 transition-colors" title="Modificar">
+                                    <span class="material-symbols-outlined text-[20px]">edit</span>
+                                </button>
+                                <button onclick="deleteOrder('${ot.solicitud}')" class="p-1 hover:bg-red-100 rounded-lg text-red-600 transition-colors" title="Eliminar">
+                                    <span class="material-symbols-outlined text-[20px]">close</span>
+                                </button>
+                                ` : `
+                                <button disabled class="p-1 opacity-20 cursor-not-allowed rounded-lg text-slate-400" title="Modificar (Solo en Rechazados)">
+                                    <span class="material-symbols-outlined text-[20px]">edit</span>
+                                </button>
+                                <button disabled class="p-1 opacity-20 cursor-not-allowed rounded-lg text-slate-400" title="Eliminar (Solo en Rechazados)">
+                                    <span class="material-symbols-outlined text-[20px]">close</span>
+                                </button>
+                                `}
                             </div>
                         </td>
                     </tr>
@@ -794,6 +933,129 @@
             }).join('');
 
             tableInfo.textContent = `Mostrando ${ots.length} solicitud${ots.length !== 1 ? 'es' : ''}`;
+        }
+
+        async function editOrder(orderId) {
+            const order = allOrders.find(o => o.solicitud === orderId);
+            if (!order) return;
+
+            document.getElementById('editModalTitle').textContent = orderId;
+            document.getElementById('editTech').value = order.solicitante || '';
+            document.getElementById('editService').value = order.servicio || '';
+            document.getElementById('editUnit').value = order.unidad || '';
+            document.getElementById('editVIN').value = order.VIN || '';
+
+            const partsContainer = document.getElementById('editPartsContainer');
+            partsContainer.innerHTML = '';
+            
+            order.repuestos.forEach((part, index) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100';
+                div.innerHTML = `
+                    <div class="flex-grow">
+                        <input type="text" value="${part.nombre}" class="edit-part-name w-full bg-transparent border-none focus:ring-0 font-bold text-slate-700 text-sm" placeholder="Nombre de refacción">
+                    </div>
+                    <div class="flex items-center gap-2 bg-white px-3 py-1 rounded-lg border border-slate-200">
+                        <span class="text-[10px] font-black text-slate-400">CANT.</span>
+                        <input type="number" value="${part.cantidad}" min="1" class="edit-part-qty w-12 bg-transparent border-none focus:ring-0 font-bold text-amber-600 text-sm text-center">
+                    </div>
+                `;
+                partsContainer.appendChild(div);
+            });
+
+            document.getElementById('editModal').classList.remove('hidden');
+            document.getElementById('editModal').classList.add('flex');
+            
+            // Add event listener to save button (once)
+            const saveBtn = document.getElementById('btnSaveEdit');
+            saveBtn.onclick = () => saveEdit(orderId);
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('editModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function saveEdit(orderId) {
+            const saveBtn = document.getElementById('btnSaveEdit');
+            const originalContent = saveBtn.innerHTML;
+            
+            const newTech = document.getElementById('editTech').value;
+            const newService = document.getElementById('editService').value;
+            const newUnit = document.getElementById('editUnit').value;
+            const newVIN = document.getElementById('editVIN').value;
+            
+            const partNames = Array.from(document.querySelectorAll('.edit-part-name')).map(input => input.value);
+            const partQtys = Array.from(document.querySelectorAll('.edit-part-qty')).map(input => input.value);
+
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">refresh</span> PROCESANDO...';
+
+            try {
+                // Primero obtenemos los IDs de las filas originales para esta solicitud
+                const { data: originalRows, error: fetchError } = await supabaseClient
+                    .from('detalle_solicitud_ot')
+                    .select('id')
+                    .eq('solicitud', orderId)
+                    .order('id', { ascending: true });
+
+                if (fetchError) throw fetchError;
+
+                // Actualizamos cada fila. Si hay más filas en la base que en el editor, las dejamos o las borramos.
+                // Si hay más en el editor, tendríamos que crear nuevas. 
+                // Por simplicidad, actualizaremos las existentes 1 a 1.
+                const updatePromises = originalRows.map((row, index) => {
+                    if (index < partNames.length) {
+                        return supabaseClient
+                            .from('detalle_solicitud_ot')
+                            .update({
+                                solicitante: newTech,
+                                servicio: newService,
+                                unidad: newUnit,
+                                VIN: newVIN,
+                                repuesto: partNames[index],
+                                cantidad: parseInt(partQtys[index]),
+                                estado_solicitud: 'ENVIADO' // El usuario pidió cambiar a ENVIADO
+                            })
+                            .eq('id', row.id);
+                    }
+                    return Promise.resolve();
+                });
+
+                const results = await Promise.all(updatePromises);
+                const error = results.find(r => r && r.error);
+                if (error) throw error.error;
+
+                alert('Solicitud actualizada y reenviada con éxito.');
+                closeEditModal();
+                refreshData();
+            } catch (err) {
+                console.error('Error al guardar:', err);
+                alert('Error al guardar los cambios: ' + err.message);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = originalContent;
+            }
+        }
+
+        async function deleteOrder(orderId) {
+            if (!confirm(`¿Está seguro de que desea eliminar permanentemente la solicitud ${orderId}?`)) return;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('detalle_solicitud_ot')
+                    .delete()
+                    .eq('solicitud', orderId);
+
+                if (error) throw error;
+
+                alert('Solicitud eliminada exitosamente.');
+                refreshData(); // Recargar la tabla
+            } catch (err) {
+                console.error('Error al eliminar:', err);
+                alert('Error al intentar eliminar la solicitud: ' + err.message);
+            }
         }
 
         // Esperar a que window.supabase (la librería) esté disponible

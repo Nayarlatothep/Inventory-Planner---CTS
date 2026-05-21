@@ -36,12 +36,12 @@
             transform: translateY(-8px);
             box-shadow: 0 20px 25px -5px rgba(0, 31, 63, 0.1), 0 10px 10px -5px rgba(0, 31, 63, 0.04);
         }
-        . {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -56,6 +56,7 @@
             <div class="p-6 border-b border-white/5 flex justify-center items-center bg-[#000d1a]">
                 <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
             </div>
+
             <!-- Navigation Links -->
             <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
                 <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
@@ -69,7 +70,7 @@
 
                 <!-- Abastecimiento -->
                 <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-slate-300 group-hover:text-blue-400">shopping_cart</span>
                             <span class="font-bold">Abastecimiento</span>
@@ -88,7 +89,7 @@
 
                 <!-- Inventario -->
                 <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-slate-300 group-hover:text-emerald-400">inventory_2</span>
                             <span class="font-bold">Inventario</span>
@@ -107,7 +108,7 @@
 
                 <!-- Mantenimiento -->
                 <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-slate-300 group-hover:text-amber-400">build</span>
                             <span class="font-bold">Mantenimiento</span>
@@ -124,8 +125,7 @@
                         <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
                             <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Despacho Ordenes de Trabajo
                         </a>
-
-                        <a href="unidades_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
                             <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
                         </a>
                         <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-300 hover:text-amber-400 hover:translate-x-1 transition-all group">
@@ -139,7 +139,7 @@
                 </div>
 
                 <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
                             <span class="font-bold">Reportes y KPIs</span>
@@ -171,18 +171,13 @@
                 </div>
             </div>
         </div>
-    
-            
 
-        
-            <!-- Toggle Button (Floating on the edge) -->
-            <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
-                <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
-            </button>
+        <!-- Toggle Button -->
+        <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
+            <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+        </button>
+    </aside>
 
-        </aside>
-
-    
     <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
         <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
             <div class="flex items-center gap-4">
@@ -208,32 +203,12 @@
         </div>
     </header>
 
-
-
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
 
-
-    
-
-    
-
-    <!-- TopNavBar -->
-    
-    
-
-    <!-- Sidebar Overlay for Mobile -->
-    
-
-    
-    
-    
-
-
-
-    <main class=" transition-all duration-300 flex-grow md:ml-64" >
+    <main class="transition-all duration-300 flex-grow md:ml-64">
         <!-- Hero Section -->
         <section class="hero-gradient text-white py-16 px-4">
-            <div class="max-w-7xl mx-auto text-center ">
+            <div class="max-w-7xl mx-auto text-center">
                 <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Inventory Planner - CSM LEGACY</h1>
                 <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto">Bienvenido al sistema Inventory Planner. Seleccione un módulo para comenzar su gestión operativa.</p>
             </div>
@@ -320,6 +295,10 @@
                             <span class="font-bold text-slate-700 group-hover:text-amber-700">Despacho Ordenes de Trabajo</span>
                             <span class="material-symbols-outlined text-slate-300 group-hover:translate-x-1 transition-transform">arrow_forward</span>
                         </a>
+                        <a href="unidades_mantenimiento.html" class="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-amber-50 transition-all group">
+                            <span class="font-bold text-slate-700 group-hover:text-amber-700">Unidades en Mantenimiento</span>
+                            <span class="material-symbols-outlined text-slate-300 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </a>
                         <a href="flota.html" class="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-amber-50 transition-all group">
                             <span class="font-bold text-slate-700 group-hover:text-amber-700">Inventario y Estado de Flota</span>
                             <span class="material-symbols-outlined text-slate-300 group-hover:translate-x-1 transition-transform">arrow_forward</span>
@@ -330,44 +309,26 @@
             </div>
         </section>
     </main>
-    <!-- Footer -->
+
     <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
         <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
     </footer>
 
-
-    
-
-    
-
-
-    
-
-
-    
-    
-    
-    
-
-
-
-
-
     <script>
-                (function() {
+        (function() {
             const btnToggle = document.getElementById('btnSidebarToggle');
+            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
             const header = document.querySelector('header');
             const main = document.querySelector('main');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            // Detect if it's a page reload
-            const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
-            if (isReload) {
-                sessionStorage.removeItem('sidebarCollapsed');
-                sessionStorage.removeItem('openSubmenus');
-            }
+            if (!sidebar) return;
+
+            sidebar.style.transition = 'none';
+            if (header) header.style.transition = 'none';
+            if (main) main.style.transition = 'none';
 
             const toggleSidebar = (manual = true) => {
                 const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
@@ -394,69 +355,6 @@
                 }
             };
 
-            if (btnToggle) btnToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-
-            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-
-            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === currentFile) {
-                    link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                    link.classList.remove('text-slate-300', 'hover:bg-white/5');
-                    const icon = link.querySelector('span.material-symbols-outlined');
-                    if (icon) icon.classList.add('text-blue-400');
-                }
-            });
-
-            // Submenu state management
-            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
-            
-            const nav = document.querySelector('nav');
-            if (nav) {
-                const submenuBtns = nav.querySelectorAll('button');
-                submenuBtns.forEach(btn => {
-                    const spanTitle = btn.querySelector('.font-bold');
-                    if (!spanTitle) return;
-                    
-                    const menuId = spanTitle.textContent.trim();
-                    const submenuDiv = btn.nextElementSibling;
-                    
-                    if (!submenuDiv) return;
-
-                    // Remove inline onclick
-                    btn.removeAttribute('onclick');
-
-                    // Restore state
-                    if (openSubmenus.includes(menuId)) {
-                        submenuDiv.classList.remove('hidden');
-                    } else {
-                        submenuDiv.classList.add('hidden');
-                    }
-
-                    // Add click listener
-                    btn.addEventListener('click', () => {
-                        const isHidden = submenuDiv.classList.contains('hidden');
-                        if (isHidden) {
-                            submenuDiv.classList.remove('hidden');
-                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                        } else {
-                            submenuDiv.classList.add('hidden');
-                            openSubmenus = openSubmenus.filter(id => id !== menuId);
-                        }
-                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-                    });
-                });
-            }
-
-            // Restore sidebar state
             const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
             if (window.innerWidth >= 768) {
                 if (isSidebarCollapsed === 'true') {
@@ -477,8 +375,112 @@
                 sidebar.classList.remove('md:translate-x-0');
                 if (toggleIcon) toggleIcon.textContent = 'chevron_right';
             }
+
+            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+            const nav = document.querySelector('nav');
+
+            if (nav) {
+                const updateMenuStyles = (btn, isOpen) => {
+                    const icon = btn.querySelector('.material-symbols-outlined:first-child');
+                    if (!icon) return;
+                    
+                    const colorClasses = {
+                        'group-hover:text-blue-400': 'text-blue-400',
+                        'group-hover:text-emerald-400': 'text-emerald-400',
+                        'group-hover:text-amber-400': 'text-amber-400',
+                        'group-hover:text-purple-400': 'text-purple-400'
+                    };
+
+                    let activeColor = null;
+                    for (const [hover, active] of Object.entries(colorClasses)) {
+                        if (icon.classList.contains(hover)) {
+                            activeColor = active;
+                            break;
+                        }
+                    }
+
+                    if (isOpen) {
+                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+                        btn.classList.remove('text-slate-300');
+                        if (activeColor) {
+                            icon.classList.add(activeColor);
+                            icon.classList.remove('text-slate-400', 'text-slate-300');
+                        }
+                    } else {
+                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+                        btn.classList.add('text-slate-300');
+                        if (activeColor) {
+                            icon.classList.remove(activeColor);
+                            icon.classList.add('text-slate-400');
+                        }
+                    }
+                };
+
+                nav.querySelectorAll('a').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === currentFile || (currentFile === '' && href === 'index.html')) {
+                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
+                        const icon = link.querySelector('span.material-symbols-outlined');
+                        if (icon) icon.classList.add('text-blue-400');
+
+                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
+                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
+                            const btn = submenuDiv.previousElementSibling;
+                            const spanTitle = btn.querySelector('.font-bold');
+                            if (spanTitle) {
+                                const menuId = spanTitle.textContent.trim();
+                                if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                            }
+                        }
+                    }
+                });
+
+                nav.querySelectorAll('button').forEach(btn => {
+                    const spanTitle = btn.querySelector('.font-bold');
+                    if (!spanTitle) return;
+                    
+                    const menuId = spanTitle.textContent.trim();
+                    const submenuDiv = btn.nextElementSibling;
+                    if (!submenuDiv) return;
+
+                    btn.removeAttribute('onclick');
+                    if (openSubmenus.includes(menuId)) {
+                        submenuDiv.classList.remove('hidden');
+                        updateMenuStyles(btn, true);
+                    } else {
+                        submenuDiv.classList.add('hidden');
+                        updateMenuStyles(btn, false);
+                    }
+
+                    btn.addEventListener('click', () => {
+                        const isHidden = submenuDiv.classList.contains('hidden');
+                        if (isHidden) {
+                            submenuDiv.classList.remove('hidden');
+                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+                            updateMenuStyles(btn, true);
+                        } else {
+                            submenuDiv.classList.add('hidden');
+                            openSubmenus = openSubmenus.filter(id => id !== menuId);
+                            updateMenuStyles(btn, false);
+                        }
+                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+                    });
+                });
+                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+            }
+
+            setTimeout(() => {
+                sidebar.style.transition = '';
+                if (header) header.style.transition = '';
+                if (main) main.style.transition = '';
+            }, 50);
+
+            if (btnToggle) btnToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleSidebar(); });
+            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleSidebar(); });
+            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
         })();
     </script>
-
 </body>
 </html>
