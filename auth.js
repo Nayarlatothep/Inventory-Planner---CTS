@@ -48,6 +48,11 @@ async function checkAuth() {
 // Aplicar restricciones visuales (Solo lectura para admin)
 function applyVisualRestrictions() {
     if (window.appRole === 'admin') {
+        // Permitir acceso total a Reportes y KPIs (kpi_mantenimiento.html)
+        if (window.location.pathname.includes('kpi_mantenimiento.html')) {
+            return; 
+        }
+
         const applyRestrictions = () => {
             // Deshabilitar inputs, selects y textareas
             const inputs = document.querySelectorAll('input:not([id*="filter"]):not([id*="search"]), select, textarea');
