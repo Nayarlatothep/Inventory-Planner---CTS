@@ -99,6 +99,9 @@
                     throw error;
                 }
 
+                // Limpiar el estado de los submenús al iniciar sesión
+                sessionStorage.removeItem('openSubmenus');
+                
                 // If successful, checkAuth() in auth.js will automatically redirect,
                 // but we can also manually force the redirect
                 window.location.href = 'inicio.html';

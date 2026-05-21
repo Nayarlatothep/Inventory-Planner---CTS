@@ -38,6 +38,7 @@ async function checkAuth() {
         }
         
         if (isLoginPage) {
+            sessionStorage.removeItem('openSubmenus');
             window.location.href = 'inicio.html';
         } else {
             applyVisualRestrictions();
@@ -96,6 +97,7 @@ function applyVisualRestrictions() {
 
 // Función global de Logout
 window.logout = async function() {
+    sessionStorage.removeItem('openSubmenus');
     await supabaseClient.auth.signOut();
     window.location.href = 'index.html';
 };
