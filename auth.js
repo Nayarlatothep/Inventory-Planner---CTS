@@ -1,9 +1,9 @@
 // auth.js
 // Configuración centralizada de Supabase
-const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
-const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
-const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
-
+window.supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+window.supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
+window.supabaseClient = window.supabase.createClient(window.supabaseUrl, window.supabaseAnonKey);
+const supabaseClient = window.supabaseClient; // Keep local const for checkAuth below
 const DEV_EMAILS = [
     'victor.rojas@nctechsolutionsllc.com',
     'johan.rojas@nctechsolutionsllc.com',
