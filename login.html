@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+    <title>CSM Legacy - Login</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+          theme: {
+            extend: {
+              "colors": {
+                "primary": "#001F3F",
+                "background": "#000d1a",
+                "surface": "#ffffff"
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Auth script -->
+    <script src="auth.js"></script>
+</head>
+<body class="bg-[#000d1a] min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-md bg-[#00142B] p-8 rounded-3xl shadow-2xl border border-white/10 relative overflow-hidden">
+        
+        <!-- Glow effect -->
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col items-center mb-8 relative z-10">
+            <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[200px] h-auto object-contain mb-6">
+            <h1 class="text-2xl font-black text-white tracking-tight">INVENTORY PLANNER</h1>
+            <p class="text-xs text-slate-400 mt-1 uppercase tracking-widest font-bold">Portal de Acceso</p>
+        </div>
+
+        <form id="loginForm" class="space-y-5 relative z-10">
+            <div id="errorMessage" class="hidden bg-red-500/10 border border-red-500/50 text-red-400 text-sm p-3 rounded-xl text-center font-medium"></div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Correo Electrónico</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <span class="material-symbols-outlined text-slate-400 text-[18px]">mail</span>
+                    </span>
+                    <input type="email" id="email" required class="w-full bg-[#000d1a] text-white border border-white/10 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors placeholder:text-slate-600" placeholder="admin@admin.com">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Contraseña</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <span class="material-symbols-outlined text-slate-400 text-[18px]">lock</span>
+                    </span>
+                    <input type="password" id="password" required class="w-full bg-[#000d1a] text-white border border-white/10 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors placeholder:text-slate-600" placeholder="••••••••">
+                </div>
+            </div>
+
+            <button type="submit" id="btnSubmit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg shadow-blue-900/50 flex items-center justify-center gap-2 active:scale-95">
+                <span>INGRESAR AL SISTEMA</span>
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+        </form>
+
+        <div class="mt-8 text-center relative z-10 border-t border-white/5 pt-6">
+            <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">© 2026 CSM Legacy Logistics Inc.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('btnSubmit');
+            const errorDiv = document.getElementById('errorMessage');
+
+            // Loading state
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span><span>AUTENTICANDO...</span>';
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+            errorDiv.classList.add('hidden');
+
+            try {
+                // supabaseClient is initialized in auth.js
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    throw error;
+                }
+
+                // If successful, checkAuth() in auth.js will automatically redirect,
+                // but we can also manually force the redirect
+                window.location.href = 'index.html';
+
+            } catch (error) {
+                errorDiv.textContent = 'Credenciales inválidas. Intente nuevamente.';
+                errorDiv.classList.remove('hidden');
+                // Reset button
+                btn.innerHTML = '<span>INGRESAR AL SISTEMA</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>';
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        });
+    </script>
+</body>
+</html>

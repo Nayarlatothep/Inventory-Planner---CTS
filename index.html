@@ -44,6 +44,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="auth.js"></script>
 </head>
 <body class="bg-background text-on-surface min-h-screen flex flex-col">
 
@@ -159,6 +161,9 @@
                         <span class="text-[11px] font-black uppercase tracking-tight truncate text-white">Administrador</span>
                         <span class="text-[9px] text-slate-300 font-bold">Sistema Online</span>
                     </div>
+                    <button onclick="window.logout()" class="ml-auto text-slate-400 hover:text-red-400 transition-colors p-1" title="Cerrar Sesión">
+                        <span class="material-symbols-outlined text-[18px]">logout</span>
+                    </button>
                 </div>
             </div>
         </div>

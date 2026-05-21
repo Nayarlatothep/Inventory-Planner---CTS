@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="auth.js"></script>
     <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
@@ -294,6 +295,9 @@
                         <span class="text-[11px] font-black uppercase tracking-tight truncate text-white">Administrador</span>
                         <span class="text-[9px] text-slate-500 font-bold">Sistema Online</span>
                     </div>
+                    <button onclick="window.logout()" class="ml-auto text-slate-400 hover:text-red-400 transition-colors p-1" title="Cerrar Sesión">
+                        <span class="material-symbols-outlined text-[18px]">logout</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -502,16 +506,16 @@
 
 
     <script>
-        const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
-        const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
-        let supabaseClient = null;
+        // const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+        // const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
+        // let supabaseClient = null;
 
         async function fetchVehiculos() {
             const container = document.getElementById('tablaFlota');
             const countDisplay = document.getElementById('contadorRegistros');
             
             if (!supabaseClient) {
-                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+                // supabaseClient already created
             }
 
             try {

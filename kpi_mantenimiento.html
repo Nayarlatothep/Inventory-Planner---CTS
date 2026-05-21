@@ -166,11 +166,12 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="auth.js"></script>
     <script>
         // Supabase configuration
-        const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
-        const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW'; // Reemplazar con la clave anon real
-        const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
+        // const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+        // const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW'; // Reemplazar con la clave anon real
+        // const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
         let allVehiculos = []; // Cache para búsqueda local
 
@@ -601,6 +602,9 @@
                         <span class="text-[11px] font-black uppercase tracking-tight truncate text-white">Administrador</span>
                         <span class="text-[9px] text-slate-300 font-bold">Sistema Online</span>
                     </div>
+                    <button onclick="window.logout()" class="ml-auto text-slate-400 hover:text-red-400 transition-colors p-1" title="Cerrar Sesión">
+                        <span class="material-symbols-outlined text-[18px]">logout</span>
+                    </button>
                 </div>
             </div>
             <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
