@@ -48,49 +48,44 @@ async function checkAuth() {
 // Aplicar restricciones visuales (Solo lectura para admin)
 function applyVisualRestrictions() {
     if (window.appRole === 'admin') {
-        // Ejecutar después de que el DOM esté listo
-        document.addEventListener('DOMContentLoaded', () => {
+        const applyRestrictions = () => {
             // Deshabilitar inputs, selects y textareas
-            const inputs = document.querySelectorAll('input, select, textarea');
+            const inputs = document.querySelectorAll('input:not([id*="filter"]):not([id*="search"]), select, textarea');
             inputs.forEach(el => {
-                // No deshabilitar el input del filtro de tablas (generalmente no guarda data)
-                if(!el.id.toLowerCase().includes('filter') && !el.id.toLowerCase().includes('search')) {
-                    el.disabled = true;
-                    el.classList.add('opacity-50', 'cursor-not-allowed');
-                }
+                el.disabled = true;
+                el.classList.add('opacity-50', 'cursor-not-allowed');
             });
 
-            // Ocultar botones de "Guardar", "Crear", "Eliminar", "Aprobar", "Rechazar"
-            const actionButtons = document.querySelectorAll('button');
-            actionButtons.forEach(btn => {
-                const text = btn.textContent.toLowerCase();
-                if (text.includes('guardar') || 
-                    text.includes('crear') || 
-                    text.includes('eliminar') || 
-                    text.includes('aprobar') || 
-                    text.includes('rechazar') || 
-                    text.includes('despachar') || 
-                    text.includes('recepcionar')) {
-                    btn.style.display = 'none';
+            // Ocultar todos los botones excepto Cerrar Sesión y controles de navegación
+            const allButtons = document.querySelectorAll('button');
+            allButtons.forEach(btn => {
+                const onclickAttr = btn.getAttribute('onclick') || '';
+                const title = btn.getAttribute('title') || '';
+                
+                // Mantener botón de Cerrar Sesión
+                if (onclickAttr.includes('window.logout') || title.includes('Cerrar Sesión')) {
+                    return; 
                 }
+                
+                // Mantener controles de navegación (menú lateral y submenús)
+                if (btn.id === 'btnToggle' || btn.id === 'btnMobileToggle' || btn.closest('nav')) {
+                    return;
+                }
+
+                // Bloquear/ocultar todos los demás botones
+                btn.style.display = 'none';
             });
-            
-            console.log('Restricciones de Admin aplicadas.');
-        });
-        
-        // Si el DOM ya cargó antes del check
+        };
+
+        // Ejecutar inmediatamente si el DOM ya está listo
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            const inputs = document.querySelectorAll('input:not([id*="filter"]):not([id*="search"]), select, textarea');
-            inputs.forEach(el => { el.disabled = true; el.classList.add('opacity-50', 'cursor-not-allowed'); });
-            
-            const actionButtons = document.querySelectorAll('button');
-            actionButtons.forEach(btn => {
-                const text = btn.textContent.toLowerCase();
-                if (text.includes('guardar') || text.includes('crear') || text.includes('eliminar') || text.includes('aprobar') || text.includes('rechazar') || text.includes('despachar') || text.includes('recepcionar')) {
-                    btn.style.display = 'none';
-                }
-            });
+            applyRestrictions();
+        } else {
+            document.addEventListener('DOMContentLoaded', applyRestrictions);
         }
+        
+        // Ejecutar también periódicamente en caso de que se agreguen botones dinámicamente (ej. en modales o tablas)
+        setInterval(applyRestrictions, 1000);
     }
 }
 
