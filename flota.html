@@ -1,876 +1,876 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-    <title>LogiTrack - Estado de Flota</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="auth.js"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-surface": "#1a1c1e",
-                      "surface-container": "#efedf0",
-                      "on-error-container": "#93000a",
-                      "background": "#faf9fc",
-                      "on-tertiary-fixed-variant": "#454747",
-                      "tertiary-fixed": "#e2e2e2",
-                      "error-container": "#ffdad6",
-                      "on-primary-container": "#6f88ad",
-                      "on-tertiary": "#ffffff",
-                      "on-error": "#ffffff",
-                      "surface-dim": "#dbd9dd",
-                      "surface-tint": "#476083",
-                      "inverse-primary": "#afc8f0",
-                      "on-secondary-fixed-variant": "#394857",
-                      "on-primary-fixed-variant": "#2f486a",
-                      "primary-container": "#001f3f",
-                      "on-primary-fixed": "#001c3a",
-                      "error": "#ba1a1a",
-                      "on-background": "#1a1c1e",
-                      "secondary-fixed": "#d4e4f6",
-                      "on-tertiary-fixed": "#1a1c1c",
-                      "on-primary": "#ffffff",
-                      "outline": "#74777f",
-                      "tertiary": "#040606",
-                      "surface-container-lowest": "#ffffff",
-                      "outline-variant": "#c4c6cf",
-                      "surface-container-low": "#f4f3f6",
-                      "inverse-surface": "#2f3033",
-                      "on-secondary-fixed": "#0d1d2a",
-                      "primary-fixed": "#d4e3ff",
-                      "tertiary-fixed-dim": "#c6c6c7",
-                      "on-tertiary-container": "#858687",
-                      "primary-fixed-dim": "#afc8f0",
-                      "primary": "#000613",
-                      "surface": "#faf9fc",
-                      "secondary-fixed-dim": "#b8c8da",
-                      "surface-bright": "#faf9fc",
-                      "surface-container-highest": "#e3e2e5",
-                      "secondary-container": "#d1e1f4",
-                      "inverse-on-surface": "#f2f0f3",
-                      "surface-container-high": "#e9e7eb",
-                      "tertiary-container": "#1d1f1f",
-                      "surface-variant": "#e3e2e5",
-                      "on-secondary": "#ffffff",
-                      "secondary": "#50606f",
-                      "on-secondary-container": "#556474",
-                      "on-surface-variant": "#43474e"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "base": "4px",
-                      "xl": "32px",
-                      "sm": "8px",
-                      "md": "16px",
-                      "gutter": "24px",
-                      "xs": "4px",
-                      "2xl": "48px",
-                      "lg": "24px",
-                      "margin": "32px"
-              },
-              "fontFamily": {
-                      "h1": ["Inter"],
-                      "label-caps": ["Inter"],
-                      "button": ["Inter"],
-                      "h2": ["Inter"],
-                      "body-lg": ["Inter"],
-                      "h3": ["Inter"],
-                      "body-md": ["Inter"],
-                      "body-sm": ["Inter"]
-              },
-              "fontSize": {
-                      "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                      "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
-                      "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                      "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}]
-              }
-            }
-          }
-        }
-    </script>
-    <style>
-        .shadow-soft { box-shadow: 0px 4px 12px rgba(0, 31, 63, 0.05); }
-        .input-glow:focus { box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1); }
-        
-        @keyframes slideInRow {
-            0% { opacity: 0; transform: translateY(-20px) scale(0.95); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .row-enter {
-            animation: slideInRow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        
-        @keyframes highlightPulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); border-color: #10b981; }
-            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-        .row-highlight {
-            animation: highlightPulse 1s ease-out;
-        }
-        
-        .row-item {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .row-item:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 12px 20px -5px rgba(0, 31, 63, 0.15);
-            border-color: #001F3F;
-            background-color: #ffffff !important;
-            z-index: 20;
-            position: relative;
-        }
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+  <title>LogiTrack - Estado de Flota</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+    darkMode: "class",
+    theme: {
+    extend: {
+      "colors": {
+        "on-surface": "#1a1c1e",
+        "surface-container": "#efedf0",
+        "on-error-container": "#93000a",
+        "background": "#faf9fc",
+        "on-tertiary-fixed-variant": "#454747",
+        "tertiary-fixed": "#e2e2e2",
+        "error-container": "#ffdad6",
+        "on-primary-container": "#6f88ad",
+        "on-tertiary": "#ffffff",
+        "on-error": "#ffffff",
+        "surface-dim": "#dbd9dd",
+        "surface-tint": "#476083",
+        "inverse-primary": "#afc8f0",
+        "on-secondary-fixed-variant": "#394857",
+        "on-primary-fixed-variant": "#2f486a",
+        "primary-container": "#001f3f",
+        "on-primary-fixed": "#001c3a",
+        "error": "#ba1a1a",
+        "on-background": "#1a1c1e",
+        "secondary-fixed": "#d4e4f6",
+        "on-tertiary-fixed": "#1a1c1c",
+        "on-primary": "#ffffff",
+        "outline": "#74777f",
+        "tertiary": "#040606",
+        "surface-container-lowest": "#ffffff",
+        "outline-variant": "#c4c6cf",
+        "surface-container-low": "#f4f3f6",
+        "inverse-surface": "#2f3033",
+        "on-secondary-fixed": "#0d1d2a",
+        "primary-fixed": "#d4e3ff",
+        "tertiary-fixed-dim": "#c6c6c7",
+        "on-tertiary-container": "#858687",
+        "primary-fixed-dim": "#afc8f0",
+        "primary": "#000613",
+        "surface": "#faf9fc",
+        "secondary-fixed-dim": "#b8c8da",
+        "surface-bright": "#faf9fc",
+        "surface-container-highest": "#e3e2e5",
+        "secondary-container": "#d1e1f4",
+        "inverse-on-surface": "#f2f0f3",
+        "surface-container-high": "#e9e7eb",
+        "tertiary-container": "#1d1f1f",
+        "surface-variant": "#e3e2e5",
+        "on-secondary": "#ffffff",
+        "secondary": "#50606f",
+        "on-secondary-container": "#556474",
+        "on-surface-variant": "#43474e"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "base": "4px",
+        "xl": "32px",
+        "sm": "8px",
+        "md": "16px",
+        "gutter": "24px",
+        "xs": "4px",
+        "2xl": "48px",
+        "lg": "24px",
+        "margin": "32px"
+      },
+      "fontFamily": {
+        "h1": ["Inter"],
+        "label-caps": ["Inter"],
+        "button": ["Inter"],
+        "h2": ["Inter"],
+        "body-lg": ["Inter"],
+        "h3": ["Inter"],
+        "body-md": ["Inter"],
+        "body-sm": ["Inter"]
+      },
+      "fontSize": {
+        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+        "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
+        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}]
+      }
+    }
+    }
+    }
+  </script>
+  <style>
+    .shadow-soft { box-shadow: 0px 4px 12px rgba(0, 31, 63, 0.05); }
+    .input-glow:focus { box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1); }
+    
+    @keyframes slideInRow {
+    0% { opacity: 0; transform: translateY(-20px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .row-enter {
+    animation: slideInRow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    
+    @keyframes highlightPulse {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); border-color: #10b981; }
+    70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .row-highlight {
+    animation: highlightPulse 1s ease-out;
+    }
+    
+    .row-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .row-item:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 12px 20px -5px rgba(0, 31, 63, 0.15);
+    border-color: #001F3F;
+    background-color: #ffffff !important;
+    z-index: 20;
+    position: relative;
+    }
 
-        #tablaFlota > div:nth-child(odd) {
-            background-color: #ffffff;
-        }
-        #tablaFlota > div:nth-child(even) {
-            background-color: #f8fafc;
-        }
+    #tablaFlota > div:nth-child(odd) {
+    background-color: #ffffff;
+    }
+    #tablaFlota > div:nth-child(even) {
+    background-color: #f8fafc;
+    }
 
-        /* Mobile & Tablet Optimizations */
-        html {
-            -webkit-tap-highlight-color: transparent;
-            -webkit-text-size-adjust: 100%;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100dvh;
-            -webkit-font-smoothing: antialiased;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-        }
+    /* Mobile & Tablet Optimizations */
+    html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
 
-        input, select, textarea {
-            font-size: 16px !important; /* Prevents auto-zoom on iOS */
-            -webkit-appearance: none;
-            border-radius: 4px;
-        }
+    input, select, textarea {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS */
+    -webkit-appearance: none;
+    border-radius: 4px;
+    }
 
-        .ios-scrolling {
-            -webkit-overflow-scrolling: touch;
-        }
+    .ios-scrolling {
+    -webkit-overflow-scrolling: touch;
+    }
 
-        @media (max-width: 640px) {
-            .btn-ios-tap {
-                min-height: 44px; /* Apple's minimum touch target size */
-            }
-        }
-        
-        /* Custom Scrollbar for tablets */
-        @media (min-width: 768px) {
-            ::-webkit-scrollbar { width: 8px; }
-            ::-webkit-scrollbar-track { background: transparent; }
-            ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        }
-    </style>
+    @media (max-width: 640px) {
+    .btn-ios-tap {
+      min-height: 44px; /* Apple's minimum touch target size */
+    }
+    }
+    
+    /* Custom Scrollbar for tablets */
+    @media (min-width: 768px) {
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    }
+  </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
-        <div class="flex flex-col h-full">
-            <!-- Brand Logo -->
-            <div class="p-6 border-b border-white/5 flex justify-center items-center bg-[#000d1a]">
-                <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
-            </div>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
+    <div class="flex flex-col h-full">
+    <!-- Brand Logo -->
+    <div class="p-6 border-b border-white/5 flex justify-center items-center ">
+      <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
+    </div>
 
-            <!-- Navigation Links -->
-            <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
-                <a href="inicio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
-                    <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
-                    <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
-                </a>
+    <!-- Navigation Links -->
+    <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+      <a href="inicio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
+        <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
+      </a>
 
-                <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
-                </div>
+      <div class="pt-6 pb-2 px-4">
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
+      </div>
 
-                <!-- Abastecimiento -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
-                            <span class="font-bold">Abastecimiento</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
-                        </a>
-                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Inventario -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
-                            <span class="font-bold">Inventario</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Registrar Entrada de Material
-                        </a>
-                        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Confirmar Recepción
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Mantenimiento -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
-                            <span class="font-bold">Mantenimiento</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Crear orden de trabajo
-                        </a>
-                        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Historial de órdenes de trabajo
-                        </a>
-                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Entrega de material a trabajo
-                        </a>
-                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
-                        </a>
-                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
-                </div>
-
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
-                            <span class="font-bold">Indicadores y Reportes</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
-                        </a>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- User Profile Section -->
-            <div class="p-6 bg-[#000d1a] border-t border-white/5">
-                <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
-                    <div class="relative">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
-                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
-                    </div>
-                    <div class="flex flex-col min-w-0">
-                        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white" id="userProfileName">Cargando...</span>
-                        <span class="text-[9px] text-slate-500 font-bold" id="userProfileRole">Cargando...</span>
-                    </div>
-                    <button onclick="window.logout()" class="ml-auto text-red-300 hover:text-red-500 active:text-red-600 transition-colors p-1" title="Cerrar Sesión">
-                        <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
-                    </button>
-                </div>
-            </div>
+      <!-- Abastecimiento -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
+          <span class="font-bold">Abastecimiento</span>
         </div>
-
-        <!-- Toggle Button (Floating on the edge) -->
-        <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
-            <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
         </button>
-    </aside>
-
-    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
-        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
-            <div class="flex items-center gap-4">
-                <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
-                <div class="flex items-center gap-2">
-                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
-                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
-                </div>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
-                </div>
-                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
-                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
-                    <span class="material-symbols-outlined">notifications</span>
-                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
-                </button>
-            </div>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
+        </a>
+        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
+        </a>
         </div>
-    </header>
+      </div>
 
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
-
-    <!-- Main Content -->
-    <main class="transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter md:ml-64">
-        <!-- Header -->
-        <div class="col-span-1 md:col-span-12 mb-2 md:mb-md">
-            <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">directions_car</span>
-                <h1 class="font-h2 text-2xl md:text-h2 text-primary-container">Estado de Flota</h1>
-            </div>
-            <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Visualice y gestione el estado actual de los vehículos y activos de la flota.</p>
+      <!-- Inventario -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
+          <span class="font-bold">Inventario</span>
         </div>
-
-        <!-- Dashboard List Section (Full Width) -->
-        <div class="col-span-1 md:col-span-12 bg-surface-container-lowest rounded-lg shadow-soft border border-surface-variant overflow-hidden flex flex-col">
-            <div class="p-4 md:p-lg border-b border-surface-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest">
-                <h2 class="font-h3 text-xl md:text-h3 text-primary-container">Estado de la Flota</h2>
-                <div class="relative w-full sm:w-auto">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
-                    <input id="searchVehiculo" class="border border-outline-variant rounded-DEFAULT pl-[36px] pr-md py-[6px] focus:border-primary-container input-glow outline-none transition-all font-body-sm text-body-sm bg-surface w-full sm:w-[300px]" placeholder="Buscar vehículo por VIN, Marca o Estado..." type="text"/>
-                </div>
-            </div>
-            <div id="tablaFlota" class="flex-grow p-2 md:p-sm flex flex-col gap-sm overflow-y-auto min-h-[500px]">
-                <!-- Las filas se agregarán aquí dinámicamente -->
-            </div>
-            <div class="p-4 border-t border-surface-variant bg-surface-container-lowest flex justify-between items-center text-outline font-body-sm text-body-sm">
-                <span id="contadorRegistros">0 registros</span>
-                <div class="flex gap-1">
-                    <button class="p-1 hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
-                    <button class="p-1 hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
-                </div>
-            </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Registrar Entrada de Material
+        </a>
+        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Confirmar Recepción
+        </a>
         </div>
-    </main>
+      </div>
 
-    <!-- Footer -->
-    <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
-        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
-    </footer>
-
-    <!-- Edit Modal -->
-    <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all scale-95 opacity-0 duration-300" id="modalContent">
-            <div class="bg-primary-container p-4 flex justify-between items-center text-white">
-                <h3 class="font-h3 text-lg flex items-center gap-2">
-                    <span class="material-symbols-outlined">edit_square</span>
-                    Modificar Vehículo
-                </h3>
-                <button id="btnCloseModal" class="hover:bg-white/10 p-1 rounded-full"><span class="material-symbols-outlined">close</span></button>
-            </div>
-            <div class="p-6 space-y-4">
-                <div>
-                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Marca / Modelo</label>
-                    <input id="editMarca" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all" type="text"/>
-                </div>
-                <div>
-                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Tipo de Vehículo</label>
-                    <select id="editTipo" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all">
-                        <option>Sedán</option>
-                        <option>SUV</option>
-                        <option>Pickup</option>
-                        <option>Camión de Carga</option>
-                        <option>Montacargas</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Estado Operativo</label>
-                    <select id="editEstado" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all">
-                        <option value="Operativo">Operativo</option>
-                        <option value="Mantenimiento">Mantenimiento</option>
-                        <option value="Fuera de Servicio">Fuera de Servicio</option>
-                        <option value="En Reparación">En Reparación</option>
-                    </select>
-                </div>
-                <div class="pt-4 flex gap-3">
-                    <button id="btnCancelEdit" class="flex-1 px-4 py-2 border border-slate-200 rounded-lg font-semibold text-slate-600 hover:bg-slate-50 transition-colors">Cancelar</button>
-                    <button id="btnSaveEdit" class="flex-1 px-4 py-2 bg-primary-container text-white rounded-lg font-semibold hover:bg-[#00142B] transition-colors">Guardar Cambios</button>
-                </div>
-            </div>
+      <!-- Mantenimiento -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
+          <span class="font-bold">Mantenimiento</span>
         </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Crear orden de trabajo
+        </a>
+        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Historial de órdenes de trabajo
+        </a>
+        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Entrega de material a trabajo
+        </a>
+        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
+        </a>
+        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
+        </a>
+        </div>
+      </div>
+
+      <div class="pt-6 pb-2 px-4">
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
+      </div>
+
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
+          <span class="font-bold">Indicadores y Reportes</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
+        </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- User Profile Section -->
+    <div class="p-6 bg-[#000d1a] border-t border-white/5">
+      <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
+        <div class="relative">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
+        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
+        </div>
+        <div class="flex flex-col min-w-0">
+        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white" id="userProfileName">Cargando...</span>
+        <span class="text-[9px] text-slate-500 font-bold" id="userProfileRole">Cargando...</span>
+        </div>
+        <button onclick="window.logout()" class="ml-auto text-red-300 hover:text-red-500 active:text-red-600 transition-colors p-1" title="Cerrar Sesión">
+        <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
+        </button>
+      </div>
+    </div>
     </div>
 
-    <!-- History Modal -->
-    <div id="historyModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all scale-95 opacity-0 duration-300" id="historyModalContent">
-            <div class="bg-amber-600 p-4 flex justify-between items-center text-white">
-                <h3 class="font-h3 text-lg flex items-center gap-2">
-                    <span class="material-symbols-outlined">history</span>
-                    Histórico de Mantenimiento - <span id="historyVIN"></span>
-                </h3>
-                <button id="btnCloseHistoryModal" class="hover:bg-white/10 p-1 rounded-full"><span class="material-symbols-outlined">close</span></button>
-            </div>
-            <div class="p-6 overflow-y-auto max-h-[70vh] custom-scrollbar">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="border-b border-slate-200">
-                            <th class="py-3 px-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Solicitud</th>
-                            <th class="py-3 px-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Servicio</th>
-                            <th class="py-3 px-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Estado</th>
-                            <th class="py-3 px-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Inicio</th>
-                            <th class="py-3 px-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Fin</th>
-                        </tr>
-                    </thead>
-                    <tbody id="historyTableBody">
-                        <!-- History rows injected here -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end">
-                <button id="btnCloseHistoryFooter" class="px-6 py-2 bg-slate-200 text-slate-700 rounded-lg font-bold hover:bg-slate-300 transition-colors">Cerrar</button>
-            </div>
-        </div>
+    <!-- Toggle Button (Floating on the edge) -->
+    <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
+    <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+    </button>
+  </aside>
+
+  <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
+    <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
+    <div class="flex items-center gap-4">
+      <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div class="flex items-center gap-2">
+        <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
+        <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
+      </div>
+      <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
+      <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
+      </button>
+    </div>
+    </div>
+  </header>
+
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
+
+  <!-- Main Content -->
+  <main class="transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter md:ml-64">
+    <!-- Header -->
+    <div class="col-span-1 md:col-span-12 mb-2 md:mb-md">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">directions_car</span>
+      <h1 class="font-h2 text-2xl md:text-h2 text-primary-container">Estado de Flota</h1>
+    </div>
+    <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Visualice y gestione el estado actual de los vehículos y activos de la flota.</p>
     </div>
 
-    <script>
-        // const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
-        // const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
-        // let supabaseClient = null;
+    <!-- Dashboard List Section (Full Width) -->
+    <div class="col-span-1 md:col-span-12 bg-surface-container-lowest rounded-lg shadow-soft border border-surface-variant overflow-hidden flex flex-col">
+    <div class="p-4 md:p-lg border-b border-surface-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest">
+      <h2 class="font-h3 text-xl md:text-h3 text-primary-container">Estado de la Flota</h2>
+      <div class="relative w-full sm:w-auto">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+        <input id="searchVehiculo" class="border border-outline-variant rounded-DEFAULT pl-[36px] pr-md py-[6px] focus:border-primary-container input-glow outline-none transition-all font-body-sm text-body-sm bg-surface w-full sm:w-[300px]" placeholder="Buscar vehículo por VIN, Marca o Estado..." type="text"/>
+      </div>
+    </div>
+    <div id="tablaFlota" class="flex-grow p-2 md:p-sm flex flex-col gap-sm overflow-y-auto min-h-[500px]">
+      <!-- Las filas se agregarán aquí dinámicamente -->
+    </div>
+    <div class="p-4 border-t border-surface-variant bg-surface-container-lowest flex justify-between items-center text-outline font-body-sm text-body-sm">
+      <span id="contadorRegistros">0 registros</span>
+      <div class="flex gap-1">
+        <button class="p-1 hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
+        <button class="p-1 hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
+      </div>
+    </div>
+    </div>
+  </main>
 
-        function getSupabase() {
-            if (!supabaseClient) {
-                const clientObj = (window.supabase && window.supabase.createClient) ? window.supabase : (typeof supabase !== 'undefined' && supabase.createClient) ? supabase : null;
-                if (clientObj) {
-                    supabaseClient = clientObj.createClient(supabaseUrl, supabaseAnonKey);
-                } else {
-                    console.error('Supabase library not found');
-                }
-            }
-            return supabaseClient;
+  <!-- Footer -->
+  <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
+    <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
+  </footer>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all scale-95 opacity-0 duration-300" id="modalContent">
+    <div class="bg-primary-container p-4 flex justify-between items-center text-white">
+      <h3 class="font-h3 text-lg flex items-center gap-2">
+        <span class="material-symbols-outlined">edit_square</span>
+        Modificar Vehículo
+      </h3>
+      <button id="btnCloseModal" class="hover:bg-white/10 p-1 rounded-full"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="p-6 space-y-4">
+      <div>
+        <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Marca / Modelo</label>
+        <input id="editMarca" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all" type="text"/>
+      </div>
+      <div>
+        <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Tipo de Vehículo</label>
+        <select id="editTipo" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all">
+        <option>Sedán</option>
+        <option>SUV</option>
+        <option>Pickup</option>
+        <option>Camión de Carga</option>
+        <option>Montacargas</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-label-caps text-[11px] text-slate-500 mb-1 uppercase tracking-wider">Estado Operativo</label>
+        <select id="editEstado" class="w-full border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-container outline-none transition-all">
+        <option value="Operativo">Operativo</option>
+        <option value="Mantenimiento">Mantenimiento</option>
+        <option value="Fuera de Servicio">Fuera de Servicio</option>
+        <option value="En Reparación">En Reparación</option>
+        </select>
+      </div>
+      <div class="pt-4 flex gap-3">
+        <button id="btnCancelEdit" class="flex-1 px-4 py-2 border border-slate-200 rounded-lg font-semibold text-slate-600 hover:bg-slate-50 transition-colors">Cancelar</button>
+        <button id="btnSaveEdit" class="flex-1 px-4 py-2 bg-primary-container text-white rounded-lg font-semibold hover:bg-[#00142B] transition-colors">Guardar Cambios</button>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- History Modal -->
+  <div id="historyModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all scale-95 opacity-0 duration-300" id="historyModalContent">
+    <div class="bg-amber-600 p-4 flex justify-between items-center text-white">
+      <h3 class="font-h3 text-lg flex items-center gap-2">
+        <span class="material-symbols-outlined">history</span>
+        Histórico de Mantenimiento - <span id="historyVIN"></span>
+      </h3>
+      <button id="btnCloseHistoryModal" class="hover:bg-white/10 p-1 rounded-full"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="p-6 overflow-y-auto max-h-[70vh] custom-scrollbar">
+      <table class="w-full text-left border-collapse">
+        <thead>
+        <tr class="border-b border-slate-200">
+          <th class="py-3 px-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Solicitud</th>
+          <th class="py-3 px-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Servicio</th>
+          <th class="py-3 px-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Estado</th>
+          <th class="py-3 px-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Inicio</th>
+          <th class="py-3 px-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Fin</th>
+        </tr>
+        </thead>
+        <tbody id="historyTableBody">
+        <!-- History rows injected here -->
+        </tbody>
+      </table>
+    </div>
+    <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+      <button id="btnCloseHistoryFooter" class="px-6 py-2 bg-slate-200 text-slate-700 rounded-lg font-bold hover:bg-slate-300 transition-colors">Cerrar</button>
+    </div>
+    </div>
+  </div>
+
+  <script>
+    // const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+    // const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
+    // let supabaseClient = null;
+
+    function getSupabase() {
+    if (!supabaseClient) {
+      const clientObj = (window.supabase && window.supabase.createClient) ? window.supabase : (typeof supabase !== 'undefined' && supabase.createClient) ? supabase : null;
+      if (clientObj) {
+        supabaseClient = clientObj.createClient(supabaseUrl, supabaseAnonKey);
+      } else {
+        console.error('Supabase library not found');
+      }
+    }
+    return supabaseClient;
+    }
+
+    async function fetchVehiculos() {
+    const container = document.getElementById('tablaFlota');
+    const countDisplay = document.getElementById('contadorRegistros');
+    const client = getSupabase();
+
+    try {
+      // 1. Obtener todos los vehículos registrados
+      const { data: vehiculos, error: vError } = await client
+        .from('vehiculos')
+        .select('*')
+        .order('id', { ascending: true });
+
+      if (vError) throw vError;
+
+      // 2. Obtener registros de mantenimiento activos (no finalizados)
+      const { data: mantenimientos, error: mError } = await client
+        .from('detalle_solicitud_ot')
+        .select('VIN, estado_manto')
+        .or('estado_manto.neq.FINALIZADO,estado_manto.is.null');
+
+      if (mError) throw mError;
+
+      // 2b. Obtener todos los VINs que tienen AL MENOS un registro (para habilitar botón histórico)
+      const { data: vInHistory, error: hError } = await client
+        .from('detalle_solicitud_ot')
+        .select('VIN');
+      
+      window.vinsWithHistory = new Set((vInHistory || []).map(item => item.VIN));
+
+      if (hError) throw hError;
+
+      // 3. Cruzar información:
+      // Si el VIN tiene algún mantenimiento no finalizado -> 'Mantenimiento'
+      // De lo contrario (todos finalizados o inexistentes) -> 'Operativo' (Activo)
+      const updatedVehiculos = (vehiculos || []).map(v => {
+        const hasActiveManto = (mantenimientos || []).some(m => m.VIN === v.vin);
+        if (hasActiveManto) {
+        return { ...v, estado: 'Mantenimiento' };
+        } else {
+        return { ...v, estado: 'Operativo' };
+        }
+      });
+
+      window.allVehiculos = updatedVehiculos;
+      renderVehiculos(updatedVehiculos);
+    } catch (err) {
+      console.error('Error fetching vehicles:', err);
+      container.innerHTML = `<p class="text-center text-red-500 py-10 font-bold">Error: ${err.message}</p>`;
+    }
+    }
+
+    function renderVehiculos(data) {
+    const container = document.getElementById('tablaFlota');
+    const countDisplay = document.getElementById('contadorRegistros');
+    
+    container.innerHTML = '';
+    countDisplay.textContent = `${data.length} registros`;
+
+    data.forEach(v => {
+      const statusColors = {
+        'Operativo': 'text-emerald-500 bg-emerald-500',
+        'Mantenimiento': 'text-amber-500 bg-amber-500',
+        'Fuera de Servicio': 'text-rose-500 bg-rose-500',
+        'En Reparación': 'text-blue-500 bg-blue-500'
+      };
+      const colorSet = statusColors[v.estado] || 'text-slate-500 bg-slate-500';
+      const colors = colorSet.split(' ');
+      const hasHistory = window.vinsWithHistory && window.vinsWithHistory.has(v.vin);
+      
+      const row = `
+        <div class="flex items-center p-4 bg-white border border-outline-variant/30 rounded-xl hover:shadow-md transition-all group overflow-hidden">
+        <!-- Icon -->
+        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center shadow-inner shrink-0 mr-6">
+          <span class="material-symbols-outlined text-slate-500 text-[28px]">${v.tipo === 'Camión de Carga' ? 'local_shipping' : 'directions_car'}</span>
+        </div>
+        
+        <!-- Columns with rigid alignment -->
+        <div class="flex flex-grow items-center min-w-0">
+          <!-- Unidad -->
+          <div class="w-20 md:w-32 shrink-0 flex flex-col">
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Unidad</span>
+            <span class="font-black text-primary-container text-lg tracking-tight leading-none">${v.id}</span>
+          </div>
+          
+          <!-- Marca -->
+          <div class="w-32 md:w-48 shrink-0 flex flex-col">
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Marca</span>
+            <p class="text-sm md:text-base text-secondary font-bold leading-tight uppercase truncate pr-4">${v.marca || '---'}</p>
+          </div>
+          
+          <!-- VIN -->
+          <div class="flex-grow flex flex-col min-w-0">
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">VIN</span>
+            <p class="text-sm md:text-base text-slate-500 font-mono tracking-tighter leading-tight truncate pr-4">${v.vin || '---'}</p>
+          </div>
+        </div>
+
+        <!-- Status & Actions -->
+        <div class="flex items-center gap-6 shrink-0 ml-4">
+          <!-- Estado Badge (Prominent) -->
+          <div class="hidden lg:flex items-center gap-3 bg-slate-50 px-6 py-2.5 rounded-full border border-slate-100 shadow-sm w-[220px] justify-center">
+            <div class="flex items-center gap-2">
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Estado:</span>
+            <span class="text-base font-black ${colors[0]} tracking-tight uppercase">${v.estado || 'S/E'}</span>
+            </div>
+            <div class="w-3.5 h-3.5 rounded-full ${colors[1]} animate-pulse shadow-sm border-2 border-white"></div>
+          </div>
+
+          <!-- Acciones -->
+          <div class="flex gap-1.5">
+            <button onclick="showHistory('${v.vin}')" 
+              class="w-10 h-10 flex items-center justify-center ${hasHistory ? 'text-amber-600 hover:bg-amber-50' : 'text-slate-200 cursor-not-allowed opacity-40'} rounded-xl transition-all border border-transparent ${hasHistory ? 'hover:border-amber-100' : ''}" 
+              ${hasHistory ? '' : 'disabled'}
+              title="${hasHistory ? 'Histórico de Mantenimiento' : 'Sin historial disponible'}">
+            <span class="material-symbols-outlined text-[24px]">history</span>
+            </button>
+            <button onclick="openEditModal('${v.id}')" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all border border-transparent hover:border-blue-100" title="Editar Vehículo">
+            <span class="material-symbols-outlined text-[22px]">edit_square</span>
+            </button>
+            <button onclick="deleteVehiculo('${v.id}')" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all border border-transparent hover:border-red-100" title="Eliminar Vehículo">
+            <span class="material-symbols-outlined text-[22px]">delete</span>
+            </button>
+          </div>
+        </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', row);
+    });
+    }
+
+    async function showHistory(vin) {
+    if (!vin || vin === '---') return;
+    
+    const modal = document.getElementById('historyModal');
+    const content = document.getElementById('historyModalContent');
+    const vinSpan = document.getElementById('historyVIN');
+    const tableBody = document.getElementById('historyTableBody');
+    
+    vinSpan.textContent = vin;
+    tableBody.innerHTML = '<tr><td colspan="5" class="py-10 text-center text-slate-400 italic">Cargando histórico...</td></tr>';
+    
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    setTimeout(() => {
+      content.classList.remove('scale-95', 'opacity-0');
+    }, 10);
+    
+    const client = getSupabase();
+    try {
+      const { data, error } = await client
+        .from('detalle_solicitud_ot')
+        .select('*')
+        .eq('VIN', vin)
+        .order('fecha', { ascending: false });
+
+      if (error) throw error;
+
+      if (!data || data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" class="py-10 text-center text-slate-400 italic">No se encontraron registros de mantenimiento para este vehículo.</td></tr>';
+        return;
+      }
+
+      tableBody.innerHTML = data.map(row => `
+        <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+        <td class="py-4 px-2 font-bold text-slate-700">${row.solicitud}</td>
+        <td class="py-4 px-2 text-sm text-slate-600">${row.servicio || '---'}</td>
+        <td class="py-4 px-2">
+          <span class="px-2 py-1 rounded text-[10px] font-bold uppercase ${
+            row.estado_manto === 'FINALIZADO' ? 'bg-emerald-100 text-emerald-700' :
+            row.estado_manto === 'INICIADO' ? 'bg-blue-100 text-blue-700' :
+            'bg-amber-100 text-amber-700'
+          }">${row.estado_manto || 'LISTO'}</span>
+        </td>
+        <td class="py-4 px-2 text-xs text-slate-500">${row.fecha_inicio_manto ? new Date(row.fecha_inicio_manto).toLocaleString('es-ES') : '---'}</td>
+        <td class="py-4 px-2 text-xs text-slate-500">${row.fecha_fin_manto ? new Date(row.fecha_fin_manto).toLocaleString('es-ES') : '---'}</td>
+        </tr>
+      `).join('');
+    } catch (err) {
+      console.error('Error fetching history:', err);
+      tableBody.innerHTML = `<tr><td colspan="5" class="py-10 text-center text-red-500 font-bold">Error: ${err.message}</td></tr>`;
+    }
+    }
+
+    function closeHistoryModal() {
+    const modal = document.getElementById('historyModal');
+    const content = document.getElementById('historyModalContent');
+    content.classList.add('scale-95', 'opacity-0');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }, 300);
+    }
+
+    document.getElementById('btnCloseHistoryModal')?.addEventListener('click', closeHistoryModal);
+    document.getElementById('btnCloseHistoryFooter')?.addEventListener('click', closeHistoryModal);
+
+    async function deleteVehiculo(id) {
+    if (!confirm('¿Está seguro de eliminar este vehículo?')) return;
+    const client = getSupabase();
+    try {
+      const { error } = await client
+        .from('vehiculos')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+      fetchVehiculos();
+    } catch (err) {
+      alert('Error al eliminar: ' + err.message);
+    }
+    }
+
+    // Search functionality
+    document.getElementById('searchVehiculo')?.addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    if (!window.allVehiculos) return;
+    
+    const filtered = window.allVehiculos.filter(v => 
+      v.id.toString().includes(term) ||
+      (v.vin || '').toLowerCase().includes(term) ||
+      (v.marca || '').toLowerCase().includes(term) ||
+      (v.estado || '').toLowerCase().includes(term)
+    );
+    renderVehiculos(filtered);
+    });
+
+    (function() {
+    const btnToggle = document.getElementById('btnSidebarToggle');
+    const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const header = document.querySelector('header');
+    const main = document.querySelector('main');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    if (!sidebar) return;
+
+    sidebar.style.transition = 'none';
+    if (header) header.style.transition = 'none';
+    if (main) main.style.transition = 'none';
+
+    const toggleSidebar = (manual = true) => {
+      const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full');
+      
+      if (isCurrentlyCollapsed) {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('md:translate-x-0');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+        if (window.innerWidth >= 768) {
+        if (header) header.classList.add('md:pl-64');
+        if (main) main.classList.add('md:ml-64');
+        } else {
+        if (overlay) overlay.classList.remove('hidden');
+        }
+        if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('md:translate-x-0');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+        if (header) header.classList.remove('md:pl-64');
+        if (main) main.classList.remove('md:ml-64');
+        if (overlay) overlay.classList.add('hidden');
+        if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
+      }
+    };
+
+    const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
+    if (window.innerWidth >= 768) {
+      if (isSidebarCollapsed === 'true') {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('md:translate-x-0');
+        if (header) header.classList.remove('md:pl-64');
+        if (main) main.classList.remove('md:ml-64');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+      } else {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('md:translate-x-0');
+        if (header) header.classList.add('md:pl-64');
+        if (main) main.classList.add('md:ml-64');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+      }
+    } else {
+      sidebar.classList.add('-translate-x-full');
+      sidebar.classList.remove('md:translate-x-0');
+      if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+    }
+
+    let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+    const currentFile = window.location.pathname.split('/').pop() || 'inicio.html';
+    const nav = document.querySelector('nav');
+
+    if (nav) {
+      const allLinks = nav.querySelectorAll('a');
+      allLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentFile || (currentFile === '' && href === 'inicio.html')) {
+        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
+        const icon = link.querySelector('span.material-symbols-outlined');
+        if (icon) icon.classList.add('text-blue-400');
+
+        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
+        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
+          const btn = submenuDiv.previousElementSibling;
+          const spanTitle = btn.querySelector('.font-bold');
+          if (spanTitle) {
+            const menuId = spanTitle.textContent.trim();
+            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+          }
+        }
+        }
+      });
+
+      const submenuBtns = nav.querySelectorAll('button');
+
+      const updateMenuStyles = (btn, isOpen) => {
+        const icon = btn.querySelector('.material-symbols-outlined:first-child');
+        if (!icon) return;
+        
+        const colorClasses = {
+        'group-hover:text-blue-400': 'text-blue-400',
+        'group-hover:text-emerald-400': 'text-emerald-400',
+        'group-hover:text-amber-400': 'text-amber-400',
+        'group-hover:text-purple-400': 'text-purple-400'
+        };
+
+        let activeColor = null;
+        for (const [hover, active] of Object.entries(colorClasses)) {
+        if (icon.classList.contains(hover)) {
+          activeColor = active;
+          break;
+        }
         }
 
-        async function fetchVehiculos() {
-            const container = document.getElementById('tablaFlota');
-            const countDisplay = document.getElementById('contadorRegistros');
-            const client = getSupabase();
+        if (isOpen) {
+        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+        btn.classList.remove('text-slate-300');
+        if (activeColor) {
+          icon.classList.add(activeColor);
+          icon.classList.remove('text-slate-400', 'text-slate-300');
+        }
+        } else {
+        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+        btn.classList.add('text-slate-300');
+        if (activeColor) {
+          icon.classList.remove(activeColor);
+          icon.classList.add('text-slate-400');
+        }
+        }
+      };
 
-            try {
-                // 1. Obtener todos los vehículos registrados
-                const { data: vehiculos, error: vError } = await client
-                    .from('vehiculos')
-                    .select('*')
-                    .order('id', { ascending: true });
+      submenuBtns.forEach(btn => {
+        const spanTitle = btn.querySelector('.font-bold');
+        if (!spanTitle) return;
+        
+        const menuId = spanTitle.textContent.trim();
+        const submenuDiv = btn.nextElementSibling;
+        if (!submenuDiv) return;
 
-                if (vError) throw vError;
-
-                // 2. Obtener registros de mantenimiento activos (no finalizados)
-                const { data: mantenimientos, error: mError } = await client
-                    .from('detalle_solicitud_ot')
-                    .select('VIN, estado_manto')
-                    .or('estado_manto.neq.FINALIZADO,estado_manto.is.null');
-
-                if (mError) throw mError;
-
-                // 2b. Obtener todos los VINs que tienen AL MENOS un registro (para habilitar botón histórico)
-                const { data: vInHistory, error: hError } = await client
-                    .from('detalle_solicitud_ot')
-                    .select('VIN');
-                
-                window.vinsWithHistory = new Set((vInHistory || []).map(item => item.VIN));
-
-                if (hError) throw hError;
-
-                // 3. Cruzar información:
-                // Si el VIN tiene algún mantenimiento no finalizado -> 'Mantenimiento'
-                // De lo contrario (todos finalizados o inexistentes) -> 'Operativo' (Activo)
-                const updatedVehiculos = (vehiculos || []).map(v => {
-                    const hasActiveManto = (mantenimientos || []).some(m => m.VIN === v.vin);
-                    if (hasActiveManto) {
-                        return { ...v, estado: 'Mantenimiento' };
-                    } else {
-                        return { ...v, estado: 'Operativo' };
-                    }
-                });
-
-                window.allVehiculos = updatedVehiculos;
-                renderVehiculos(updatedVehiculos);
-            } catch (err) {
-                console.error('Error fetching vehicles:', err);
-                container.innerHTML = `<p class="text-center text-red-500 py-10 font-bold">Error: ${err.message}</p>`;
-            }
+        btn.removeAttribute('onclick');
+        if (openSubmenus.includes(menuId)) {
+        submenuDiv.classList.remove('hidden');
+        updateMenuStyles(btn, true);
+        } else {
+        submenuDiv.classList.add('hidden');
+        updateMenuStyles(btn, false);
         }
 
-        function renderVehiculos(data) {
-            const container = document.getElementById('tablaFlota');
-            const countDisplay = document.getElementById('contadorRegistros');
-            
-            container.innerHTML = '';
-            countDisplay.textContent = `${data.length} registros`;
-
-            data.forEach(v => {
-                const statusColors = {
-                    'Operativo': 'text-emerald-500 bg-emerald-500',
-                    'Mantenimiento': 'text-amber-500 bg-amber-500',
-                    'Fuera de Servicio': 'text-rose-500 bg-rose-500',
-                    'En Reparación': 'text-blue-500 bg-blue-500'
-                };
-                const colorSet = statusColors[v.estado] || 'text-slate-500 bg-slate-500';
-                const colors = colorSet.split(' ');
-                const hasHistory = window.vinsWithHistory && window.vinsWithHistory.has(v.vin);
-                
-                const row = `
-                    <div class="flex items-center p-4 bg-white border border-outline-variant/30 rounded-xl hover:shadow-md transition-all group overflow-hidden">
-                        <!-- Icon -->
-                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center shadow-inner shrink-0 mr-6">
-                            <span class="material-symbols-outlined text-slate-500 text-[28px]">${v.tipo === 'Camión de Carga' ? 'local_shipping' : 'directions_car'}</span>
-                        </div>
-                        
-                        <!-- Columns with rigid alignment -->
-                        <div class="flex flex-grow items-center min-w-0">
-                            <!-- Unidad -->
-                            <div class="w-20 md:w-32 shrink-0 flex flex-col">
-                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Unidad</span>
-                                <span class="font-black text-primary-container text-lg tracking-tight leading-none">${v.id}</span>
-                            </div>
-                            
-                            <!-- Marca -->
-                            <div class="w-32 md:w-48 shrink-0 flex flex-col">
-                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Marca</span>
-                                <p class="text-sm md:text-base text-secondary font-bold leading-tight uppercase truncate pr-4">${v.marca || '---'}</p>
-                            </div>
-                            
-                            <!-- VIN -->
-                            <div class="flex-grow flex flex-col min-w-0">
-                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">VIN</span>
-                                <p class="text-sm md:text-base text-slate-500 font-mono tracking-tighter leading-tight truncate pr-4">${v.vin || '---'}</p>
-                            </div>
-                        </div>
-
-                        <!-- Status & Actions -->
-                        <div class="flex items-center gap-6 shrink-0 ml-4">
-                            <!-- Estado Badge (Prominent) -->
-                            <div class="hidden lg:flex items-center gap-3 bg-slate-50 px-6 py-2.5 rounded-full border border-slate-100 shadow-sm w-[220px] justify-center">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Estado:</span>
-                                    <span class="text-base font-black ${colors[0]} tracking-tight uppercase">${v.estado || 'S/E'}</span>
-                                </div>
-                                <div class="w-3.5 h-3.5 rounded-full ${colors[1]} animate-pulse shadow-sm border-2 border-white"></div>
-                            </div>
-
-                            <!-- Acciones -->
-                            <div class="flex gap-1.5">
-                                <button onclick="showHistory('${v.vin}')" 
-                                        class="w-10 h-10 flex items-center justify-center ${hasHistory ? 'text-amber-600 hover:bg-amber-50' : 'text-slate-200 cursor-not-allowed opacity-40'} rounded-xl transition-all border border-transparent ${hasHistory ? 'hover:border-amber-100' : ''}" 
-                                        ${hasHistory ? '' : 'disabled'}
-                                        title="${hasHistory ? 'Histórico de Mantenimiento' : 'Sin historial disponible'}">
-                                    <span class="material-symbols-outlined text-[24px]">history</span>
-                                </button>
-                                <button onclick="openEditModal('${v.id}')" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all border border-transparent hover:border-blue-100" title="Editar Vehículo">
-                                    <span class="material-symbols-outlined text-[22px]">edit_square</span>
-                                </button>
-                                <button onclick="deleteVehiculo('${v.id}')" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all border border-transparent hover:border-red-100" title="Eliminar Vehículo">
-                                    <span class="material-symbols-outlined text-[22px]">delete</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                container.insertAdjacentHTML('beforeend', row);
-            });
+        btn.addEventListener('click', () => {
+        const isHidden = submenuDiv.classList.contains('hidden');
+        if (isHidden) {
+          submenuDiv.classList.remove('hidden');
+          if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+          updateMenuStyles(btn, true);
+        } else {
+          submenuDiv.classList.add('hidden');
+          openSubmenus = openSubmenus.filter(id => id !== menuId);
+          updateMenuStyles(btn, false);
         }
-
-        async function showHistory(vin) {
-            if (!vin || vin === '---') return;
-            
-            const modal = document.getElementById('historyModal');
-            const content = document.getElementById('historyModalContent');
-            const vinSpan = document.getElementById('historyVIN');
-            const tableBody = document.getElementById('historyTableBody');
-            
-            vinSpan.textContent = vin;
-            tableBody.innerHTML = '<tr><td colspan="5" class="py-10 text-center text-slate-400 italic">Cargando histórico...</td></tr>';
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            setTimeout(() => {
-                content.classList.remove('scale-95', 'opacity-0');
-            }, 10);
-            
-            const client = getSupabase();
-            try {
-                const { data, error } = await client
-                    .from('detalle_solicitud_ot')
-                    .select('*')
-                    .eq('VIN', vin)
-                    .order('fecha', { ascending: false });
-
-                if (error) throw error;
-
-                if (!data || data.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="5" class="py-10 text-center text-slate-400 italic">No se encontraron registros de mantenimiento para este vehículo.</td></tr>';
-                    return;
-                }
-
-                tableBody.innerHTML = data.map(row => `
-                    <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-                        <td class="py-4 px-2 font-bold text-slate-700">${row.solicitud}</td>
-                        <td class="py-4 px-2 text-sm text-slate-600">${row.servicio || '---'}</td>
-                        <td class="py-4 px-2">
-                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase ${
-                                row.estado_manto === 'FINALIZADO' ? 'bg-emerald-100 text-emerald-700' :
-                                row.estado_manto === 'INICIADO' ? 'bg-blue-100 text-blue-700' :
-                                'bg-amber-100 text-amber-700'
-                            }">${row.estado_manto || 'LISTO'}</span>
-                        </td>
-                        <td class="py-4 px-2 text-xs text-slate-500">${row.fecha_inicio_manto ? new Date(row.fecha_inicio_manto).toLocaleString('es-ES') : '---'}</td>
-                        <td class="py-4 px-2 text-xs text-slate-500">${row.fecha_fin_manto ? new Date(row.fecha_fin_manto).toLocaleString('es-ES') : '---'}</td>
-                    </tr>
-                `).join('');
-            } catch (err) {
-                console.error('Error fetching history:', err);
-                tableBody.innerHTML = `<tr><td colspan="5" class="py-10 text-center text-red-500 font-bold">Error: ${err.message}</td></tr>`;
-            }
-        }
-
-        function closeHistoryModal() {
-            const modal = document.getElementById('historyModal');
-            const content = document.getElementById('historyModalContent');
-            content.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }, 300);
-        }
-
-        document.getElementById('btnCloseHistoryModal')?.addEventListener('click', closeHistoryModal);
-        document.getElementById('btnCloseHistoryFooter')?.addEventListener('click', closeHistoryModal);
-
-        async function deleteVehiculo(id) {
-            if (!confirm('¿Está seguro de eliminar este vehículo?')) return;
-            const client = getSupabase();
-            try {
-                const { error } = await client
-                    .from('vehiculos')
-                    .delete()
-                    .eq('id', id);
-
-                if (error) throw error;
-                fetchVehiculos();
-            } catch (err) {
-                alert('Error al eliminar: ' + err.message);
-            }
-        }
-
-        // Search functionality
-        document.getElementById('searchVehiculo')?.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            if (!window.allVehiculos) return;
-            
-            const filtered = window.allVehiculos.filter(v => 
-                v.id.toString().includes(term) ||
-                (v.vin || '').toLowerCase().includes(term) ||
-                (v.marca || '').toLowerCase().includes(term) ||
-                (v.estado || '').toLowerCase().includes(term)
-            );
-            renderVehiculos(filtered);
+        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
         });
+      });
+      sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+    }
 
-        (function() {
-            const btnToggle = document.getElementById('btnSidebarToggle');
-            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            const header = document.querySelector('header');
-            const main = document.querySelector('main');
-            const toggleIcon = document.getElementById('toggleIcon');
+    setTimeout(() => {
+      sidebar.style.transition = '';
+      if (header) header.style.transition = '';
+      if (main) main.style.transition = '';
+    }, 50);
 
-            if (!sidebar) return;
+    if (btnToggle) btnToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+    if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+    if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
 
-            sidebar.style.transition = 'none';
-            if (header) header.style.transition = 'none';
-            if (main) main.style.transition = 'none';
-
-            const toggleSidebar = (manual = true) => {
-                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full');
-                
-                if (isCurrentlyCollapsed) {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                    if (window.innerWidth >= 768) {
-                        if (header) header.classList.add('md:pl-64');
-                        if (main) main.classList.add('md:ml-64');
-                    } else {
-                        if (overlay) overlay.classList.remove('hidden');
-                    }
-                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
-                } else {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
-                    if (overlay) overlay.classList.add('hidden');
-                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
-                }
-            };
-
-            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
-            if (window.innerWidth >= 768) {
-                if (isSidebarCollapsed === 'true') {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                } else {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
-                    if (header) header.classList.add('md:pl-64');
-                    if (main) main.classList.add('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                }
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('md:translate-x-0');
-                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-            }
-
-            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
-            const currentFile = window.location.pathname.split('/').pop() || 'inicio.html';
-            const nav = document.querySelector('nav');
-
-            if (nav) {
-                const allLinks = nav.querySelectorAll('a');
-                allLinks.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href === currentFile || (currentFile === '' && href === 'inicio.html')) {
-                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
-                        const icon = link.querySelector('span.material-symbols-outlined');
-                        if (icon) icon.classList.add('text-blue-400');
-
-                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
-                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
-                            const btn = submenuDiv.previousElementSibling;
-                            const spanTitle = btn.querySelector('.font-bold');
-                            if (spanTitle) {
-                                const menuId = spanTitle.textContent.trim();
-                                if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            }
-                        }
-                    }
-                });
-
-                const submenuBtns = nav.querySelectorAll('button');
-
-                const updateMenuStyles = (btn, isOpen) => {
-                    const icon = btn.querySelector('.material-symbols-outlined:first-child');
-                    if (!icon) return;
-                    
-                    const colorClasses = {
-                        'group-hover:text-blue-400': 'text-blue-400',
-                        'group-hover:text-emerald-400': 'text-emerald-400',
-                        'group-hover:text-amber-400': 'text-amber-400',
-                        'group-hover:text-purple-400': 'text-purple-400'
-                    };
-
-                    let activeColor = null;
-                    for (const [hover, active] of Object.entries(colorClasses)) {
-                        if (icon.classList.contains(hover)) {
-                            activeColor = active;
-                            break;
-                        }
-                    }
-
-                    if (isOpen) {
-                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.remove('text-slate-300');
-                        if (activeColor) {
-                            icon.classList.add(activeColor);
-                            icon.classList.remove('text-slate-400', 'text-slate-300');
-                        }
-                    } else {
-                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.add('text-slate-300');
-                        if (activeColor) {
-                            icon.classList.remove(activeColor);
-                            icon.classList.add('text-slate-400');
-                        }
-                    }
-                };
-
-                submenuBtns.forEach(btn => {
-                    const spanTitle = btn.querySelector('.font-bold');
-                    if (!spanTitle) return;
-                    
-                    const menuId = spanTitle.textContent.trim();
-                    const submenuDiv = btn.nextElementSibling;
-                    if (!submenuDiv) return;
-
-                    btn.removeAttribute('onclick');
-                    if (openSubmenus.includes(menuId)) {
-                        submenuDiv.classList.remove('hidden');
-                        updateMenuStyles(btn, true);
-                    } else {
-                        submenuDiv.classList.add('hidden');
-                        updateMenuStyles(btn, false);
-                    }
-
-                    btn.addEventListener('click', () => {
-                        const isHidden = submenuDiv.classList.contains('hidden');
-                        if (isHidden) {
-                            submenuDiv.classList.remove('hidden');
-                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            updateMenuStyles(btn, true);
-                        } else {
-                            submenuDiv.classList.add('hidden');
-                            openSubmenus = openSubmenus.filter(id => id !== menuId);
-                            updateMenuStyles(btn, false);
-                        }
-                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-                    });
-                });
-                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-            }
-
-            setTimeout(() => {
-                sidebar.style.transition = '';
-                if (header) header.style.transition = '';
-                if (main) main.style.transition = '';
-            }, 50);
-
-            if (btnToggle) btnToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-
-            fetchVehiculos();
-        })();
-    </script>
+    fetchVehiculos();
+    })();
+  </script>
 </body>
 </html>

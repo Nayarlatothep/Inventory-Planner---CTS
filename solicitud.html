@@ -2,1162 +2,1162 @@
 <!DOCTYPE html>
 <html class="light" lang="es">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-    <title>Crear orden de trabajo - CSM Legacy</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="auth.js"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "surface-variant": "#e3e2e5",
-                        "inverse-on-surface": "#f2f0f3",
-                        "on-error": "#ffffff",
-                        "on-surface-variant": "#43474e",
-                        "on-secondary": "#ffffff",
-                        "secondary-container": "#d1e1f4",
-                        "surface-tint": "#476083",
-                        "surface-container-highest": "#e3e2e5",
-                        "background": "#faf9fc",
-                        "tertiary-fixed": "#e2e2e2",
-                        "tertiary-container": "#1d1f1f",
-                        "surface-bright": "#faf9fc",
-                        "on-primary-container": "#6f88ad",
-                        "secondary-fixed": "#d4e4f6",
-                        "outline-variant": "#c4c6cf",
-                        "secondary-fixed-dim": "#b8c8da",
-                        "error": "#ba1a1a",
-                        "error-container": "#ffdad6",
-                        "primary-container": "#001f3f",
-                        "on-surface": "#1a1c1e",
-                        "secondary": "#50606f",
-                        "on-primary": "#ffffff",
-                        "primary-fixed": "#d4e3ff",
-                        "on-tertiary-fixed-variant": "#454747",
-                        "on-error-container": "#93000a",
-                        "surface": "#faf9fc",
-                        "on-secondary-fixed-variant": "#394857",
-                        "primary-fixed-dim": "#afc8f0",
-                        "outline": "#74777f",
-                        "surface-container": "#efedf0",
-                        "on-secondary-fixed": "#0d1d2a",
-                        "inverse-surface": "#2f3033",
-                        "primary": "#000613",
-                        "surface-container-high": "#e9e7eb",
-                        "on-tertiary": "#ffffff",
-                        "surface-dim": "#dbd9dd",
-                        "inverse-primary": "#afc8f0",
-                        "on-primary-fixed": "#001c3a",
-                        "tertiary": "#040606",
-                        "surface-container-lowest": "#ffffff",
-                        "on-primary-fixed-variant": "#2f486a",
-                        "on-background": "#1a1c1e",
-                        "on-tertiary-container": "#858687",
-                        "tertiary-fixed-dim": "#c6c6c7",
-                        "on-tertiary-fixed": "#1a1c1c"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "margin": "32px",
-                        "xl": "32px",
-                        "md": "16px",
-                        "base": "4px",
-                        "xs": "4px",
-                        "gutter": "24px",
-                        "lg": "24px",
-                        "2xl": "48px",
-                        "sm": "8px"
-                    },
-                    "fontFamily": {
-                        "h1": ["Inter"],
-                        "h2": ["Inter"],
-                        "button": ["Inter"],
-                        "label-caps": ["Inter"],
-                        "h3": ["Inter"],
-                        "body-md": ["Inter"],
-                        "body-sm": ["Inter"],
-                        "body-lg": ["Inter"]
-                    },
-                    "fontSize": {
-                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
-                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
-                        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}]
-                    }
-                },
-            },
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+  <title>Crear orden de trabajo - CSM Legacy</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+        "surface-variant": "#e3e2e5",
+        "inverse-on-surface": "#f2f0f3",
+        "on-error": "#ffffff",
+        "on-surface-variant": "#43474e",
+        "on-secondary": "#ffffff",
+        "secondary-container": "#d1e1f4",
+        "surface-tint": "#476083",
+        "surface-container-highest": "#e3e2e5",
+        "background": "#faf9fc",
+        "tertiary-fixed": "#e2e2e2",
+        "tertiary-container": "#1d1f1f",
+        "surface-bright": "#faf9fc",
+        "on-primary-container": "#6f88ad",
+        "secondary-fixed": "#d4e4f6",
+        "outline-variant": "#c4c6cf",
+        "secondary-fixed-dim": "#b8c8da",
+        "error": "#ba1a1a",
+        "error-container": "#ffdad6",
+        "primary-container": "#001f3f",
+        "on-surface": "#1a1c1e",
+        "secondary": "#50606f",
+        "on-primary": "#ffffff",
+        "primary-fixed": "#d4e3ff",
+        "on-tertiary-fixed-variant": "#454747",
+        "on-error-container": "#93000a",
+        "surface": "#faf9fc",
+        "on-secondary-fixed-variant": "#394857",
+        "primary-fixed-dim": "#afc8f0",
+        "outline": "#74777f",
+        "surface-container": "#efedf0",
+        "on-secondary-fixed": "#0d1d2a",
+        "inverse-surface": "#2f3033",
+        "primary": "#000613",
+        "surface-container-high": "#e9e7eb",
+        "on-tertiary": "#ffffff",
+        "surface-dim": "#dbd9dd",
+        "inverse-primary": "#afc8f0",
+        "on-primary-fixed": "#001c3a",
+        "tertiary": "#040606",
+        "surface-container-lowest": "#ffffff",
+        "on-primary-fixed-variant": "#2f486a",
+        "on-background": "#1a1c1e",
+        "on-tertiary-container": "#858687",
+        "tertiary-fixed-dim": "#c6c6c7",
+        "on-tertiary-fixed": "#1a1c1c"
+        },
+        "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+        },
+        "spacing": {
+        "margin": "32px",
+        "xl": "32px",
+        "md": "16px",
+        "base": "4px",
+        "xs": "4px",
+        "gutter": "24px",
+        "lg": "24px",
+        "2xl": "48px",
+        "sm": "8px"
+        },
+        "fontFamily": {
+        "h1": ["Inter"],
+        "h2": ["Inter"],
+        "button": ["Inter"],
+        "label-caps": ["Inter"],
+        "h3": ["Inter"],
+        "body-md": ["Inter"],
+        "body-sm": ["Inter"],
+        "body-lg": ["Inter"]
+        },
+        "fontSize": {
+        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}]
         }
-    </script>
-    <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            min-height: 100dvh; 
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        
-        /* Mobile & Tablet Optimizations */
-        input, select, textarea {
-            font-size: 16px !important; /* Prevents auto-zoom on iOS */
-            -webkit-appearance: none;
-        }
-        
-        .btn-touch {
-            min-height: 44px; /* Apple's minimum touch target */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+      },
+    },
+    }
+  </script>
+  <style>
+    body { 
+    font-family: 'Inter', sans-serif; 
+    min-height: 100dvh; 
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    }
+    .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    
+    /* Mobile & Tablet Optimizations */
+    input, select, textarea {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS */
+    -webkit-appearance: none;
+    }
+    
+    .btn-touch {
+    min-height: 44px; /* Apple's minimum touch target */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
 
-        /* Custom Scrollbar for better UX on tablets */
-        @media (min-width: 768px) {
-            ::-webkit-scrollbar { width: 8px; }
-            ::-webkit-scrollbar-track { background: transparent; }
-            ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-            ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        }
+    /* Custom Scrollbar for better UX on tablets */
+    @media (min-width: 768px) {
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    }
 
-        /* Ticket Printing Style */
-        @media print {
-            body * { visibility: hidden; }
-            #ticketContent, #ticketContent * { visibility: visible; }
-            #ticketContent { position: absolute; left: 0; top: 0; width: 100%; padding: 0; margin: 0; }
-            #summaryModal { background: white !important; backdrop-filter: none !important; }
-        }
-    </style>
+    /* Ticket Printing Style */
+    @media print {
+    body * { visibility: hidden; }
+    #ticketContent, #ticketContent * { visibility: visible; }
+    #ticketContent { position: absolute; left: 0; top: 0; width: 100%; padding: 0; margin: 0; }
+    #summaryModal { background: white !important; backdrop-filter: none !important; }
+    }
+  </style>
 </head>
 <body class="bg-surface text-on-surface min-h-screen pb-10 ios-scrolling flex-col">
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
-        <div class="flex flex-col h-full">
-            <!-- Brand Logo -->
-            <div class="p-6 border-b border-white/5 flex justify-center items-center bg-[#000d1a]">
-                <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
-            </div>
-
-            <!-- Navigation Links -->
-            <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
-                <a href="inicio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
-                    <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
-                    <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
-                </a>
-
-                <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
-                </div>
-
-                <!-- Abastecimiento -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
-                            <span class="font-bold">Abastecimiento</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
-                        </a>
-                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Inventario -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
-                            <span class="font-bold">Inventario</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Registrar Entrada de Material
-                        </a>
-                        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Confirmar Recepción
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Mantenimiento -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
-                            <span class="font-bold">Mantenimiento</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Crear orden de trabajo
-                        </a>
-                        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Historial de órdenes de trabajo
-                        </a>
-                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Entrega de material a trabajo
-                        </a>
-                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
-                        </a>
-                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
-                </div>
-
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
-                            <span class="font-bold">Indicadores y Reportes</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
-                        </a>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- User Profile Section -->
-            <div class="p-6 bg-[#000d1a] border-t border-white/5">
-                <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
-                    <div class="relative">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
-                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
-                    </div>
-                    <div class="flex flex-col min-w-0">
-                        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white" id="userProfileName">Cargando...</span>
-                        <span class="text-[9px] text-slate-500 font-bold" id="userProfileRole">Cargando...</span>
-                    </div>
-                    <button onclick="window.logout()" class="ml-auto text-red-300 hover:text-red-500 active:text-red-600 transition-colors p-1" title="Cerrar Sesión">
-                        <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    
-            
-            
-
-        
-            
-            
-
-        
-            <!-- Toggle Button (Floating on the edge) -->
-            <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
-                <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
-            </button>
-
-        </aside>
-
-    
-    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
-        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
-            <div class="flex items-center gap-4">
-                <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
-                <div class="flex items-center gap-2">
-                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
-                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
-                </div>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
-                </div>
-                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
-                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
-                    <span class="material-symbols-outlined">notifications</span>
-                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-
-
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
-
-
-    
-
-    
-
-    <!-- TopNavBar -->
-    
-    
-
-    <!-- Sidebar Overlay for Mobile -->
-    
-
-    
-    
-    
-
-
-
-    <main class=" transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter md:ml-64" >
-        <!-- Page Header -->
-        <div class="col-span-1 md:col-span-12 mb-2 md:mb-md">
-            <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">build</span>
-                <h1 class="font-h2 text-2xl md:text-h2 text-primary-container tracking-tight">Crear orden de trabajo</h1>
-            </div>
-            <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Genere nuevos requerimientos de mantenimiento y suministros para la flota.</p>
-        </div>
-
-        <!-- TOP ROW: Work Order Info (Left) & Spare Parts (Right) -->
-        <div class="col-span-1 md:col-span-4 space-y-6">
-            <!-- Work Order Info -->
-            <section class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-outline-variant/30">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1 block">Orden de Trabajo</span>
-                        <h2 id="workOrderNumberDisplay" class="font-h3 text-h3 text-primary-container">OT-2026-00001</h2>
-                        <p class="text-[9px] text-red-500 font-bold mt-1 uppercase tracking-tighter">* Campos obligatorios</p>
-                    </div>
-                    <div id="orderStatusBadge" class="hidden text-[10px] font-bold uppercase tracking-widest">
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 gap-4">
-                    <div class="space-y-1">
-                        <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">calendar_today</span> Fecha/Hora
-                        </span>
-                        <p id="currentDateTimeDisplay" class="font-body-sm text-body-sm font-semibold">Cargando...</p>
-                    </div>
-                    <div class="space-y-1">
-                        <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">badge</span> Técnico <span class="text-red-500">*</span>
-                        </span>
-                        <input id="tecnicoInput" class="w-full bg-surface border border-outline-variant rounded px-2 py-1 font-body-sm text-body-sm focus:border-primary-container outline-none transition-all" placeholder="Nombre del Técnico" type="text" value=""/>
-                        <p id="errTecnico" class="text-red-500 text-xs hidden font-semibold">**Este campo es obligatorio</p>
-                    </div>
-                    <div class="pt-3 border-t border-surface-variant/50">
-                        <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1 mb-1">
-                            <span class="material-symbols-outlined text-[14px]">directions_car</span> Vehículo (ID) <span class="text-red-500">*</span>
-                        </span>
-                        <div class="relative mb-1">
-                            <input id="vehiculoInput" list="vehiculosDatalist" class="w-full bg-surface border border-outline-variant rounded px-2 py-2 font-body-md text-body-md font-bold tracking-wider text-primary focus:border-primary-container outline-none transition-all" placeholder="Escriba o seleccione ID de vehículo...">
-                            <datalist id="vehiculosDatalist">
-                                <option value="">Cargando vehículos...</option>
-                            </datalist>
-                        </div>
-                        <p id="errVehiculo" class="text-red-500 text-xs hidden font-semibold mb-1">**Este campo es obligatorio</p>
-                        <p class="text-xs text-on-surface-variant font-medium">VIN: <span id="vehiculoVinDisplay" class="font-mono font-bold text-primary">---</span></p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Service Detail (Below Work Order Info) -->
-            <section class="bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant space-y-4">
-                <div class="space-y-2">
-                    <label class="font-label-caps text-label-caps text-on-surface-variant">TIPO DE REPARACIÓN <span class="text-red-500">*</span></label>
-                    <div class="relative">
-                        <input id="tipoReparacionInput" list="tipoReparacionDatalist" class="w-full bg-surface border border-outline rounded-lg px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all" placeholder="Escriba o seleccione tipo de reparación...">
-                        <datalist id="tipoReparacionDatalist">
-                            <option>Cambio de Aceite y Filtros</option>
-                            <option>Revisión de Frenos</option>
-                            <option>Alineación y Balanceo</option>
-                            <option>Diagnóstico de Motor (Scanner)</option>
-                            <option>Reparación de Suspensión</option>
-                            <option>Cambio de Batería</option>
-                            <option>Mantenimiento de Aire Acondicionado</option>
-                            <option>Reparación de Transmisión</option>
-                            <option>Cambio de Luces y Sistema Eléctrico</option>
-                            <option>Reparación de Llantas / Ponchadura</option>
-                        </datalist>
-                    </div>
-                    <p id="errTipoReparacion" class="text-red-500 text-xs hidden font-semibold">**Este campo es obligatorio</p>
-                </div>
-                <button id="btnCreateRequest" class="w-full bg-primary-container text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary-container/20 mt-4">
-                    <span class="material-symbols-outlined text-[24px]">add_task</span>
-                    CREAR NUEVA SOLICITUD
-                </button>
-            </section>
-        </div>
-
-        <div class="col-span-1 md:col-span-8 space-y-6">
-            <section id="sparePartsSection" class="hidden bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant flex flex-col h-fit">
-                <div class="flex justify-between items-center mb-6">
-                    <div class="flex items-center gap-2">
-                        <h3 class="font-h3 text-h3 text-primary-container">Refacciones</h3>
-                        <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">1 ÍTEM</span>
-                    </div>
-                </div>
-
-                <!-- Spare Parts Grid -->
-                <div id="sparePartsContainer" class="space-y-3">
-                    <!-- Item 1 (The "Viñeta") -->
-                    <div class="spare-part-card bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3 relative group">
-                        <!-- Delete Button -->
-                        <button class="btn-delete-part absolute -top-2 -right-2 bg-error-container text-on-error-container p-1 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity active:scale-90 z-10">
-                            <span class="material-symbols-outlined text-[18px]">delete</span>
-                        </button>
-                        
-                        <div class="flex justify-between items-start">
-                            <div class="flex-1 mr-4">
-                                <input list="parts-datalist" class="spare-part-input w-full bg-surface border border-outline rounded-lg px-3 py-2 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all mb-2" placeholder="Escriba o seleccione refacción...">
-                                <datalist id="parts-datalist">
-                                    <option value="Filtro de Aceite">
-                                    <option value="Aceite Sintético 5W-30">
-                                    <option value="Balatas Delanteras">
-                                    <option value="Bujías (Set)">
-                                    <option value="Refrigerante 1G">
-                                    <option value="Limpiaparabrisas">
-                                    <option value="Llantas 205/55R16">
-                                    <option value="Batería 12V">
-                                </datalist>
-                                <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: <span class="sku-label">---</span></p>
-                            </div>
-                            <div class="text-right">
-                                <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
-                                <span class="rack-label font-body-sm text-body-sm font-bold text-secondary">---</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between border-t border-surface-variant pt-2">
-                            <div class="flex items-center gap-2">
-                                <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="1" min="1" oninput="if(this.value < 1) this.value = 1;"/>
-                                <span class="text-xs font-medium text-on-surface-variant">Unidad</span>
-                            </div>
-                            <div class="flex items-center gap-1 text-on-secondary-container text-[11px] font-bold bg-secondary-container/30 px-2 py-1 rounded">
-                                <span class="material-symbols-outlined text-[14px]">info</span> REQUERIDO
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Add More Button -->
-                <button id="btnAddPart" class="w-full py-3 border-2 border-dashed border-outline-variant rounded-xl flex items-center justify-center gap-2 text-on-surface-variant font-button hover:bg-surface-variant/20 transition-all">
-                    <span class="material-symbols-outlined">add_circle</span>
-                    AÑADIR NUEVA REFACCIÓN
-                </button>
-            </section>
-
-            <!-- Submit Order Button -->
-            <button id="btnSubmitOrder" class="hidden w-full bg-[#001F3F] text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-blue-500/20 mt-4">
-                <span class="material-symbols-outlined text-[24px]">send</span>
-                ENVIAR ORDEN DE TRABAJO
-            </button>
-        </div>
-    </main>
-    <!-- Footer -->
-    <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
-        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
-    </footer>
-
-    
-
-
-
-
-    
-
-
-    
-
-
-    
-    
-    
-    
-
-
-
-
-
-    <script>
-        // const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
-        // const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
-        // let supabaseClient = null;
-
-        let vehiculosData = []; // Store vehicle info for quick VIN lookup
-
-        async function fetchVehiculos() {
-            const vehiculoDatalist = document.getElementById('vehiculosDatalist');
-            const vehiculoInput = document.getElementById('vehiculoInput');
-            const vinDisplay = document.getElementById('vehiculoVinDisplay');
-            
-            if (!supabaseClient) {
-            if (!supabaseClient) {
-                const clientObj = (window.supabase && window.supabase.createClient) ? window.supabase : (typeof supabase !== 'undefined' && supabase.createClient) ? supabase : null;
-                if (clientObj) {
-                    supabaseClient = clientObj.createClient(supabaseUrl, supabaseAnonKey);
-                } else {
-                    console.error('Supabase library not found');
-                }
-            }
-            }
-
-            try {
-                const { data, error } = await supabaseClient
-                    .from('vehiculos')
-                    .select('*')
-                    .order('id', { ascending: true });
-
-                if (error) throw error;
-
-                vehiculosData = data;
-                vehiculoDatalist.innerHTML = '';
-                data.forEach(v => {
-                    const opt = document.createElement('option');
-                    opt.value = v.id;
-                    vehiculoDatalist.appendChild(opt);
-                });
-
-                vehiculoInput.addEventListener('input', (e) => {
-                    const val = e.target.value;
-                    const v = vehiculosData.find(item => item.id == val);
-                    vinDisplay.textContent = v ? (v.vin || 'N/A') : '---';
-                });
-
-            } catch (err) {
-                console.error('Error fetching vehicles:', err);
-                vehiculoDatalist.innerHTML = '<option value="">Error al cargar</option>';
-            }
-        }
-
-        function updateDateTime() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-            document.getElementById('currentDateTimeDisplay').textContent = now.toLocaleDateString('es-ES', options);
-        }
-
-        async function updateOTNumber() {
-            if (!supabaseClient) {
-                // supabaseClient already created
-            }
-            
-            try {
-                const { data, error } = await supabaseClient
-                    .from('detalle_solicitud_ot')
-                    .select('solicitud')
-                    .order('solicitud', { ascending: false })
-                    .limit(1);
-
-                if (error) throw error;
-
-                let nextNum = 1;
-                if (data && data.length > 0) {
-                    const lastOT = data[0].solicitud; // e.g. "OT-2026-00003"
-                    const parts = lastOT.split('-');
-                    if (parts.length === 3) {
-                        const lastNum = parseInt(parts[2]);
-                        if (!isNaN(lastNum)) nextNum = lastNum + 1;
-                    }
-                }
-
-                const year = new Date().getFullYear();
-                const formattedNum = nextNum.toString().padStart(5, '0');
-                const newOT = `OT-${year}-${formattedNum}`;
-                
-                document.getElementById('workOrderNumberDisplay').textContent = newOT;
-
-            } catch (err) {
-                console.error('Error fetching last OT:', err);
-                const year = new Date().getFullYear();
-                document.getElementById('workOrderNumberDisplay').textContent = `OT-${year}-00001`;
-            }
-        }
-
-        function setStatusBadge(text, colorClass) {
-            const badge = document.getElementById('orderStatusBadge');
-            if (badge) {
-                badge.textContent = text;
-                badge.className = `px-2 py-1 rounded-full text-white ${colorClass} text-[10px] font-bold uppercase tracking-widest block h-fit mt-1`;
-                badge.classList.remove('hidden');
-            }
-        }
-
-        function showTicket(entries) {
-            const modal = document.getElementById('summaryModal');
-            if (!modal) return;
-            
-            const order = entries[0];
-            
-            // Poblar campos
-            document.getElementById('ticketWO').textContent = order.solicitud;
-            document.getElementById('ticketTech').textContent = order.solicitante;
-            document.getElementById('ticketVIN').textContent = `ID: ${order.unidad} - VIN: ${order.VIN}`;
-            document.getElementById('ticketDesc').textContent = order.servicio;
-            
-            const rawDate = order.fecha ? new Date(order.fecha) : new Date();
-            document.getElementById('ticketDate').textContent = rawDate.toLocaleString('es-ES');
-
-            // Poblar repuestos
-            const partsList = document.getElementById('ticketPartsList');
-            if (partsList) {
-                partsList.innerHTML = '';
-                entries.forEach(item => {
-                    const div = document.createElement('div');
-                    div.className = 'flex justify-between items-center text-xs pb-1';
-                    div.innerHTML = `
-                        <span class="flex-1 truncate pr-2">- ${item.repuesto}</span>
-                        <span class="font-bold w-10 text-right">${item.cantidad || 1}</span>
-                    `;
-                    partsList.appendChild(div);
-                });
-            }
-
-            // Mostrar modal
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function addPartRow() {
-            const container = document.getElementById('sparePartsContainer');
-            const original = container.querySelector('.spare-part-card');
-            const clone = original.cloneNode(true);
-            
-            clone.querySelector('.spare-part-input').value = '';
-            clone.querySelector('input[type="number"]').value = '1';
-            clone.querySelector('.sku-label').textContent = '---';
-            clone.querySelector('.rack-label').textContent = '---';
-            
-            const btnDelete = clone.querySelector('.btn-delete-part');
-            btnDelete.style.opacity = '1';
-            btnDelete.addEventListener('click', () => {
-                if (container.querySelectorAll('.spare-part-card').length > 1) {
-                    clone.remove();
-                } else {
-                    alert('Debe haber al menos una refacción');
-                }
-            });
-
-            container.appendChild(clone);
-        }
-
-        async function submitOrder() {
-            const tecnico = document.getElementById('tecnicoInput').value;
-            const vehiculoId = document.getElementById('vehiculoInput').value;
-            const reparacion = document.getElementById('tipoReparacionInput').value;
-            const id_ot = document.getElementById('workOrderNumberDisplay').textContent;
-            const vin = document.getElementById('vehiculoVinDisplay').textContent;
-
-            if (!tecnico || !vehiculoId || !reparacion) {
-                alert('Por favor complete todos los campos obligatorios (Técnico, Vehículo y Reparación)');
-                return;
-            }
-
-            const cards = document.querySelectorAll('.spare-part-card');
-            const entries = [];
-            
-            cards.forEach(card => {
-                const repuesto = card.querySelector('.spare-part-input').value;
-                const cantidad = card.querySelector('input[type="number"]').value;
-                if (repuesto) {
-                    entries.push({
-                        solicitud: id_ot,
-                        fecha: new Date().toISOString(),
-                        solicitante: tecnico,
-                        unidad: vehiculoId,
-                        VIN: vin,
-                        servicio: reparacion,
-                        repuesto,
-                        cantidad: parseInt(cantidad),
-                        estado_solicitud: 'ENVIADO'
-                    });
-                }
-            });
-
-            if (entries.length === 0) {
-                alert('Añada al menos un repuesto');
-                return;
-            }
-
-            try {
-                const { error } = await supabaseClient
-                    .from('detalle_solicitud_ot')
-                    .insert(entries);
-
-                if (error) throw error;
-
-                // En lugar de alert, mostrar el ticket
-                showTicket(entries);
-            } catch (err) {
-                alert('Error al guardar: ' + err.message);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchVehiculos();
-            updateDateTime();
-            updateOTNumber();
-            
-            document.getElementById('btnAddPart').addEventListener('click', addPartRow);
-            document.getElementById('btnSubmitOrder').addEventListener('click', submitOrder);
-            
-            document.getElementById('btnCreateRequest').addEventListener('click', () => {
-                const tecnico = document.getElementById('tecnicoInput').value;
-                const vehiculoId = document.getElementById('vehiculoInput').value;
-                const reparacion = document.getElementById('tipoReparacionInput').value;
-
-                if (!tecnico || !vehiculoId || !reparacion) {
-                    alert('Complete la información de la orden primero');
-                    return;
-                }
-
-                document.getElementById('sparePartsSection').classList.remove('hidden');
-                document.getElementById('btnSubmitOrder').classList.remove('hidden');
-                document.getElementById('btnCreateRequest').classList.add('hidden');
-                setStatusBadge('EN PROCESO', 'bg-amber-500 shadow-sm shadow-amber-200');
-            });
-            
-            // Inicializar el botón de borrar de la primera fila
-            const firstDelete = document.querySelector('.btn-delete-part');
-            if (firstDelete) {
-                firstDelete.addEventListener('click', () => {
-                    const container = document.getElementById('sparePartsContainer');
-                    if (container.querySelectorAll('.spare-part-card').length > 1) {
-                        firstDelete.closest('.spare-part-card').remove();
-                    }
-                });
-            }
-        });
-    </script>
-
-    <!-- Summary Modal -->
-    <div id="summaryModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
-            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h3 class="font-bold text-slate-800 flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary">receipt_long</span>
-                    Resumen de Solicitud
-                </h3>
-                <button onclick="location.reload()" class="p-1 hover:bg-slate-200 rounded-full transition-colors">
-                    <span class="material-symbols-outlined text-slate-500">close</span>
-                </button>
-            </div>
-            
-            <div id="ticketPrintContent" class="p-6 overflow-y-auto font-mono text-sm space-y-4">
-                <!-- Ticket Header -->
-                <div class="text-center border-b border-dashed border-slate-300 pb-4">
-                    <p class="font-bold text-lg uppercase">CSM Legacy</p>
-                    <p>Crear orden de trabajo</p>
-                    <p id="ticketDate" class="text-xs text-slate-500 mt-1">--/--/---- --:--</p>
-                </div>
-
-                <!-- Main Info -->
-                <div class="space-y-1 py-2">
-                    <div class="flex justify-between"><span class="text-slate-500">ORDEN:</span> <span id="ticketWO" class="font-bold">--</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">TÉCNICO:</span> <span id="ticketTech">--</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">VEHÍCULO:</span> <span id="ticketVIN">--</span></div>
-                </div>
-
-                <!-- Service Info -->
-                <div class="border-t border-dashed border-slate-300 pt-2">
-                    <p class="text-xs font-bold text-slate-500 mb-1 uppercase tracking-widest">DETALLES DE LA ORDEN</p>
-                    <p><span class="text-slate-500">REPARACIÓN:</span> <span id="ticketDesc" class="font-bold">--</span></p>
-                </div>
-
-                <!-- Spare Parts -->
-                <div class="border-t border-dashed border-slate-300 pt-2">
-                    <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-widest">REFACCIONES / SUMINISTROS</p>
-                    <div id="ticketPartsList" class="space-y-2">
-                        <!-- Dynamic items here -->
-                    </div>
-                </div>
-
-                <!-- Footer -->
-                <div class="text-center border-t border-dashed border-slate-300 pt-4 mt-6">
-                    <p class="text-xs">*** FIN DEL REPORTE ***</p>
-                </div>
-            </div>
-
-            <div class="p-4 border-t border-slate-100 grid grid-cols-2 gap-3">
-                <button onclick="window.print()" class="bg-primary-container text-white py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
-                    <span class="material-symbols-outlined text-[20px]">print</span>
-                    IMPRIMIR
-                </button>
-                <button onclick="location.reload()" class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-200 transition-colors">
-                    <span class="material-symbols-outlined text-[20px]">check_circle</span>
-                    CONFIRMAR
-                </button>
-            </div>
-        </div>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
+    <div class="flex flex-col h-full">
+    <!-- Brand Logo -->
+    <div class="p-6 border-b border-white/5 flex justify-center items-center ">
+      <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
     </div>
 
-    <script>
-        // Spare Parts Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const btnCreateRequest = document.getElementById('btnCreateRequest');
-            const sparePartsSection = document.getElementById('sparePartsSection');
-            const sparePartsContainer = document.getElementById('sparePartsContainer');
-            const btnAddPart = document.getElementById('btnAddPart');
-            const btnSubmitOrder = document.getElementById('btnSubmitOrder');
-            const summaryModal = document.getElementById('summaryModal');
-            const btnCloseModal = document.getElementById('btnCloseModal');
-            const btnConfirmFinal = document.getElementById('btnConfirmFinal');
-            
-            // Get the badge and ensure it has the correct ID
-            let itemCountBadge = document.querySelector('#sparePartsSection span.bg-primary-container');
-            if (itemCountBadge) itemCountBadge.id = 'itemCountBadge';
+    <!-- Navigation Links -->
+    <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+      <a href="inicio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
+        <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
+      </a>
 
-            if (btnCreateRequest && sparePartsSection) {
-                btnCreateRequest.addEventListener('click', () => {
-                    sparePartsSection.classList.remove('hidden');
-                    if (btnSubmitOrder) {
-                        btnSubmitOrder.classList.remove('hidden');
-                    }
-                    btnCreateRequest.innerHTML = '<span class="material-symbols-outlined text-[24px]">check_circle</span> SOLICITUD INICIADA';
-                    btnCreateRequest.classList.replace('bg-primary-container', 'bg-emerald-600');
-                    
-                    if (window.innerWidth < 768) {
-                        sparePartsSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            }
+      <div class="pt-6 pb-2 px-4">
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
+      </div>
 
-            // Function to update item count badge
-            function updateItemCount() {
-                if (itemCountBadge && sparePartsContainer) {
-                    const count = sparePartsContainer.querySelectorAll('.spare-part-card').length;
-                    itemCountBadge.textContent = `${count} ÍTEM${count > 1 ? 'S' : ''}`;
-                }
-            }
+      <!-- Abastecimiento -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
+          <span class="font-bold">Abastecimiento</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
+        </a>
+        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
+        </a>
+        </div>
+      </div>
 
-            // Handle Dynamic Parts (Event Delegation)
-            if (sparePartsContainer) {
-                sparePartsContainer.addEventListener('click', (e) => {
-                    const btnDelete = e.target.closest('.btn-delete-part');
-                    if (btnDelete) {
-                        const card = btnDelete.closest('.spare-part-card');
-                        const allCards = sparePartsContainer.querySelectorAll('.spare-part-card');
-                        
-                        if (allCards.length > 1) {
-                            card.remove();
-                            updateItemCount();
-                        } else {
-                            // Reset last card
-                            const input = card.querySelector('.spare-part-input');
-                            if (input) input.value = '';
-                            const skuLabel = card.querySelector('.sku-label');
-                            if (skuLabel) skuLabel.textContent = '---';
-                            const rackLabel = card.querySelector('.rack-label');
-                            if (rackLabel) rackLabel.textContent = '---';
-                            const numInput = card.querySelector('input[type="number"]');
-                            if (numInput) numInput.value = 1;
-                        }
-                    }
-                });
+      <!-- Inventario -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
+          <span class="font-bold">Inventario</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Registrar Entrada de Material
+        </a>
+        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Confirmar Recepción
+        </a>
+        </div>
+      </div>
 
-                // Enforce min 1 on input event
-                sparePartsContainer.addEventListener('input', (e) => {
-                    if (e.target.type === 'number') {
-                        if (e.target.value < 1) {
-                            e.target.value = 1;
-                        }
-                    }
-                });
-            }
+      <!-- Mantenimiento -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
+          <span class="font-bold">Mantenimiento</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Crear orden de trabajo
+        </a>
+        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Historial de órdenes de trabajo
+        </a>
+        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Entrega de material a trabajo
+        </a>
+        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
+        </a>
+        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
+        </a>
+        </div>
+      </div>
 
-            // Add new part
-            if (btnAddPart && sparePartsContainer) {
-                btnAddPart.addEventListener('click', () => {
-                    const firstCard = sparePartsContainer.querySelector('.spare-part-card');
-                    if (firstCard) {
-                        const newCard = firstCard.cloneNode(true);
-                        // Reset values in clone
-                        const input = newCard.querySelector('.spare-part-input');
-                        if (input) input.value = '';
-                        const skuLabel = newCard.querySelector('.sku-label');
-                        if (skuLabel) skuLabel.textContent = '---';
-                        const rackLabel = newCard.querySelector('.rack-label');
-                        if (rackLabel) rackLabel.textContent = '---';
-                        const numInput = newCard.querySelector('input[type="number"]');
-                        if (numInput) {
-                            numInput.value = 1;
-                            numInput.min = 1;
-                        }
-                        sparePartsContainer.appendChild(newCard);
-                        updateItemCount();
-                    }
-                });
-            }
+      <div class="pt-6 pb-2 px-4">
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
+      </div>
 
-            // Modal Logic
-            if (btnSubmitOrder && summaryModal) {
-                btnSubmitOrder.addEventListener('click', () => {
-                    const tech = document.querySelector('input[placeholder="Nombre del Técnico"]').value;
-                    const vin = document.querySelector('input[placeholder="Ingrese VIN o Placa"]').value;
-                    const repairType = document.querySelector('select').value;
-                    const now = new Date().toLocaleString();
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
+          <span class="font-bold">Indicadores y Reportes</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
+        </a>
+        </div>
+      </div>
+    </nav>
 
-                    document.getElementById('ticketDate').textContent = now;
-                    document.getElementById('ticketTech').textContent = tech || 'N/A';
-                    document.getElementById('ticketVIN').textContent = vin || 'N/A';
-                    document.getElementById('ticketDesc').textContent = repairType || 'No especificada';
+    <!-- User Profile Section -->
+    <div class="p-6 bg-[#000d1a] border-t border-white/5">
+      <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
+        <div class="relative">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
+        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
+        </div>
+        <div class="flex flex-col min-w-0">
+        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white" id="userProfileName">Cargando...</span>
+        <span class="text-[9px] text-slate-500 font-bold" id="userProfileRole">Cargando...</span>
+        </div>
+        <button onclick="window.logout()" class="ml-auto text-red-300 hover:text-red-500 active:text-red-600 transition-colors p-1" title="Cerrar Sesión">
+        <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
+        </button>
+      </div>
+    </div>
+    </div>
+  
+    
+    
 
-                    const ticketPartsList = document.getElementById('ticketPartsList');
-                    ticketPartsList.innerHTML = '';
-                    const partCards = sparePartsContainer.querySelectorAll('.spare-part-card');
-                    
-                    let partsFound = false;
-                    partCards.forEach(card => {
-                        const partName = card.querySelector('.spare-part-input').value;
-                        if (partName) {
-                            partsFound = true;
-                            const qty = card.querySelector('input[type="number"]').value;
-                            const sku = card.querySelector('.sku-label').textContent;
-                            
-                            const partRow = document.createElement('div');
-                            partRow.className = 'flex justify-between items-start text-xs border-b border-slate-100 pb-1';
-                            partRow.innerHTML = `
-                                <div>
-                                    <p class="font-bold">${partName}</p>
-                                    <p class="text-[10px] text-slate-400">SKU: ${sku}</p>
-                                </div>
-                                <div class="text-right">x${qty}</div>
-                            `;
-                            ticketPartsList.appendChild(partRow);
-                        }
-                    });
+    
+    
+    
 
-                    if (!partsFound) {
-                        ticketPartsList.innerHTML = '<p class="text-slate-400 italic text-center">No se agregaron refacciones.</p>';
-                    }
-                    summaryModal.classList.remove('hidden');
-                });
-            }
+    
+    <!-- Toggle Button (Floating on the edge) -->
+    <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
+      <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+    </button>
 
-            if (btnCloseModal) {
-                btnCloseModal.addEventListener('click', () => {
-                    summaryModal.classList.add('hidden');
-                });
-            }
+    </aside>
 
-            if (btnConfirmFinal) {
-                btnConfirmFinal.addEventListener('click', () => {
-                    alert('¡Orden de trabajo enviada exitosamente!');
-                    summaryModal.classList.add('hidden');
-                    window.location.reload();
-                });
-            }
+  
+  <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
+    <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
+    <div class="flex items-center gap-4">
+      <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div class="flex items-center gap-2">
+        <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
+        <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
+      </div>
+      <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
+      <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
+      </button>
+    </div>
+    </div>
+  </header>
+
+
+
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
+
+
+  
+
+  
+
+  <!-- TopNavBar -->
+  
+  
+
+  <!-- Sidebar Overlay for Mobile -->
+  
+
+  
+  
+  
+
+
+
+  <main class=" transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin grid grid-cols-1 md:grid-cols-12 gap-gutter md:ml-64" >
+    <!-- Page Header -->
+    <div class="col-span-1 md:col-span-12 mb-2 md:mb-md">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">build</span>
+      <h1 class="font-h2 text-2xl md:text-h2 text-primary-container tracking-tight">Crear orden de trabajo</h1>
+    </div>
+    <p class="font-body-md text-sm md:text-body-md text-on-surface-variant mt-sm">Genere nuevos requerimientos de mantenimiento y suministros para la flota.</p>
+    </div>
+
+    <!-- TOP ROW: Work Order Info (Left) & Spare Parts (Right) -->
+    <div class="col-span-1 md:col-span-4 space-y-6">
+    <!-- Work Order Info -->
+    <section class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_4px_12px_rgba(0,31,63,0.05)] border border-outline-variant/30">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1 block">Orden de Trabajo</span>
+        <h2 id="workOrderNumberDisplay" class="font-h3 text-h3 text-primary-container">OT-2026-00001</h2>
+        <p class="text-[9px] text-red-500 font-bold mt-1 uppercase tracking-tighter">* Campos obligatorios</p>
+        </div>
+        <div id="orderStatusBadge" class="hidden text-[10px] font-bold uppercase tracking-widest">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-4">
+        <div class="space-y-1">
+        <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">calendar_today</span> Fecha/Hora
+        </span>
+        <p id="currentDateTimeDisplay" class="font-body-sm text-body-sm font-semibold">Cargando...</p>
+        </div>
+        <div class="space-y-1">
+        <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">badge</span> Técnico <span class="text-red-500">*</span>
+        </span>
+        <input id="tecnicoInput" class="w-full bg-surface border border-outline-variant rounded px-2 py-1 font-body-sm text-body-sm focus:border-primary-container outline-none transition-all" placeholder="Nombre del Técnico" type="text" value=""/>
+        <p id="errTecnico" class="text-red-500 text-xs hidden font-semibold">**Este campo es obligatorio</p>
+        </div>
+        <div class="pt-3 border-t border-surface-variant/50">
+        <span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1 mb-1">
+          <span class="material-symbols-outlined text-[14px]">directions_car</span> Vehículo (ID) <span class="text-red-500">*</span>
+        </span>
+        <div class="relative mb-1">
+          <input id="vehiculoInput" list="vehiculosDatalist" class="w-full bg-surface border border-outline-variant rounded px-2 py-2 font-body-md text-body-md font-bold tracking-wider text-primary focus:border-primary-container outline-none transition-all" placeholder="Escriba o seleccione ID de vehículo...">
+          <datalist id="vehiculosDatalist">
+            <option value="">Cargando vehículos...</option>
+          </datalist>
+        </div>
+        <p id="errVehiculo" class="text-red-500 text-xs hidden font-semibold mb-1">**Este campo es obligatorio</p>
+        <p class="text-xs text-on-surface-variant font-medium">VIN: <span id="vehiculoVinDisplay" class="font-mono font-bold text-primary">---</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Detail (Below Work Order Info) -->
+    <section class="bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant space-y-4">
+      <div class="space-y-2">
+        <label class="font-label-caps text-label-caps text-on-surface-variant">TIPO DE REPARACIÓN <span class="text-red-500">*</span></label>
+        <div class="relative">
+        <input id="tipoReparacionInput" list="tipoReparacionDatalist" class="w-full bg-surface border border-outline rounded-lg px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all" placeholder="Escriba o seleccione tipo de reparación...">
+        <datalist id="tipoReparacionDatalist">
+          <option>Cambio de Aceite y Filtros</option>
+          <option>Revisión de Frenos</option>
+          <option>Alineación y Balanceo</option>
+          <option>Diagnóstico de Motor (Scanner)</option>
+          <option>Reparación de Suspensión</option>
+          <option>Cambio de Batería</option>
+          <option>Mantenimiento de Aire Acondicionado</option>
+          <option>Reparación de Transmisión</option>
+          <option>Cambio de Luces y Sistema Eléctrico</option>
+          <option>Reparación de Llantas / Ponchadura</option>
+        </datalist>
+        </div>
+        <p id="errTipoReparacion" class="text-red-500 text-xs hidden font-semibold">**Este campo es obligatorio</p>
+      </div>
+      <button id="btnCreateRequest" class="w-full bg-primary-container text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary-container/20 mt-4">
+        <span class="material-symbols-outlined text-[24px]">add_task</span>
+        CREAR NUEVA SOLICITUD
+      </button>
+    </section>
+    </div>
+
+    <div class="col-span-1 md:col-span-8 space-y-6">
+    <section id="sparePartsSection" class="hidden bg-surface-container-lowest rounded-xl p-lg shadow-soft border border-surface-variant flex flex-col h-fit">
+      <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-2">
+        <h3 class="font-h3 text-h3 text-primary-container">Refacciones</h3>
+        <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">1 ÍTEM</span>
+        </div>
+      </div>
+
+      <!-- Spare Parts Grid -->
+      <div id="sparePartsContainer" class="space-y-3">
+        <!-- Item 1 (The "Viñeta") -->
+        <div class="spare-part-card bg-white border border-outline-variant/50 rounded-xl p-3 shadow-sm flex flex-col gap-3 relative group">
+        <!-- Delete Button -->
+        <button class="btn-delete-part absolute -top-2 -right-2 bg-error-container text-on-error-container p-1 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity active:scale-90 z-10">
+          <span class="material-symbols-outlined text-[18px]">delete</span>
+        </button>
+        
+        <div class="flex justify-between items-start">
+          <div class="flex-1 mr-4">
+            <input list="parts-datalist" class="spare-part-input w-full bg-surface border border-outline rounded-lg px-3 py-2 font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all mb-2" placeholder="Escriba o seleccione refacción...">
+            <datalist id="parts-datalist">
+            <option value="Filtro de Aceite">
+            <option value="Aceite Sintético 5W-30">
+            <option value="Balatas Delanteras">
+            <option value="Bujías (Set)">
+            <option value="Refrigerante 1G">
+            <option value="Limpiaparabrisas">
+            <option value="Llantas 205/55R16">
+            <option value="Batería 12V">
+            </datalist>
+            <p class="text-[10px] text-on-surface-variant font-mono uppercase">SKU: <span class="sku-label">---</span></p>
+          </div>
+          <div class="text-right">
+            <span class="font-label-caps text-[10px] text-on-surface-variant block uppercase">Rack</span>
+            <span class="rack-label font-body-sm text-body-sm font-bold text-secondary">---</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between border-t border-surface-variant pt-2">
+          <div class="flex items-center gap-2">
+            <input class="w-16 border-outline rounded-lg text-center font-bold py-1" type="number" value="1" min="1" oninput="if(this.value < 1) this.value = 1;"/>
+            <span class="text-xs font-medium text-on-surface-variant">Unidad</span>
+          </div>
+          <div class="flex items-center gap-1 text-on-secondary-container text-[11px] font-bold bg-secondary-container/30 px-2 py-1 rounded">
+            <span class="material-symbols-outlined text-[14px]">info</span> REQUERIDO
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Add More Button -->
+      <button id="btnAddPart" class="w-full py-3 border-2 border-dashed border-outline-variant rounded-xl flex items-center justify-center gap-2 text-on-surface-variant font-button hover:bg-surface-variant/20 transition-all">
+        <span class="material-symbols-outlined">add_circle</span>
+        AÑADIR NUEVA REFACCIÓN
+      </button>
+    </section>
+
+    <!-- Submit Order Button -->
+    <button id="btnSubmitOrder" class="hidden w-full bg-[#001F3F] text-white py-4 rounded-xl font-button text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-blue-500/20 mt-4">
+      <span class="material-symbols-outlined text-[24px]">send</span>
+      ENVIAR ORDEN DE TRABAJO
+    </button>
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
+    <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
+  </footer>
+
+  
+
+
+
+
+  
+
+
+  
+
+
+  
+  
+  
+  
+
+
+
+
+
+  <script>
+    // const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+    // const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
+    // let supabaseClient = null;
+
+    let vehiculosData = []; // Store vehicle info for quick VIN lookup
+
+    async function fetchVehiculos() {
+    const vehiculoDatalist = document.getElementById('vehiculosDatalist');
+    const vehiculoInput = document.getElementById('vehiculoInput');
+    const vinDisplay = document.getElementById('vehiculoVinDisplay');
+    
+    if (!supabaseClient) {
+    if (!supabaseClient) {
+      const clientObj = (window.supabase && window.supabase.createClient) ? window.supabase : (typeof supabase !== 'undefined' && supabase.createClient) ? supabase : null;
+      if (clientObj) {
+        supabaseClient = clientObj.createClient(supabaseUrl, supabaseAnonKey);
+      } else {
+        console.error('Supabase library not found');
+      }
+    }
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from('vehiculos')
+        .select('*')
+        .order('id', { ascending: true });
+
+      if (error) throw error;
+
+      vehiculosData = data;
+      vehiculoDatalist.innerHTML = '';
+      data.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.id;
+        vehiculoDatalist.appendChild(opt);
+      });
+
+      vehiculoInput.addEventListener('input', (e) => {
+        const val = e.target.value;
+        const v = vehiculosData.find(item => item.id == val);
+        vinDisplay.textContent = v ? (v.vin || 'N/A') : '---';
+      });
+
+    } catch (err) {
+      console.error('Error fetching vehicles:', err);
+      vehiculoDatalist.innerHTML = '<option value="">Error al cargar</option>';
+    }
+    }
+
+    function updateDateTime() {
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    document.getElementById('currentDateTimeDisplay').textContent = now.toLocaleDateString('es-ES', options);
+    }
+
+    async function updateOTNumber() {
+    if (!supabaseClient) {
+      // supabaseClient already created
+    }
+    
+    try {
+      const { data, error } = await supabaseClient
+        .from('detalle_solicitud_ot')
+        .select('solicitud')
+        .order('solicitud', { ascending: false })
+        .limit(1);
+
+      if (error) throw error;
+
+      let nextNum = 1;
+      if (data && data.length > 0) {
+        const lastOT = data[0].solicitud; // e.g. "OT-2026-00003"
+        const parts = lastOT.split('-');
+        if (parts.length === 3) {
+        const lastNum = parseInt(parts[2]);
+        if (!isNaN(lastNum)) nextNum = lastNum + 1;
+        }
+      }
+
+      const year = new Date().getFullYear();
+      const formattedNum = nextNum.toString().padStart(5, '0');
+      const newOT = `OT-${year}-${formattedNum}`;
+      
+      document.getElementById('workOrderNumberDisplay').textContent = newOT;
+
+    } catch (err) {
+      console.error('Error fetching last OT:', err);
+      const year = new Date().getFullYear();
+      document.getElementById('workOrderNumberDisplay').textContent = `OT-${year}-00001`;
+    }
+    }
+
+    function setStatusBadge(text, colorClass) {
+    const badge = document.getElementById('orderStatusBadge');
+    if (badge) {
+      badge.textContent = text;
+      badge.className = `px-2 py-1 rounded-full text-white ${colorClass} text-[10px] font-bold uppercase tracking-widest block h-fit mt-1`;
+      badge.classList.remove('hidden');
+    }
+    }
+
+    function showTicket(entries) {
+    const modal = document.getElementById('summaryModal');
+    if (!modal) return;
+    
+    const order = entries[0];
+    
+    // Poblar campos
+    document.getElementById('ticketWO').textContent = order.solicitud;
+    document.getElementById('ticketTech').textContent = order.solicitante;
+    document.getElementById('ticketVIN').textContent = `ID: ${order.unidad} - VIN: ${order.VIN}`;
+    document.getElementById('ticketDesc').textContent = order.servicio;
+    
+    const rawDate = order.fecha ? new Date(order.fecha) : new Date();
+    document.getElementById('ticketDate').textContent = rawDate.toLocaleString('es-ES');
+
+    // Poblar repuestos
+    const partsList = document.getElementById('ticketPartsList');
+    if (partsList) {
+      partsList.innerHTML = '';
+      entries.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'flex justify-between items-center text-xs pb-1';
+        div.innerHTML = `
+        <span class="flex-1 truncate pr-2">- ${item.repuesto}</span>
+        <span class="font-bold w-10 text-right">${item.cantidad || 1}</span>
+        `;
+        partsList.appendChild(div);
+      });
+    }
+
+    // Mostrar modal
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    }
+
+    function addPartRow() {
+    const container = document.getElementById('sparePartsContainer');
+    const original = container.querySelector('.spare-part-card');
+    const clone = original.cloneNode(true);
+    
+    clone.querySelector('.spare-part-input').value = '';
+    clone.querySelector('input[type="number"]').value = '1';
+    clone.querySelector('.sku-label').textContent = '---';
+    clone.querySelector('.rack-label').textContent = '---';
+    
+    const btnDelete = clone.querySelector('.btn-delete-part');
+    btnDelete.style.opacity = '1';
+    btnDelete.addEventListener('click', () => {
+      if (container.querySelectorAll('.spare-part-card').length > 1) {
+        clone.remove();
+      } else {
+        alert('Debe haber al menos una refacción');
+      }
+    });
+
+    container.appendChild(clone);
+    }
+
+    async function submitOrder() {
+    const tecnico = document.getElementById('tecnicoInput').value;
+    const vehiculoId = document.getElementById('vehiculoInput').value;
+    const reparacion = document.getElementById('tipoReparacionInput').value;
+    const id_ot = document.getElementById('workOrderNumberDisplay').textContent;
+    const vin = document.getElementById('vehiculoVinDisplay').textContent;
+
+    if (!tecnico || !vehiculoId || !reparacion) {
+      alert('Por favor complete todos los campos obligatorios (Técnico, Vehículo y Reparación)');
+      return;
+    }
+
+    const cards = document.querySelectorAll('.spare-part-card');
+    const entries = [];
+    
+    cards.forEach(card => {
+      const repuesto = card.querySelector('.spare-part-input').value;
+      const cantidad = card.querySelector('input[type="number"]').value;
+      if (repuesto) {
+        entries.push({
+        solicitud: id_ot,
+        fecha: new Date().toISOString(),
+        solicitante: tecnico,
+        unidad: vehiculoId,
+        VIN: vin,
+        servicio: reparacion,
+        repuesto,
+        cantidad: parseInt(cantidad),
+        estado_solicitud: 'ENVIADO'
         });
-    </script>
-    <script>
-        (function() {
-            const btnToggle = document.getElementById('btnSidebarToggle');
-            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            const header = document.querySelector('header');
-            const main = document.querySelector('main');
-            const toggleIcon = document.getElementById('toggleIcon');
+      }
+    });
 
-            // Disable transitions temporarily to avoid animation on load
-            sidebar.style.transition = 'none';
-            if (header) header.style.transition = 'none';
-            if (main) main.style.transition = 'none';
+    if (entries.length === 0) {
+      alert('Añada al menos un repuesto');
+      return;
+    }
 
-            const toggleSidebar = (manual = true) => {
-                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
-                
-                if (isCurrentlyCollapsed) {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                    if (window.innerWidth >= 768) {
-                        if (header) header.classList.add('md:pl-64');
-                        if (main) main.classList.add('md:ml-64');
-                    } else {
-                        if (overlay) overlay.classList.remove('hidden');
-                    }
-                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
-                } else {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
-                    if (overlay) overlay.classList.add('hidden');
-                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
-                }
-            };
+    try {
+      const { error } = await supabaseClient
+        .from('detalle_solicitud_ot')
+        .insert(entries);
 
-            // Restore sidebar state
-            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
-            if (window.innerWidth >= 768) {
-                if (isSidebarCollapsed === 'true') {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                } else {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
-                    if (header) header.classList.add('md:pl-64');
-                    if (main) main.classList.add('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                }
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('md:translate-x-0');
-                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+      if (error) throw error;
+
+      // En lugar de alert, mostrar el ticket
+      showTicket(entries);
+    } catch (err) {
+      alert('Error al guardar: ' + err.message);
+    }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+    fetchVehiculos();
+    updateDateTime();
+    updateOTNumber();
+    
+    document.getElementById('btnAddPart').addEventListener('click', addPartRow);
+    document.getElementById('btnSubmitOrder').addEventListener('click', submitOrder);
+    
+    document.getElementById('btnCreateRequest').addEventListener('click', () => {
+      const tecnico = document.getElementById('tecnicoInput').value;
+      const vehiculoId = document.getElementById('vehiculoInput').value;
+      const reparacion = document.getElementById('tipoReparacionInput').value;
+
+      if (!tecnico || !vehiculoId || !reparacion) {
+        alert('Complete la información de la orden primero');
+        return;
+      }
+
+      document.getElementById('sparePartsSection').classList.remove('hidden');
+      document.getElementById('btnSubmitOrder').classList.remove('hidden');
+      document.getElementById('btnCreateRequest').classList.add('hidden');
+      setStatusBadge('EN PROCESO', 'bg-amber-500 shadow-sm shadow-amber-200');
+    });
+    
+    // Inicializar el botón de borrar de la primera fila
+    const firstDelete = document.querySelector('.btn-delete-part');
+    if (firstDelete) {
+      firstDelete.addEventListener('click', () => {
+        const container = document.getElementById('sparePartsContainer');
+        if (container.querySelectorAll('.spare-part-card').length > 1) {
+        firstDelete.closest('.spare-part-card').remove();
+        }
+      });
+    }
+    });
+  </script>
+
+  <!-- Summary Modal -->
+  <div id="summaryModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
+    <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+      <h3 class="font-bold text-slate-800 flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary">receipt_long</span>
+        Resumen de Solicitud
+      </h3>
+      <button onclick="location.reload()" class="p-1 hover:bg-slate-200 rounded-full transition-colors">
+        <span class="material-symbols-outlined text-slate-500">close</span>
+      </button>
+    </div>
+    
+    <div id="ticketPrintContent" class="p-6 overflow-y-auto font-mono text-sm space-y-4">
+      <!-- Ticket Header -->
+      <div class="text-center border-b border-dashed border-slate-300 pb-4">
+        <p class="font-bold text-lg uppercase">CSM Legacy</p>
+        <p>Crear orden de trabajo</p>
+        <p id="ticketDate" class="text-xs text-slate-500 mt-1">--/--/---- --:--</p>
+      </div>
+
+      <!-- Main Info -->
+      <div class="space-y-1 py-2">
+        <div class="flex justify-between"><span class="text-slate-500">ORDEN:</span> <span id="ticketWO" class="font-bold">--</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">TÉCNICO:</span> <span id="ticketTech">--</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">VEHÍCULO:</span> <span id="ticketVIN">--</span></div>
+      </div>
+
+      <!-- Service Info -->
+      <div class="border-t border-dashed border-slate-300 pt-2">
+        <p class="text-xs font-bold text-slate-500 mb-1 uppercase tracking-widest">DETALLES DE LA ORDEN</p>
+        <p><span class="text-slate-500">REPARACIÓN:</span> <span id="ticketDesc" class="font-bold">--</span></p>
+      </div>
+
+      <!-- Spare Parts -->
+      <div class="border-t border-dashed border-slate-300 pt-2">
+        <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-widest">REFACCIONES / SUMINISTROS</p>
+        <div id="ticketPartsList" class="space-y-2">
+        <!-- Dynamic items here -->
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-center border-t border-dashed border-slate-300 pt-4 mt-6">
+        <p class="text-xs">*** FIN DEL REPORTE ***</p>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-100 grid grid-cols-2 gap-3">
+      <button onclick="window.print()" class="bg-primary-container text-white py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
+        <span class="material-symbols-outlined text-[20px]">print</span>
+        IMPRIMIR
+      </button>
+      <button onclick="location.reload()" class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-button flex items-center justify-center gap-2 hover:bg-slate-200 transition-colors">
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        CONFIRMAR
+      </button>
+    </div>
+    </div>
+  </div>
+
+  <script>
+    // Spare Parts Logic
+    document.addEventListener('DOMContentLoaded', () => {
+    const btnCreateRequest = document.getElementById('btnCreateRequest');
+    const sparePartsSection = document.getElementById('sparePartsSection');
+    const sparePartsContainer = document.getElementById('sparePartsContainer');
+    const btnAddPart = document.getElementById('btnAddPart');
+    const btnSubmitOrder = document.getElementById('btnSubmitOrder');
+    const summaryModal = document.getElementById('summaryModal');
+    const btnCloseModal = document.getElementById('btnCloseModal');
+    const btnConfirmFinal = document.getElementById('btnConfirmFinal');
+    
+    // Get the badge and ensure it has the correct ID
+    let itemCountBadge = document.querySelector('#sparePartsSection span.bg-primary-container');
+    if (itemCountBadge) itemCountBadge.id = 'itemCountBadge';
+
+    if (btnCreateRequest && sparePartsSection) {
+      btnCreateRequest.addEventListener('click', () => {
+        sparePartsSection.classList.remove('hidden');
+        if (btnSubmitOrder) {
+        btnSubmitOrder.classList.remove('hidden');
+        }
+        btnCreateRequest.innerHTML = '<span class="material-symbols-outlined text-[24px]">check_circle</span> SOLICITUD INICIADA';
+        btnCreateRequest.classList.replace('bg-primary-container', 'bg-emerald-600');
+        
+        if (window.innerWidth < 768) {
+        sparePartsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+
+    // Function to update item count badge
+    function updateItemCount() {
+      if (itemCountBadge && sparePartsContainer) {
+        const count = sparePartsContainer.querySelectorAll('.spare-part-card').length;
+        itemCountBadge.textContent = `${count} ÍTEM${count > 1 ? 'S' : ''}`;
+      }
+    }
+
+    // Handle Dynamic Parts (Event Delegation)
+    if (sparePartsContainer) {
+      sparePartsContainer.addEventListener('click', (e) => {
+        const btnDelete = e.target.closest('.btn-delete-part');
+        if (btnDelete) {
+        const card = btnDelete.closest('.spare-part-card');
+        const allCards = sparePartsContainer.querySelectorAll('.spare-part-card');
+        
+        if (allCards.length > 1) {
+          card.remove();
+          updateItemCount();
+        } else {
+          // Reset last card
+          const input = card.querySelector('.spare-part-input');
+          if (input) input.value = '';
+          const skuLabel = card.querySelector('.sku-label');
+          if (skuLabel) skuLabel.textContent = '---';
+          const rackLabel = card.querySelector('.rack-label');
+          if (rackLabel) rackLabel.textContent = '---';
+          const numInput = card.querySelector('input[type="number"]');
+          if (numInput) numInput.value = 1;
+        }
+        }
+      });
+
+      // Enforce min 1 on input event
+      sparePartsContainer.addEventListener('input', (e) => {
+        if (e.target.type === 'number') {
+        if (e.target.value < 1) {
+          e.target.value = 1;
+        }
+        }
+      });
+    }
+
+    // Add new part
+    if (btnAddPart && sparePartsContainer) {
+      btnAddPart.addEventListener('click', () => {
+        const firstCard = sparePartsContainer.querySelector('.spare-part-card');
+        if (firstCard) {
+        const newCard = firstCard.cloneNode(true);
+        // Reset values in clone
+        const input = newCard.querySelector('.spare-part-input');
+        if (input) input.value = '';
+        const skuLabel = newCard.querySelector('.sku-label');
+        if (skuLabel) skuLabel.textContent = '---';
+        const rackLabel = newCard.querySelector('.rack-label');
+        if (rackLabel) rackLabel.textContent = '---';
+        const numInput = newCard.querySelector('input[type="number"]');
+        if (numInput) {
+          numInput.value = 1;
+          numInput.min = 1;
+        }
+        sparePartsContainer.appendChild(newCard);
+        updateItemCount();
+        }
+      });
+    }
+
+    // Modal Logic
+    if (btnSubmitOrder && summaryModal) {
+      btnSubmitOrder.addEventListener('click', () => {
+        const tech = document.querySelector('input[placeholder="Nombre del Técnico"]').value;
+        const vin = document.querySelector('input[placeholder="Ingrese VIN o Placa"]').value;
+        const repairType = document.querySelector('select').value;
+        const now = new Date().toLocaleString();
+
+        document.getElementById('ticketDate').textContent = now;
+        document.getElementById('ticketTech').textContent = tech || 'N/A';
+        document.getElementById('ticketVIN').textContent = vin || 'N/A';
+        document.getElementById('ticketDesc').textContent = repairType || 'No especificada';
+
+        const ticketPartsList = document.getElementById('ticketPartsList');
+        ticketPartsList.innerHTML = '';
+        const partCards = sparePartsContainer.querySelectorAll('.spare-part-card');
+        
+        let partsFound = false;
+        partCards.forEach(card => {
+        const partName = card.querySelector('.spare-part-input').value;
+        if (partName) {
+          partsFound = true;
+          const qty = card.querySelector('input[type="number"]').value;
+          const sku = card.querySelector('.sku-label').textContent;
+          
+          const partRow = document.createElement('div');
+          partRow.className = 'flex justify-between items-start text-xs border-b border-slate-100 pb-1';
+          partRow.innerHTML = `
+            <div>
+            <p class="font-bold">${partName}</p>
+            <p class="text-[10px] text-slate-400">SKU: ${sku}</p>
+            </div>
+            <div class="text-right">x${qty}</div>
+          `;
+          ticketPartsList.appendChild(partRow);
+        }
+        });
+
+        if (!partsFound) {
+        ticketPartsList.innerHTML = '<p class="text-slate-400 italic text-center">No se agregaron refacciones.</p>';
+        }
+        summaryModal.classList.remove('hidden');
+      });
+    }
+
+    if (btnCloseModal) {
+      btnCloseModal.addEventListener('click', () => {
+        summaryModal.classList.add('hidden');
+      });
+    }
+
+    if (btnConfirmFinal) {
+      btnConfirmFinal.addEventListener('click', () => {
+        alert('¡Orden de trabajo enviada exitosamente!');
+        summaryModal.classList.add('hidden');
+        window.location.reload();
+      });
+    }
+    });
+  </script>
+  <script>
+    (function() {
+    const btnToggle = document.getElementById('btnSidebarToggle');
+    const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const header = document.querySelector('header');
+    const main = document.querySelector('main');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    // Disable transitions temporarily to avoid animation on load
+    sidebar.style.transition = 'none';
+    if (header) header.style.transition = 'none';
+    if (main) main.style.transition = 'none';
+
+    const toggleSidebar = (manual = true) => {
+      const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
+      
+      if (isCurrentlyCollapsed) {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('md:translate-x-0');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+        if (window.innerWidth >= 768) {
+        if (header) header.classList.add('md:pl-64');
+        if (main) main.classList.add('md:ml-64');
+        } else {
+        if (overlay) overlay.classList.remove('hidden');
+        }
+        if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('md:translate-x-0');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+        if (header) header.classList.remove('md:pl-64');
+        if (main) main.classList.remove('md:ml-64');
+        if (overlay) overlay.classList.add('hidden');
+        if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
+      }
+    };
+
+    // Restore sidebar state
+    const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
+    if (window.innerWidth >= 768) {
+      if (isSidebarCollapsed === 'true') {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('md:translate-x-0');
+        if (header) header.classList.remove('md:pl-64');
+        if (main) main.classList.remove('md:ml-64');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+      } else {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('md:translate-x-0');
+        if (header) header.classList.add('md:pl-64');
+        if (main) main.classList.add('md:ml-64');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+      }
+    } else {
+      sidebar.classList.add('-translate-x-full');
+      sidebar.classList.remove('md:translate-x-0');
+      if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+    }
+
+    // Restore submenus
+    let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+    const currentFile = window.location.pathname.split('/').pop() || 'inicio.html';
+    const nav = document.querySelector('nav');
+
+    if (nav) {
+      // Auto-open submenu containing current page and highlight link
+      const allLinks = nav.querySelectorAll('a');
+      allLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentFile || (currentFile === '' && href === 'inicio.html')) {
+        // Highlight current link
+        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
+        const icon = link.querySelector('span.material-symbols-outlined');
+        if (icon) icon.classList.add('text-blue-400');
+
+        // Find parent submenu
+        const parentDiv = link.closest('div.space-y-1')?.querySelector('div');
+        if (parentDiv && parentDiv.contains(link)) {
+          const btn = parentDiv.previousElementSibling;
+          if (btn && btn.tagName === 'BUTTON') {
+            const spanTitle = btn.querySelector('.font-bold');
+            if (spanTitle) {
+            const menuId = spanTitle.textContent.trim();
+            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
             }
+          }
+        }
+        }
+      });
 
-            // Restore submenus
-            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
-            const currentFile = window.location.pathname.split('/').pop() || 'inicio.html';
-            const nav = document.querySelector('nav');
+      const submenuBtns = nav.querySelectorAll('button');
 
-            if (nav) {
-                // Auto-open submenu containing current page and highlight link
-                const allLinks = nav.querySelectorAll('a');
-                allLinks.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href === currentFile || (currentFile === '' && href === 'inicio.html')) {
-                        // Highlight current link
-                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
-                        const icon = link.querySelector('span.material-symbols-outlined');
-                        if (icon) icon.classList.add('text-blue-400');
+      const updateMenuStyles = (btn, isOpen) => {
+        const icon = btn.querySelector('.material-symbols-outlined:first-child');
+        if (!icon) return;
+        
+        const colorClasses = {
+        'group-hover:text-blue-400': 'text-blue-400',
+        'group-hover:text-emerald-400': 'text-emerald-400',
+        'group-hover:text-amber-400': 'text-amber-400',
+        'group-hover:text-purple-400': 'text-purple-400'
+        };
 
-                        // Find parent submenu
-                        const parentDiv = link.closest('div.space-y-1')?.querySelector('div');
-                        if (parentDiv && parentDiv.contains(link)) {
-                            const btn = parentDiv.previousElementSibling;
-                            if (btn && btn.tagName === 'BUTTON') {
-                                const spanTitle = btn.querySelector('.font-bold');
-                                if (spanTitle) {
-                                    const menuId = spanTitle.textContent.trim();
-                                    if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                                }
-                            }
-                        }
-                    }
-                });
+        let activeColor = null;
+        for (const [hover, active] of Object.entries(colorClasses)) {
+        if (icon.classList.contains(hover)) {
+          activeColor = active;
+          break;
+        }
+        }
 
-                const submenuBtns = nav.querySelectorAll('button');
+        if (isOpen) {
+        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+        btn.classList.remove('text-slate-300');
+        if (activeColor) {
+          icon.classList.add(activeColor);
+          icon.classList.remove('text-slate-400', 'text-slate-300');
+        }
+        } else {
+        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+        btn.classList.add('text-slate-300');
+        if (activeColor) {
+          icon.classList.remove(activeColor);
+          icon.classList.add('text-slate-400');
+        }
+        }
+      };
 
-                const updateMenuStyles = (btn, isOpen) => {
-                    const icon = btn.querySelector('.material-symbols-outlined:first-child');
-                    if (!icon) return;
-                    
-                    const colorClasses = {
-                        'group-hover:text-blue-400': 'text-blue-400',
-                        'group-hover:text-emerald-400': 'text-emerald-400',
-                        'group-hover:text-amber-400': 'text-amber-400',
-                        'group-hover:text-purple-400': 'text-purple-400'
-                    };
+      submenuBtns.forEach(btn => {
+        const spanTitle = btn.querySelector('.font-bold');
+        if (!spanTitle) return;
+        
+        const menuId = spanTitle.textContent.trim();
+        const submenuDiv = btn.nextElementSibling;
+        if (!submenuDiv) return;
 
-                    let activeColor = null;
-                    for (const [hover, active] of Object.entries(colorClasses)) {
-                        if (icon.classList.contains(hover)) {
-                            activeColor = active;
-                            break;
-                        }
-                    }
+        btn.removeAttribute('onclick');
+        if (openSubmenus.includes(menuId)) {
+        submenuDiv.classList.remove('hidden');
+        updateMenuStyles(btn, true);
+        } else {
+        submenuDiv.classList.add('hidden');
+        updateMenuStyles(btn, false);
+        }
 
-                    if (isOpen) {
-                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.remove('text-slate-300');
-                        if (activeColor) {
-                            icon.classList.add(activeColor);
-                            icon.classList.remove('text-slate-400', 'text-slate-300');
-                        }
-                    } else {
-                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.add('text-slate-300');
-                        if (activeColor) {
-                            icon.classList.remove(activeColor);
-                            icon.classList.add('text-slate-400');
-                        }
-                    }
-                };
+        btn.addEventListener('click', () => {
+        const isHidden = submenuDiv.classList.contains('hidden');
+        if (isHidden) {
+          submenuDiv.classList.remove('hidden');
+          if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+          updateMenuStyles(btn, true);
+        } else {
+          submenuDiv.classList.add('hidden');
+          openSubmenus = openSubmenus.filter(id => id !== menuId);
+          updateMenuStyles(btn, false);
+        }
+        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+        });
+      });
+      
+      // Save state
+      sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+    }
 
-                submenuBtns.forEach(btn => {
-                    const spanTitle = btn.querySelector('.font-bold');
-                    if (!spanTitle) return;
-                    
-                    const menuId = spanTitle.textContent.trim();
-                    const submenuDiv = btn.nextElementSibling;
-                    if (!submenuDiv) return;
+    // Re-enable transitions after a short delay
+    setTimeout(() => {
+      sidebar.style.transition = '';
+      if (header) header.style.transition = '';
+      if (main) main.style.transition = '';
+    }, 50);
 
-                    btn.removeAttribute('onclick');
-                    if (openSubmenus.includes(menuId)) {
-                        submenuDiv.classList.remove('hidden');
-                        updateMenuStyles(btn, true);
-                    } else {
-                        submenuDiv.classList.add('hidden');
-                        updateMenuStyles(btn, false);
-                    }
+    if (btnToggle) btnToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+    if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar();
+    });
 
-                    btn.addEventListener('click', () => {
-                        const isHidden = submenuDiv.classList.contains('hidden');
-                        if (isHidden) {
-                            submenuDiv.classList.remove('hidden');
-                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            updateMenuStyles(btn, true);
-                        } else {
-                            submenuDiv.classList.add('hidden');
-                            openSubmenus = openSubmenus.filter(id => id !== menuId);
-                            updateMenuStyles(btn, false);
-                        }
-                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-                    });
-                });
-                
-                // Save state
-                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-            }
-
-            // Re-enable transitions after a short delay
-            setTimeout(() => {
-                sidebar.style.transition = '';
-                if (header) header.style.transition = '';
-                if (main) main.style.transition = '';
-            }, 50);
-
-            if (btnToggle) btnToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-
-            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-        })();
-    </script>
+    if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
+    })();
+  </script>
 
 </body>
 </html>

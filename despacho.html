@@ -1,1032 +1,1032 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-    <title>Entrega de material a trabajo - CSM Legacy</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="auth.js"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-surface": "#1a1c1e",
-                      "surface-container": "#efedf0",
-                      "on-error-container": "#93000a",
-                      "background": "#faf9fc",
-                      "on-tertiary-fixed-variant": "#454747",
-                      "tertiary-fixed": "#e2e2e2",
-                      "error-container": "#ffdad6",
-                      "on-primary-container": "#6f88ad",
-                      "on-tertiary": "#ffffff",
-                      "on-error": "#ffffff",
-                      "surface-dim": "#dbd9dd",
-                      "surface-tint": "#476083",
-                      "inverse-primary": "#afc8f0",
-                      "on-secondary-fixed-variant": "#394857",
-                      "on-primary-fixed-variant": "#2f486a",
-                      "primary-container": "#001f3f",
-                      "on-primary-fixed": "#001c3a",
-                      "error": "#ba1a1a",
-                      "on-background": "#1a1c1e",
-                      "secondary-fixed": "#d4e4f6",
-                      "on-tertiary-fixed": "#1a1c1c",
-                      "on-primary": "#ffffff",
-                      "outline": "#74777f",
-                      "tertiary": "#040606",
-                      "surface-container-lowest": "#ffffff",
-                      "outline-variant": "#c4c6cf",
-                      "surface-container-low": "#f4f3f6",
-                      "inverse-surface": "#2f3033",
-                      "on-secondary-fixed": "#0d1d2a",
-                      "primary-fixed": "#d4e3ff",
-                      "tertiary-fixed-dim": "#c6c6c7",
-                      "on-tertiary-container": "#858687",
-                      "primary-fixed-dim": "#afc8f0",
-                      "primary": "#000613",
-                      "surface": "#faf9fc",
-                      "secondary-fixed-dim": "#b8c8da",
-                      "surface-bright": "#faf9fc",
-                      "surface-container-highest": "#e3e2e5",
-                      "secondary-container": "#d1e1f4",
-                      "inverse-on-surface": "#f2f0f3",
-                      "surface-container-high": "#e9e7eb",
-                      "tertiary-container": "#1d1f1f",
-                      "surface-variant": "#e3e2e5",
-                      "on-secondary": "#ffffff",
-                      "secondary": "#50606f",
-                      "on-secondary-container": "#556474",
-                      "on-surface-variant": "#43474e"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "base": "4px",
-                      "xl": "32px",
-                      "sm": "8px",
-                      "md": "16px",
-                      "gutter": "24px",
-                      "xs": "4px",
-                      "2xl": "48px",
-                      "lg": "24px",
-                      "margin": "32px"
-              },
-              "fontFamily": {
-                      "h1": ["Inter"],
-                      "label-caps": ["Inter"],
-                      "button": ["Inter"],
-                      "h2": ["Inter"],
-                      "body-lg": ["Inter"],
-                      "h3": ["Inter"],
-                      "body-md": ["Inter"],
-                      "body-sm": ["Inter"]
-              },
-              "fontSize": {
-                      "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                      "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
-                      "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                      "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}]
-              }
-            }
-          }
-        }
-    </script>
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100dvh;
-            -webkit-font-smoothing: antialiased;
-        }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
-        .modal-backdrop-blur { backdrop-filter: blur(8px); }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .animate-spin-icon { animation: spin 0.6s linear infinite; }
-    </style>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+  <title>Entrega de material a trabajo - CSM Legacy</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+    darkMode: "class",
+    theme: {
+    extend: {
+      "colors": {
+        "on-surface": "#1a1c1e",
+        "surface-container": "#efedf0",
+        "on-error-container": "#93000a",
+        "background": "#faf9fc",
+        "on-tertiary-fixed-variant": "#454747",
+        "tertiary-fixed": "#e2e2e2",
+        "error-container": "#ffdad6",
+        "on-primary-container": "#6f88ad",
+        "on-tertiary": "#ffffff",
+        "on-error": "#ffffff",
+        "surface-dim": "#dbd9dd",
+        "surface-tint": "#476083",
+        "inverse-primary": "#afc8f0",
+        "on-secondary-fixed-variant": "#394857",
+        "on-primary-fixed-variant": "#2f486a",
+        "primary-container": "#001f3f",
+        "on-primary-fixed": "#001c3a",
+        "error": "#ba1a1a",
+        "on-background": "#1a1c1e",
+        "secondary-fixed": "#d4e4f6",
+        "on-tertiary-fixed": "#1a1c1c",
+        "on-primary": "#ffffff",
+        "outline": "#74777f",
+        "tertiary": "#040606",
+        "surface-container-lowest": "#ffffff",
+        "outline-variant": "#c4c6cf",
+        "surface-container-low": "#f4f3f6",
+        "inverse-surface": "#2f3033",
+        "on-secondary-fixed": "#0d1d2a",
+        "primary-fixed": "#d4e3ff",
+        "tertiary-fixed-dim": "#c6c6c7",
+        "on-tertiary-container": "#858687",
+        "primary-fixed-dim": "#afc8f0",
+        "primary": "#000613",
+        "surface": "#faf9fc",
+        "secondary-fixed-dim": "#b8c8da",
+        "surface-bright": "#faf9fc",
+        "surface-container-highest": "#e3e2e5",
+        "secondary-container": "#d1e1f4",
+        "inverse-on-surface": "#f2f0f3",
+        "surface-container-high": "#e9e7eb",
+        "tertiary-container": "#1d1f1f",
+        "surface-variant": "#e3e2e5",
+        "on-secondary": "#ffffff",
+        "secondary": "#50606f",
+        "on-secondary-container": "#556474",
+        "on-surface-variant": "#43474e"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "base": "4px",
+        "xl": "32px",
+        "sm": "8px",
+        "md": "16px",
+        "gutter": "24px",
+        "xs": "4px",
+        "2xl": "48px",
+        "lg": "24px",
+        "margin": "32px"
+      },
+      "fontFamily": {
+        "h1": ["Inter"],
+        "label-caps": ["Inter"],
+        "button": ["Inter"],
+        "h2": ["Inter"],
+        "body-lg": ["Inter"],
+        "h3": ["Inter"],
+        "body-md": ["Inter"],
+        "body-sm": ["Inter"]
+      },
+      "fontSize": {
+        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+        "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
+        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}]
+      }
+    }
+    }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+    .modal-backdrop-blur { backdrop-filter: blur(8px); }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .animate-spin-icon { animation: spin 0.6s linear infinite; }
+  </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
-        <div class="flex flex-col h-full">
-            <!-- Brand Logo -->
-            <div class="p-6 border-b border-white/5 flex justify-center items-center bg-[#000d1a]">
-                <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
-            </div>
-
-            <!-- Navigation Links -->
-            <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
-                <a href="inicio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
-                    <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
-                    <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
-                </a>
-
-                <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
-                </div>
-
-                <!-- Abastecimiento -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
-                            <span class="font-bold">Abastecimiento</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
-                        </a>
-                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Inventario -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
-                            <span class="font-bold">Inventario</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Registrar Entrada de Material
-                        </a>
-                        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Confirmar Recepción
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Mantenimiento -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
-                            <span class="font-bold">Mantenimiento</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Crear orden de trabajo
-                        </a>
-                        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Historial de órdenes de trabajo
-                        </a>
-                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Entrega de material a trabajo
-                        </a>
-                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
-                        </a>
-                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
-                </div>
-
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
-                            <span class="font-bold">Indicadores y Reportes</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
-                        </a>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- User Profile Section -->
-            <div class="p-6 bg-[#000d1a] border-t border-white/5">
-                <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
-                    <div class="relative">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
-                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
-                    </div>
-                    <div class="flex flex-col min-w-0">
-                        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white" id="userProfileName">Cargando...</span>
-                        <span class="text-[9px] text-slate-500 font-bold" id="userProfileRole">Cargando...</span>
-                    </div>
-                    <button onclick="window.logout()" class="ml-auto text-red-300 hover:text-red-500 active:text-red-600 transition-colors p-1" title="Cerrar Sesión">
-                        <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    
-            
-            
-
-        
-            
-            
-
-        
-            <!-- Toggle Button (Floating on the edge) -->
-            <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
-                <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
-            </button>
-
-        </aside>
-
-    
-    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
-        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
-            <div class="flex items-center gap-4">
-                <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
-                <div class="flex items-center gap-2">
-                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
-                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
-                </div>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
-                </div>
-                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
-                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
-                    <span class="material-symbols-outlined">notifications</span>
-                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-
-
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
-
-
-    
-
-    
-
-    <!-- TopNavBar -->
-    
-    
-
-    <!-- Sidebar Overlay for Mobile -->
-    
-
-    
-    
-    
-
-
-
-    <!-- Main Content -->
-    <main class=" transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin md:ml-64" >
-        <!-- Header Info -->
-        <div class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">local_shipping</span>
-                    <h2 class="font-h2 text-h2 text-primary">Entrega de material a trabajo</h2>
-                </div>
-                <p class="font-body-md text-secondary mt-1">Gestión de salida y seguimiento de repuestos para mantenimiento.</p>
-            </div>
-            <button id="btnRefresh" onclick="refreshData()" class="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-outline-variant/30 shadow-sm hover:shadow-md transition-all active:scale-95 group w-fit">
-                <span id="refreshIcon" class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">refresh</span>
-                <span class="text-xs font-bold text-secondary group-hover:text-primary uppercase tracking-widest">Actualizar</span>
-            </button>
-        </div>
-
-        <!-- Content Grid (Asymmetric Bento) -->
-        <div id="ordersGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-            <!-- Loading state -->
-            <div class="col-span-full py-20 text-center text-secondary">
-                <span class="material-symbols-outlined animate-spin-icon text-4xl mb-2">refresh</span>
-                <p class="font-bold">Cargando órdenes desde Supabase...</p>
-            </div>
-        </div>
-    </main>
-
-    <!-- Modal de Detalles de Orden -->
-    <div id="detailsModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 modal-backdrop-blur p-4">
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh] animate-in fade-in zoom-in duration-300">
-            <!-- Modal Header -->
-            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 bg-primary-container text-white rounded-lg">
-                        <span class="material-symbols-outlined">assignment</span>
-                    </div>
-                    <div>
-                        <h3 id="modalOrderId" class="font-bold text-slate-800 text-xl">OT-XXXX-XXXX</h3>
-                        <p id="modalOrderDate" class="text-xs text-slate-500 uppercase font-bold tracking-widest mt-0.5">--/--/----</p>
-                    </div>
-                </div>
-                <button onclick="closeModal()" class="p-2 hover:bg-slate-200 rounded-full transition-colors">
-                    <span class="material-symbols-outlined text-slate-500">close</span>
-                </button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="p-6 overflow-y-auto custom-scrollbar space-y-8">
-                <!-- Info Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400">person</span>
-                            <div>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Técnico Solicitante</p>
-                                <p id="modalTech" class="font-bold text-slate-700">---</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400">local_shipping</span>
-                            <div>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Unidad</p>
-                                <p id="modalUnit" class="font-bold text-slate-700">---</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400">fingerprint</span>
-                            <div>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">VIN</p>
-                                <p id="modalVIN" class="font-bold text-slate-700 font-mono">---</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400">settings</span>
-                            <div>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Servicio / Reparación</p>
-                                <p id="modalService" class="font-bold text-slate-700">---</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Checklist Section -->
-                <div>
-                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-sm text-blue-600">checklist</span>
-                        Checklist de Repuestos para Despacho
-                    </h4>
-                    <div id="modalPartsList" class="space-y-2">
-                        <!-- Repuestos dynamic -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-                <button onclick="rejectDispatch(this)" class="px-6 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-200 transition-colors flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[20px]">close</span>
-                    Rechazar
-                </button>
-                <button onclick="confirmDispatch(this)" class="px-6 py-2.5 bg-primary-container text-white rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[20px]">check_circle</span>
-                    Confirmar Despacho
-                </button>
-            </div>
-        </div>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
+    <div class="flex flex-col h-full">
+    <!-- Brand Logo -->
+    <div class="p-6 border-b border-white/5 flex justify-center items-center ">
+      <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
     </div>
-    <!-- Footer -->
-    <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
-        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
-    </footer>
 
+    <!-- Navigation Links -->
+    <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+      <a href="inicio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
+        <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
+      </a>
 
+      <div class="pt-6 pb-2 px-4">
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
+      </div>
+
+      <!-- Abastecimiento -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
+          <span class="font-bold">Abastecimiento</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
+        </a>
+        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
+        </a>
+        </div>
+      </div>
+
+      <!-- Inventario -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
+          <span class="font-bold">Inventario</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Registrar Entrada de Material
+        </a>
+        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Confirmar Recepción
+        </a>
+        </div>
+      </div>
+
+      <!-- Mantenimiento -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
+          <span class="font-bold">Mantenimiento</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Crear orden de trabajo
+        </a>
+        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Historial de órdenes de trabajo
+        </a>
+        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Entrega de material a trabajo
+        </a>
+        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
+        </a>
+        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
+        </a>
+        </div>
+      </div>
+
+      <div class="pt-6 pb-2 px-4">
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
+      </div>
+
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
+          <span class="font-bold">Indicadores y Reportes</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
+        </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- User Profile Section -->
+    <div class="p-6 bg-[#000d1a] border-t border-white/5">
+      <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
+        <div class="relative">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
+        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
+        </div>
+        <div class="flex flex-col min-w-0">
+        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white" id="userProfileName">Cargando...</span>
+        <span class="text-[9px] text-slate-500 font-bold" id="userProfileRole">Cargando...</span>
+        </div>
+        <button onclick="window.logout()" class="ml-auto text-red-300 hover:text-red-500 active:text-red-600 transition-colors p-1" title="Cerrar Sesión">
+        <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
+        </button>
+      </div>
+    </div>
+    </div>
+  
+    
     
 
-
-
-    
-
-
-    
-
-
-    
     
     
     
 
+    
+    <!-- Toggle Button (Floating on the edge) -->
+    <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
+      <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+    </button>
+
+    </aside>
+
+  
+  <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
+    <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
+    <div class="flex items-center gap-4">
+      <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div class="flex items-center gap-2">
+        <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
+        <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
+      </div>
+      <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
+      <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
+      </button>
+    </div>
+    </div>
+  </header>
+
+
+
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
+
+
+  
+
+  
+
+  <!-- TopNavBar -->
+  
+  
+
+  <!-- Sidebar Overlay for Mobile -->
+  
+
+  
+  
+  
+
+
+
+  <!-- Main Content -->
+  <main class=" transition-all duration-300 flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-margin py-6 md:py-margin md:ml-64" >
+    <!-- Header Info -->
+    <div class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-amber-600 text-[32px] md:text-[40px]">local_shipping</span>
+        <h2 class="font-h2 text-h2 text-primary">Entrega de material a trabajo</h2>
+      </div>
+      <p class="font-body-md text-secondary mt-1">Gestión de salida y seguimiento de repuestos para mantenimiento.</p>
+    </div>
+    <button id="btnRefresh" onclick="refreshData()" class="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-outline-variant/30 shadow-sm hover:shadow-md transition-all active:scale-95 group w-fit">
+      <span id="refreshIcon" class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">refresh</span>
+      <span class="text-xs font-bold text-secondary group-hover:text-primary uppercase tracking-widest">Actualizar</span>
+    </button>
+    </div>
+
+    <!-- Content Grid (Asymmetric Bento) -->
+    <div id="ordersGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+    <!-- Loading state -->
+    <div class="col-span-full py-20 text-center text-secondary">
+      <span class="material-symbols-outlined animate-spin-icon text-4xl mb-2">refresh</span>
+      <p class="font-bold">Cargando órdenes desde Supabase...</p>
+    </div>
+    </div>
+  </main>
+
+  <!-- Modal de Detalles de Orden -->
+  <div id="detailsModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 modal-backdrop-blur p-4">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh] animate-in fade-in zoom-in duration-300">
+    <!-- Modal Header -->
+    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-primary-container text-white rounded-lg">
+        <span class="material-symbols-outlined">assignment</span>
+        </div>
+        <div>
+        <h3 id="modalOrderId" class="font-bold text-slate-800 text-xl">OT-XXXX-XXXX</h3>
+        <p id="modalOrderDate" class="text-xs text-slate-500 uppercase font-bold tracking-widest mt-0.5">--/--/----</p>
+        </div>
+      </div>
+      <button onclick="closeModal()" class="p-2 hover:bg-slate-200 rounded-full transition-colors">
+        <span class="material-symbols-outlined text-slate-500">close</span>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-6 overflow-y-auto custom-scrollbar space-y-8">
+      <!-- Info Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400">person</span>
+          <div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Técnico Solicitante</p>
+            <p id="modalTech" class="font-bold text-slate-700">---</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400">local_shipping</span>
+          <div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Unidad</p>
+            <p id="modalUnit" class="font-bold text-slate-700">---</p>
+          </div>
+        </div>
+        </div>
+        <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400">fingerprint</span>
+          <div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">VIN</p>
+            <p id="modalVIN" class="font-bold text-slate-700 font-mono">---</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400">settings</span>
+          <div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Servicio / Reparación</p>
+            <p id="modalService" class="font-bold text-slate-700">---</p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Checklist Section -->
+      <div>
+        <h4 class="text-xs font-black text-slate-800 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm text-blue-600">checklist</span>
+        Checklist de Repuestos para Despacho
+        </h4>
+        <div id="modalPartsList" class="space-y-2">
+        <!-- Repuestos dynamic -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+      <button onclick="rejectDispatch(this)" class="px-6 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-200 transition-colors flex items-center gap-2">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+        Rechazar
+      </button>
+      <button onclick="confirmDispatch(this)" class="px-6 py-2.5 bg-primary-container text-white rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        Confirmar Despacho
+      </button>
+    </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
+    <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
+  </footer>
+
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+  
+  
+  
 
 
 
 
-    <script>
-        (function() {
-            const btnToggle = document.getElementById('btnSidebarToggle');
-            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            const header = document.querySelector('header');
-            const main = document.querySelector('main');
-            const toggleIcon = document.getElementById('toggleIcon');
 
-            // Disable transitions temporarily to avoid animation on load
-            sidebar.style.transition = 'none';
-            if (header) header.style.transition = 'none';
-            if (main) main.style.transition = 'none';
+  <script>
+    (function() {
+    const btnToggle = document.getElementById('btnSidebarToggle');
+    const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const header = document.querySelector('header');
+    const main = document.querySelector('main');
+    const toggleIcon = document.getElementById('toggleIcon');
 
-            const toggleSidebar = (manual = true) => {
-                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
-                
-                if (isCurrentlyCollapsed) {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                    if (window.innerWidth >= 768) {
-                        if (header) header.classList.add('md:pl-64');
-                        if (main) main.classList.add('md:ml-64');
-                    } else {
-                        if (overlay) overlay.classList.remove('hidden');
-                    }
-                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
-                } else {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
-                    if (overlay) overlay.classList.add('hidden');
-                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
-                }
-            };
+    // Disable transitions temporarily to avoid animation on load
+    sidebar.style.transition = 'none';
+    if (header) header.style.transition = 'none';
+    if (main) main.style.transition = 'none';
 
-            // Restore sidebar state
-            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
-            if (window.innerWidth >= 768) {
-                if (isSidebarCollapsed === 'true') {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                } else {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
-                    if (header) header.classList.add('md:pl-64');
-                    if (main) main.classList.add('md:ml-64');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                }
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('md:translate-x-0');
-                if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-            }
+    const toggleSidebar = (manual = true) => {
+      const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
+      
+      if (isCurrentlyCollapsed) {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('md:translate-x-0');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+        if (window.innerWidth >= 768) {
+        if (header) header.classList.add('md:pl-64');
+        if (main) main.classList.add('md:ml-64');
+        } else {
+        if (overlay) overlay.classList.remove('hidden');
+        }
+        if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('md:translate-x-0');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+        if (header) header.classList.remove('md:pl-64');
+        if (main) main.classList.remove('md:ml-64');
+        if (overlay) overlay.classList.add('hidden');
+        if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
+      }
+    };
 
-            // Restore submenus
-            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
-            const currentFile = window.location.pathname.split('/').pop() || 'inicio.html';
-            const nav = document.querySelector('nav');
+    // Restore sidebar state
+    const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
+    if (window.innerWidth >= 768) {
+      if (isSidebarCollapsed === 'true') {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('md:translate-x-0');
+        if (header) header.classList.remove('md:pl-64');
+        if (main) main.classList.remove('md:ml-64');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+      } else {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('md:translate-x-0');
+        if (header) header.classList.add('md:pl-64');
+        if (main) main.classList.add('md:ml-64');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+      }
+    } else {
+      sidebar.classList.add('-translate-x-full');
+      sidebar.classList.remove('md:translate-x-0');
+      if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+    }
 
-            if (nav) {
-                // Auto-open submenu containing current page and highlight link
-                const allLinks = nav.querySelectorAll('a');
-                allLinks.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href === currentFile || (currentFile === '' && href === 'inicio.html')) {
-                        // Highlight current link
-                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
-                        const icon = link.querySelector('span.material-symbols-outlined');
-                        if (icon) icon.classList.add('text-blue-400');
+    // Restore submenus
+    let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+    const currentFile = window.location.pathname.split('/').pop() || 'inicio.html';
+    const nav = document.querySelector('nav');
 
-                        // Find parent submenu (the div containing the link)
-                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
-                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
-                            const btn = submenuDiv.previousElementSibling;
-                            const spanTitle = btn.querySelector('.font-bold');
-                            if (spanTitle) {
-                                const menuId = spanTitle.textContent.trim();
-                                if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            }
-                        }
-                    }
-                });
+    if (nav) {
+      // Auto-open submenu containing current page and highlight link
+      const allLinks = nav.querySelectorAll('a');
+      allLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentFile || (currentFile === '' && href === 'inicio.html')) {
+        // Highlight current link
+        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
+        const icon = link.querySelector('span.material-symbols-outlined');
+        if (icon) icon.classList.add('text-blue-400');
 
-                const submenuBtns = nav.querySelectorAll('button');
+        // Find parent submenu (the div containing the link)
+        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
+        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
+          const btn = submenuDiv.previousElementSibling;
+          const spanTitle = btn.querySelector('.font-bold');
+          if (spanTitle) {
+            const menuId = spanTitle.textContent.trim();
+            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+          }
+        }
+        }
+      });
 
-                const updateMenuStyles = (btn, isOpen) => {
-                    const icon = btn.querySelector('.material-symbols-outlined:first-child');
-                    if (!icon) return;
-                    
-                    const colorClasses = {
-                        'group-hover:text-blue-400': 'text-blue-400',
-                        'group-hover:text-emerald-400': 'text-emerald-400',
-                        'group-hover:text-amber-400': 'text-amber-400',
-                        'group-hover:text-purple-400': 'text-purple-400'
-                    };
+      const submenuBtns = nav.querySelectorAll('button');
 
-                    let activeColor = null;
-                    for (const [hover, active] of Object.entries(colorClasses)) {
-                        if (icon.classList.contains(hover)) {
-                            activeColor = active;
-                            break;
-                        }
-                    }
-
-                    if (isOpen) {
-                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.remove('text-slate-300');
-                        if (activeColor) {
-                            icon.classList.add(activeColor);
-                            icon.classList.remove('text-slate-400', 'text-slate-300');
-                        }
-                    } else {
-                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.add('text-slate-300');
-                        if (activeColor) {
-                            icon.classList.remove(activeColor);
-                            icon.classList.add('text-slate-400');
-                        }
-                    }
-                };
-
-                submenuBtns.forEach(btn => {
-                    const spanTitle = btn.querySelector('.font-bold');
-                    if (!spanTitle) return;
-                    
-                    const menuId = spanTitle.textContent.trim();
-                    const submenuDiv = btn.nextElementSibling;
-                    if (!submenuDiv) return;
-
-                    btn.removeAttribute('onclick');
-                    if (openSubmenus.includes(menuId)) {
-                        submenuDiv.classList.remove('hidden');
-                        updateMenuStyles(btn, true);
-                    } else {
-                        submenuDiv.classList.add('hidden');
-                        updateMenuStyles(btn, false);
-                    }
-
-                    btn.addEventListener('click', () => {
-                        const isHidden = submenuDiv.classList.contains('hidden');
-                        if (isHidden) {
-                            submenuDiv.classList.remove('hidden');
-                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            updateMenuStyles(btn, true);
-                        } else {
-                            submenuDiv.classList.add('hidden');
-                            openSubmenus = openSubmenus.filter(id => id !== menuId);
-                            updateMenuStyles(btn, false);
-                        }
-                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-                    });
-                });
-                
-                // Save state
-                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-            }
-
-            // Re-enable transitions after a short delay
-            setTimeout(() => {
-                sidebar.style.transition = '';
-                if (header) header.style.transition = '';
-                if (main) main.style.transition = '';
-            }, 50);
-
-            if (btnToggle) btnToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-        })();
-
-        // const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
-        // const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
-        // let supabaseClient = null;
-        let allOrders = [];
+      const updateMenuStyles = (btn, isOpen) => {
+        const icon = btn.querySelector('.material-symbols-outlined:first-child');
+        if (!icon) return;
         
-        async function refreshData() {
-            const icon = document.getElementById('refreshIcon');
-            const btn = document.getElementById('btnRefresh');
-            if (!icon || !btn) return;
+        const colorClasses = {
+        'group-hover:text-blue-400': 'text-blue-400',
+        'group-hover:text-emerald-400': 'text-emerald-400',
+        'group-hover:text-amber-400': 'text-amber-400',
+        'group-hover:text-purple-400': 'text-purple-400'
+        };
 
-            // Animación de giro
-            icon.classList.add('animate-spin-icon');
-            btn.disabled = true;
-
-            await fetchOrders();
-
-            // Detener giro y mostrar check
-            icon.classList.remove('animate-spin-icon');
-            icon.textContent = 'check_circle';
-            icon.classList.add('text-emerald-500');
-
-            // Volver al ícono original después de 1.5s
-            setTimeout(() => {
-                icon.textContent = 'refresh';
-                icon.classList.remove('text-emerald-500');
-                btn.disabled = false;
-            }, 1500);
+        let activeColor = null;
+        for (const [hover, active] of Object.entries(colorClasses)) {
+        if (icon.classList.contains(hover)) {
+          activeColor = active;
+          break;
+        }
         }
 
-        async function fetchOrders() {
-            const grid = document.getElementById('ordersGrid');
-            if (!window.supabase) return;
-            if (!supabaseClient) {
-                const clientObj = (window.supabase && window.supabase.createClient) ? window.supabase : (typeof supabase !== 'undefined' && supabase.createClient) ? supabase : null;
-                if (clientObj) {
-                    supabaseClient = clientObj.createClient(supabaseUrl, supabaseAnonKey);
-                } else {
-                    console.error('Supabase library not found');
-                }
-            }
+        if (isOpen) {
+        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+        btn.classList.remove('text-slate-300');
+        if (activeColor) {
+          icon.classList.add(activeColor);
+          icon.classList.remove('text-slate-400', 'text-slate-300');
+        }
+        } else {
+        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+        btn.classList.add('text-slate-300');
+        if (activeColor) {
+          icon.classList.remove(activeColor);
+          icon.classList.add('text-slate-400');
+        }
+        }
+      };
 
-            try {
-                const { data, error } = await supabaseClient
-                    .from('detalle_solicitud_ot')
-                    .select('*')
-                    .like('solicitud', 'OT-2026-%')
-                    .order('solicitud', { ascending: true });
+      submenuBtns.forEach(btn => {
+        const spanTitle = btn.querySelector('.font-bold');
+        if (!spanTitle) return;
+        
+        const menuId = spanTitle.textContent.trim();
+        const submenuDiv = btn.nextElementSibling;
+        if (!submenuDiv) return;
 
-                if (error) throw error;
-
-                if (!data || data.length === 0) {
-                    grid.innerHTML = `
-                        <div class="col-span-full py-20 text-center text-secondary">
-                            <span class="material-symbols-outlined text-4xl mb-2">info</span>
-                            <p>No se encontraron órdenes de trabajo para 2026.</p>
-                        </div>`;
-                    return;
-                }
-
-                // Group by solicitud
-                const grouped = new Map();
-                data.forEach(item => {
-                    if (!grouped.has(item.solicitud)) {
-                        grouped.set(item.solicitud, {
-                            id: item.solicitud,
-                            fecha: item.fecha,
-                            vin: item.VIN || 'N/A',
-                            unidad: item.unidad || 'N/A',
-                            tecnico: item.solicitante || 'Sin asignar',
-                            estado: item.estado_solicitud || 'PENDIENTE',
-                            servicio: item.servicio || 'Mantenimiento General',
-                            items: []
-                        });
-                    }
-                    if (item.repuesto) {
-                        const itemId = item.id;
-                        grouped.get(item.solicitud).items.push({
-                            nombre: item.repuesto,
-                            cantidad: item.cantidad || 1,
-                            id: itemId,
-                            checked: item.estatus === 1
-                        });
-                    }
-                });
-
-                allOrders = Array.from(grouped.values()).filter(order => {
-                    const totalItems = order.items.length;
-                    const checkedItems = order.items.filter(i => i.checked).length;
-                    const progress = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
-                    
-                    // Definir el estado visual actual basado en la misma lógica de renderizado
-                    const visualStatus = progress === 100 ? 'COMPLETO' : (progress > 0 ? 'EN PROCESO' : order.estado);
-                    
-                    // Solo mostrar 'EN PROCESO' y 'ENVIADO'
-                    return visualStatus === 'EN PROCESO' || visualStatus === 'ENVIADO';
-                });
-
-                renderOrders(allOrders);
-            } catch (err) {
-                console.error('Error fetching orders:', err);
-                grid.innerHTML = `<div class="col-span-full py-20 text-center text-red-500 font-bold">Error: ${err.message}</div>`;
-            }
+        btn.removeAttribute('onclick');
+        if (openSubmenus.includes(menuId)) {
+        submenuDiv.classList.remove('hidden');
+        updateMenuStyles(btn, true);
+        } else {
+        submenuDiv.classList.add('hidden');
+        updateMenuStyles(btn, false);
         }
 
-        function renderOrders(orders) {
-            const grid = document.getElementById('ordersGrid');
-            grid.innerHTML = orders.map(order => {
-                const totalItems = order.items.length;
-                const checkedItems = order.items.filter(i => i.checked).length;
-                const progress = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
-                const isFinalStatus = order.estado === 'COMPLETO' || order.estado === 'RECHAZADO' || progress === 100;
-
-                let statusClass = 'bg-surface-container text-on-surface-variant';
-                let progressColor = 'bg-outline';
-
-                if (progress === 100) {
-                    statusClass = 'bg-emerald-100 text-emerald-700';
-                    progressColor = 'bg-emerald-600';
-                } else if (progress > 0) {
-                    statusClass = 'bg-amber-100 text-amber-700';
-                    progressColor = 'bg-amber-600';
-                } else if (order.estado === 'RECHAZADO') {
-                    statusClass = 'bg-red-100 text-red-700';
-                    progressColor = 'bg-red-600';
-                } else if (order.estado === 'ENVIADO') {
-                    statusClass = 'bg-blue-100 text-blue-700';
-                }
-
-                const rawDate = order.fecha ? new Date(order.fecha) : new Date();
-                const dateStr = rawDate.toLocaleDateString('es-ES');
-
-                return `
-                    <div id="card-${order.id.replace(/\W/g, '_')}" class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                        <div class="p-md border-b border-outline-variant flex justify-between items-start">
-                            <div>
-                                <h3 class="font-bold text-primary text-lg">${order.id}</h3>
-                                <p class="text-body-sm text-outline">Fecha: ${dateStr}</p>
-                            </div>
-                            <span class="${statusClass} px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge">${progress === 100 ? 'COMPLETO' : (progress > 0 ? 'EN PROCESO' : order.estado)}</span>
-                        </div>
-                        <div class="p-md space-y-sm flex-grow">
-                            <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                                <span class="material-symbols-outlined text-[18px]">fingerprint</span>
-                                <span class="font-mono">VIN: ${order.vin}</span>
-                            </div>
-                            <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                                <span class="material-symbols-outlined text-[18px]">person</span>
-                                <span>Técnico: ${order.tecnico}</span>
-                            </div>
-                            <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
-                                <span class="material-symbols-outlined text-[18px]">local_shipping</span>
-                                <span>Unidad: ${order.unidad}</span>
-                            </div>
-                            <div class="mt-md">
-                                <div class="flex justify-between text-[12px] mb-1 font-semibold">
-                                    <span>Progreso Despacho</span>
-                                    <span class="progress-text">${progress}%</span>
-                                </div>
-                                <div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
-                                    <div class="${progressColor} h-full transition-all duration-500 progress-bar" style="width: ${progress}%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-md pt-0">
-                            <button class="view-details-btn w-full py-sm bg-primary-container text-white rounded-lg font-button text-button hover:opacity-90 transition-opacity flex items-center justify-center gap-xs disabled:bg-slate-300 disabled:cursor-not-allowed" 
-                                    ${isFinalStatus ? 'disabled' : ''} 
-                                    onclick="showOrderDetails('${order.id}')">
-                                Ver Detalles <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+        btn.addEventListener('click', () => {
+        const isHidden = submenuDiv.classList.contains('hidden');
+        if (isHidden) {
+          submenuDiv.classList.remove('hidden');
+          if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+          updateMenuStyles(btn, true);
+        } else {
+          submenuDiv.classList.add('hidden');
+          openSubmenus = openSubmenus.filter(id => id !== menuId);
+          updateMenuStyles(btn, false);
         }
+        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+        });
+      });
+      
+      // Save state
+      sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+    }
 
-        function showOrderDetails(orderId) {
-            const order = allOrders.find(o => o.id === orderId);
-            if (!order) return;
+    // Re-enable transitions after a short delay
+    setTimeout(() => {
+      sidebar.style.transition = '';
+      if (header) header.style.transition = '';
+      if (main) main.style.transition = '';
+    }, 50);
 
-            document.getElementById('modalOrderId').textContent = order.id;
-            const rawDate = order.fecha ? new Date(order.fecha) : new Date();
-            document.getElementById('modalOrderDate').textContent = rawDate.toLocaleString('es-ES');
-            document.getElementById('modalTech').textContent = order.tecnico;
-            document.getElementById('modalUnit').textContent = order.unidad;
-            document.getElementById('modalVIN').textContent = order.vin;
-            document.getElementById('modalService').textContent = order.servicio;
+    if (btnToggle) btnToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+    if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+    if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
+    })();
 
-            const partsList = document.getElementById('modalPartsList');
-            partsList.innerHTML = order.items.length > 0 ? order.items.map(item => `
-                <label class="flex items-center justify-between p-4 ${item.checked ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-200'} border rounded-xl cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all group">
-                    <div class="flex items-center gap-4">
-                        <div class="relative flex items-center">
-                            <input type="checkbox" ${item.checked ? 'checked' : ''} 
-                                   onchange="toggleItem(this, '${order.id}', '${item.id}')"
-                                   class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="font-bold ${item.checked ? 'text-blue-700' : 'text-slate-700'} group-hover:text-blue-700">${item.nombre}</span>
-                            <span class="text-[10px] text-slate-400 uppercase font-black tracking-widest">ID Refacción: ${item.id}</span>
-                        </div>
-                    </div>
-                    <div class="bg-white px-3 py-1 rounded-lg border border-slate-200 shadow-sm font-black text-blue-600 text-sm">
-                        x${item.cantidad}
-                    </div>
-                </label>
-            `).join('') : '<p class="text-center py-4 text-slate-400 italic">No hay repuestos registrados para esta orden.</p>';
+    // const supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
+    // const supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
+    // let supabaseClient = null;
+    let allOrders = [];
+    
+    async function refreshData() {
+    const icon = document.getElementById('refreshIcon');
+    const btn = document.getElementById('btnRefresh');
+    if (!icon || !btn) return;
 
-            const modal = document.getElementById('detailsModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
+    // Animación de giro
+    icon.classList.add('animate-spin-icon');
+    btn.disabled = true;
+
+    await fetchOrders();
+
+    // Detener giro y mostrar check
+    icon.classList.remove('animate-spin-icon');
+    icon.textContent = 'check_circle';
+    icon.classList.add('text-emerald-500');
+
+    // Volver al ícono original después de 1.5s
+    setTimeout(() => {
+      icon.textContent = 'refresh';
+      icon.classList.remove('text-emerald-500');
+      btn.disabled = false;
+    }, 1500);
+    }
+
+    async function fetchOrders() {
+    const grid = document.getElementById('ordersGrid');
+    if (!window.supabase) return;
+    if (!supabaseClient) {
+      const clientObj = (window.supabase && window.supabase.createClient) ? window.supabase : (typeof supabase !== 'undefined' && supabase.createClient) ? supabase : null;
+      if (clientObj) {
+        supabaseClient = clientObj.createClient(supabaseUrl, supabaseAnonKey);
+      } else {
+        console.error('Supabase library not found');
+      }
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from('detalle_solicitud_ot')
+        .select('*')
+        .like('solicitud', 'OT-2026-%')
+        .order('solicitud', { ascending: true });
+
+      if (error) throw error;
+
+      if (!data || data.length === 0) {
+        grid.innerHTML = `
+        <div class="col-span-full py-20 text-center text-secondary">
+          <span class="material-symbols-outlined text-4xl mb-2">info</span>
+          <p>No se encontraron órdenes de trabajo para 2026.</p>
+        </div>`;
+        return;
+      }
+
+      // Group by solicitud
+      const grouped = new Map();
+      data.forEach(item => {
+        if (!grouped.has(item.solicitud)) {
+        grouped.set(item.solicitud, {
+          id: item.solicitud,
+          fecha: item.fecha,
+          vin: item.VIN || 'N/A',
+          unidad: item.unidad || 'N/A',
+          tecnico: item.solicitante || 'Sin asignar',
+          estado: item.estado_solicitud || 'PENDIENTE',
+          servicio: item.servicio || 'Mantenimiento General',
+          items: []
+        });
         }
-
-        function toggleItem(checkbox, orderId, itemId) {
-            const order = allOrders.find(o => o.id === orderId);
-            if (!order) return;
-
-            const item = order.items.find(i => i.id == itemId);
-            if (!item) return;
-
-            item.checked = checkbox.checked;
-
-            // Update modal UI immediately (local only)
-            const label = checkbox.closest('label');
-            if (item.checked) {
-                label.classList.add('bg-blue-50', 'border-blue-200');
-                label.querySelector('span.font-bold').classList.add('text-blue-700');
-            } else {
-                label.classList.remove('bg-blue-50', 'border-blue-200');
-                label.querySelector('span.font-bold').classList.remove('text-blue-700');
-            }
-
-            // Update main grid card UI
-            updateCardUI(order);
+        if (item.repuesto) {
+        const itemId = item.id;
+        grouped.get(item.solicitud).items.push({
+          nombre: item.repuesto,
+          cantidad: item.cantidad || 1,
+          id: itemId,
+          checked: item.estatus === 1
+        });
         }
+      });
+
+      allOrders = Array.from(grouped.values()).filter(order => {
+        const totalItems = order.items.length;
+        const checkedItems = order.items.filter(i => i.checked).length;
+        const progress = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+        
+        // Definir el estado visual actual basado en la misma lógica de renderizado
+        const visualStatus = progress === 100 ? 'COMPLETO' : (progress > 0 ? 'EN PROCESO' : order.estado);
+        
+        // Solo mostrar 'EN PROCESO' y 'ENVIADO'
+        return visualStatus === 'EN PROCESO' || visualStatus === 'ENVIADO';
+      });
+
+      renderOrders(allOrders);
+    } catch (err) {
+      console.error('Error fetching orders:', err);
+      grid.innerHTML = `<div class="col-span-full py-20 text-center text-red-500 font-bold">Error: ${err.message}</div>`;
+    }
+    }
+
+    function renderOrders(orders) {
+    const grid = document.getElementById('ordersGrid');
+    grid.innerHTML = orders.map(order => {
+      const totalItems = order.items.length;
+      const checkedItems = order.items.filter(i => i.checked).length;
+      const progress = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+      const isFinalStatus = order.estado === 'COMPLETO' || order.estado === 'RECHAZADO' || progress === 100;
+
+      let statusClass = 'bg-surface-container text-on-surface-variant';
+      let progressColor = 'bg-outline';
+
+      if (progress === 100) {
+        statusClass = 'bg-emerald-100 text-emerald-700';
+        progressColor = 'bg-emerald-600';
+      } else if (progress > 0) {
+        statusClass = 'bg-amber-100 text-amber-700';
+        progressColor = 'bg-amber-600';
+      } else if (order.estado === 'RECHAZADO') {
+        statusClass = 'bg-red-100 text-red-700';
+        progressColor = 'bg-red-600';
+      } else if (order.estado === 'ENVIADO') {
+        statusClass = 'bg-blue-100 text-blue-700';
+      }
+
+      const rawDate = order.fecha ? new Date(order.fecha) : new Date();
+      const dateStr = rawDate.toLocaleDateString('es-ES');
+
+      return `
+        <div id="card-${order.id.replace(/\W/g, '_')}" class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+        <div class="p-md border-b border-outline-variant flex justify-between items-start">
+          <div>
+            <h3 class="font-bold text-primary text-lg">${order.id}</h3>
+            <p class="text-body-sm text-outline">Fecha: ${dateStr}</p>
+          </div>
+          <span class="${statusClass} px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge">${progress === 100 ? 'COMPLETO' : (progress > 0 ? 'EN PROCESO' : order.estado)}</span>
+        </div>
+        <div class="p-md space-y-sm flex-grow">
+          <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-[18px]">fingerprint</span>
+            <span class="font-mono">VIN: ${order.vin}</span>
+          </div>
+          <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-[18px]">person</span>
+            <span>Técnico: ${order.tecnico}</span>
+          </div>
+          <div class="flex items-center gap-xs text-body-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-[18px]">local_shipping</span>
+            <span>Unidad: ${order.unidad}</span>
+          </div>
+          <div class="mt-md">
+            <div class="flex justify-between text-[12px] mb-1 font-semibold">
+            <span>Progreso Despacho</span>
+            <span class="progress-text">${progress}%</span>
+            </div>
+            <div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+            <div class="${progressColor} h-full transition-all duration-500 progress-bar" style="width: ${progress}%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-md pt-0">
+          <button class="view-details-btn w-full py-sm bg-primary-container text-white rounded-lg font-button text-button hover:opacity-90 transition-opacity flex items-center justify-center gap-xs disabled:bg-slate-300 disabled:cursor-not-allowed" 
+            ${isFinalStatus ? 'disabled' : ''} 
+            onclick="showOrderDetails('${order.id}')">
+            Ver Detalles <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        </div>
+        </div>
+      `;
+    }).join('');
+    }
+
+    function showOrderDetails(orderId) {
+    const order = allOrders.find(o => o.id === orderId);
+    if (!order) return;
+
+    document.getElementById('modalOrderId').textContent = order.id;
+    const rawDate = order.fecha ? new Date(order.fecha) : new Date();
+    document.getElementById('modalOrderDate').textContent = rawDate.toLocaleString('es-ES');
+    document.getElementById('modalTech').textContent = order.tecnico;
+    document.getElementById('modalUnit').textContent = order.unidad;
+    document.getElementById('modalVIN').textContent = order.vin;
+    document.getElementById('modalService').textContent = order.servicio;
+
+    const partsList = document.getElementById('modalPartsList');
+    partsList.innerHTML = order.items.length > 0 ? order.items.map(item => `
+      <label class="flex items-center justify-between p-4 ${item.checked ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-200'} border rounded-xl cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all group">
+        <div class="flex items-center gap-4">
+        <div class="relative flex items-center">
+          <input type="checkbox" ${item.checked ? 'checked' : ''} 
+             onchange="toggleItem(this, '${order.id}', '${item.id}')"
+             class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold ${item.checked ? 'text-blue-700' : 'text-slate-700'} group-hover:text-blue-700">${item.nombre}</span>
+          <span class="text-[10px] text-slate-400 uppercase font-black tracking-widest">ID Refacción: ${item.id}</span>
+        </div>
+        </div>
+        <div class="bg-white px-3 py-1 rounded-lg border border-slate-200 shadow-sm font-black text-blue-600 text-sm">
+        x${item.cantidad}
+        </div>
+      </label>
+    `).join('') : '<p class="text-center py-4 text-slate-400 italic">No hay repuestos registrados para esta orden.</p>';
+
+    const modal = document.getElementById('detailsModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    }
+
+    function toggleItem(checkbox, orderId, itemId) {
+    const order = allOrders.find(o => o.id === orderId);
+    if (!order) return;
+
+    const item = order.items.find(i => i.id == itemId);
+    if (!item) return;
+
+    item.checked = checkbox.checked;
+
+    // Update modal UI immediately (local only)
+    const label = checkbox.closest('label');
+    if (item.checked) {
+      label.classList.add('bg-blue-50', 'border-blue-200');
+      label.querySelector('span.font-bold').classList.add('text-blue-700');
+    } else {
+      label.classList.remove('bg-blue-50', 'border-blue-200');
+      label.querySelector('span.font-bold').classList.remove('text-blue-700');
+    }
+
+    // Update main grid card UI
+    updateCardUI(order);
+    }
 
 
 
-        function updateCardUI(order) {
-            const cardId = `card-${order.id.replace(/\W/g, '_')}`;
-            const card = document.getElementById(cardId);
-            if (!card) return;
+    function updateCardUI(order) {
+    const cardId = `card-${order.id.replace(/\W/g, '_')}`;
+    const card = document.getElementById(cardId);
+    if (!card) return;
 
-            const totalItems = order.items.length;
-            const checkedItems = order.items.filter(i => i.checked).length;
-            const progress = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
-            const bar = card.querySelector('.progress-bar');
-            const text = card.querySelector('.progress-text');
-            const badge = card.querySelector('.status-badge');
-            const btn = card.querySelector('.view-details-btn');
+    const totalItems = order.items.length;
+    const checkedItems = order.items.filter(i => i.checked).length;
+    const progress = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+    const bar = card.querySelector('.progress-bar');
+    const text = card.querySelector('.progress-text');
+    const badge = card.querySelector('.status-badge');
+    const btn = card.querySelector('.view-details-btn');
 
-            text.textContent = `${progress}%`;
-            bar.style.width = `${progress}%`;
+    text.textContent = `${progress}%`;
+    bar.style.width = `${progress}%`;
 
-            const isFinal = progress === 100 || order.estado === 'RECHAZADO' || order.estado === 'COMPLETO';
-            if (btn) btn.disabled = isFinal;
+    const isFinal = progress === 100 || order.estado === 'RECHAZADO' || order.estado === 'COMPLETO';
+    if (btn) btn.disabled = isFinal;
 
-            if (order.estado === 'RECHAZADO') {
-                bar.className = 'bg-red-600 h-full transition-all duration-500 progress-bar';
-                badge.className = 'bg-red-100 text-red-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
-                badge.textContent = 'RECHAZADO';
-                bar.style.width = '100%';
-                text.textContent = 'RECHAZADO';
-            } else if (progress === 100 || order.estado === 'COMPLETO') {
-                bar.className = 'bg-emerald-600 h-full transition-all duration-500 progress-bar';
-                badge.className = 'bg-emerald-100 text-emerald-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
-                badge.textContent = 'COMPLETO';
-            } else if (progress > 0) {
-                bar.className = 'bg-amber-600 h-full transition-all duration-500 progress-bar';
-                badge.className = 'bg-amber-100 text-amber-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
-                badge.textContent = 'EN PROCESO';
-            } else {
-                bar.className = 'bg-outline h-full transition-all duration-500 progress-bar';
-                badge.className = 'bg-surface-container text-on-surface-variant px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
-                badge.textContent = order.estado;
-            }
-        }
+    if (order.estado === 'RECHAZADO') {
+      bar.className = 'bg-red-600 h-full transition-all duration-500 progress-bar';
+      badge.className = 'bg-red-100 text-red-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
+      badge.textContent = 'RECHAZADO';
+      bar.style.width = '100%';
+      text.textContent = 'RECHAZADO';
+    } else if (progress === 100 || order.estado === 'COMPLETO') {
+      bar.className = 'bg-emerald-600 h-full transition-all duration-500 progress-bar';
+      badge.className = 'bg-emerald-100 text-emerald-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
+      badge.textContent = 'COMPLETO';
+    } else if (progress > 0) {
+      bar.className = 'bg-amber-600 h-full transition-all duration-500 progress-bar';
+      badge.className = 'bg-amber-100 text-amber-700 px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
+      badge.textContent = 'EN PROCESO';
+    } else {
+      bar.className = 'bg-outline h-full transition-all duration-500 progress-bar';
+      badge.className = 'bg-surface-container text-on-surface-variant px-sm py-0.5 rounded text-[10px] font-bold uppercase status-badge';
+      badge.textContent = order.estado;
+    }
+    }
 
-        async function rejectDispatch(btn) {
-            const orderId = document.getElementById('modalOrderId').textContent;
-            const order = allOrders.find(o => o.id === orderId);
-            if (!order) return;
+    async function rejectDispatch(btn) {
+    const orderId = document.getElementById('modalOrderId').textContent;
+    const order = allOrders.find(o => o.id === orderId);
+    if (!order) return;
 
-            if (!confirm('¿Está seguro de que desea RECHAZAR esta orden de trabajo?')) return;
+    if (!confirm('¿Está seguro de que desea RECHAZAR esta orden de trabajo?')) return;
 
-            const originalContent = btn.innerHTML;
-            btn.disabled = true;
-            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Procesando...';
+    const originalContent = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Procesando...';
 
-            try {
-                const { error } = await supabaseClient
-                    .from('detalle_solicitud_ot')
-                    .update({ estado_solicitud: 'RECHAZADO' })
-                    .eq('solicitud', order.id);
+    try {
+      const { error } = await supabaseClient
+        .from('detalle_solicitud_ot')
+        .update({ estado_solicitud: 'RECHAZADO' })
+        .eq('solicitud', order.id);
 
-                if (error) throw error;
+      if (error) throw error;
 
-                console.log('¡Orden rechazada!');
-                order.estado = 'RECHAZADO';
-                updateCardUI(order);
-                
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-                closeModal();
-            } catch (err) {
-                console.error('Error al rechazar:', err);
-                alert('Error: ' + err.message);
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-            }
-        }
+      console.log('¡Orden rechazada!');
+      order.estado = 'RECHAZADO';
+      updateCardUI(order);
+      
+      btn.disabled = false;
+      btn.innerHTML = originalContent;
+      closeModal();
+    } catch (err) {
+      console.error('Error al rechazar:', err);
+      alert('Error: ' + err.message);
+      btn.disabled = false;
+      btn.innerHTML = originalContent;
+    }
+    }
 
-        function closeModal() {
-            const modal = document.getElementById('detailsModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = 'auto';
-        }
+    function closeModal() {
+    const modal = document.getElementById('detailsModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = 'auto';
+    }
 
-        async function confirmDispatch(btn) {
-            const orderId = document.getElementById('modalOrderId').textContent;
-            const order = allOrders.find(o => o.id === orderId);
-            if (!order) {
-                alert('No se pudo encontrar la orden.');
-                return;
-            }
+    async function confirmDispatch(btn) {
+    const orderId = document.getElementById('modalOrderId').textContent;
+    const order = allOrders.find(o => o.id === orderId);
+    if (!order) {
+      alert('No se pudo encontrar la orden.');
+      return;
+    }
 
-            const originalContent = btn.innerHTML;
-            btn.disabled = true;
-            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Procesando...';
+    const originalContent = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Procesando...';
 
-            try {
-                // Determinar el nuevo estado general de la solicitud
-                const totalItems = order.items.length;
-                const checkedItems = order.items.filter(i => i.checked).length;
-                let newGlobalStatus = 'PENDIENTE';
-                
-                if (checkedItems === totalItems && totalItems > 0) {
-                    newGlobalStatus = 'COMPLETO';
-                } else if (checkedItems > 0) {
-                    newGlobalStatus = 'EN PROCESO';
-                }
+    try {
+      // Determinar el nuevo estado general de la solicitud
+      const totalItems = order.items.length;
+      const checkedItems = order.items.filter(i => i.checked).length;
+      let newGlobalStatus = 'PENDIENTE';
+      
+      if (checkedItems === totalItems && totalItems > 0) {
+        newGlobalStatus = 'COMPLETO';
+      } else if (checkedItems > 0) {
+        newGlobalStatus = 'EN PROCESO';
+      }
 
-                // 1. Actualizar estatus individual de cada ítem
-                const itemUpdatePromises = order.items.map(item => 
-                    supabaseClient
-                        .from('detalle_solicitud_ot')
-                        .update({ estatus: item.checked ? 1 : 0 })
-                        .eq('id', item.id)
-                );
+      // 1. Actualizar estatus individual de cada ítem
+      const itemUpdatePromises = order.items.map(item => 
+        supabaseClient
+        .from('detalle_solicitud_ot')
+        .update({ estatus: item.checked ? 1 : 0 })
+        .eq('id', item.id)
+      );
 
-                // 2. Actualizar el estado_solicitud y fecha_finprep para TODAS las filas de esta OT
-                const updateData = { estado_solicitud: newGlobalStatus };
-                if (newGlobalStatus === 'COMPLETO') {
-                    // Guardar la fecha y hora actual en formato ISO para Supabase
-                    updateData.fecha_finprep = new Date().toISOString();
-                }
+      // 2. Actualizar el estado_solicitud y fecha_finprep para TODAS las filas de esta OT
+      const updateData = { estado_solicitud: newGlobalStatus };
+      if (newGlobalStatus === 'COMPLETO') {
+        // Guardar la fecha y hora actual en formato ISO para Supabase
+        updateData.fecha_finprep = new Date().toISOString();
+      }
 
-                const statusUpdatePromise = supabaseClient
-                    .from('detalle_solicitud_ot')
-                    .update(updateData)
-                    .eq('solicitud', order.id);
+      const statusUpdatePromise = supabaseClient
+        .from('detalle_solicitud_ot')
+        .update(updateData)
+        .eq('solicitud', order.id);
 
-                const results = await Promise.all([...itemUpdatePromises, statusUpdatePromise]);
-                
-                const errors = results.filter(r => r.error);
-                if (errors.length > 0) throw new Error(errors[0].error.message);
+      const results = await Promise.all([...itemUpdatePromises, statusUpdatePromise]);
+      
+      const errors = results.filter(r => r.error);
+      if (errors.length > 0) throw new Error(errors[0].error.message);
 
-                console.log(`¡Despacho confirmado! Estado: ${newGlobalStatus}`);
-                
-                // Actualizar estado local para reflejar en la UI
-                order.estado = newGlobalStatus;
-                updateCardUI(order);
+      console.log(`¡Despacho confirmado! Estado: ${newGlobalStatus}`);
+      
+      // Actualizar estado local para reflejar en la UI
+      order.estado = newGlobalStatus;
+      updateCardUI(order);
 
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-                
-                closeModal();
-                // Refresh the page to reflect the new filtered list
-                window.location.reload();
-            } catch (err) {
-                console.error('Error al confirmar despacho:', err);
-                alert('Error al confirmar: ' + err.message);
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-            }
-        }
+      btn.disabled = false;
+      btn.innerHTML = originalContent;
+      
+      closeModal();
+      // Refresh the page to reflect the new filtered list
+      window.location.reload();
+    } catch (err) {
+      console.error('Error al confirmar despacho:', err);
+      alert('Error al confirmar: ' + err.message);
+      btn.disabled = false;
+      btn.innerHTML = originalContent;
+    }
+    }
 
-        // Initialize
-        function initDespacho() {
-            if (typeof window.supabase !== 'undefined') {
-                fetchOrders();
-            } else {
-                setTimeout(initDespacho, 100);
-            }
-        }
-        initDespacho();
-    </script>
+    // Initialize
+    function initDespacho() {
+    if (typeof window.supabase !== 'undefined') {
+      fetchOrders();
+    } else {
+      setTimeout(initDespacho, 100);
+    }
+    }
+    initDespacho();
+  </script>
 
 </body>
 </html>

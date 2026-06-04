@@ -1,1615 +1,1615 @@
 <!DOCTYPE html>
 <html class="light" lang="es">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-    <title>Confirmar Recepción de Material - CSM Legacy</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="auth.js"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "secondary-fixed-dim": "#b8c8da",
-                        "surface-container-highest": "#e3e2e5",
-                        "surface-container-high": "#e9e7eb",
-                        "on-tertiary-fixed-variant": "#454747",
-                        "inverse-primary": "#afc8f0",
-                        "surface-bright": "#faf9fc",
-                        "tertiary-container": "#1d1f1f",
-                        "surface-container-low": "#f4f3f6",
-                        "outline-variant": "#c4c6cf",
-                        "on-background": "#1a1c1e",
-                        "surface-dim": "#dbd9dd",
-                        "surface": "#faf9fc",
-                        "on-secondary-fixed-variant": "#394857",
-                        "on-primary-fixed-variant": "#2f486a",
-                        "surface-container-lowest": "#ffffff",
-                        "tertiary": "#040606",
-                        "surface-tint": "#476083",
-                        "secondary": "#50606f",
-                        "surface-variant": "#e3e2e5",
-                        "on-error": "#ffffff",
-                        "tertiary-fixed-dim": "#c6c6c7",
-                        "inverse-on-surface": "#f2f0f3",
-                        "on-primary-container": "#6f88ad",
-                        "on-primary-fixed": "#001c3a",
-                        "primary-fixed": "#d4e3ff",
-                        "on-tertiary-container": "#858687",
-                        "outline": "#74777f",
-                        "on-secondary-fixed": "#0d1d2a",
-                        "on-secondary-container": "#556474",
-                        "on-primary": "#ffffff",
-                        "background": "#faf9fc",
-                        "surface-container": "#efedf0",
-                        "on-surface-variant": "#43474e",
-                        "on-surface": "#1a1c1e",
-                        "tertiary-fixed": "#e2e2e2",
-                        "secondary-container": "#d1e1f4",
-                        "on-error-container": "#93000a",
-                        "primary-container": "#001f3f",
-                        "error-container": "#ffdad6",
-                        "primary-fixed-dim": "#afc8f0",
-                        "on-tertiary-fixed": "#1a1c1c",
-                        "inverse-surface": "#2f3033",
-                        "on-secondary": "#ffffff",
-                        "secondary-fixed": "#d4e4f6",
-                        "on-tertiary": "#ffffff",
-                        "error": "#ba1a1a",
-                        "primary": "#000613"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "8px",
-                        "lg": "8px",
-                        "xl": "12px",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "2xl": "48px",
-                        "md": "16px",
-                        "margin": "32px",
-                        "sm": "8px",
-                        "gutter": "24px",
-                        "xs": "4px",
-                        "lg": "24px",
-                        "base": "4px",
-                        "xl": "32px"
-                    },
-                    "fontFamily": {
-                        "h2": ["Inter"],
-                        "body-sm": ["Inter"],
-                        "h3": ["Inter"],
-                        "body-md": ["Inter"],
-                        "label-caps": ["Inter"],
-                        "h1": ["Inter"],
-                        "button": ["Inter"],
-                        "body-lg": ["Inter"]
-                    },
-                    "fontSize": {
-                        "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
-                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}]
-                    }
-                },
-            },
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+  <title>Confirmar Recepción de Material - CSM Legacy</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+        "secondary-fixed-dim": "#b8c8da",
+        "surface-container-highest": "#e3e2e5",
+        "surface-container-high": "#e9e7eb",
+        "on-tertiary-fixed-variant": "#454747",
+        "inverse-primary": "#afc8f0",
+        "surface-bright": "#faf9fc",
+        "tertiary-container": "#1d1f1f",
+        "surface-container-low": "#f4f3f6",
+        "outline-variant": "#c4c6cf",
+        "on-background": "#1a1c1e",
+        "surface-dim": "#dbd9dd",
+        "surface": "#faf9fc",
+        "on-secondary-fixed-variant": "#394857",
+        "on-primary-fixed-variant": "#2f486a",
+        "surface-container-lowest": "#ffffff",
+        "tertiary": "#040606",
+        "surface-tint": "#476083",
+        "secondary": "#50606f",
+        "surface-variant": "#e3e2e5",
+        "on-error": "#ffffff",
+        "tertiary-fixed-dim": "#c6c6c7",
+        "inverse-on-surface": "#f2f0f3",
+        "on-primary-container": "#6f88ad",
+        "on-primary-fixed": "#001c3a",
+        "primary-fixed": "#d4e3ff",
+        "on-tertiary-container": "#858687",
+        "outline": "#74777f",
+        "on-secondary-fixed": "#0d1d2a",
+        "on-secondary-container": "#556474",
+        "on-primary": "#ffffff",
+        "background": "#faf9fc",
+        "surface-container": "#efedf0",
+        "on-surface-variant": "#43474e",
+        "on-surface": "#1a1c1e",
+        "tertiary-fixed": "#e2e2e2",
+        "secondary-container": "#d1e1f4",
+        "on-error-container": "#93000a",
+        "primary-container": "#001f3f",
+        "error-container": "#ffdad6",
+        "primary-fixed-dim": "#afc8f0",
+        "on-tertiary-fixed": "#1a1c1c",
+        "inverse-surface": "#2f3033",
+        "on-secondary": "#ffffff",
+        "secondary-fixed": "#d4e4f6",
+        "on-tertiary": "#ffffff",
+        "error": "#ba1a1a",
+        "primary": "#000613"
+        },
+        "borderRadius": {
+        "DEFAULT": "8px",
+        "lg": "8px",
+        "xl": "12px",
+        "full": "9999px"
+        },
+        "spacing": {
+        "2xl": "48px",
+        "md": "16px",
+        "margin": "32px",
+        "sm": "8px",
+        "gutter": "24px",
+        "xs": "4px",
+        "lg": "24px",
+        "base": "4px",
+        "xl": "32px"
+        },
+        "fontFamily": {
+        "h2": ["Inter"],
+        "body-sm": ["Inter"],
+        "h3": ["Inter"],
+        "body-md": ["Inter"],
+        "label-caps": ["Inter"],
+        "h1": ["Inter"],
+        "button": ["Inter"],
+        "body-lg": ["Inter"]
+        },
+        "fontSize": {
+        "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}]
         }
-    </script>
-    <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            min-height: 100dvh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            display: inline-block;
-            vertical-align: middle;
-            line-height: 1;
-        }
-        .soft-lift { box-shadow: 0px 4px 12px rgba(0, 31, 63, 0.05); }
-        
-        /* Mobile & Tablet Optimizations */
-        html {
-            -webkit-tap-highlight-color: transparent;
-            -webkit-text-size-adjust: 100%;
-        }
-        
-        body {
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-        }
+      },
+    },
+    }
+  </script>
+  <style>
+    body { 
+    font-family: 'Inter', sans-serif; 
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    }
+    .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    }
+    .soft-lift { box-shadow: 0px 4px 12px rgba(0, 31, 63, 0.05); }
+    
+    /* Mobile & Tablet Optimizations */
+    html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
 
-        input, select, textarea {
-            font-size: 16px !important; /* Prevents auto-zoom on iOS */
-            -webkit-appearance: none;
-            border-radius: 4px;
-        }
+    input, select, textarea {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS */
+    -webkit-appearance: none;
+    border-radius: 4px;
+    }
 
-        .ios-scrolling {
-            -webkit-overflow-scrolling: touch;
-        }
+    .ios-scrolling {
+    -webkit-overflow-scrolling: touch;
+    }
 
-        @media (max-width: 640px) {
-            .btn-touch {
-                min-height: 44px; /* Apple's minimum touch target size */
-            }
-        }
-        
-        /* Custom Scrollbar for tablets */
-        @media (min-width: 768px) {
-            ::-webkit-scrollbar { width: 8px; }
-            ::-webkit-scrollbar-track { background: transparent; }
-            ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        }
-    </style>
+    @media (max-width: 640px) {
+    .btn-touch {
+      min-height: 44px; /* Apple's minimum touch target size */
+    }
+    }
+    
+    /* Custom Scrollbar for tablets */
+    @media (min-width: 768px) {
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    }
+  </style>
 </head>
 <body class="bg-background text-on-background min-h-screen flex flex-col">
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
-        <div class="flex flex-col h-full">
-            <!-- Brand Logo -->
-            <div class="p-6 border-b border-white/5 flex justify-center items-center bg-[#000d1a]">
-                <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
-            </div>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed left-0 top-0 h-full bg-[#00142B] text-white w-64 z-[60] transition-all duration-300 transform -translate-x-full md:translate-x-0  border-r border-white/10 shadow-2xl">
+    <div class="flex flex-col h-full">
+    <!-- Brand Logo -->
+    <div class="p-6 border-b border-white/5 flex justify-center items-center ">
+      <img src="logo.png" alt="CSM Legacy Logo" class="w-full max-w-[180px] h-auto object-contain">
+    </div>
 
-            <!-- Navigation Links -->
-            <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
-                <a href="inicio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
-                    <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
-                    <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
-                </a>
+    <!-- Navigation Links -->
+    <nav class="flex-grow py-8 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+      <a href="inicio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5">
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400 transition-colors">dashboard</span>
+        <span class="font-bold text-slate-300 group-hover:text-white">Inicio</span>
+      </a>
 
-                <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
-                </div>
+      <div class="pt-6 pb-2 px-4">
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Gestión</p>
+      </div>
 
-                <!-- Abastecimiento -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
-                            <span class="font-bold">Abastecimiento</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
-                        </a>
-                        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Inventario -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
-                            <span class="font-bold">Inventario</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Registrar Entrada de Material
-                        </a>
-                        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Confirmar Recepción
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Mantenimiento -->
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
-                            <span class="font-bold">Mantenimiento</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Crear orden de trabajo
-                        </a>
-                        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Historial de órdenes de trabajo
-                        </a>
-                        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Entrega de material a trabajo
-                        </a>
-                        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
-                        </a>
-                        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pt-6 pb-2 px-4">
-                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
-                </div>
-
-                <div class="space-y-1">
-                    <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
-                            <span class="font-bold">Indicadores y Reportes</span>
-                        </div>
-                        <span class="material-symbols-outlined text-xs">expand_more</span>
-                    </button>
-                    <div class="hidden pl-4 pr-4 space-y-1">
-                        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
-                            <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
-                        </a>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- User Profile Section -->
-            <div class="p-6 bg-[#000d1a] border-t border-white/5">
-                <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
-                    <div class="relative">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
-                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
-                    </div>
-                    <div class="flex flex-col min-w-0">
-                        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white" id="userProfileName">Cargando...</span>
-                        <span class="text-[9px] text-slate-500 font-bold" id="userProfileRole">Cargando...</span>
-                    </div>
-                    <button onclick="window.logout()" class="ml-auto text-red-300 hover:text-red-500 active:text-red-600 transition-colors p-1" title="Cerrar Sesión">
-                        <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
-                    </button>
-                </div>
-            </div>
+      <!-- Abastecimiento -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-400">shopping_cart</span>
+          <span class="font-bold">Abastecimiento</span>
         </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">receipt_long</span>Ordenes de Compra
+        </a>
+        <a href="#" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-blue-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-blue-400 transition-colors">request_quote</span>Solicitudes
+        </a>
+        </div>
+      </div>
+
+      <!-- Inventario -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-400">inventory_2</span>
+          <span class="font-bold">Inventario</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="ingreso_material.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-emerald-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">add_box</span>Registrar Entrada de Material
+        </a>
+        <a href="recepcion.html" class="flex items-center gap-2 py-2 text-sm text-white font-bold transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-emerald-400 transition-colors">inventory</span>Confirmar Recepción
+        </a>
+        </div>
+      </div>
+
+      <!-- Mantenimiento -->
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-amber-400">build</span>
+          <span class="font-bold">Mantenimiento</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="solicitud.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">assignment</span>Crear orden de trabajo
+        </a>
+        <a href="todas_solicitudes.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">list_alt</span>Historial de órdenes de trabajo
+        </a>
+        <a href="despacho.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">local_shipping</span>Entrega de material a trabajo
+        </a>
+        <a href="unidades_mantenimiento.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">engineering</span>Unidades en Mantenimiento
+        </a>
+        <a href="flota.html" class="flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-amber-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-amber-400 transition-colors">directions_car</span>Estado de Flota
+        </a>
+        </div>
+      </div>
+
+      <div class="pt-6 pb-2 px-4">
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Análisis</p>
+      </div>
+
+      <div class="space-y-1">
+        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group text-slate-300 hover:text-white" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-slate-400 group-hover:text-purple-400">analytics</span>
+          <span class="font-bold">Indicadores y Reportes</span>
+        </div>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+        </button>
+        <div class="hidden pl-4 pr-4 space-y-1">
+        <a href="kpi_mantenimiento.html" class="nav-link flex items-center gap-2 py-2 text-sm text-slate-400 hover:text-purple-400 hover:translate-x-1 transition-all group">
+          <span class="material-symbols-outlined text-[16px] group-hover:text-purple-400 transition-colors">bar_chart</span>Reporte Mensual Ordenes de Trabajo
+        </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- User Profile Section -->
+    <div class="p-6 bg-[#000d1a] border-t border-white/5">
+      <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
+        <div class="relative">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6DpqIVd9Iwy5JNmNnw598fIn9XtA_HhiQQgC5MZXYcwWIAWA3aLDu06PwKgFTx4R6CGDa3uTOVHRVnpQEMDkJu10TUVH4PepHVJ3fnNDnzQBYWZcHUc8Y6GKzreSBlmzs-hoRVsIIxqFpBmRYXN-L3KR9x1Fxu8z0W4D4zMgZXf7pj-Le0YPd69xOWEoyECpCX2AJeoLRjClJBkOn48n52NWv3vs69J9fsFsDb-SagTP5o4Wd-QXrKAHE8FLNtXG2eqVWL2bE7fSx" class="h-10 w-10 rounded-full border-2 border-blue-500/30" alt="User">
+        <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#000d1a] rounded-full"></div>
+        </div>
+        <div class="flex flex-col min-w-0">
+        <span class="text-[11px] font-black uppercase tracking-tight truncate text-white" id="userProfileName">Cargando...</span>
+        <span class="text-[9px] text-slate-500 font-bold" id="userProfileRole">Cargando...</span>
+        </div>
+        <button onclick="window.logout()" class="ml-auto text-red-300 hover:text-red-500 active:text-red-600 transition-colors p-1" title="Cerrar Sesión">
+        <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
+        </button>
+      </div>
+    </div>
+    </div>
+  
     
-            
-            
+    
 
-        
-            
-            
+    
+    
+    
 
+    
+    <!-- Toggle Button (Floating on the edge) -->
+    <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
+      <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+    </button>
+
+    </aside>
+
+  
+  <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
+    <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
+    <div class="flex items-center gap-4">
+      <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div class="flex items-center gap-2">
+        <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
+        <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
+      </div>
+      <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
+      <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
+      </button>
+    </div>
+    </div>
+  </header>
+
+
+
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
+
+
+  
+
+  
+
+  <!-- TopNavBar -->
+  
+  
+
+  <!-- Sidebar Overlay for Mobile -->
+  
+
+  
+  
+  
+
+
+
+  <main class=" transition-all duration-300 flex-grow px-4 md:px-margin py-6 md:py-xl max-w-7xl mx-auto w-full md:ml-64" >
+    <!-- Hero Editorial Header -->
+    <section class="mb-6">
+    <div class="mb-6">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-emerald-600 text-[32px] md:text-[40px]">package_2</span>
+        <h1 class="font-h2 text-2xl md:text-h2 text-primary-container">Confirmar Recepción</h1>
+      </div>
+      <div class="mt-4">
+        <p class="font-bold text-[#001F3F] text-xs uppercase tracking-widest mb-0.5">KPI Recepción</p>
+        <p class="font-body-md text-sm text-on-surface-variant max-w-xl">Monitoreo técnico de ingresos y validación de materiales en tiempo real.</p>
+      </div>
+    </div>
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        <button id="btnNuevaRecepcion" class="bg-[#10b981] hover:bg-[#059669] text-white px-6 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all active:scale-95">
+        <span class="material-symbols-outlined text-[20px]">add_circle</span>
+        <span>Nueva Recepción</span>
+        </button>
+        <div class="text-left md:text-right">
+        <p class="text-on-surface-variant text-[10px] font-bold uppercase font-h2">Última Actualización</p>
+        <p id="kpiTimestamp" class="font-bold text-[#001F3F] font-body text-sm md:text-base">-</p>
+        </div>
+      </div>
+    </div>
+    </section>
+    <!-- KPI Grid Section -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+    <!-- Card 1: Recepciones Hoy -->
+    <div class="bg-white hover:bg-emerald-500 p-6 shadow-sm hover:shadow-xl border border-emerald-500/40 hover:border-emerald-400 group transition-all duration-300 ease-in-out transform hover:scale-[1.02] relative overflow-hidden rounded-xl flex flex-col items-center text-center cursor-default">
+      <div class="flex flex-col items-center mb-4">
+        <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-white/70 font-h2 mb-1 transition-colors">Recepciones Hoy</h3>
+        <span id="kpiHoyPercent" class="text-sm font-black font-h2 text-emerald-500 group-hover:text-white transition-colors">0%</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 mb-6">
+        <span id="kpiHoy" class="text-4xl md:text-5xl font-black text-[#001F3F] group-hover:text-white font-h2 leading-none transition-colors">0</span>
+        <span class="text-[10px] font-bold text-slate-400 group-hover:text-white/60 uppercase tracking-[0.2em] transition-colors">Confirmadas</span>
+      </div>
+      <div class="w-full flex items-center justify-center gap-2 mb-6 bg-emerald-50 group-hover:bg-white/20 p-2 border-l-2 border-emerald-500 group-hover:border-white rounded-r transition-all">
+        <span class="material-symbols-outlined text-sm text-emerald-600 group-hover:text-white">trending_up</span>
+        <div class="flex flex-col items-center">
+        <span class="text-[9px] font-black uppercase text-emerald-600/70 group-hover:text-white/80 font-h2 leading-tight transition-colors">Tendencia</span>
+        <span id="kpiTrendHoy" class="text-xs font-black text-emerald-600 group-hover:text-white font-body leading-tight transition-colors">+0%</span>
+        </div>
+      </div>
+      <div class="w-full h-1.5 bg-slate-100 group-hover:bg-white/10 rounded-full overflow-hidden transition-colors">
+        <div id="barHoy" class="h-full bg-emerald-500 group-hover:bg-white transition-all duration-1000" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Card 2: Ordenes Abiertas -->
+    <div class="bg-white hover:bg-blue-500 p-6 shadow-sm hover:shadow-xl border border-blue-500/40 hover:border-blue-400 group transition-all duration-300 ease-in-out transform hover:scale-[1.02] relative overflow-hidden rounded-xl flex flex-col items-center text-center cursor-default">
+      <div class="flex flex-col items-center mb-4">
+        <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-white/70 font-h2 mb-1 transition-colors">Ordenes Abiertas</h3>
+        <span id="kpiAbiertasPercent" class="text-sm font-black font-h2 text-blue-500 group-hover:text-white transition-colors">0%</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 mb-6">
+        <span id="kpiTransito" class="text-4xl md:text-5xl font-black text-[#001F3F] group-hover:text-white font-h2 leading-none transition-colors">0</span>
+        <span class="text-[10px] font-bold text-slate-400 group-hover:text-white/60 uppercase tracking-[0.2em] transition-colors">Pendientes</span>
+      </div>
+      <div class="w-full flex items-center justify-center gap-2 mb-6 bg-blue-50 group-hover:bg-white/20 p-2 border-l-2 border-blue-500 group-hover:border-white rounded-r transition-all">
+        <span class="material-symbols-outlined text-sm text-blue-600 group-hover:text-white">schedule</span>
+        <div class="flex flex-col items-center">
+        <span class="text-[9px] font-black uppercase text-blue-600/70 group-hover:text-white/80 font-h2 leading-tight transition-colors">Estado</span>
+        <span class="text-xs font-black text-blue-600 group-hover:text-white font-body leading-tight transition-colors">En Espera</span>
+        </div>
+      </div>
+      <div class="w-full h-1.5 bg-slate-100 group-hover:bg-white/10 rounded-full overflow-hidden transition-colors">
+        <div id="barAbiertas" class="h-full bg-blue-500 group-hover:bg-white transition-all duration-1000" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Card 3: Ordenes con Problemas -->
+    <div class="bg-white hover:bg-rose-500 p-6 shadow-sm hover:shadow-xl border border-rose-500/40 hover:border-rose-400 group transition-all duration-300 ease-in-out transform hover:scale-[1.02] relative overflow-hidden rounded-xl flex flex-col items-center text-center cursor-default">
+      <div class="flex flex-col items-center mb-4">
+        <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-white/70 font-h2 mb-1 transition-colors">Con Problemas</h3>
+        <span id="kpiProblemasPercent" class="text-sm font-black font-h2 text-rose-500 group-hover:text-white transition-colors">0%</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 mb-6">
+        <span id="kpiProblemas" class="text-4xl md:text-5xl font-black text-[#001F3F] group-hover:text-white font-h2 leading-none transition-colors">0</span>
+        <span class="text-[10px] font-bold text-slate-400 group-hover:text-white/60 uppercase tracking-[0.2em] transition-colors">Incidencias</span>
+      </div>
+      <div class="w-full flex items-center justify-center gap-2 mb-6 bg-rose-50 group-hover:bg-white/20 p-2 border-l-2 border-rose-500 group-hover:border-white rounded-r transition-all">
+        <span class="material-symbols-outlined text-sm text-rose-600 group-hover:text-white">report_problem</span>
+        <div class="flex flex-col items-center">
+        <span class="text-[9px] font-black uppercase text-rose-600/70 group-hover:text-white/80 font-h2 leading-tight transition-colors">Prioridad</span>
+        <span class="text-xs font-black text-rose-600 group-hover:text-white font-body leading-tight transition-colors">Crítico</span>
+        </div>
+      </div>
+      <div class="w-full h-1.5 bg-slate-100 group-hover:bg-white/10 rounded-full overflow-hidden transition-colors">
+        <div id="barProblemas" class="h-full bg-rose-500 group-hover:bg-white transition-all duration-1000" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Card 4: Resumen Operativo -->
+    <div class="bg-slate-900 hover:bg-slate-800 p-6 shadow-xl border border-white/5 relative overflow-hidden rounded-xl text-white group transition-all duration-300 transform hover:scale-[1.02] cursor-default">
+      <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:rotate-12 transition-transform duration-700">
+        <span class="material-symbols-outlined text-[80px]">analytics</span>
+      </div>
+      <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-4 font-h2">Análisis de Distribución</h3>
+      
+      <div class="space-y-3.5">
+        <!-- Recibidas -->
+        <div class="space-y-1">
+        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
+          <span class="text-emerald-400">Recibidas</span>
+          <span id="statRecibidasText" class="text-white/60">0 (0%)</span>
+        </div>
+        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+          <div id="barRecibidas" class="h-full bg-emerald-500 transition-all duration-1000" style="width: 0%"></div>
+        </div>
+        </div>
+        <!-- Abiertas -->
+        <div class="space-y-1">
+        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
+          <span class="text-blue-400">Abiertas</span>
+          <span id="statAbiertasText" class="text-white/60">0 (0%)</span>
+        </div>
+        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+          <div id="barAbiertasSum" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
+        </div>
+        </div>
+        <!-- Parciales -->
+        <div class="space-y-1">
+        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
+          <span class="text-amber-400">Parciales</span>
+          <span id="statParcialesText" class="text-white/60">0 (0%)</span>
+        </div>
+        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+          <div id="barParciales" class="h-full bg-amber-500 transition-all duration-1000" style="width: 0%"></div>
+        </div>
+        </div>
+        <!-- Rechazadas -->
+        <div class="space-y-1">
+        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
+          <span class="text-rose-400">Rechazadas</span>
+          <span id="statRechazadasText" class="text-white/60">0 (0%)</span>
+        </div>
+        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+          <div id="barRechazadas" class="h-full bg-rose-500 transition-all duration-1000" style="width: 0%"></div>
+        </div>
+        </div>
+
+        <div class="flex justify-between items-center pt-3 mt-4 border-t border-white/5">
+        <span class="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Total Ordenes</span>
+        <div class="flex items-center gap-2">
+          <span id="kpiTotalOrders" class="text-xl font-black text-white">0</span>
+          <span class="material-symbols-outlined text-white/20 text-sm">inventory_2</span>
+        </div>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <!-- Subsection Header -->
+    <section class="mb-4">
+    <p class="font-bold text-[#001F3F] text-xs uppercase tracking-widest mb-0.5">Todas las Ordenes de compra</p>
+    <p class="font-body-md text-sm text-on-surface-variant max-w-xl">Detalle del estado de todas las ordenes de compras (OC)</p>
+    </section>
+
+    <!-- Filters -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-outline-variant/10 mb-12 flex flex-col md:flex-row gap-4 md:gap-gutter items-center">
+    <div class="flex-grow relative w-full">
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+      <input class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all font-body-sm" placeholder="Buscar por OC, material, proveedor o fecha..." type="text"/>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-md w-full md:w-auto">
+      <select class="border border-outline-variant rounded-lg px-4 py-2 bg-white font-body-sm outline-none focus:border-primary-container w-full md:w-48">
+        <option>Todos los estados</option>
+        <option>Confirmado</option>
+        <option>Parcial</option>
+        <option>Con Discrepancia</option>
+      </select>
+      <select class="border border-outline-variant rounded-lg px-4 py-2 bg-white font-body-sm outline-none focus:border-primary-container w-full md:w-48">
+        <option>Todas las bodegas</option>
+        <option>Bodega Central</option>
+        <option>Bodega Norte</option>
+        <option>Bodega Sur</option>
+      </select>
+    </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-outline-variant/10 overflow-hidden overflow-x-auto">
+    <table class="w-full text-left border-collapse min-w-[800px]">
+      <thead class="bg-surface-container-low border-b border-outline-variant/50 sticky top-0">
+        <tr>
+        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Foto</th>
+        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Material</th>
+        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Código (OC)</th>
+        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Cantidad</th>
+        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Recepcionista</th>
+        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Fecha</th>
+        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Estado</th>
+        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="receptionTableBody">
+        <tr class="hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
+        <td class="px-md py-md">
+          <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+            <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5P3hQLRUzcGN2vw3nqg7jY-JsbBK3ItEhqoxJVJJ_M8e4dg8JnHyl0CYCAoKS4ckL4aLMJNJLZpoJ1w2I2ipZTRUlZ6d-lLz_IAaw14jjPT6-uuIKfzMuBFiTL1F4PhIRjXbAvcxvfg6NccPnmcLtdfGvkABpmA7063kruhJZQdeMKyqfh6AYchpRzjNyGu1neqGqiGxKIIDCViGOJ9GKr3WiQOxhyfcpVHawUQhKBvfnPCVcDQulyRZWEeOetcR1fw47Roh4BSXf"/>
+          </div>
+        </td>
+        <td class="px-md py-md">
+          <div class="font-semibold text-primary-container">Aceite Motor 15W-40</div>
+          <div class="text-xs text-on-surface-variant">Lubricantes</div>
+        </td>
+        <td class="px-md py-md font-mono text-xs">OC-12345</td>
+        <td class="px-md py-md font-medium">20 Litros</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+            Ordenes abiertas
+          </span>
+        </td>
+        <td class="px-md py-md text-right">
+          <div class="flex justify-end gap-2">
+            <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+            <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
+          </div>
+        </td>
+        </tr>
+        <tr class="bg-surface-container-low hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
+        <td class="px-md py-md">
+          <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+            <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbi8AXwsCIJvjZHxw_2fIkOFdPRC19VbFFphnhUNajMlxLABL43chBc7iSN_BjxrH1oRTV4zt_i0xKMJpoKpRfzWixRmsG-vEg2CIxueGPLjN07hQiC9KIBKUmGO1aU1qDMmLAZPdFyR1S8hvN23B5c17bUAargRAr-RlXe3EJd4LNDUmcpi4i-rN2t9aJ4iBG138Q6d8okdNeCIyc3GWwlr7uoNrt63Hbd6px56aYxFkSiV2aqHa9SVJk15a2uwdnaQohJogTCggP"/>
+          </div>
+        </td>
+        <td class="px-md py-md">
+          <div class="font-semibold text-primary-container">Filtro de Aire XL</div>
+          <div class="text-xs text-on-surface-variant">Repuestos</div>
+        </td>
+        <td class="px-md py-md font-mono text-xs">OC-12348</td>
+        <td class="px-md py-md font-medium">5 Unidades</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+            Ordenes abiertas
+          </span>
+        </td>
+        <td class="px-md py-md text-right">
+          <div class="flex justify-end gap-2">
+            <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+            <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
+          </div>
+        </td>
+        </tr>
+        <tr class="hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
+        <td class="px-md py-md">
+          <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+            <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChS2BCq6YYNfAqDkK36WwSU7W5_xFo7Uswtj1lPMNZO59et7fZGDcNdZsa7Q9sCLjgaVpxJOyQqkYJOIcyuJYCBVF7SIdlU_Mni-Tzq4uO9-pize2UQz80cFRDYfnKpuIc2gW_thnQiiawjQlTujAy2zE1h6JSgLpYHFPuu3sLVQQDRkX4GMqLDvtOtwz3cMPAa_Y5P-FoT1FM_e5hDO0-4eG2PzpEzs8liuQ5slTftWdY9RZ4-uqV601yooJkgD8xgTr6jTsQniUN"/>
+          </div>
+        </td>
+        <td class="px-md py-md">
+          <div class="font-semibold text-primary-container">EPI Chalecos Reflectantes</div>
+          <div class="text-xs text-on-surface-variant">Seguridad</div>
+        </td>
+        <td class="px-md py-md font-mono text-xs">OC-12352</td>
+        <td class="px-md py-md font-medium">50 Unidades</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+            Ordenes abiertas
+          </span>
+        </td>
+        <td class="px-md py-md text-right">
+          <div class="flex justify-end gap-2">
+            <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+            <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
+          </div>
+        </td>
+        </tr>
+        <tr class="bg-surface-container-low hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
+        <td class="px-md py-md">
+          <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+            <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5P3hQLRUzcGN2vw3nqg7jY-JsbBK3ItEhqoxJVJJ_M8e4dg8JnHyl0CYCAoKS4ckL4aLMJNJLZpoJ1w2I2ipZTRUlZ6d-lLz_IAaw14jjPT6-uuIKfzMuBFiTL1F4PhIRjXbAvcxvfg6NccPnmcLtdfGvkABpmA7063kruhJZQdeMKyqfh6AYchpRzjNyGu1neqGqiGxKIIDCViGOJ9GKr3WiQOxhyfcpVHawUQhKBvfnPCVcDQulyRZWEeOetcR1fw47Roh4BSXf"/>
+          </div>
+        </td>
+        <td class="px-md py-md">
+          <div class="font-semibold text-primary-container">Batería 12V 75Ah</div>
+          <div class="text-xs text-on-surface-variant">Repuestos</div>
+        </td>
+        <td class="px-md py-md font-mono text-xs">OC-12360</td>
+        <td class="px-md py-md font-medium">2 Unidades</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+            Ordenes abiertas
+          </span>
+        </td>
+        <td class="px-md py-md text-right">
+          <div class="flex justify-end gap-2">
+            <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+            <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
+          </div>
+        </td>
+        </tr>
+        <tr class="hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
+        <td class="px-md py-md">
+          <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+            <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbi8AXwsCIJvjZHxw_2fIkOFdPRC19VbFFphnhUNajMlxLABL43chBc7iSN_BjxrH1oRTV4zt_i0xKMJpoKpRfzWixRmsG-vEg2CIxueGPLjN07hQiC9KIBKUmGO1aU1qDMmLAZPdFyR1S8hvN23B5c17bUAargRAr-RlXe3EJd4LNDUmcpi4i-rN2t9aJ4iBG138Q6d8okdNeCIyc3GWwlr7uoNrt63Hbd6px56aYxFkSiV2aqHa9SVJk15a2uwdnaQohJogTCggP"/>
+          </div>
+        </td>
+        <td class="px-md py-md">
+          <div class="font-semibold text-primary-container">Casco de Seguridad</div>
+          <div class="text-xs text-on-surface-variant">Seguridad</div>
+        </td>
+        <td class="px-md py-md font-mono text-xs">OC-12365</td>
+        <td class="px-md py-md font-medium">10 Unidades</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+            Ordenes abiertas
+          </span>
+        </td>
+        <td class="px-md py-md text-right">
+          <div class="flex justify-end gap-2">
+            <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+            <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
+          </div>
+        </td>
+        </tr>
+        <tr class="bg-surface-container-low hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
+        <td class="px-md py-md">
+          <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+            <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChS2BCq6YYNfAqDkK36WwSU7W5_xFo7Uswtj1lPMNZO59et7fZGDcNdZsa7Q9sCLjgaVpxJOyQqkYJOIcyuJYCBVF7SIdlU_Mni-Tzq4uO9-pize2UQz80cFRDYfnKpuIc2gW_thnQiiawjQlTujAy2zE1h6JSgLpYHFPuu3sLVQQDRkX4GMqLDvtOtwz3cMPAa_Y5P-FoT1FM_e5hDO0-4eG2PzpEzs8liuQ5slTftWdY9RZ4-uqV601yooJkgD8xgTr6jTsQniUN"/>
+          </div>
+        </td>
+        <td class="px-md py-md">
+          <div class="font-semibold text-primary-container">Neumático Frontal</div>
+          <div class="text-xs text-on-surface-variant">Repuestos</div>
+        </td>
+        <td class="px-md py-md font-mono text-xs">OC-12370</td>
+        <td class="px-md py-md font-medium">4 Unidades</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">-</td>
+        <td class="px-md py-md">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+            Ordenes abiertas
+          </span>
+        </td>
+        <td class="px-md py-md text-right">
+          <div class="flex justify-end gap-2">
+            <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+            <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
+          </div>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="px-lg py-md bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-4">
+      <span class="text-xs text-on-surface-variant font-medium">Mostrando 6 de 158 recepciones</span>
+      <div class="flex gap-2">
+        <button class="p-1 border border-outline-variant rounded hover:bg-white transition-all"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
+        <button class="px-3 py-1 bg-primary-container text-white rounded text-xs">1</button>
+        <button class="px-3 py-1 border border-outline-variant rounded hover:bg-white transition-all text-xs">2</button>
+        <button class="px-3 py-1 border border-outline-variant rounded hover:bg-white transition-all text-xs">3</button>
+        <button class="p-1 border border-outline-variant rounded hover:bg-white transition-all"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
+      </div>
+    </div>
+    </div>
+
+    <!-- Modal Nuevo Ingreso -->
+    <div id="modalNuevoIngreso" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity opacity-0">
+    <div class="bg-surface-container-lowest w-full max-w-3xl rounded-xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300 mx-4 max-h-[90vh]">
+      <!-- Header -->
+      <div class="px-6 py-4 border-b border-outline-variant/30 flex justify-between items-center bg-[#001F3F] text-white">
+        <h2 id="modalTitle" class="text-xl font-bold font-h2">Nuevo Registrar Entrada de Material</h2>
+        <button id="btnCloseModal" class="text-white/70 hover:text-white transition-colors">
+        <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      
+      <!-- Body (Pages) -->
+      <div class="p-6 flex-grow overflow-y-auto">
+        <!-- Page 1: Datos -->
+        <div id="page1" class="space-y-4">
+        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">1. Datos del Material</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1"># Pedido de compra</label>
+            <input type="text" id="inputOC" list="ocList" placeholder="Ej. OC-12345" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+            <p id="errorOC" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+            <datalist id="ocList">
+            <option value="OC-12345">
+            <option value="OC-12348">
+            <option value="OC-12352">
+            <option value="OC-12360">
+            <option value="OC-12365">
+            <option value="OC-12370">
+            </datalist>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Nombre del material</label>
+            <input type="text" id="inputMaterial" readonly placeholder="Descripción del material" class="w-full border border-outline-variant rounded-lg px-3 py-2 outline-none bg-surface-container-low cursor-not-allowed">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Código (SKU)</label>
+            <input type="text" id="inputSKU" placeholder="SKU o código de barras" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Categoría</label>
+            <input type="text" id="inputCategoria" readonly placeholder="Categoría" class="w-full border border-outline-variant rounded-lg px-3 py-2 outline-none bg-surface-container-low cursor-not-allowed">
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Unidades (OC)</label>
+            <input type="number" id="inputUnidades" readonly min="0" placeholder="0" class="w-full border border-outline-variant rounded-lg px-3 py-2 outline-none bg-surface-container-low cursor-not-allowed">
+            </div>
+            <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1 text-primary-container font-bold">Cant. Confirmar Recepciónada *</label>
+            <input type="number" id="inputCantRecepcionada" min="0" placeholder="0" class="w-full border border-primary-container rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-primary-fixed/20 transition-all">
+            <p id="errorCant" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+            </div>
+          </div>
+        </div>
+        </div>
         
-            <!-- Toggle Button (Floating on the edge) -->
-            <button id="btnSidebarToggle" class="absolute -right-[16px] top-10 w-8 h-8 bg-[#00142B] text-white rounded-full flex items-center justify-center border border-white/10 border-l-0 shadow-[4px_0_15px_rgba(0,0,0,0.3)] hover:bg-blue-600 transition-all z-[70] group cursor-pointer">
-                <span id="toggleIcon" class="material-symbols-outlined text-[20px] group-hover:scale-125 transition-transform">chevron_left</span>
+        <!-- Page 2: Foto -->
+        <div id="page2" class="hidden space-y-4">
+        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">2. Foto del Material</h3>
+        <p class="text-sm text-on-surface-variant mb-2">Capture o suba una foto del estado en que llegó el material.</p>
+        
+        <div id="photoModule" class="relative border-2 border-dashed border-outline-variant rounded-xl overflow-hidden bg-surface group transition-all duration-300 min-h-[250px] flex items-center justify-center">
+          <!-- Camera Preview -->
+          <video id="cameraPreview" class="hidden w-full h-[250px] object-cover bg-black" autoplay playsinline></video>
+          
+          <!-- Image Preview -->
+          <img id="imagePreview" class="hidden w-full h-[250px] object-cover" src=""/>
+
+          <!-- Placeholder / Drag Zone -->
+          <div id="photoPlaceholder" class="flex flex-col items-center justify-center p-lg text-center h-[250px] w-full gap-sm cursor-pointer hover:bg-surface-container-low transition-colors">
+            <span class="material-symbols-outlined text-outline text-[48px]">add_a_photo</span>
+            <p class="text-base font-semibold text-[#001F3F]">Click para <span class="text-primary-container">Cámara</span> o arrastre imagen</p>
+            <p class="text-sm text-on-surface-variant">PNG, JPG, WEBP soportados</p>
+          </div>
+
+          <!-- Controls -->
+          <div class="absolute bottom-4 right-4 flex gap-2">
+            <button id="btnToggleCamera" type="button" class="bg-white/90 hover:bg-white text-primary-container p-3 rounded-full shadow-lg transition-all active:scale-95 flex items-center justify-center border border-slate-200">
+            <span class="material-symbols-outlined text-[24px]">videocam</span>
             </button>
+            <button id="btnCapture" type="button" class="hidden bg-primary-container text-white p-3 rounded-full shadow-lg transition-all active:scale-95 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">photo_camera</span>
+            </button>
+          </div>
+          
+          <!-- Hidden Inputs -->
+          <input type="file" id="fileInput" accept="image/*" class="hidden"/>
+          <canvas id="photoCanvas" class="hidden" width="640" height="480"></canvas>
+        </div>
+        </div>
+        
+        <!-- Page 3: Proveedor -->
+        <div id="page3" class="hidden space-y-4">
+        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">3. Proveedor</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Proveedor *</label>
+            <input type="text" id="inputProveedor" placeholder="Nombre del proveedor" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+            <p id="errorProveedor" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1"># de Factura *</label>
+            <input type="text" id="inputFactura" placeholder="Número de factura" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+            <p id="errorFactura" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Lote *</label>
+            <input type="text" id="inputLote" placeholder="Número de lote" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+            <p id="errorLote" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de Manufactura *</label>
+            <input type="date" id="inputFechaManuf" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+            <p id="errorFechaManuf" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de recibo</label>
+            <input type="date" id="inputFechaRecibo" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Responsable *</label>
+            <input type="text" id="inputResponsable" placeholder="Nombre del responsable" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+            <p id="errorResponsable" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+          </div>
+        </div>
+        </div>
 
-        </aside>
+        <!-- Page 4: Validacion -->
+        <div id="page4" class="hidden space-y-4">
+        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">4. Validación de Calidad</h3>
+        <div class="space-y-4 bg-surface p-4 rounded-xl border border-outline-variant/30">
+          <p class="text-sm text-on-surface-variant mb-4">Verifique el estado físico del empaque y del material.</p>
+          
+          <div class="space-y-2">
+            <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
+            <input type="checkbox" id="checkEmpaque" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
+            <div>
+              <p class="text-sm font-semibold text-on-surface">Empaque intacto *</p>
+              <p class="text-xs text-on-surface-variant">Sin rasgaduras, golpes o humedad visible.</p>
+            </div>
+            </label>
+            <p id="errorEmpaque" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar el estado del empaque</p>
+          </div>
+          
+          <div class="space-y-2">
+            <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
+            <input type="checkbox" id="checkCantidad" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
+            <div>
+              <p class="text-sm font-semibold text-on-surface">Cantidades correctas *</p>
+              <p class="text-xs text-on-surface-variant">La cantidad física coincide con la guía/factura.</p>
+            </div>
+            </label>
+            <p id="errorCantidad" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar las cantidades</p>
+          </div>
 
-    
-    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl font-['Inter'] text-sm font-medium tracking-normal w-full sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 shadow-sm transition-all duration-300 md:pl-64">
-        <div class="flex justify-between items-center w-full px-4 md:px-8 py-3 mx-auto">
-            <div class="flex items-center gap-4">
-                <button id="btnMobileSidebarToggle" class="text-slate-600 dark:text-white md:hidden p-1">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
+          <div class="mt-4">
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Estado de material *</label>
+            <select id="selectEstado" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+            <option value="">Seleccione estado...</option>
+            <option>Recibido</option>
+            <option>Parcial</option>
+            <option>Rechazado</option>
+            </select>
+            <p id="errorEstado" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de seleccionar</p>
+          </div>
+
+          <div class="mt-4">
+            <label class="block text-sm font-medium text-on-surface-variant mb-1">Observaciones (Opcional)</label>
+            <textarea id="inputObservaciones" rows="3" placeholder="Detalles sobre discrepancias o estado del material..." class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface resize-none"></textarea>
+          </div>
+        </div>
+        </div>
+        
+        <!-- Page 5: PDF -->
+        <!-- Page 5: Orden de Compra (OC) -->
+        <div id="page5" class="hidden space-y-4">
+        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">5. Resumen de Recepción (OC)</h3>
+        
+        <div class="bg-surface p-4 md:p-6 rounded-xl border border-outline-variant/30 space-y-6 max-h-[60vh] overflow-y-auto">
+          <!-- Header Info -->
+          <div class="flex justify-between items-start border-b border-outline-variant/20 pb-4">
+            <div>
+            <h4 id="summaryMaterial" class="text-lg md:text-xl font-bold text-[#001F3F]">Nombre del Material</h4>
+            <p id="summarySKU" class="text-xs md:text-sm text-on-surface-variant font-mono">SKU-000000</p>
+            </div>
+            <div class="text-right">
+            <span id="summaryStatus" class="inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-emerald-100 text-emerald-800 uppercase">
+              ESTADO
+            </span>
+            <p id="summaryFecha" class="text-[10px] md:text-xs text-on-surface-variant mt-1">2026-04-27</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <!-- Left Column: Details -->
+            <div class="space-y-4">
+            <section>
+              <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Información de Pedido</h5>
+              <div class="grid grid-cols-2 gap-y-2 text-sm">
+                <span class="text-on-surface-variant">Orden de Compra:</span>
+                <span id="summaryOC" class="font-semibold text-on-surface">-</span>
+                <span class="text-on-surface-variant">Categoría:</span>
+                <span id="summaryCategoria" class="font-semibold text-on-surface">-</span>
+                <span class="text-on-surface-variant">Cant. Esperada:</span>
+                <span id="summaryEsperada" class="font-semibold text-on-surface">-</span>
+                <span class="text-on-surface-variant">Cant. Recibida:</span>
+                <span id="summaryRecibida" class="font-bold text-primary-container text-base">-</span>
+              </div>
+            </section>
+
+            <section>
+              <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Datos del Proveedor</h5>
+              <div class="grid grid-cols-2 gap-y-2 text-sm">
+                <span class="text-on-surface-variant">Proveedor:</span>
+                <span id="summaryProveedor" class="font-semibold text-on-surface">-</span>
+                <span class="text-on-surface-variant">Factura #:</span>
+                <span id="summaryFactura" class="font-semibold text-on-surface">-</span>
+                <span class="text-on-surface-variant">Lote:</span>
+                <span id="summaryLote" class="font-semibold text-on-surface">-</span>
+                <span class="text-on-surface-variant">Manufactura:</span>
+                <span id="summaryManuf" class="font-semibold text-on-surface">-</span>
+              </div>
+            </section>
+
+            <section>
+              <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Validación & Calidad</h5>
+              <div class="space-y-1 text-sm">
                 <div class="flex items-center gap-2">
-                    <h2 class="text-lg font-black text-slate-800 dark:text-white tracking-tighter">INVENTORY PLANNER</h2>
-                    <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-[10px] font-black rounded-md hidden sm:block">V1.0</span>
+                <span id="iconEmpaque" class="material-symbols-outlined text-emerald-500 text-base">check_circle</span>
+                <span class="text-on-surface">Empaque verificado e intacto</span>
                 </div>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Estado: Operativo</span>
+                <div class="flex items-center gap-2">
+                <span id="iconCantidad" class="material-symbols-outlined text-emerald-500 text-base">check_circle</span>
+                <span class="text-on-surface">Cantidades físicas validadas</span>
                 </div>
-                <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
-                <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 transition-colors relative">
-                    <span class="material-symbols-outlined">notifications</span>
-                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-
-
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
-
-
-    
-
-    
-
-    <!-- TopNavBar -->
-    
-    
-
-    <!-- Sidebar Overlay for Mobile -->
-    
-
-    
-    
-    
-
-
-
-    <main class=" transition-all duration-300 flex-grow px-4 md:px-margin py-6 md:py-xl max-w-7xl mx-auto w-full md:ml-64" >
-        <!-- Hero Editorial Header -->
-        <section class="mb-6">
-            <div class="mb-6">
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-emerald-600 text-[32px] md:text-[40px]">package_2</span>
-                    <h1 class="font-h2 text-2xl md:text-h2 text-primary-container">Confirmar Recepción</h1>
+                <div class="mt-2 p-2 bg-surface-container-low rounded text-xs italic text-on-surface-variant border border-outline-variant/10">
+                " <span id="summaryObs">Sin observaciones adicionales.</span> "
                 </div>
-                <div class="mt-4">
-                    <p class="font-bold text-[#001F3F] text-xs uppercase tracking-widest mb-0.5">KPI Recepción</p>
-                    <p class="font-body-md text-sm text-on-surface-variant max-w-xl">Monitoreo técnico de ingresos y validación de materiales en tiempo real.</p>
-                </div>
-            </div>
-                <div class="flex flex-col md:flex-row items-center gap-6">
-                    <button id="btnNuevaRecepcion" class="bg-[#10b981] hover:bg-[#059669] text-white px-6 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all active:scale-95">
-                        <span class="material-symbols-outlined text-[20px]">add_circle</span>
-                        <span>Nueva Recepción</span>
-                    </button>
-                    <div class="text-left md:text-right">
-                        <p class="text-on-surface-variant text-[10px] font-bold uppercase font-h2">Última Actualización</p>
-                        <p id="kpiTimestamp" class="font-bold text-[#001F3F] font-body text-sm md:text-base">-</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- KPI Grid Section -->
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <!-- Card 1: Recepciones Hoy -->
-            <div class="bg-white hover:bg-emerald-500 p-6 shadow-sm hover:shadow-xl border border-emerald-500/40 hover:border-emerald-400 group transition-all duration-300 ease-in-out transform hover:scale-[1.02] relative overflow-hidden rounded-xl flex flex-col items-center text-center cursor-default">
-                <div class="flex flex-col items-center mb-4">
-                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-white/70 font-h2 mb-1 transition-colors">Recepciones Hoy</h3>
-                    <span id="kpiHoyPercent" class="text-sm font-black font-h2 text-emerald-500 group-hover:text-white transition-colors">0%</span>
-                </div>
-                <div class="flex flex-col items-center gap-1 mb-6">
-                    <span id="kpiHoy" class="text-4xl md:text-5xl font-black text-[#001F3F] group-hover:text-white font-h2 leading-none transition-colors">0</span>
-                    <span class="text-[10px] font-bold text-slate-400 group-hover:text-white/60 uppercase tracking-[0.2em] transition-colors">Confirmadas</span>
-                </div>
-                <div class="w-full flex items-center justify-center gap-2 mb-6 bg-emerald-50 group-hover:bg-white/20 p-2 border-l-2 border-emerald-500 group-hover:border-white rounded-r transition-all">
-                    <span class="material-symbols-outlined text-sm text-emerald-600 group-hover:text-white">trending_up</span>
-                    <div class="flex flex-col items-center">
-                        <span class="text-[9px] font-black uppercase text-emerald-600/70 group-hover:text-white/80 font-h2 leading-tight transition-colors">Tendencia</span>
-                        <span id="kpiTrendHoy" class="text-xs font-black text-emerald-600 group-hover:text-white font-body leading-tight transition-colors">+0%</span>
-                    </div>
-                </div>
-                <div class="w-full h-1.5 bg-slate-100 group-hover:bg-white/10 rounded-full overflow-hidden transition-colors">
-                    <div id="barHoy" class="h-full bg-emerald-500 group-hover:bg-white transition-all duration-1000" style="width: 0%"></div>
-                </div>
+              </div>
+            </section>
             </div>
 
-            <!-- Card 2: Ordenes Abiertas -->
-            <div class="bg-white hover:bg-blue-500 p-6 shadow-sm hover:shadow-xl border border-blue-500/40 hover:border-blue-400 group transition-all duration-300 ease-in-out transform hover:scale-[1.02] relative overflow-hidden rounded-xl flex flex-col items-center text-center cursor-default">
-                <div class="flex flex-col items-center mb-4">
-                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-white/70 font-h2 mb-1 transition-colors">Ordenes Abiertas</h3>
-                    <span id="kpiAbiertasPercent" class="text-sm font-black font-h2 text-blue-500 group-hover:text-white transition-colors">0%</span>
+            <!-- Right Column: Photo & Logistics -->
+            <div class="space-y-4">
+            <section>
+              <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Evidencia Fotográfica</h5>
+              <div class="border border-outline-variant/30 rounded-lg overflow-hidden bg-slate-50 aspect-video flex items-center justify-center shadow-inner">
+                <img id="summaryPhoto" src="" class="w-full h-full object-contain" alt="Evidencia de recepción">
+                <div id="noPhotoMsg" class="hidden flex flex-col items-center text-on-surface-variant opacity-40">
+                <span class="material-symbols-outlined text-4xl">no_photography</span>
+                <span class="text-[10px] font-bold uppercase mt-1">Sin fotografía</span>
                 </div>
-                <div class="flex flex-col items-center gap-1 mb-6">
-                    <span id="kpiTransito" class="text-4xl md:text-5xl font-black text-[#001F3F] group-hover:text-white font-h2 leading-none transition-colors">0</span>
-                    <span class="text-[10px] font-bold text-slate-400 group-hover:text-white/60 uppercase tracking-[0.2em] transition-colors">Pendientes</span>
-                </div>
-                <div class="w-full flex items-center justify-center gap-2 mb-6 bg-blue-50 group-hover:bg-white/20 p-2 border-l-2 border-blue-500 group-hover:border-white rounded-r transition-all">
-                    <span class="material-symbols-outlined text-sm text-blue-600 group-hover:text-white">schedule</span>
-                    <div class="flex flex-col items-center">
-                        <span class="text-[9px] font-black uppercase text-blue-600/70 group-hover:text-white/80 font-h2 leading-tight transition-colors">Estado</span>
-                        <span class="text-xs font-black text-blue-600 group-hover:text-white font-body leading-tight transition-colors">En Espera</span>
-                    </div>
-                </div>
-                <div class="w-full h-1.5 bg-slate-100 group-hover:bg-white/10 rounded-full overflow-hidden transition-colors">
-                    <div id="barAbiertas" class="h-full bg-blue-500 group-hover:bg-white transition-all duration-1000" style="width: 0%"></div>
-                </div>
-            </div>
-
-            <!-- Card 3: Ordenes con Problemas -->
-            <div class="bg-white hover:bg-rose-500 p-6 shadow-sm hover:shadow-xl border border-rose-500/40 hover:border-rose-400 group transition-all duration-300 ease-in-out transform hover:scale-[1.02] relative overflow-hidden rounded-xl flex flex-col items-center text-center cursor-default">
-                <div class="flex flex-col items-center mb-4">
-                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-white/70 font-h2 mb-1 transition-colors">Con Problemas</h3>
-                    <span id="kpiProblemasPercent" class="text-sm font-black font-h2 text-rose-500 group-hover:text-white transition-colors">0%</span>
-                </div>
-                <div class="flex flex-col items-center gap-1 mb-6">
-                    <span id="kpiProblemas" class="text-4xl md:text-5xl font-black text-[#001F3F] group-hover:text-white font-h2 leading-none transition-colors">0</span>
-                    <span class="text-[10px] font-bold text-slate-400 group-hover:text-white/60 uppercase tracking-[0.2em] transition-colors">Incidencias</span>
-                </div>
-                <div class="w-full flex items-center justify-center gap-2 mb-6 bg-rose-50 group-hover:bg-white/20 p-2 border-l-2 border-rose-500 group-hover:border-white rounded-r transition-all">
-                    <span class="material-symbols-outlined text-sm text-rose-600 group-hover:text-white">report_problem</span>
-                    <div class="flex flex-col items-center">
-                        <span class="text-[9px] font-black uppercase text-rose-600/70 group-hover:text-white/80 font-h2 leading-tight transition-colors">Prioridad</span>
-                        <span class="text-xs font-black text-rose-600 group-hover:text-white font-body leading-tight transition-colors">Crítico</span>
-                    </div>
-                </div>
-                <div class="w-full h-1.5 bg-slate-100 group-hover:bg-white/10 rounded-full overflow-hidden transition-colors">
-                    <div id="barProblemas" class="h-full bg-rose-500 group-hover:bg-white transition-all duration-1000" style="width: 0%"></div>
-                </div>
-            </div>
-
-            <!-- Card 4: Resumen Operativo -->
-            <div class="bg-slate-900 hover:bg-slate-800 p-6 shadow-xl border border-white/5 relative overflow-hidden rounded-xl text-white group transition-all duration-300 transform hover:scale-[1.02] cursor-default">
-                <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:rotate-12 transition-transform duration-700">
-                    <span class="material-symbols-outlined text-[80px]">analytics</span>
-                </div>
-                <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-4 font-h2">Análisis de Distribución</h3>
-                
-                <div class="space-y-3.5">
-                    <!-- Recibidas -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
-                            <span class="text-emerald-400">Recibidas</span>
-                            <span id="statRecibidasText" class="text-white/60">0 (0%)</span>
-                        </div>
-                        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                            <div id="barRecibidas" class="h-full bg-emerald-500 transition-all duration-1000" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <!-- Abiertas -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
-                            <span class="text-blue-400">Abiertas</span>
-                            <span id="statAbiertasText" class="text-white/60">0 (0%)</span>
-                        </div>
-                        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                            <div id="barAbiertasSum" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <!-- Parciales -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
-                            <span class="text-amber-400">Parciales</span>
-                            <span id="statParcialesText" class="text-white/60">0 (0%)</span>
-                        </div>
-                        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                            <div id="barParciales" class="h-full bg-amber-500 transition-all duration-1000" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <!-- Rechazadas -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-[10px] font-bold uppercase tracking-wider">
-                            <span class="text-rose-400">Rechazadas</span>
-                            <span id="statRechazadasText" class="text-white/60">0 (0%)</span>
-                        </div>
-                        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                            <div id="barRechazadas" class="h-full bg-rose-500 transition-all duration-1000" style="width: 0%"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-3 mt-4 border-t border-white/5">
-                        <span class="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Total Ordenes</span>
-                        <div class="flex items-center gap-2">
-                            <span id="kpiTotalOrders" class="text-xl font-black text-white">0</span>
-                            <span class="material-symbols-outlined text-white/20 text-sm">inventory_2</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Subsection Header -->
-        <section class="mb-4">
-            <p class="font-bold text-[#001F3F] text-xs uppercase tracking-widest mb-0.5">Todas las Ordenes de compra</p>
-            <p class="font-body-md text-sm text-on-surface-variant max-w-xl">Detalle del estado de todas las ordenes de compras (OC)</p>
-        </section>
-
-        <!-- Filters -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-outline-variant/10 mb-12 flex flex-col md:flex-row gap-4 md:gap-gutter items-center">
-            <div class="flex-grow relative w-full">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-                <input class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all font-body-sm" placeholder="Buscar por OC, material, proveedor o fecha..." type="text"/>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-md w-full md:w-auto">
-                <select class="border border-outline-variant rounded-lg px-4 py-2 bg-white font-body-sm outline-none focus:border-primary-container w-full md:w-48">
-                    <option>Todos los estados</option>
-                    <option>Confirmado</option>
-                    <option>Parcial</option>
-                    <option>Con Discrepancia</option>
-                </select>
-                <select class="border border-outline-variant rounded-lg px-4 py-2 bg-white font-body-sm outline-none focus:border-primary-container w-full md:w-48">
-                    <option>Todas las bodegas</option>
-                    <option>Bodega Central</option>
-                    <option>Bodega Norte</option>
-                    <option>Bodega Sur</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Data Table -->
-        <div class="bg-white rounded-xl shadow-sm border border-outline-variant/10 overflow-hidden overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-[800px]">
-                <thead class="bg-surface-container-low border-b border-outline-variant/50 sticky top-0">
-                    <tr>
-                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Foto</th>
-                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Material</th>
-                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Código (OC)</th>
-                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Cantidad</th>
-                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Recepcionista</th>
-                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Fecha</th>
-                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase">Estado</th>
-                        <th class="px-md py-lg font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="receptionTableBody">
-                    <tr class="hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
-                        <td class="px-md py-md">
-                            <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
-                                <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5P3hQLRUzcGN2vw3nqg7jY-JsbBK3ItEhqoxJVJJ_M8e4dg8JnHyl0CYCAoKS4ckL4aLMJNJLZpoJ1w2I2ipZTRUlZ6d-lLz_IAaw14jjPT6-uuIKfzMuBFiTL1F4PhIRjXbAvcxvfg6NccPnmcLtdfGvkABpmA7063kruhJZQdeMKyqfh6AYchpRzjNyGu1neqGqiGxKIIDCViGOJ9GKr3WiQOxhyfcpVHawUQhKBvfnPCVcDQulyRZWEeOetcR1fw47Roh4BSXf"/>
-                            </div>
-                        </td>
-                        <td class="px-md py-md">
-                            <div class="font-semibold text-primary-container">Aceite Motor 15W-40</div>
-                            <div class="text-xs text-on-surface-variant">Lubricantes</div>
-                        </td>
-                        <td class="px-md py-md font-mono text-xs">OC-12345</td>
-                        <td class="px-md py-md font-medium">20 Litros</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                Ordenes abiertas
-                            </span>
-                        </td>
-                        <td class="px-md py-md text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
-                                <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="bg-surface-container-low hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
-                        <td class="px-md py-md">
-                            <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
-                                <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbi8AXwsCIJvjZHxw_2fIkOFdPRC19VbFFphnhUNajMlxLABL43chBc7iSN_BjxrH1oRTV4zt_i0xKMJpoKpRfzWixRmsG-vEg2CIxueGPLjN07hQiC9KIBKUmGO1aU1qDMmLAZPdFyR1S8hvN23B5c17bUAargRAr-RlXe3EJd4LNDUmcpi4i-rN2t9aJ4iBG138Q6d8okdNeCIyc3GWwlr7uoNrt63Hbd6px56aYxFkSiV2aqHa9SVJk15a2uwdnaQohJogTCggP"/>
-                            </div>
-                        </td>
-                        <td class="px-md py-md">
-                            <div class="font-semibold text-primary-container">Filtro de Aire XL</div>
-                            <div class="text-xs text-on-surface-variant">Repuestos</div>
-                        </td>
-                        <td class="px-md py-md font-mono text-xs">OC-12348</td>
-                        <td class="px-md py-md font-medium">5 Unidades</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                Ordenes abiertas
-                            </span>
-                        </td>
-                        <td class="px-md py-md text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
-                                <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
-                        <td class="px-md py-md">
-                            <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
-                                <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChS2BCq6YYNfAqDkK36WwSU7W5_xFo7Uswtj1lPMNZO59et7fZGDcNdZsa7Q9sCLjgaVpxJOyQqkYJOIcyuJYCBVF7SIdlU_Mni-Tzq4uO9-pize2UQz80cFRDYfnKpuIc2gW_thnQiiawjQlTujAy2zE1h6JSgLpYHFPuu3sLVQQDRkX4GMqLDvtOtwz3cMPAa_Y5P-FoT1FM_e5hDO0-4eG2PzpEzs8liuQ5slTftWdY9RZ4-uqV601yooJkgD8xgTr6jTsQniUN"/>
-                            </div>
-                        </td>
-                        <td class="px-md py-md">
-                            <div class="font-semibold text-primary-container">EPI Chalecos Reflectantes</div>
-                            <div class="text-xs text-on-surface-variant">Seguridad</div>
-                        </td>
-                        <td class="px-md py-md font-mono text-xs">OC-12352</td>
-                        <td class="px-md py-md font-medium">50 Unidades</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                Ordenes abiertas
-                            </span>
-                        </td>
-                        <td class="px-md py-md text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
-                                <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="bg-surface-container-low hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
-                        <td class="px-md py-md">
-                            <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
-                                <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5P3hQLRUzcGN2vw3nqg7jY-JsbBK3ItEhqoxJVJJ_M8e4dg8JnHyl0CYCAoKS4ckL4aLMJNJLZpoJ1w2I2ipZTRUlZ6d-lLz_IAaw14jjPT6-uuIKfzMuBFiTL1F4PhIRjXbAvcxvfg6NccPnmcLtdfGvkABpmA7063kruhJZQdeMKyqfh6AYchpRzjNyGu1neqGqiGxKIIDCViGOJ9GKr3WiQOxhyfcpVHawUQhKBvfnPCVcDQulyRZWEeOetcR1fw47Roh4BSXf"/>
-                            </div>
-                        </td>
-                        <td class="px-md py-md">
-                            <div class="font-semibold text-primary-container">Batería 12V 75Ah</div>
-                            <div class="text-xs text-on-surface-variant">Repuestos</div>
-                        </td>
-                        <td class="px-md py-md font-mono text-xs">OC-12360</td>
-                        <td class="px-md py-md font-medium">2 Unidades</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                Ordenes abiertas
-                            </span>
-                        </td>
-                        <td class="px-md py-md text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
-                                <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
-                        <td class="px-md py-md">
-                            <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
-                                <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbi8AXwsCIJvjZHxw_2fIkOFdPRC19VbFFphnhUNajMlxLABL43chBc7iSN_BjxrH1oRTV4zt_i0xKMJpoKpRfzWixRmsG-vEg2CIxueGPLjN07hQiC9KIBKUmGO1aU1qDMmLAZPdFyR1S8hvN23B5c17bUAargRAr-RlXe3EJd4LNDUmcpi4i-rN2t9aJ4iBG138Q6d8okdNeCIyc3GWwlr7uoNrt63Hbd6px56aYxFkSiV2aqHa9SVJk15a2uwdnaQohJogTCggP"/>
-                            </div>
-                        </td>
-                        <td class="px-md py-md">
-                            <div class="font-semibold text-primary-container">Casco de Seguridad</div>
-                            <div class="text-xs text-on-surface-variant">Seguridad</div>
-                        </td>
-                        <td class="px-md py-md font-mono text-xs">OC-12365</td>
-                        <td class="px-md py-md font-medium">10 Unidades</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                Ordenes abiertas
-                            </span>
-                        </td>
-                        <td class="px-md py-md text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
-                                <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="bg-surface-container-low hover:bg-surface-bright transition-colors border-b border-outline-variant/10">
-                        <td class="px-md py-md">
-                            <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
-                                <img alt="Material" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChS2BCq6YYNfAqDkK36WwSU7W5_xFo7Uswtj1lPMNZO59et7fZGDcNdZsa7Q9sCLjgaVpxJOyQqkYJOIcyuJYCBVF7SIdlU_Mni-Tzq4uO9-pize2UQz80cFRDYfnKpuIc2gW_thnQiiawjQlTujAy2zE1h6JSgLpYHFPuu3sLVQQDRkX4GMqLDvtOtwz3cMPAa_Y5P-FoT1FM_e5hDO0-4eG2PzpEzs8liuQ5slTftWdY9RZ4-uqV601yooJkgD8xgTr6jTsQniUN"/>
-                            </div>
-                        </td>
-                        <td class="px-md py-md">
-                            <div class="font-semibold text-primary-container">Neumático Frontal</div>
-                            <div class="text-xs text-on-surface-variant">Repuestos</div>
-                        </td>
-                        <td class="px-md py-md font-mono text-xs">OC-12370</td>
-                        <td class="px-md py-md font-medium">4 Unidades</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">-</td>
-                        <td class="px-md py-md">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                Ordenes abiertas
-                            </span>
-                        </td>
-                        <td class="px-md py-md text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="btn-view-reception p-1 text-primary-container hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
-                                <button class="p-1 text-[#001F3F] hover:bg-secondary-container rounded-md transition-all active:scale-90"><span class="material-symbols-outlined text-[20px]">edit_square</span></button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="px-lg py-md bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-4">
-                <span class="text-xs text-on-surface-variant font-medium">Mostrando 6 de 158 recepciones</span>
-                <div class="flex gap-2">
-                    <button class="p-1 border border-outline-variant rounded hover:bg-white transition-all"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
-                    <button class="px-3 py-1 bg-primary-container text-white rounded text-xs">1</button>
-                    <button class="px-3 py-1 border border-outline-variant rounded hover:bg-white transition-all text-xs">2</button>
-                    <button class="px-3 py-1 border border-outline-variant rounded hover:bg-white transition-all text-xs">3</button>
-                    <button class="p-1 border border-outline-variant rounded hover:bg-white transition-all"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Nuevo Ingreso -->
-        <div id="modalNuevoIngreso" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity opacity-0">
-            <div class="bg-surface-container-lowest w-full max-w-3xl rounded-xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300 mx-4 max-h-[90vh]">
-                <!-- Header -->
-                <div class="px-6 py-4 border-b border-outline-variant/30 flex justify-between items-center bg-[#001F3F] text-white">
-                    <h2 id="modalTitle" class="text-xl font-bold font-h2">Nuevo Registrar Entrada de Material</h2>
-                    <button id="btnCloseModal" class="text-white/70 hover:text-white transition-colors">
-                        <span class="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                
-                <!-- Body (Pages) -->
-                <div class="p-6 flex-grow overflow-y-auto">
-                    <!-- Page 1: Datos -->
-                    <div id="page1" class="space-y-4">
-                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">1. Datos del Material</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1"># Pedido de compra</label>
-                                <input type="text" id="inputOC" list="ocList" placeholder="Ej. OC-12345" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-                                <p id="errorOC" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-                                <datalist id="ocList">
-                                    <option value="OC-12345">
-                                    <option value="OC-12348">
-                                    <option value="OC-12352">
-                                    <option value="OC-12360">
-                                    <option value="OC-12365">
-                                    <option value="OC-12370">
-                                </datalist>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Nombre del material</label>
-                                <input type="text" id="inputMaterial" readonly placeholder="Descripción del material" class="w-full border border-outline-variant rounded-lg px-3 py-2 outline-none bg-surface-container-low cursor-not-allowed">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Código (SKU)</label>
-                                <input type="text" id="inputSKU" placeholder="SKU o código de barras" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Categoría</label>
-                                <input type="text" id="inputCategoria" readonly placeholder="Categoría" class="w-full border border-outline-variant rounded-lg px-3 py-2 outline-none bg-surface-container-low cursor-not-allowed">
-                            </div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block text-sm font-medium text-on-surface-variant mb-1">Unidades (OC)</label>
-                                    <input type="number" id="inputUnidades" readonly min="0" placeholder="0" class="w-full border border-outline-variant rounded-lg px-3 py-2 outline-none bg-surface-container-low cursor-not-allowed">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-on-surface-variant mb-1 text-primary-container font-bold">Cant. Confirmar Recepciónada *</label>
-                                    <input type="number" id="inputCantRecepcionada" min="0" placeholder="0" class="w-full border border-primary-container rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-primary-fixed/20 transition-all">
-                                    <p id="errorCant" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Page 2: Foto -->
-                    <div id="page2" class="hidden space-y-4">
-                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">2. Foto del Material</h3>
-                        <p class="text-sm text-on-surface-variant mb-2">Capture o suba una foto del estado en que llegó el material.</p>
-                        
-                        <div id="photoModule" class="relative border-2 border-dashed border-outline-variant rounded-xl overflow-hidden bg-surface group transition-all duration-300 min-h-[250px] flex items-center justify-center">
-                            <!-- Camera Preview -->
-                            <video id="cameraPreview" class="hidden w-full h-[250px] object-cover bg-black" autoplay playsinline></video>
-                            
-                            <!-- Image Preview -->
-                            <img id="imagePreview" class="hidden w-full h-[250px] object-cover" src=""/>
-
-                            <!-- Placeholder / Drag Zone -->
-                            <div id="photoPlaceholder" class="flex flex-col items-center justify-center p-lg text-center h-[250px] w-full gap-sm cursor-pointer hover:bg-surface-container-low transition-colors">
-                                <span class="material-symbols-outlined text-outline text-[48px]">add_a_photo</span>
-                                <p class="text-base font-semibold text-[#001F3F]">Click para <span class="text-primary-container">Cámara</span> o arrastre imagen</p>
-                                <p class="text-sm text-on-surface-variant">PNG, JPG, WEBP soportados</p>
-                            </div>
-
-                            <!-- Controls -->
-                            <div class="absolute bottom-4 right-4 flex gap-2">
-                                <button id="btnToggleCamera" type="button" class="bg-white/90 hover:bg-white text-primary-container p-3 rounded-full shadow-lg transition-all active:scale-95 flex items-center justify-center border border-slate-200">
-                                    <span class="material-symbols-outlined text-[24px]">videocam</span>
-                                </button>
-                                <button id="btnCapture" type="button" class="hidden bg-primary-container text-white p-3 rounded-full shadow-lg transition-all active:scale-95 flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-[24px]">photo_camera</span>
-                                </button>
-                            </div>
-                            
-                            <!-- Hidden Inputs -->
-                            <input type="file" id="fileInput" accept="image/*" class="hidden"/>
-                            <canvas id="photoCanvas" class="hidden" width="640" height="480"></canvas>
-                        </div>
-                    </div>
-                    
-                    <!-- Page 3: Proveedor -->
-                    <div id="page3" class="hidden space-y-4">
-                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">3. Proveedor</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Proveedor *</label>
-                                <input type="text" id="inputProveedor" placeholder="Nombre del proveedor" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-                                <p id="errorProveedor" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1"># de Factura *</label>
-                                <input type="text" id="inputFactura" placeholder="Número de factura" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-                                <p id="errorFactura" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Lote *</label>
-                                <input type="text" id="inputLote" placeholder="Número de lote" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-                                <p id="errorLote" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de Manufactura *</label>
-                                <input type="date" id="inputFechaManuf" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-                                <p id="errorFechaManuf" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de recibo</label>
-                                <input type="date" id="inputFechaRecibo" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Responsable *</label>
-                                <input type="text" id="inputResponsable" placeholder="Nombre del responsable" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-                                <p id="errorResponsable" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Page 4: Validacion -->
-                    <div id="page4" class="hidden space-y-4">
-                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">4. Validación de Calidad</h3>
-                        <div class="space-y-4 bg-surface p-4 rounded-xl border border-outline-variant/30">
-                            <p class="text-sm text-on-surface-variant mb-4">Verifique el estado físico del empaque y del material.</p>
-                            
-                            <div class="space-y-2">
-                                <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
-                                    <input type="checkbox" id="checkEmpaque" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
-                                    <div>
-                                        <p class="text-sm font-semibold text-on-surface">Empaque intacto *</p>
-                                        <p class="text-xs text-on-surface-variant">Sin rasgaduras, golpes o humedad visible.</p>
-                                    </div>
-                                </label>
-                                <p id="errorEmpaque" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar el estado del empaque</p>
-                            </div>
-                            
-                            <div class="space-y-2">
-                                <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
-                                    <input type="checkbox" id="checkCantidad" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
-                                    <div>
-                                        <p class="text-sm font-semibold text-on-surface">Cantidades correctas *</p>
-                                        <p class="text-xs text-on-surface-variant">La cantidad física coincide con la guía/factura.</p>
-                                    </div>
-                                </label>
-                                <p id="errorCantidad" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar las cantidades</p>
-                            </div>
-
-                            <div class="mt-4">
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Estado de material *</label>
-                                <select id="selectEstado" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-                                    <option value="">Seleccione estado...</option>
-                                    <option>Recibido</option>
-                                    <option>Parcial</option>
-                                    <option>Rechazado</option>
-                                </select>
-                                <p id="errorEstado" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de seleccionar</p>
-                            </div>
-
-                            <div class="mt-4">
-                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Observaciones (Opcional)</label>
-                                <textarea id="inputObservaciones" rows="3" placeholder="Detalles sobre discrepancias o estado del material..." class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface resize-none"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Page 5: PDF -->
-                    <!-- Page 5: Orden de Compra (OC) -->
-                    <div id="page5" class="hidden space-y-4">
-                        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">5. Resumen de Recepción (OC)</h3>
-                        
-                        <div class="bg-surface p-4 md:p-6 rounded-xl border border-outline-variant/30 space-y-6 max-h-[60vh] overflow-y-auto">
-                            <!-- Header Info -->
-                            <div class="flex justify-between items-start border-b border-outline-variant/20 pb-4">
-                                <div>
-                                    <h4 id="summaryMaterial" class="text-lg md:text-xl font-bold text-[#001F3F]">Nombre del Material</h4>
-                                    <p id="summarySKU" class="text-xs md:text-sm text-on-surface-variant font-mono">SKU-000000</p>
-                                </div>
-                                <div class="text-right">
-                                    <span id="summaryStatus" class="inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-emerald-100 text-emerald-800 uppercase">
-                                        ESTADO
-                                    </span>
-                                    <p id="summaryFecha" class="text-[10px] md:text-xs text-on-surface-variant mt-1">2026-04-27</p>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                                <!-- Left Column: Details -->
-                                <div class="space-y-4">
-                                    <section>
-                                        <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Información de Pedido</h5>
-                                        <div class="grid grid-cols-2 gap-y-2 text-sm">
-                                            <span class="text-on-surface-variant">Orden de Compra:</span>
-                                            <span id="summaryOC" class="font-semibold text-on-surface">-</span>
-                                            <span class="text-on-surface-variant">Categoría:</span>
-                                            <span id="summaryCategoria" class="font-semibold text-on-surface">-</span>
-                                            <span class="text-on-surface-variant">Cant. Esperada:</span>
-                                            <span id="summaryEsperada" class="font-semibold text-on-surface">-</span>
-                                            <span class="text-on-surface-variant">Cant. Recibida:</span>
-                                            <span id="summaryRecibida" class="font-bold text-primary-container text-base">-</span>
-                                        </div>
-                                    </section>
-
-                                    <section>
-                                        <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Datos del Proveedor</h5>
-                                        <div class="grid grid-cols-2 gap-y-2 text-sm">
-                                            <span class="text-on-surface-variant">Proveedor:</span>
-                                            <span id="summaryProveedor" class="font-semibold text-on-surface">-</span>
-                                            <span class="text-on-surface-variant">Factura #:</span>
-                                            <span id="summaryFactura" class="font-semibold text-on-surface">-</span>
-                                            <span class="text-on-surface-variant">Lote:</span>
-                                            <span id="summaryLote" class="font-semibold text-on-surface">-</span>
-                                            <span class="text-on-surface-variant">Manufactura:</span>
-                                            <span id="summaryManuf" class="font-semibold text-on-surface">-</span>
-                                        </div>
-                                    </section>
-
-                                    <section>
-                                        <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Validación & Calidad</h5>
-                                        <div class="space-y-1 text-sm">
-                                            <div class="flex items-center gap-2">
-                                                <span id="iconEmpaque" class="material-symbols-outlined text-emerald-500 text-base">check_circle</span>
-                                                <span class="text-on-surface">Empaque verificado e intacto</span>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <span id="iconCantidad" class="material-symbols-outlined text-emerald-500 text-base">check_circle</span>
-                                                <span class="text-on-surface">Cantidades físicas validadas</span>
-                                            </div>
-                                            <div class="mt-2 p-2 bg-surface-container-low rounded text-xs italic text-on-surface-variant border border-outline-variant/10">
-                                                " <span id="summaryObs">Sin observaciones adicionales.</span> "
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-
-                                <!-- Right Column: Photo & Logistics -->
-                                <div class="space-y-4">
-                                    <section>
-                                        <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Evidencia Fotográfica</h5>
-                                        <div class="border border-outline-variant/30 rounded-lg overflow-hidden bg-slate-50 aspect-video flex items-center justify-center shadow-inner">
-                                            <img id="summaryPhoto" src="" class="w-full h-full object-contain" alt="Evidencia de recepción">
-                                            <div id="noPhotoMsg" class="hidden flex flex-col items-center text-on-surface-variant opacity-40">
-                                                <span class="material-symbols-outlined text-4xl">no_photography</span>
-                                                <span class="text-[10px] font-bold uppercase mt-1">Sin fotografía</span>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    
-                                    <section class="bg-secondary-container/30 p-4 rounded-lg border border-primary-container/10 flex items-center gap-3">
-                                        <div class="bg-primary-container text-white p-2 rounded-lg">
-                                            <span class="material-symbols-outlined text-[20px]">person</span>
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <span class="text-[10px] font-bold text-primary-container/70 uppercase leading-none mb-1">Responsable de Bodega</span>
-                                            <span id="summaryResponsable" class="text-sm font-bold text-primary-container">Nombre del Responsable</span>
-                                        </div>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/30 flex items-start sm:items-center gap-4">
-                            <div class="bg-[#10b981]/20 text-[#10b981] p-2 rounded-full flex-shrink-0">
-                                <span class="material-symbols-outlined">verified</span>
-                            </div>
-                            <p class="text-[10px] md:text-xs text-on-surface-variant">Revise que toda la información sea correcta antes de finalizar. Al hacer clic en <span class="font-bold">Finalizar</span>, el material ingresará formalmente al inventario central.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Footer / Guia de pagina -->
-                <div id="modalFooter" class="px-6 py-4 border-t border-outline-variant/30 bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <!-- Stepper Indicators -->
-                    <div class="flex gap-2 sm:gap-4 items-start w-full sm:w-auto justify-between sm:justify-start">
-                        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(1)">
-                            <div id="dot1" class="w-full h-1.5 rounded-full bg-[#001F3F] transition-all"></div>
-                            <span id="text1" class="text-[9px] sm:text-[10px] font-bold mt-2 text-[#001F3F] uppercase tracking-wider text-center leading-tight">1. Datos</span>
-                        </div>
-                        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(2)">
-                            <div id="dot2" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
-                            <span id="text2" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">2. Foto</span>
-                        </div>
-                        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(3)">
-                            <div id="dot3" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
-                            <span id="text3" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">3. Prov.</span>
-                        </div>
-                        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(4)">
-                            <div id="dot4" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
-                            <span id="text4" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">4. Validar</span>
-                        </div>
-                        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(5)">
-                            <div id="dot5" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
-                            <span id="text5" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">5. OC</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Actions -->
-                    <div class="flex gap-3 w-full sm:w-auto justify-end mt-2 sm:mt-0">
-                        <button id="btnPrevPage" class="px-5 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface hover:bg-surface transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>Atrás</button>
-                        <button id="btnNextPage" class="px-5 py-2.5 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg text-sm font-bold transition-all shadow-md active:scale-95">Siguiente</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <!-- Footer -->
-    <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
-        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
-    </footer>
-
-
-    
-    
-
-
-    
-
-
-    
-    
-          (function() {
-            // Modal Elements
-            const modal = document.getElementById('modalNuevoIngreso');
-            const btnNuevaRecepcion = document.getElementById('btnNuevaRecepcion');
-            const btnCloseModal = document.getElementById('btnCloseModal');
-            const btnPrevPage = document.getElementById('btnPrevPage');
-            const btnNextPage = document.getElementById('btnNextPage');
+              </div>
+            </section>
             
-            // Camera Elements
-            const video = document.getElementById('cameraPreview');
-            const imgPreview = document.getElementById('imagePreview');
-            const photoPlaceholder = document.getElementById('photoPlaceholder');
-            const btnCapture = document.getElementById('btnCapture');
-            const btnToggleCamera = document.getElementById('btnToggleCamera');
-            const fileInput = document.getElementById('fileInput');
-            const canvas = document.getElementById('photoCanvas');
+            <section class="bg-secondary-container/30 p-4 rounded-lg border border-primary-container/10 flex items-center gap-3">
+              <div class="bg-primary-container text-white p-2 rounded-lg">
+                <span class="material-symbols-outlined text-[20px]">person</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-[10px] font-bold text-primary-container/70 uppercase leading-none mb-1">Responsable de Bodega</span>
+                <span id="summaryResponsable" class="text-sm font-bold text-primary-container">Nombre del Responsable</span>
+              </div>
+            </section>
+            </div>
+          </div>
+        </div>
 
-            let currentPage = 1;
-            const totalPages = 5;
-            let stream = null;
+        <div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/30 flex items-start sm:items-center gap-4">
+          <div class="bg-[#10b981]/20 text-[#10b981] p-2 rounded-full flex-shrink-0">
+            <span class="material-symbols-outlined">verified</span>
+          </div>
+          <p class="text-[10px] md:text-xs text-on-surface-variant">Revise que toda la información sea correcta antes de finalizar. Al hacer clic en <span class="font-bold">Finalizar</span>, el material ingresará formalmente al inventario central.</p>
+        </div>
+        </div>
+      </div>
+      
+      <!-- Footer / Guia de pagina -->
+      <div id="modalFooter" class="px-6 py-4 border-t border-outline-variant/30 bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-4">
+        <!-- Stepper Indicators -->
+        <div class="flex gap-2 sm:gap-4 items-start w-full sm:w-auto justify-between sm:justify-start">
+        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(1)">
+          <div id="dot1" class="w-full h-1.5 rounded-full bg-[#001F3F] transition-all"></div>
+          <span id="text1" class="text-[9px] sm:text-[10px] font-bold mt-2 text-[#001F3F] uppercase tracking-wider text-center leading-tight">1. Datos</span>
+        </div>
+        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(2)">
+          <div id="dot2" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
+          <span id="text2" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">2. Foto</span>
+        </div>
+        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(3)">
+          <div id="dot3" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
+          <span id="text3" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">3. Prov.</span>
+        </div>
+        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(4)">
+          <div id="dot4" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
+          <span id="text4" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">4. Validar</span>
+        </div>
+        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(5)">
+          <div id="dot5" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
+          <span id="text5" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">5. OC</span>
+        </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="flex gap-3 w-full sm:w-auto justify-end mt-2 sm:mt-0">
+        <button id="btnPrevPage" class="px-5 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface hover:bg-surface transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>Atrás</button>
+        <button id="btnNextPage" class="px-5 py-2.5 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg text-sm font-bold transition-all shadow-md active:scale-95">Siguiente</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
+    <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
+  </footer>
 
-            // --- Modal Logic ---
-            function openModal() {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    modal.querySelector('div').classList.remove('scale-95');
-                }, 10);
-                goToPage(1);
-            }
 
-            function closeModal() {
-                modal.classList.add('opacity-0');
-                modal.querySelector('div').classList.add('scale-95');
-                stopCamera();
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                }, 300);
-            }
+  
+  
 
-            if (btnNuevaRecepcion) btnNuevaRecepcion.addEventListener('click', openModal);
-            if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
 
-            // --- Stepper Logic ---
-            function goToPage(page) {
-                if (page < 1 || page > totalPages) return;
+  
 
-                // Hide all pages
-                for (let i = 1; i <= totalPages; i++) {
-                    const p = document.getElementById(`page${i}`);
-                    if (p) p.classList.add('hidden');
-                    
-                    const dot = document.getElementById(`dot${i}`);
-                    const text = document.getElementById(`text${i}`);
-                    
-                    if (dot) {
-                        if (i <= page) {
-                            dot.classList.replace('bg-outline-variant', 'bg-[#001F3F]');
-                        } else {
-                            dot.classList.replace('bg-[#001F3F]', 'bg-outline-variant');
-                        }
-                    }
-                    if (text) {
-                        if (i <= page) {
-                            text.classList.replace('text-on-surface-variant', 'text-[#001F3F]');
-                        } else {
-                            text.classList.replace('text-[#001F3F]', 'text-on-surface-variant');
-                        }
-                    }
-                }
 
-                // Show target page
-                const targetPage = document.getElementById(`page${page}`);
-                if (targetPage) targetPage.classList.remove('hidden');
+  
+  
+    (function() {
+    // Modal Elements
+    const modal = document.getElementById('modalNuevoIngreso');
+    const btnNuevaRecepcion = document.getElementById('btnNuevaRecepcion');
+    const btnCloseModal = document.getElementById('btnCloseModal');
+    const btnPrevPage = document.getElementById('btnPrevPage');
+    const btnNextPage = document.getElementById('btnNextPage');
+    
+    // Camera Elements
+    const video = document.getElementById('cameraPreview');
+    const imgPreview = document.getElementById('imagePreview');
+    const photoPlaceholder = document.getElementById('photoPlaceholder');
+    const btnCapture = document.getElementById('btnCapture');
+    const btnToggleCamera = document.getElementById('btnToggleCamera');
+    const fileInput = document.getElementById('fileInput');
+    const canvas = document.getElementById('photoCanvas');
 
-                // Populate Summary if Page 5
-                if (page === 5) {
-                    document.getElementById('summaryMaterial').textContent = document.getElementById('inputMaterial').value || 'Sin descripción';
-                    document.getElementById('summarySKU').textContent = document.getElementById('inputSKU').value || 'SKU-000000';
-                    document.getElementById('summaryOC').textContent = document.getElementById('inputOC').value || '-';
-                    document.getElementById('summaryCategoria').textContent = document.getElementById('inputCategoria').value || '-';
-                    document.getElementById('summaryEsperada').textContent = document.getElementById('inputUnidades').value || '-';
-                    document.getElementById('summaryRecibida').textContent = document.getElementById('inputCantRecepcionada').value || '-';
-                    document.getElementById('summaryProveedor').textContent = document.getElementById('inputProveedor').value || '-';
-                    document.getElementById('summaryFactura').textContent = document.getElementById('inputFactura').value || '-';
-                    document.getElementById('summaryLote').textContent = document.getElementById('inputLote').value || '-';
-                    document.getElementById('summaryManuf').textContent = document.getElementById('inputFechaManuf').value || '-';
-                    document.getElementById('summaryResponsable').textContent = document.getElementById('inputResponsable').value || '-';
-                    document.getElementById('summaryObs').textContent = document.getElementById('inputObservaciones').value || 'Sin observaciones.';
-                    document.getElementById('summaryStatus').textContent = document.getElementById('selectEstado').value || 'RECIBIDO';
-                    
-                    const photo = document.getElementById('imagePreview').src;
-                    const summaryPhoto = document.getElementById('summaryPhoto');
-                    const noPhotoMsg = document.getElementById('noPhotoMsg');
-                    if (photo && photo.startsWith('data:')) {
-                        summaryPhoto.src = photo;
-                        summaryPhoto.classList.remove('hidden');
-                        noPhotoMsg.classList.add('hidden');
-                    } else {
-                        summaryPhoto.classList.add('hidden');
-                        noPhotoMsg.classList.remove('hidden');
-                    }
-                }
+    let currentPage = 1;
+    const totalPages = 5;
+    let stream = null;
 
-                // Update Footer Buttons
-                btnPrevPage.disabled = (page === 1);
-                
-                if (page === totalPages) {
-                    btnNextPage.innerHTML = 'Finalizar';
-                    btnNextPage.classList.replace('bg-[#10b981]', 'bg-[#001F3F]');
-                } else {
-                    btnNextPage.innerHTML = 'Siguiente';
-                    btnNextPage.classList.replace('bg-[#001F3F]', 'bg-[#10b981]');
-                }
+    // --- Modal Logic ---
+    function openModal() {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modal.querySelector('div').classList.remove('scale-95');
+      }, 10);
+      goToPage(1);
+    }
 
-                currentPage = page;
-                
-                // Camera handling
-                if (page !== 2) stopCamera();
-            }
+    function closeModal() {
+      modal.classList.add('opacity-0');
+      modal.querySelector('div').classList.add('scale-95');
+      stopCamera();
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 300);
+    }
 
-            window.goToPage = goToPage; // Make it global for onclick in dots
+    if (btnNuevaRecepcion) btnNuevaRecepcion.addEventListener('click', openModal);
+    if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
 
-            if (btnPrevPage) btnPrevPage.addEventListener('click', () => goToPage(currentPage - 1));
-            if (btnNextPage) btnNextPage.addEventListener('click', () => {
-                if (currentPage === totalPages) {
-                    alert("Recepción guardada con éxito (Simulación)");
-                    closeModal();
-                } else {
-                    goToPage(currentPage + 1);
-                }
-            });
+    // --- Stepper Logic ---
+    function goToPage(page) {
+      if (page < 1 || page > totalPages) return;
 
-            // --- Camera Logic ---
-            async function startCamera() {
-                try {
-                    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                    video.srcObject = stream;
-                    video.classList.remove('hidden');
-                    imgPreview.classList.add('hidden');
-                    photoPlaceholder.classList.add('hidden');
-                    btnCapture.classList.remove('hidden');
-                } catch (err) {
-                    console.error("Error accessing camera:", err);
-                    alert("No se pudo acceder a la cámara.");
-                }
-            }
+      // Hide all pages
+      for (let i = 1; i <= totalPages; i++) {
+        const p = document.getElementById(`page${i}`);
+        if (p) p.classList.add('hidden');
+        
+        const dot = document.getElementById(`dot${i}`);
+        const text = document.getElementById(`text${i}`);
+        
+        if (dot) {
+        if (i <= page) {
+          dot.classList.replace('bg-outline-variant', 'bg-[#001F3F]');
+        } else {
+          dot.classList.replace('bg-[#001F3F]', 'bg-outline-variant');
+        }
+        }
+        if (text) {
+        if (i <= page) {
+          text.classList.replace('text-on-surface-variant', 'text-[#001F3F]');
+        } else {
+          text.classList.replace('text-[#001F3F]', 'text-on-surface-variant');
+        }
+        }
+      }
 
-            function stopCamera() {
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
-                    stream = null;
-                }
-                if (video) video.classList.add('hidden');
-            }
+      // Show target page
+      const targetPage = document.getElementById(`page${page}`);
+      if (targetPage) targetPage.classList.remove('hidden');
 
-            if (btnToggleCamera) btnToggleCamera.addEventListener('click', () => {
-                if (stream) stopCamera();
-                else startCamera();
-            });
+      // Populate Summary if Page 5
+      if (page === 5) {
+        document.getElementById('summaryMaterial').textContent = document.getElementById('inputMaterial').value || 'Sin descripción';
+        document.getElementById('summarySKU').textContent = document.getElementById('inputSKU').value || 'SKU-000000';
+        document.getElementById('summaryOC').textContent = document.getElementById('inputOC').value || '-';
+        document.getElementById('summaryCategoria').textContent = document.getElementById('inputCategoria').value || '-';
+        document.getElementById('summaryEsperada').textContent = document.getElementById('inputUnidades').value || '-';
+        document.getElementById('summaryRecibida').textContent = document.getElementById('inputCantRecepcionada').value || '-';
+        document.getElementById('summaryProveedor').textContent = document.getElementById('inputProveedor').value || '-';
+        document.getElementById('summaryFactura').textContent = document.getElementById('inputFactura').value || '-';
+        document.getElementById('summaryLote').textContent = document.getElementById('inputLote').value || '-';
+        document.getElementById('summaryManuf').textContent = document.getElementById('inputFechaManuf').value || '-';
+        document.getElementById('summaryResponsable').textContent = document.getElementById('inputResponsable').value || '-';
+        document.getElementById('summaryObs').textContent = document.getElementById('inputObservaciones').value || 'Sin observaciones.';
+        document.getElementById('summaryStatus').textContent = document.getElementById('selectEstado').value || 'RECIBIDO';
+        
+        const photo = document.getElementById('imagePreview').src;
+        const summaryPhoto = document.getElementById('summaryPhoto');
+        const noPhotoMsg = document.getElementById('noPhotoMsg');
+        if (photo && photo.startsWith('data:')) {
+        summaryPhoto.src = photo;
+        summaryPhoto.classList.remove('hidden');
+        noPhotoMsg.classList.add('hidden');
+        } else {
+        summaryPhoto.classList.add('hidden');
+        noPhotoMsg.classList.remove('hidden');
+        }
+      }
 
-            if (btnCapture) btnCapture.addEventListener('click', () => {
-                const context = canvas.getContext('2d');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                
-                const dataUrl = canvas.toDataURL('image/webp');
-                imgPreview.src = dataUrl;
-                imgPreview.classList.remove('hidden');
-                video.classList.add('hidden');
-                btnCapture.classList.add('hidden');
-                stopCamera();
-            });
+      // Update Footer Buttons
+      btnPrevPage.disabled = (page === 1);
+      
+      if (page === totalPages) {
+        btnNextPage.innerHTML = 'Finalizar';
+        btnNextPage.classList.replace('bg-[#10b981]', 'bg-[#001F3F]');
+      } else {
+        btnNextPage.innerHTML = 'Siguiente';
+        btnNextPage.classList.replace('bg-[#001F3F]', 'bg-[#10b981]');
+      }
 
-            if (photoPlaceholder) photoPlaceholder.addEventListener('click', () => fileInput.click());
-            
-            if (fileInput) fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
+      currentPage = page;
+      
+      // Camera handling
+      if (page !== 2) stopCamera();
+    }
+
+    window.goToPage = goToPage; // Make it global for onclick in dots
+
+    if (btnPrevPage) btnPrevPage.addEventListener('click', () => goToPage(currentPage - 1));
+    if (btnNextPage) btnNextPage.addEventListener('click', () => {
+      if (currentPage === totalPages) {
+        alert("Recepción guardada con éxito (Simulación)");
+        closeModal();
+      } else {
+        goToPage(currentPage + 1);
+      }
+    });
+
+    // --- Camera Logic ---
+    async function startCamera() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        video.srcObject = stream;
+        video.classList.remove('hidden');
+        imgPreview.classList.add('hidden');
+        photoPlaceholder.classList.add('hidden');
+        btnCapture.classList.remove('hidden');
+      } catch (err) {
+        console.error("Error accessing camera:", err);
+        alert("No se pudo acceder a la cámara.");
+      }
+    }
+
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      }
+      if (video) video.classList.add('hidden');
+    }
+
+    if (btnToggleCamera) btnToggleCamera.addEventListener('click', () => {
+      if (stream) stopCamera();
+      else startCamera();
+    });
+
+    if (btnCapture) btnCapture.addEventListener('click', () => {
+      const context = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      
+      const dataUrl = canvas.toDataURL('image/webp');
+      imgPreview.src = dataUrl;
+      imgPreview.classList.remove('hidden');
+      video.classList.add('hidden');
+      btnCapture.classList.add('hidden');
+      stopCamera();
+    });
+
+    if (photoPlaceholder) photoPlaceholder.addEventListener('click', () => fileInput.click());
+    
+    if (fileInput) fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
 <footer class="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] md:text-xs font-medium uppercase tracking-wider w-full mt-auto py-6 border-t border-slate-200 dark:border-slate-800 flex justify-center items-center px-4 md:px-8 max-w-7xl mx-auto text-center">
-        <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
-    </footer>
+    <div>© 2026 CSM Legacy. Todos los derechos reservados.</div>
+  </footer>
 
 
+  
+  
+
+
+  
+
+
+  
+  
+  <script>
+    (function() {
+    // Modal Elements
+    const modal = document.getElementById('modalNuevoIngreso');
+    const btnNuevaRecepcion = document.getElementById('btnNuevaRecepcion');
+    const btnCloseModal = document.getElementById('btnCloseModal');
+    const btnPrevPage = document.getElementById('btnPrevPage');
+    const btnNextPage = document.getElementById('btnNextPage');
     
+    // Camera Elements
+    const video = document.getElementById('cameraPreview');
+    const imgPreview = document.getElementById('imagePreview');
+    const photoPlaceholder = document.getElementById('photoPlaceholder');
+    const btnCapture = document.getElementById('btnCapture');
+    const btnToggleCamera = document.getElementById('btnToggleCamera');
+    const fileInput = document.getElementById('fileInput');
+    const canvas = document.getElementById('photoCanvas');
+
+    let currentPage = 1;
+    const totalPages = 5;
+    let stream = null;
+
+    // --- Modal Logic ---
+    function openModal() {
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        const modalContent = modal.querySelector('div');
+        if (modalContent) modalContent.classList.remove('scale-95');
+      }, 10);
+      goToPage(1);
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.add('opacity-0');
+      const modalContent = modal.querySelector('div');
+      if (modalContent) modalContent.classList.add('scale-95');
+      stopCamera();
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 300);
+    }
+
+    if (btnNuevaRecepcion) btnNuevaRecepcion.addEventListener('click', openModal);
+    if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+
+    // --- Stepper Logic ---
+    function goToPage(page) {
+      if (page < 1 || page > totalPages) return;
+
+      // Hide all pages
+      for (let i = 1; i <= totalPages; i++) {
+        const p = document.getElementById(`page${i}`);
+        if (p) p.classList.add('hidden');
+        
+        const dot = document.getElementById(`dot${i}`);
+        const text = document.getElementById(`text${i}`);
+        
+        if (dot) {
+        if (i <= page) {
+          dot.classList.replace('bg-outline-variant', 'bg-[#001F3F]');
+        } else {
+          dot.classList.replace('bg-[#001F3F]', 'bg-outline-variant');
+        }
+        }
+        if (text) {
+        if (i <= page) {
+          text.classList.replace('text-on-surface-variant', 'text-[#001F3F]');
+        } else {
+          text.classList.replace('text-[#001F3F]', 'text-on-surface-variant');
+        }
+        }
+      }
+
+      // Show target page
+      const targetPage = document.getElementById(`page${page}`);
+      if (targetPage) targetPage.classList.remove('hidden');
+
+      // Populate Summary if Page 5
+      if (page === 5) {
+        const safeSetText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value || '-';
+        };
+        
+        safeSetText('summaryMaterial', document.getElementById('inputMaterial')?.value || 'Sin descripción');
+        safeSetText('summarySKU', document.getElementById('inputSKU')?.value || 'SKU-000000');
+        safeSetText('summaryOC', document.getElementById('inputOC')?.value || '-');
+        safeSetText('summaryCategoria', document.getElementById('inputCategoria')?.value || '-');
+        safeSetText('summaryEsperada', document.getElementById('inputUnidades')?.value || '-');
+        safeSetText('summaryRecibida', document.getElementById('inputCantRecepcionada')?.value || '-');
+        safeSetText('summaryProveedor', document.getElementById('inputProveedor')?.value || '-');
+        safeSetText('summaryFactura', document.getElementById('inputFactura')?.value || '-');
+        safeSetText('summaryLote', document.getElementById('inputLote')?.value || '-');
+        safeSetText('summaryManuf', document.getElementById('inputFechaManuf')?.value || '-');
+        safeSetText('summaryResponsable', document.getElementById('inputResponsable')?.value || '-');
+        safeSetText('summaryObs', document.getElementById('inputObservaciones')?.value || 'Sin observaciones.');
+        safeSetText('summaryStatus', document.getElementById('selectEstado')?.value || 'RECIBIDO');
+        
+        const photo = imgPreview?.src;
+        const summaryPhoto = document.getElementById('summaryPhoto');
+        const noPhotoMsg = document.getElementById('noPhotoMsg');
+        if (summaryPhoto && noPhotoMsg) {
+        if (photo && photo.startsWith('data:')) {
+          summaryPhoto.src = photo;
+          summaryPhoto.classList.remove('hidden');
+          noPhotoMsg.classList.add('hidden');
+        } else {
+          summaryPhoto.classList.add('hidden');
+          noPhotoMsg.classList.remove('hidden');
+        }
+        }
+      }
+
+      // Update Footer Buttons
+      if (btnPrevPage) btnPrevPage.disabled = (page === 1);
+      
+      if (btnNextPage) {
+        if (page === totalPages) {
+        btnNextPage.innerHTML = 'Finalizar';
+        btnNextPage.classList.remove('bg-[#10b981]');
+        btnNextPage.classList.add('bg-[#001F3F]');
+        } else {
+        btnNextPage.innerHTML = 'Siguiente';
+        btnNextPage.classList.remove('bg-[#001F3F]');
+        btnNextPage.classList.add('bg-[#10b981]');
+        }
+      }
+
+      currentPage = page;
+      
+      // Camera handling
+      if (page !== 2) stopCamera();
+    }
+
+    window.goToPage = goToPage; // Make it global for onclick in dots
+
+    if (btnPrevPage) btnPrevPage.addEventListener('click', () => goToPage(currentPage - 1));
+    if (btnNextPage) btnNextPage.addEventListener('click', () => {
+      if (currentPage === totalPages) {
+        alert("Recepción guardada con éxito (Simulación)");
+        closeModal();
+      } else {
+        goToPage(currentPage + 1);
+      }
+    });
+
+    // --- Camera Logic ---
+    async function startCamera() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        if (video) {
+        video.srcObject = stream;
+        video.classList.remove('hidden');
+        }
+        if (imgPreview) imgPreview.classList.add('hidden');
+        if (photoPlaceholder) photoPlaceholder.classList.add('hidden');
+        if (btnCapture) btnCapture.classList.remove('hidden');
+      } catch (err) {
+        console.error("Error accessing camera:", err);
+        alert("No se pudo acceder a la cámara.");
+      }
+    }
+
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      }
+      if (video) video.classList.add('hidden');
+    }
+
+    if (btnToggleCamera) btnToggleCamera.addEventListener('click', () => {
+      if (stream) stopCamera();
+      else startCamera();
+    });
+
+    if (btnCapture) btnCapture.addEventListener('click', () => {
+      const context = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      
+      const dataUrl = canvas.toDataURL('image/webp');
+      if (imgPreview) {
+        imgPreview.src = dataUrl;
+        imgPreview.classList.remove('hidden');
+      }
+      if (video) video.classList.add('hidden');
+      if (btnCapture) btnCapture.classList.add('hidden');
+      stopCamera();
+    });
+
+    if (photoPlaceholder) photoPlaceholder.addEventListener('click', () => fileInput && fileInput.click());
     
+    if (fileInput) fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+        if (imgPreview) {
+          imgPreview.src = event.target.result;
+          imgPreview.classList.remove('hidden');
+        }
+        if (photoPlaceholder) photoPlaceholder.classList.add('hidden');
+        if (video) video.classList.add('hidden');
+        stopCamera();
+        };
+        reader.readAsDataURL(file);
+      }
+    });
 
+    // --- Sidebar Logic ---
+    const btnToggle = document.getElementById('btnSidebarToggle');
+    const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const header = document.querySelector('header');
+    const main = document.querySelector('main');
+    const toggleIcon = document.getElementById('toggleIcon');
 
-    
+    // Disable transitions temporarily to avoid animation on load
+    if (sidebar) sidebar.style.transition = 'none';
+    if (header) header.style.transition = 'none';
+    if (main) main.style.transition = 'none';
 
+    const toggleSidebar = (manual = true) => {
+      if (!sidebar) return;
+      const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
+      
+      if (isCurrentlyCollapsed) {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('md:translate-x-0');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+        if (window.innerWidth >= 768) {
+        if (header) header.classList.add('md:pl-64');
+        if (main) main.classList.add('md:ml-64');
+        } else {
+        if (overlay) overlay.classList.remove('hidden');
+        }
+        if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('md:translate-x-0');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+        if (header) header.classList.remove('md:pl-64');
+        if (main) main.classList.remove('md:ml-64');
+        if (overlay) overlay.classList.add('hidden');
+        if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
+      }
+    };
 
-    
-    
-    <script>
-        (function() {
-            // Modal Elements
-            const modal = document.getElementById('modalNuevoIngreso');
-            const btnNuevaRecepcion = document.getElementById('btnNuevaRecepcion');
-            const btnCloseModal = document.getElementById('btnCloseModal');
-            const btnPrevPage = document.getElementById('btnPrevPage');
-            const btnNextPage = document.getElementById('btnNextPage');
-            
-            // Camera Elements
-            const video = document.getElementById('cameraPreview');
-            const imgPreview = document.getElementById('imagePreview');
-            const photoPlaceholder = document.getElementById('photoPlaceholder');
-            const btnCapture = document.getElementById('btnCapture');
-            const btnToggleCamera = document.getElementById('btnToggleCamera');
-            const fileInput = document.getElementById('fileInput');
-            const canvas = document.getElementById('photoCanvas');
+    // Restore sidebar state
+    const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
+    if (sidebar) {
+      if (window.innerWidth >= 768) {
+        if (isSidebarCollapsed === 'true') {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('md:translate-x-0');
+        if (header) header.classList.remove('md:pl-64');
+        if (main) main.classList.remove('md:ml-64');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+        } else {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('md:translate-x-0');
+        if (header) header.classList.add('md:pl-64');
+        if (main) main.classList.add('md:ml-64');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_left';
+        }
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('md:translate-x-0');
+        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
+      }
+    }
 
-            let currentPage = 1;
-            const totalPages = 5;
-            let stream = null;
+    // Restore submenus
+    let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
+    const currentFile = window.location.pathname.split('/').pop() || 'inicio.html';
+    const nav = document.querySelector('nav');
 
-            // --- Modal Logic ---
-            function openModal() {
-                if (!modal) return;
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    const modalContent = modal.querySelector('div');
-                    if (modalContent) modalContent.classList.remove('scale-95');
-                }, 10);
-                goToPage(1);
-            }
+    if (nav) {
+      // Auto-open submenu containing current page and highlight link
+      const allLinks = nav.querySelectorAll('a');
+      allLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentFile || (currentFile === '' && href === 'inicio.html')) {
+        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
+        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
+        const icon = link.querySelector('span.material-symbols-outlined');
+        if (icon) icon.classList.add('text-blue-400');
 
-            function closeModal() {
-                if (!modal) return;
-                modal.classList.add('opacity-0');
-                const modalContent = modal.querySelector('div');
-                if (modalContent) modalContent.classList.add('scale-95');
-                stopCamera();
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                }, 300);
-            }
+        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
+        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
+          const btn = submenuDiv.previousElementSibling;
+          const spanTitle = btn.querySelector('.font-bold');
+          if (spanTitle) {
+            const menuId = spanTitle.textContent.trim();
+            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+          }
+        }
+        }
+      });
 
-            if (btnNuevaRecepcion) btnNuevaRecepcion.addEventListener('click', openModal);
-            if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+      const submenuBtns = nav.querySelectorAll('button');
 
-            // --- Stepper Logic ---
-            function goToPage(page) {
-                if (page < 1 || page > totalPages) return;
+      const updateMenuStyles = (btn, isOpen) => {
+        const icon = btn.querySelector('.material-symbols-outlined:first-child');
+        if (!icon) return;
+        const colors = {'group-hover:text-blue-400':'text-blue-400','group-hover:text-emerald-400':'text-emerald-400','group-hover:text-amber-400':'text-amber-400','group-hover:text-purple-400':'text-purple-400'};
+        let active = null;
+        for (const [h, a] of Object.entries(colors)) { if (icon.classList.contains(h)) { active = a; break; } }
+        if (isOpen) {
+        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+        btn.classList.remove('text-slate-300');
+        if (active) { icon.classList.add(active); icon.classList.remove('text-slate-400'); }
+        } else {
+        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
+        btn.classList.add('text-slate-300');
+        if (active) { icon.classList.remove(active); icon.classList.add('text-slate-400'); }
+        }
+      };
 
-                // Hide all pages
-                for (let i = 1; i <= totalPages; i++) {
-                    const p = document.getElementById(`page${i}`);
-                    if (p) p.classList.add('hidden');
-                    
-                    const dot = document.getElementById(`dot${i}`);
-                    const text = document.getElementById(`text${i}`);
-                    
-                    if (dot) {
-                        if (i <= page) {
-                            dot.classList.replace('bg-outline-variant', 'bg-[#001F3F]');
-                        } else {
-                            dot.classList.replace('bg-[#001F3F]', 'bg-outline-variant');
-                        }
-                    }
-                    if (text) {
-                        if (i <= page) {
-                            text.classList.replace('text-on-surface-variant', 'text-[#001F3F]');
-                        } else {
-                            text.classList.replace('text-[#001F3F]', 'text-on-surface-variant');
-                        }
-                    }
-                }
+      submenuBtns.forEach(btn => {
+        const spanTitle = btn.querySelector('.font-bold');
+        if (!spanTitle) return;
+        
+        const menuId = spanTitle.textContent.trim();
+        const submenuDiv = btn.nextElementSibling;
+        if (!submenuDiv) return;
 
-                // Show target page
-                const targetPage = document.getElementById(`page${page}`);
-                if (targetPage) targetPage.classList.remove('hidden');
+        btn.removeAttribute('onclick');
+        if (openSubmenus.includes(menuId)) {
+        submenuDiv.classList.remove('hidden');
+        updateMenuStyles(btn, true);
+        } else {
+        submenuDiv.classList.add('hidden');
+        updateMenuStyles(btn, false);
+        }
 
-                // Populate Summary if Page 5
-                if (page === 5) {
-                    const safeSetText = (id, value) => {
-                        const el = document.getElementById(id);
-                        if (el) el.textContent = value || '-';
-                    };
-                    
-                    safeSetText('summaryMaterial', document.getElementById('inputMaterial')?.value || 'Sin descripción');
-                    safeSetText('summarySKU', document.getElementById('inputSKU')?.value || 'SKU-000000');
-                    safeSetText('summaryOC', document.getElementById('inputOC')?.value || '-');
-                    safeSetText('summaryCategoria', document.getElementById('inputCategoria')?.value || '-');
-                    safeSetText('summaryEsperada', document.getElementById('inputUnidades')?.value || '-');
-                    safeSetText('summaryRecibida', document.getElementById('inputCantRecepcionada')?.value || '-');
-                    safeSetText('summaryProveedor', document.getElementById('inputProveedor')?.value || '-');
-                    safeSetText('summaryFactura', document.getElementById('inputFactura')?.value || '-');
-                    safeSetText('summaryLote', document.getElementById('inputLote')?.value || '-');
-                    safeSetText('summaryManuf', document.getElementById('inputFechaManuf')?.value || '-');
-                    safeSetText('summaryResponsable', document.getElementById('inputResponsable')?.value || '-');
-                    safeSetText('summaryObs', document.getElementById('inputObservaciones')?.value || 'Sin observaciones.');
-                    safeSetText('summaryStatus', document.getElementById('selectEstado')?.value || 'RECIBIDO');
-                    
-                    const photo = imgPreview?.src;
-                    const summaryPhoto = document.getElementById('summaryPhoto');
-                    const noPhotoMsg = document.getElementById('noPhotoMsg');
-                    if (summaryPhoto && noPhotoMsg) {
-                        if (photo && photo.startsWith('data:')) {
-                            summaryPhoto.src = photo;
-                            summaryPhoto.classList.remove('hidden');
-                            noPhotoMsg.classList.add('hidden');
-                        } else {
-                            summaryPhoto.classList.add('hidden');
-                            noPhotoMsg.classList.remove('hidden');
-                        }
-                    }
-                }
+        btn.addEventListener('click', () => {
+        const isHidden = submenuDiv.classList.contains('hidden');
+        if (isHidden) {
+          submenuDiv.classList.remove('hidden');
+          if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
+          updateMenuStyles(btn, true);
+        } else {
+          submenuDiv.classList.add('hidden');
+          openSubmenus = openSubmenus.filter(id => id !== menuId);
+          updateMenuStyles(btn, false);
+        }
+        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+        });
+      });
+      
+      sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
+    }
 
-                // Update Footer Buttons
-                if (btnPrevPage) btnPrevPage.disabled = (page === 1);
-                
-                if (btnNextPage) {
-                    if (page === totalPages) {
-                        btnNextPage.innerHTML = 'Finalizar';
-                        btnNextPage.classList.remove('bg-[#10b981]');
-                        btnNextPage.classList.add('bg-[#001F3F]');
-                    } else {
-                        btnNextPage.innerHTML = 'Siguiente';
-                        btnNextPage.classList.remove('bg-[#001F3F]');
-                        btnNextPage.classList.add('bg-[#10b981]');
-                    }
-                }
+    // Re-enable transitions after a short delay
+    setTimeout(() => {
+      if (sidebar) sidebar.style.transition = '';
+      if (header) header.style.transition = '';
+      if (main) main.style.transition = '';
+    }, 50);
 
-                currentPage = page;
-                
-                // Camera handling
-                if (page !== 2) stopCamera();
-            }
-
-            window.goToPage = goToPage; // Make it global for onclick in dots
-
-            if (btnPrevPage) btnPrevPage.addEventListener('click', () => goToPage(currentPage - 1));
-            if (btnNextPage) btnNextPage.addEventListener('click', () => {
-                if (currentPage === totalPages) {
-                    alert("Recepción guardada con éxito (Simulación)");
-                    closeModal();
-                } else {
-                    goToPage(currentPage + 1);
-                }
-            });
-
-            // --- Camera Logic ---
-            async function startCamera() {
-                try {
-                    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                    if (video) {
-                        video.srcObject = stream;
-                        video.classList.remove('hidden');
-                    }
-                    if (imgPreview) imgPreview.classList.add('hidden');
-                    if (photoPlaceholder) photoPlaceholder.classList.add('hidden');
-                    if (btnCapture) btnCapture.classList.remove('hidden');
-                } catch (err) {
-                    console.error("Error accessing camera:", err);
-                    alert("No se pudo acceder a la cámara.");
-                }
-            }
-
-            function stopCamera() {
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
-                    stream = null;
-                }
-                if (video) video.classList.add('hidden');
-            }
-
-            if (btnToggleCamera) btnToggleCamera.addEventListener('click', () => {
-                if (stream) stopCamera();
-                else startCamera();
-            });
-
-            if (btnCapture) btnCapture.addEventListener('click', () => {
-                const context = canvas.getContext('2d');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                
-                const dataUrl = canvas.toDataURL('image/webp');
-                if (imgPreview) {
-                    imgPreview.src = dataUrl;
-                    imgPreview.classList.remove('hidden');
-                }
-                if (video) video.classList.add('hidden');
-                if (btnCapture) btnCapture.classList.add('hidden');
-                stopCamera();
-            });
-
-            if (photoPlaceholder) photoPlaceholder.addEventListener('click', () => fileInput && fileInput.click());
-            
-            if (fileInput) fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        if (imgPreview) {
-                            imgPreview.src = event.target.result;
-                            imgPreview.classList.remove('hidden');
-                        }
-                        if (photoPlaceholder) photoPlaceholder.classList.add('hidden');
-                        if (video) video.classList.add('hidden');
-                        stopCamera();
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // --- Sidebar Logic ---
-            const btnToggle = document.getElementById('btnSidebarToggle');
-            const btnMobileToggle = document.getElementById('btnMobileSidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            const header = document.querySelector('header');
-            const main = document.querySelector('main');
-            const toggleIcon = document.getElementById('toggleIcon');
-
-            // Disable transitions temporarily to avoid animation on load
-            if (sidebar) sidebar.style.transition = 'none';
-            if (header) header.style.transition = 'none';
-            if (main) main.style.transition = 'none';
-
-            const toggleSidebar = (manual = true) => {
-                if (!sidebar) return;
-                const isCurrentlyCollapsed = sidebar.classList.contains('-translate-x-full') && (window.innerWidth < 768 || !sidebar.classList.contains('md:translate-x-0'));
-                
-                if (isCurrentlyCollapsed) {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('md:translate-x-0');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                    if (window.innerWidth >= 768) {
-                        if (header) header.classList.add('md:pl-64');
-                        if (main) main.classList.add('md:ml-64');
-                    } else {
-                        if (overlay) overlay.classList.remove('hidden');
-                    }
-                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'false');
-                } else {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                    if (header) header.classList.remove('md:pl-64');
-                    if (main) main.classList.remove('md:ml-64');
-                    if (overlay) overlay.classList.add('hidden');
-                    if (manual) sessionStorage.setItem('sidebarCollapsed', 'true');
-                }
-            };
-
-            // Restore sidebar state
-            const isSidebarCollapsed = sessionStorage.getItem('sidebarCollapsed');
-            if (sidebar) {
-                if (window.innerWidth >= 768) {
-                    if (isSidebarCollapsed === 'true') {
-                        sidebar.classList.add('-translate-x-full');
-                        sidebar.classList.remove('md:translate-x-0');
-                        if (header) header.classList.remove('md:pl-64');
-                        if (main) main.classList.remove('md:ml-64');
-                        if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                    } else {
-                        sidebar.classList.remove('-translate-x-full');
-                        sidebar.classList.add('md:translate-x-0');
-                        if (header) header.classList.add('md:pl-64');
-                        if (main) main.classList.add('md:ml-64');
-                        if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-                    }
-                } else {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('md:translate-x-0');
-                    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-                }
-            }
-
-            // Restore submenus
-            let openSubmenus = JSON.parse(sessionStorage.getItem('openSubmenus') || '[]');
-            const currentFile = window.location.pathname.split('/').pop() || 'inicio.html';
-            const nav = document.querySelector('nav');
-
-            if (nav) {
-                // Auto-open submenu containing current page and highlight link
-                const allLinks = nav.querySelectorAll('a');
-                allLinks.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href === currentFile || (currentFile === '' && href === 'inicio.html')) {
-                        link.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                        link.classList.remove('text-slate-300', 'text-slate-400', 'hover:bg-white/5');
-                        const icon = link.querySelector('span.material-symbols-outlined');
-                        if (icon) icon.classList.add('text-blue-400');
-
-                        const submenuDiv = link.closest('div.hidden, div:not(.hidden)');
-                        if (submenuDiv && submenuDiv.previousElementSibling?.tagName === 'BUTTON') {
-                            const btn = submenuDiv.previousElementSibling;
-                            const spanTitle = btn.querySelector('.font-bold');
-                            if (spanTitle) {
-                                const menuId = spanTitle.textContent.trim();
-                                if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            }
-                        }
-                    }
-                });
-
-                const submenuBtns = nav.querySelectorAll('button');
-
-                const updateMenuStyles = (btn, isOpen) => {
-                    const icon = btn.querySelector('.material-symbols-outlined:first-child');
-                    if (!icon) return;
-                    const colors = {'group-hover:text-blue-400':'text-blue-400','group-hover:text-emerald-400':'text-emerald-400','group-hover:text-amber-400':'text-amber-400','group-hover:text-purple-400':'text-purple-400'};
-                    let active = null;
-                    for (const [h, a] of Object.entries(colors)) { if (icon.classList.contains(h)) { active = a; break; } }
-                    if (isOpen) {
-                        btn.classList.add('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.remove('text-slate-300');
-                        if (active) { icon.classList.add(active); icon.classList.remove('text-slate-400'); }
-                    } else {
-                        btn.classList.remove('bg-white/10', 'text-white', 'border-white/10', 'shadow-lg');
-                        btn.classList.add('text-slate-300');
-                        if (active) { icon.classList.remove(active); icon.classList.add('text-slate-400'); }
-                    }
-                };
-
-                submenuBtns.forEach(btn => {
-                    const spanTitle = btn.querySelector('.font-bold');
-                    if (!spanTitle) return;
-                    
-                    const menuId = spanTitle.textContent.trim();
-                    const submenuDiv = btn.nextElementSibling;
-                    if (!submenuDiv) return;
-
-                    btn.removeAttribute('onclick');
-                    if (openSubmenus.includes(menuId)) {
-                        submenuDiv.classList.remove('hidden');
-                        updateMenuStyles(btn, true);
-                    } else {
-                        submenuDiv.classList.add('hidden');
-                        updateMenuStyles(btn, false);
-                    }
-
-                    btn.addEventListener('click', () => {
-                        const isHidden = submenuDiv.classList.contains('hidden');
-                        if (isHidden) {
-                            submenuDiv.classList.remove('hidden');
-                            if (!openSubmenus.includes(menuId)) openSubmenus.push(menuId);
-                            updateMenuStyles(btn, true);
-                        } else {
-                            submenuDiv.classList.add('hidden');
-                            openSubmenus = openSubmenus.filter(id => id !== menuId);
-                            updateMenuStyles(btn, false);
-                        }
-                        sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-                    });
-                });
-                
-                sessionStorage.setItem('openSubmenus', JSON.stringify(openSubmenus));
-            }
-
-            // Re-enable transitions after a short delay
-            setTimeout(() => {
-                if (sidebar) sidebar.style.transition = '';
-                if (header) header.style.transition = '';
-                if (main) main.style.transition = '';
-            }, 50);
-
-            if (btnToggle) btnToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleSidebar();
-            });
-            if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-        })();
-    </script>
+    if (btnToggle) btnToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+    if (btnMobileToggle) btnMobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+    if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
+    })();
+  </script>
 
 </body>
 </html>
