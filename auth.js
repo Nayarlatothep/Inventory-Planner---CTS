@@ -2,7 +2,11 @@
 // Configuración centralizada de Supabase
 window.supabaseUrl = 'https://wguzuiifurzpgcrbbntk.supabase.co';
 window.supabaseAnonKey = 'sb_publishable_-0EqVIwUnsV_39CO6DMSaA_60KPpgKW';
-window.supabaseClient = window.supabase.createClient(window.supabaseUrl, window.supabaseAnonKey);
+window.supabaseClient = window.supabase.createClient(window.supabaseUrl, window.supabaseAnonKey, {
+    auth: {
+        storage: window.sessionStorage
+    }
+});
 var supabaseClient = window.supabaseClient; // Make it global so other scripts can access it directly
 const DEV_EMAILS = [
     'victor.rojas@nctechsolutionsllc.com',
