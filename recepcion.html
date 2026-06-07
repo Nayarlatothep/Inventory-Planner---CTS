@@ -784,6 +784,26 @@
                                 <input type="text" id="inputResponsable" placeholder="Nombre del responsable" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
                                 <p id="errorResponsable" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
                             </div>
+                            
+                            <!-- Pregunta de Verificación -->
+                            <div class="col-span-1 md:col-span-2 border-t border-outline-variant/30 mt-4 pt-4">
+                                <h4 class="text-md font-semibold text-[#001F3F] mb-4">Verificación de Recepción</h4>
+                                <div class="space-y-3">
+                                    <p class="text-sm text-on-surface-variant">Confirmo que los empaques están bien, la cantidad es correcta, el material recibido es el correcto y no existe ningún error con la recepción.</p>
+                                    <div class="flex items-center gap-6 mt-2">
+                                        <label class="flex items-center gap-2 cursor-pointer group">
+                                            <input type="radio" name="verificacion" value="Aprobada" id="radioAprobada" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500 border-outline-variant">
+                                            <span class="text-sm font-semibold text-emerald-700 group-hover:text-emerald-800">Recepción Aprobada</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer group">
+                                            <input type="radio" name="verificacion" value="Rechazada" id="radioRechazada" class="w-4 h-4 text-rose-600 focus:ring-rose-500 border-outline-variant">
+                                            <span class="text-sm font-semibold text-rose-700 group-hover:text-rose-800">Recepción Rechazada</span>
+                                        </label>
+                                    </div>
+                                    <p id="errorVerificacion" class="hidden text-[11px] text-error mt-1 font-medium">* debe seleccionar una opción de verificación</p>
+                                </div>
+                            </div>
+
 
         </div>
         </div>
@@ -996,8 +1016,20 @@
         
         document.getElementById('summaryResponsable').textContent = document.getElementById('inputResponsable').value || '-';
         
-        
-        
+        const verificacionNode = document.querySelector('input[name="verificacion"]:checked');
+        const summaryStatusEl = document.getElementById('summaryStatus');
+        if (summaryStatusEl) {
+            if (verificacionNode && verificacionNode.value === 'Aprobada') {
+                summaryStatusEl.textContent = 'APROBADA';
+                summaryStatusEl.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-emerald-100 text-emerald-800 uppercase';
+            } else if (verificacionNode && verificacionNode.value === 'Rechazada') {
+                summaryStatusEl.textContent = 'RECHAZADA';
+                summaryStatusEl.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-rose-100 text-rose-800 uppercase';
+            } else {
+                summaryStatusEl.textContent = 'PENDIENTE';
+                summaryStatusEl.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-amber-100 text-amber-800 uppercase';
+            }
+        }
         
 
       // Update Footer Buttons
@@ -1021,6 +1053,16 @@
 
     if (btnPrevPage) btnPrevPage.addEventListener('click', () => goToPage(currentPage - 1));
     if (btnNextPage) btnNextPage.addEventListener('click', () => {
+      if (currentPage === 1) {
+          const verificacion = document.querySelector('input[name="verificacion"]:checked');
+          const errorVerificacion = document.getElementById('errorVerificacion');
+          if (!verificacion) {
+              if (errorVerificacion) errorVerificacion.classList.remove('hidden');
+              return;
+          } else {
+              if (errorVerificacion) errorVerificacion.classList.add('hidden');
+          }
+      }
       if (currentPage === totalPages) {
         alert("Recepción guardada con éxito (Simulación)");
         closeModal();
@@ -1190,9 +1232,20 @@
         
         safeSetText('summaryResponsable', document.getElementById('inputResponsable')?.value || '-');
         
-        
-        
-        
+        const verificacionNode2 = document.querySelector('input[name="verificacion"]:checked');
+        const summaryStatusEl2 = document.getElementById('summaryStatus');
+        if (summaryStatusEl2) {
+            if (verificacionNode2 && verificacionNode2.value === 'Aprobada') {
+                summaryStatusEl2.textContent = 'APROBADA';
+                summaryStatusEl2.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-emerald-100 text-emerald-800 uppercase';
+            } else if (verificacionNode2 && verificacionNode2.value === 'Rechazada') {
+                summaryStatusEl2.textContent = 'RECHAZADA';
+                summaryStatusEl2.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-rose-100 text-rose-800 uppercase';
+            } else {
+                summaryStatusEl2.textContent = 'PENDIENTE';
+                summaryStatusEl2.className = 'inline-flex items-center px-3 py-1 rounded-full text-[10px] md:text-xs font-bold bg-amber-100 text-amber-800 uppercase';
+            }
+        }
       }
 
       // Update Footer Buttons
@@ -1214,12 +1267,22 @@
       
       // Camera handling
       if (page !== 2) stopCamera();
-    }
+}
 
     window.goToPage = goToPage; // Make it global for onclick in dots
 
     if (btnPrevPage) btnPrevPage.addEventListener('click', () => goToPage(currentPage - 1));
     if (btnNextPage) btnNextPage.addEventListener('click', () => {
+      if (currentPage === 1) {
+        const verificacion = document.querySelector('input[name="verificacion"]:checked');
+        const errorVerificacion = document.getElementById('errorVerificacion');
+        if (!verificacion) {
+          if (errorVerificacion) errorVerificacion.classList.remove('hidden');
+          return;
+        } else {
+          if (errorVerificacion) errorVerificacion.classList.add('hidden');
+        }
+      }
       if (currentPage === totalPages) {
         alert("Recepción guardada con éxito (Simulación)");
         closeModal();
