@@ -761,130 +761,37 @@
             <p id="errorCant" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
             </div>
           </div>
-        </div>
-        </div>
-        
-        <!-- Page 2: Foto -->
-        <div id="page2" class="hidden space-y-4">
-        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">2. Foto del Material</h3>
-        <p class="text-sm text-on-surface-variant mb-2">Capture o suba una foto del estado en que llegó el material.</p>
-        
-        <div id="photoModule" class="relative border-2 border-dashed border-outline-variant rounded-xl overflow-hidden bg-surface group transition-all duration-300 min-h-[250px] flex items-center justify-center">
-          <!-- Camera Preview -->
-          <video id="cameraPreview" class="hidden w-full h-[250px] object-cover bg-black" autoplay playsinline></video>
-          
-          <!-- Image Preview -->
-          <img id="imagePreview" class="hidden w-full h-[250px] object-cover" src=""/>
+                            <div class="col-span-1 md:col-span-2 border-t border-outline-variant/30 mt-4 pt-4">
+                                <h4 class="text-md font-semibold text-[#001F3F] mb-4">Información de Proveedor</h4>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Proveedor *</label>
+                                <input type="text" id="inputProveedor" placeholder="Nombre del proveedor" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                <p id="errorProveedor" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1"># de Factura *</label>
+                                <input type="text" id="inputFactura" placeholder="Número de factura" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                <p id="errorFactura" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Lote *</label>
+                                <input type="text" id="inputLote" placeholder="Número de lote" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                <p id="errorLote" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-on-surface-variant mb-1">Responsable *</label>
+                                <input type="text" id="inputResponsable" placeholder="Nombre del responsable" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
+                                <p id="errorResponsable" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
+                            </div>
 
-          <!-- Placeholder / Drag Zone -->
-          <div id="photoPlaceholder" class="flex flex-col items-center justify-center p-lg text-center h-[250px] w-full gap-sm cursor-pointer hover:bg-surface-container-low transition-colors">
-            <span class="material-symbols-outlined text-outline text-[48px]">add_a_photo</span>
-            <p class="text-base font-semibold text-[#001F3F]">Click para <span class="text-primary-container">Cámara</span> o arrastre imagen</p>
-            <p class="text-sm text-on-surface-variant">PNG, JPG, WEBP soportados</p>
-          </div>
-
-          <!-- Controls -->
-          <div class="absolute bottom-4 right-4 flex gap-2">
-            <button id="btnToggleCamera" type="button" class="bg-white/90 hover:bg-white text-primary-container p-3 rounded-full shadow-lg transition-all active:scale-95 flex items-center justify-center border border-slate-200">
-            <span class="material-symbols-outlined text-[24px]">videocam</span>
-            </button>
-            <button id="btnCapture" type="button" class="hidden bg-primary-container text-white p-3 rounded-full shadow-lg transition-all active:scale-95 flex items-center justify-center">
-            <span class="material-symbols-outlined text-[24px]">photo_camera</span>
-            </button>
-          </div>
-          
-          <!-- Hidden Inputs -->
-          <input type="file" id="fileInput" accept="image/*" class="hidden"/>
-          <canvas id="photoCanvas" class="hidden" width="640" height="480"></canvas>
-        </div>
-        </div>
-        
-        <!-- Page 3: Proveedor -->
-        <div id="page3" class="hidden space-y-4">
-        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">3. Proveedor</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-on-surface-variant mb-1">Proveedor *</label>
-            <input type="text" id="inputProveedor" placeholder="Nombre del proveedor" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-            <p id="errorProveedor" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-on-surface-variant mb-1"># de Factura *</label>
-            <input type="text" id="inputFactura" placeholder="Número de factura" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-            <p id="errorFactura" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-on-surface-variant mb-1">Lote *</label>
-            <input type="text" id="inputLote" placeholder="Número de lote" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-            <p id="errorLote" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de Manufactura *</label>
-            <input type="date" id="inputFechaManuf" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-            <p id="errorFechaManuf" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-on-surface-variant mb-1">Fecha de recibo</label>
-            <input type="date" id="inputFechaRecibo" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-on-surface-variant mb-1">Responsable *</label>
-            <input type="text" id="inputResponsable" placeholder="Nombre del responsable" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-            <p id="errorResponsable" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de llenar</p>
-          </div>
-        </div>
-        </div>
-
-        <!-- Page 4: Validacion -->
-        <div id="page4" class="hidden space-y-4">
-        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">4. Validación de Calidad</h3>
-        <div class="space-y-4 bg-surface p-4 rounded-xl border border-outline-variant/30">
-          <p class="text-sm text-on-surface-variant mb-4">Verifique el estado físico del empaque y del material.</p>
-          
-          <div class="space-y-2">
-            <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
-            <input type="checkbox" id="checkEmpaque" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
-            <div>
-              <p class="text-sm font-semibold text-on-surface">Empaque intacto *</p>
-              <p class="text-xs text-on-surface-variant">Sin rasgaduras, golpes o humedad visible.</p>
-            </div>
-            </label>
-            <p id="errorEmpaque" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar el estado del empaque</p>
-          </div>
-          
-          <div class="space-y-2">
-            <label class="flex items-start gap-3 p-3 border border-outline-variant/50 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
-            <input type="checkbox" id="checkCantidad" class="mt-1 rounded border-outline-variant text-[#001F3F] focus:ring-[#001F3F] w-4 h-4">
-            <div>
-              <p class="text-sm font-semibold text-on-surface">Cantidades correctas *</p>
-              <p class="text-xs text-on-surface-variant">La cantidad física coincide con la guía/factura.</p>
-            </div>
-            </label>
-            <p id="errorCantidad" class="hidden text-[11px] text-error px-1 font-medium">* debe confirmar las cantidades</p>
-          </div>
-
-          <div class="mt-4">
-            <label class="block text-sm font-medium text-on-surface-variant mb-1">Estado de material *</label>
-            <select id="selectEstado" class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface transition-all">
-            <option value="">Seleccione estado...</option>
-            <option>Recibido</option>
-            <option>Parcial</option>
-            <option>Rechazado</option>
-            </select>
-            <p id="errorEstado" class="hidden text-[11px] text-error mt-1 font-medium">* campo obligatorio de seleccionar</p>
-          </div>
-
-          <div class="mt-4">
-            <label class="block text-sm font-medium text-on-surface-variant mb-1">Observaciones (Opcional)</label>
-            <textarea id="inputObservaciones" rows="3" placeholder="Detalles sobre discrepancias o estado del material..." class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#001F3F] focus:border-transparent outline-none bg-surface resize-none"></textarea>
-          </div>
         </div>
         </div>
         
         <!-- Page 5: PDF -->
-        <!-- Page 5: Orden de Compra (OC) -->
-        <div id="page5" class="hidden space-y-4">
-        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">5. Resumen de Recepción (OC)</h3>
+        <!-- Page 2: Resumen -->
+        <div id="page2" class="hidden space-y-4">
+        <h3 class="text-lg font-semibold text-[#001F3F] border-b border-outline-variant/30 pb-2 mb-4">2. Resumen de Recepción (OC)</h3>
         
         <div class="bg-surface p-4 md:p-6 rounded-xl border border-outline-variant/30 space-y-6 max-h-[60vh] overflow-y-auto">
           <!-- Header Info -->
@@ -927,41 +834,16 @@
                 <span id="summaryFactura" class="font-semibold text-on-surface">-</span>
                 <span class="text-on-surface-variant">Lote:</span>
                 <span id="summaryLote" class="font-semibold text-on-surface">-</span>
-                <span class="text-on-surface-variant">Manufactura:</span>
-                <span id="summaryManuf" class="font-semibold text-on-surface">-</span>
+                
               </div>
             </section>
 
-            <section>
-              <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Validación & Calidad</h5>
-              <div class="space-y-1 text-sm">
-                <div class="flex items-center gap-2">
-                <span id="iconEmpaque" class="material-symbols-outlined text-emerald-500 text-base">check_circle</span>
-                <span class="text-on-surface">Empaque verificado e intacto</span>
-                </div>
-                <div class="flex items-center gap-2">
-                <span id="iconCantidad" class="material-symbols-outlined text-emerald-500 text-base">check_circle</span>
-                <span class="text-on-surface">Cantidades físicas validadas</span>
-                </div>
-                <div class="mt-2 p-2 bg-surface-container-low rounded text-xs italic text-on-surface-variant border border-outline-variant/10">
-                " <span id="summaryObs">Sin observaciones adicionales.</span> "
-                </div>
-              </div>
-            </section>
+            
             </div>
 
             <!-- Right Column: Photo & Logistics -->
             <div class="space-y-4">
-            <section>
-              <h5 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 border-l-2 border-primary-container pl-2">Evidencia Fotográfica</h5>
-              <div class="border border-outline-variant/30 rounded-lg overflow-hidden bg-slate-50 aspect-video flex items-center justify-center shadow-inner">
-                <img id="summaryPhoto" src="" class="w-full h-full object-contain" alt="Evidencia de recepción">
-                <div id="noPhotoMsg" class="hidden flex flex-col items-center text-on-surface-variant opacity-40">
-                <span class="material-symbols-outlined text-4xl">no_photography</span>
-                <span class="text-[10px] font-bold uppercase mt-1">Sin fotografía</span>
-                </div>
-              </div>
-            </section>
+            
             
             <section class="bg-secondary-container/30 p-4 rounded-lg border border-primary-container/10 flex items-center gap-3">
               <div class="bg-primary-container text-white p-2 rounded-lg">
@@ -987,31 +869,19 @@
       
       <!-- Footer / Guia de pagina -->
       <div id="modalFooter" class="px-6 py-4 border-t border-outline-variant/30 bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-4">
-        <!-- Stepper Indicators -->
-        <div class="flex gap-2 sm:gap-4 items-start w-full sm:w-auto justify-between sm:justify-start">
-        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(1)">
-          <div id="dot1" class="w-full h-1.5 rounded-full bg-[#001F3F] transition-all"></div>
-          <span id="text1" class="text-[9px] sm:text-[10px] font-bold mt-2 text-[#001F3F] uppercase tracking-wider text-center leading-tight">1. Datos</span>
-        </div>
-        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(2)">
-          <div id="dot2" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
-          <span id="text2" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">2. Foto</span>
-        </div>
-        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(3)">
-          <div id="dot3" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
-          <span id="text3" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">3. Prov.</span>
-        </div>
-        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(4)">
-          <div id="dot4" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
-          <span id="text4" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">4. Validar</span>
-        </div>
-        <div class="flex flex-col items-center group cursor-pointer w-16 sm:w-20" onclick="window.goToPage(5)">
-          <div id="dot5" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
-          <span id="text5" class="text-[9px] sm:text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">5. OC</span>
-        </div>
-        </div>
         
-        <!-- Actions -->
+                    <!-- Stepper Indicators -->
+                    <div class="flex gap-2 sm:gap-4 items-start w-full sm:w-auto justify-between sm:justify-start">
+                        <div class="flex flex-col items-center group cursor-pointer w-20" onclick="window.goToPage(1)">
+                            <div id="dot1" class="w-full h-1.5 rounded-full bg-[#001F3F] transition-all"></div>
+                            <span id="text1" class="text-[10px] font-bold mt-2 text-[#001F3F] uppercase tracking-wider text-center leading-tight">1. Datos</span>
+                        </div>
+                        <div class="flex flex-col items-center group cursor-pointer w-20" onclick="window.goToPage(2)">
+                            <div id="dot2" class="w-full h-1.5 rounded-full bg-outline-variant transition-all"></div>
+                            <span id="text2" class="text-[10px] font-bold mt-2 text-on-surface-variant uppercase tracking-wider text-center leading-tight">2. Resumen</span>
+                        </div>
+                    </div>
+                    <!-- Actions -->
         <div class="flex gap-3 w-full sm:w-auto justify-end mt-2 sm:mt-0">
         <button id="btnPrevPage" class="px-5 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface hover:bg-surface transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>Atrás</button>
         <button id="btnNextPage" class="px-5 py-2.5 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg text-sm font-bold transition-all shadow-md active:scale-95">Siguiente</button>
@@ -1053,7 +923,7 @@
     const canvas = document.getElementById('photoCanvas');
 
     let currentPage = 1;
-    const totalPages = 5;
+    const totalPages = 2;
     let stream = null;
 
     // --- Modal Logic ---
@@ -1113,7 +983,7 @@
       if (targetPage) targetPage.classList.remove('hidden');
 
       // Populate Summary if Page 5
-      if (page === 5) {
+      if (page === 2) {
         document.getElementById('summaryMaterial').textContent = document.getElementById('inputMaterial').value || 'Sin descripción';
         document.getElementById('summarySKU').textContent = document.getElementById('inputSKU').value || 'SKU-000000';
         document.getElementById('summaryOC').textContent = document.getElementById('inputOC').value || '-';
@@ -1123,23 +993,12 @@
         document.getElementById('summaryProveedor').textContent = document.getElementById('inputProveedor').value || '-';
         document.getElementById('summaryFactura').textContent = document.getElementById('inputFactura').value || '-';
         document.getElementById('summaryLote').textContent = document.getElementById('inputLote').value || '-';
-        document.getElementById('summaryManuf').textContent = document.getElementById('inputFechaManuf').value || '-';
-        document.getElementById('summaryResponsable').textContent = document.getElementById('inputResponsable').value || '-';
-        document.getElementById('summaryObs').textContent = document.getElementById('inputObservaciones').value || 'Sin observaciones.';
-        document.getElementById('summaryStatus').textContent = document.getElementById('selectEstado').value || 'RECIBIDO';
         
-        const photo = document.getElementById('imagePreview').src;
-        const summaryPhoto = document.getElementById('summaryPhoto');
-        const noPhotoMsg = document.getElementById('noPhotoMsg');
-        if (photo && photo.startsWith('data:')) {
-        summaryPhoto.src = photo;
-        summaryPhoto.classList.remove('hidden');
-        noPhotoMsg.classList.add('hidden');
-        } else {
-        summaryPhoto.classList.add('hidden');
-        noPhotoMsg.classList.remove('hidden');
-        }
-      }
+        document.getElementById('summaryResponsable').textContent = document.getElementById('inputResponsable').value || '-';
+        
+        
+        
+        
 
       // Update Footer Buttons
       btnPrevPage.disabled = (page === 1);
@@ -1249,7 +1108,7 @@
     const canvas = document.getElementById('photoCanvas');
 
     let currentPage = 1;
-    const totalPages = 5;
+    const totalPages = 2;
     let stream = null;
 
     // --- Modal Logic ---
@@ -1313,7 +1172,7 @@
       if (targetPage) targetPage.classList.remove('hidden');
 
       // Populate Summary if Page 5
-      if (page === 5) {
+      if (page === 2) {
         const safeSetText = (id, value) => {
         const el = document.getElementById(id);
         if (el) el.textContent = value || '-';
@@ -1328,24 +1187,12 @@
         safeSetText('summaryProveedor', document.getElementById('inputProveedor')?.value || '-');
         safeSetText('summaryFactura', document.getElementById('inputFactura')?.value || '-');
         safeSetText('summaryLote', document.getElementById('inputLote')?.value || '-');
-        safeSetText('summaryManuf', document.getElementById('inputFechaManuf')?.value || '-');
-        safeSetText('summaryResponsable', document.getElementById('inputResponsable')?.value || '-');
-        safeSetText('summaryObs', document.getElementById('inputObservaciones')?.value || 'Sin observaciones.');
-        safeSetText('summaryStatus', document.getElementById('selectEstado')?.value || 'RECIBIDO');
         
-        const photo = imgPreview?.src;
-        const summaryPhoto = document.getElementById('summaryPhoto');
-        const noPhotoMsg = document.getElementById('noPhotoMsg');
-        if (summaryPhoto && noPhotoMsg) {
-        if (photo && photo.startsWith('data:')) {
-          summaryPhoto.src = photo;
-          summaryPhoto.classList.remove('hidden');
-          noPhotoMsg.classList.add('hidden');
-        } else {
-          summaryPhoto.classList.add('hidden');
-          noPhotoMsg.classList.remove('hidden');
-        }
-        }
+        safeSetText('summaryResponsable', document.getElementById('inputResponsable')?.value || '-');
+        
+        
+        
+        
       }
 
       // Update Footer Buttons
